@@ -74,7 +74,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: failure()
       with:
-        name: ${{ matrix.image }}-reports.logs.zip
+        name: ${{ matrix.tag_name }}-reports.logs.zip
         path: build/**/
         if-no-files-found: warn
 
