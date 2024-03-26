@@ -4,7 +4,7 @@ set -e
 # Configuration
 IMAGE_BASE="quay.io/kairos/framework"
 REPO="kairos-io/kairos-framework"
-SUFFIX="_generic"
+SUFFIX=""
 PREFIX="v"
 OUTPUT_FILE=images.json
 PAGE=1
