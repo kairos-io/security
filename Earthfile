@@ -3,6 +3,35 @@ VERSION 0.6
 # renovate: datasource=docker depName=aquasec/trivy
 ARG TRIVY_VERSION=0.49.1
 
+jq-image:
+    FROM fedora
+    RUN dnf update -y
+    RUN dnf install -y jq
+
+update-images:
+    FROM +jq-image
+    COPY . .
+    ARG ALL_RELEASES
+    ENV ALL_RELEASES=$ALL_RELEASES
+    RUN bash update.sh
+    SAVE ARTIFACT images.json AS LOCAL images.json
+###
+### Tools dependencies
+###
+grype:
+    FROM anchore/grype
+    SAVE ARTIFACT /grype /grype
+
+
+trivy:
+    ARG TRIVY_VERSION
+    FROM aquasec/trivy:$TRIVY_VERSION
+    SAVE ARTIFACT /contrib contrib
+    SAVE ARTIFACT /usr/local/bin/trivy /trivy
+
+###
+### Base container
+###
 security-container:
     FROM fedora
 
@@ -10,20 +39,9 @@ security-container:
     COPY +trivy/contrib /contrib
     COPY +grype/grype /grype
 
-
-grype:
-    FROM anchore/grype
-    SAVE ARTIFACT /grype /grype
-
 ###
 ### Security target scan
 ###
-trivy:
-    ARG TRIVY_VERSION
-    FROM aquasec/trivy:$TRIVY_VERSION
-    SAVE ARTIFACT /contrib contrib
-    SAVE ARTIFACT /usr/local/bin/trivy /trivy
-
 security-scan:
     ARG CONTAINER_IMAGE
     FROM +security-container
@@ -31,6 +49,9 @@ security-scan:
     RUN /grype ${CONTAINER_IMAGE} --fail-on critical
     RUN /trivy image --scanners vuln ${CONTAINER_IMAGE}
 
+###
+### Get a report
+###
 security-report:
     ARG CONTAINER_IMAGE
     FROM +security-container
