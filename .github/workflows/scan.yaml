@@ -22,14 +22,37 @@ on:
 concurrency:
     group: ci-scan-${{ github.head_ref || github.ref }}-${{ github.repository }}
     cancel-in-progress: true
+
+
+
 jobs:
-  test:
+  get-matrix:
+    runs-on: kvm
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          git fetch --prune --unshallow
+          sudo apt update && sudo apt install -y jq
+      - id: set-matrix
+        run: |
+          # content=`cat .github/flavors.json  | jq 'map(select(.variant == "core" and .arch == "amd64"))'`
+          content=`cat images.json`
+          # the following lines are only required for multi line json
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          # end of optional handling for multi line json
+          echo "::set-output name=matrix::{\"include\": $content }"
+  cve-scan:
+    needs:
+      - get-matrix
     strategy:
         fail-fast: false
-        matrix:
-            include:
-                - image: quay.io/kairos/framework:v2.4.3_generic
-
+        matrix: ${{fromJson(needs.get-matrix.outputs.matrix)}}
     runs-on: kvm
     steps:
     - uses: actions/checkout@v4
