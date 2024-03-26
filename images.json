@@ -1,18 +1,18 @@
 [
   {
-    "image": "quay.io/kairos/framework:v2.4.4_generic",
+    "image": "quay.io/kairos/framework:v2.4.4",
     "tag_name": "v2.4.4"
   },
   {
-    "image": "quay.io/kairos/framework:v2.5.7_generic",
+    "image": "quay.io/kairos/framework:v2.5.7",
     "tag_name": "v2.5.7"
   },
   {
-    "image": "quay.io/kairos/framework:v2.6.5_generic",
+    "image": "quay.io/kairos/framework:v2.6.5",
     "tag_name": "v2.6.5"
   },
   {
-    "image": "quay.io/kairos/framework:v2.7.19_generic",
+    "image": "quay.io/kairos/framework:v2.7.19",
     "tag_name": "v2.7.19"
   }
 ]
