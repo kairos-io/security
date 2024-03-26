@@ -1,0 +1,105 @@
+name: CVE Scanning
+
+on:
+  push:
+    branches:
+    - main
+#   workflow_call:
+#     inputs:
+#       flavor:
+#         required: true
+#         type: string
+#       flavor_release:
+#         required: true
+#         type: string
+#       family:
+#         required: true
+#         type: string
+#       release_matcher:
+#         required: false
+#         type: string
+
+concurrency:
+    group: ci-scan-${{ github.head_ref || github.ref }}-${{ github.repository }}
+    cancel-in-progress: true
+jobs:
+  test:
+    strategy:
+        fail-fast: false
+        matrix:
+            include:
+                - image: quay.io/kairos/framework:v2.4.3_generic
+
+    runs-on: kvm
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        git fetch --prune --unshallow
+    - name: Install earthly
+      uses: Luet-lab/luet-install-action@v1.1
+      with:
+        repository: quay.io/kairos/packages
+        packages: utils/earthly
+    - name: Run CVE scans
+      run: |
+        earthly +security-scan --CONTAINER_IMAGE=${{ matrix.image }}
+
+    - name: collect results
+      if: failure()
+      run: |
+        earthly +security-report --CONTAINER_IMAGE=${{ matrix.image }}
+    - uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: ${{ matrix.image }}-reports.logs.zip
+        path: build/**/
+        if-no-files-found: warn
+
+    # - name: save commit-message
+    #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }} && failure()
+    #   run: echo "COMMIT_MSG=$(git log -1 --pretty=format:%s)" >> $GITHUB_ENV
+    # - name: notify if failure
+    #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }} && failure()
+    #   uses: slackapi/slack-github-action@v1.25.0
+    #   env:
+    #       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    #       SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+    #   with:
+    #     payload: |
+    #         {
+    #             "blocks": [
+    #             {
+    #                 "type": "section",
+    #                 "text": {
+    #                 "type": "mrkdwn",
+    #                 "text": "Job failure on master branch for job ${{ github.job }} in workflow \"${{ github.workflow }}\"\n\nCommit message is \"${{ env.COMMIT_MSG }}\"\n\n Commit sha is <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+    #                 }
+    #             },
+    #             {
+    #                 "type": "divider"
+    #             },
+    #             {
+    #                 "type": "actions",
+    #                 "elements": [
+    #                 {
+    #                     "type": "button",
+    #                     "text": {
+    #                     "type": "plain_text",
+    #                     "text": ":thisisfine: Failed Run",
+    #                     "emoji": true
+    #                     },
+    #                     "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+    #                 },
+    #                 {
+    #                     "type": "button",
+    #                     "text": {
+    #                     "type": "plain_text",
+    #                     "text": ":kairos: Repository link",
+    #                     "emoji": true
+    #                     },
+    #                     "url": "https://github.com/${{ github.repository }}"
+    #                 }
+    #                 ]
+    #             }
+    #             ]
+    #         }
