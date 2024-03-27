@@ -1,7 +1,7 @@
 VERSION 0.6
 
 # renovate: datasource=docker depName=aquasec/trivy
-ARG TRIVY_VERSION=0.50.0
+ARG TRIVY_VERSION=0.50.1
 
 jq-image:
     FROM fedora
