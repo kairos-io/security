@@ -29,3 +29,38 @@ jobs:
 
           [1]: https://github.com/peter-evans/create-pull-request
         branch: update-dependencies
+    - name: notify if scanning fails
+      uses: slackapi/slack-github-action@v1.25.0
+      env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+      with:
+        payload: |
+            {
+                "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                    "type": "mrkdwn",
+                    "text": "New PR ready to sync with the latest framework images in https://github.com/${{ github.repository }}"
+                    }
+                },
+                {
+                    "type": "divider"
+                },
+                {
+                    "type": "actions",
+                    "elements": [
+                    {
+                        "type": "button",
+                        "text": {
+                        "type": "plain_text",
+                        "text": "Security reports",
+                        "emoji": true
+                        },
+                        "url": "https://github.com/${{ github.repository }}/pulls"
+                    }
+                    ]
+                }
+                ]
+            }
