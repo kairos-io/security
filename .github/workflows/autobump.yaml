@@ -18,6 +18,7 @@ jobs:
       run: |
         earthly +update-images
     - name: Create Pull Request
+      id: "cpr"
       uses: peter-evans/create-pull-request@v6
       with:
         commit-message: Update dependencies
@@ -30,6 +31,7 @@ jobs:
           [1]: https://github.com/peter-evans/create-pull-request
         branch: update-dependencies
     - name: notify if scanning fails
+      if: ${{ steps.cpr.outputs.pull-request-number }}
       uses: slackapi/slack-github-action@v1.25.0
       env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -58,7 +60,7 @@ jobs:
                         "text": "Security reports",
                         "emoji": true
                         },
-                        "url": "https://github.com/${{ github.repository }}/pulls"
+                        "url": "${{ steps.cpr.outputs.pull-request-url }}"
                     }
                     ]
                 }
