@@ -2,14 +2,41 @@ VERSION 0.6
 
 # renovate: datasource=docker depName=aquasec/trivy
 ARG TRIVY_VERSION=0.50.1
+ARG CONTAINER_BASE=fedora
+
+luet:
+    FROM quay.io/luet/base:latest
+    SAVE ARTIFACT /usr/bin/luet
+
+govulncheck-scan:
+    FROM golang
+    RUN go install golang.org/x/vuln/cmd/govulncheck@latest
+    COPY +luet/ /
+    ARG CONTAINER_IMAGE
+    RUN /luet util unpack ${CONTAINER_IMAGE} /tmp/image
+    RUN apt-get update && apt-get install -y file
+    COPY ./vulncheck.sh /vulncheck.sh
+    RUN /vulncheck.sh /tmp/image
+
+govulncheck-report:
+    FROM golang
+    RUN go install golang.org/x/vuln/cmd/govulncheck@latest
+    COPY +luet/ /
+    ARG CONTAINER_IMAGE
+    RUN /luet util unpack ${CONTAINER_IMAGE} /tmp/image
+    RUN apt-get update && apt-get install -y file
+    COPY ./vulncheck.reports.sh /vulncheck.sh
+    RUN mkdir /reports
+    RUN /vulncheck.sh /tmp/image
+    SAVE ARTIFACT /reports AS LOCAL build
 
 jq-image:
-    FROM fedora
+    FROM ${CONTAINER_BASE}
     RUN dnf update -y
     RUN dnf install -y jq
 
 update-images:
-    FROM +jq-image
+    FROM ${CONTAINER_BASE}
     COPY . .
     ARG ALL_RELEASES
     ENV ALL_RELEASES=$ALL_RELEASES
@@ -33,7 +60,7 @@ trivy:
 ### Base container
 ###
 security-container:
-    FROM fedora
+    FROM ${CONTAINER_BASE}
 
     COPY +trivy/trivy /trivy
     COPY +trivy/contrib /contrib
@@ -44,11 +71,14 @@ security-container:
 ###
 security-scan:
     ARG CONTAINER_IMAGE
+    ARG GOVULNCHECK=false
     FROM +security-container
 
     RUN /grype ${CONTAINER_IMAGE} --fail-on critical
     RUN /trivy image --scanners vuln ${CONTAINER_IMAGE}
-
+    IF [ $GOVULNCHECK = "true" ]
+        BUILD +govulncheck-scan --CONTAINER-IMAGE=${CONTAINER_IMAGE}
+    END
 ###
 ### Get a report
 ###
@@ -68,3 +98,4 @@ security-report:
     SAVE ARTIFACT /build/report.sarif report.sarif AS LOCAL build/trivy.sarif
     SAVE ARTIFACT /build/report.html report.html AS LOCAL build/trivy.html
     SAVE ARTIFACT /build/results.json results.json AS LOCAL build/trivy.json
+    BUILD +govulncheck-reports --CONTAINER-IMAGE=${CONTAINER_IMAGE}
