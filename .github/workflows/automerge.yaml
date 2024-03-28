@@ -1,0 +1,24 @@
+name: Auto-merge bots PR
+on: pull_request
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  automerge-framework:
+    runs-on: ubuntu-latest
+    if: github.actor == 'github-actions' 
+    steps:
+      - uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: squash
+  automerge-renovate:
+    runs-on: ubuntu-latest
+    if: github.actor == 'renovate' 
+    steps:
+      - uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: squash
