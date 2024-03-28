@@ -7,7 +7,7 @@ permissions:
 
 jobs:
   automerge-framework:
-    runs-on: ubuntu-latest
+    runs-on: kvm
     if: github.actor == 'github-actions' 
     steps:
       - uses: peter-evans/enable-pull-request-automerge@v3
@@ -15,7 +15,7 @@ jobs:
           pull-request-number: ${{ github.event.pull_request.number }}
           merge-method: squash
   automerge-renovate:
-    runs-on: ubuntu-latest
+    runs-on: kvm
     if: github.actor == 'renovate' 
     steps:
       - uses: peter-evans/enable-pull-request-automerge@v3
