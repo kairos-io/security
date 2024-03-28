@@ -36,7 +36,7 @@ jq-image:
     RUN dnf install -y jq
 
 update-images:
-    FROM ${CONTAINER_BASE}
+    FROM +jq-image
     COPY . .
     ARG ALL_RELEASES
     ENV ALL_RELEASES=$ALL_RELEASES
