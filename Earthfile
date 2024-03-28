@@ -98,4 +98,4 @@ security-report:
     SAVE ARTIFACT /build/report.sarif report.sarif AS LOCAL build/trivy.sarif
     SAVE ARTIFACT /build/report.html report.html AS LOCAL build/trivy.html
     SAVE ARTIFACT /build/results.json results.json AS LOCAL build/trivy.json
-    BUILD +govulncheck-reports --CONTAINER-IMAGE=${CONTAINER_IMAGE}
+    BUILD +govulncheck-report --CONTAINER-IMAGE=${CONTAINER_IMAGE}
