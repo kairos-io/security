@@ -1,3 +1,5 @@
+https://github.com/kairos-io/security/actions/workflows/scan.yaml/badge.svg?branch=main
+
 # Kairos Security Checks
 
 This repository runs security checks on the packages installed on the framework image
