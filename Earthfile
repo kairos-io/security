@@ -85,6 +85,7 @@ security-scan:
 ###
 security-report:
     ARG CONTAINER_IMAGE
+    ARG GO_VULNCHECK=false
     FROM +security-container
 
     WORKDIR /build
@@ -99,4 +100,6 @@ security-report:
     SAVE ARTIFACT /build/report.sarif report.sarif AS LOCAL build/trivy.sarif
     SAVE ARTIFACT /build/report.html report.html AS LOCAL build/trivy.html
     SAVE ARTIFACT /build/results.json results.json AS LOCAL build/trivy.json
-    BUILD +govulncheck-report --CONTAINER-IMAGE=${CONTAINER_IMAGE}
+    IF [ $GOVULNCHECK = "true" ]
+        BUILD +govulncheck-report --CONTAINER-IMAGE=${CONTAINER_IMAGE}
+    END
