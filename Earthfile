@@ -72,9 +72,10 @@ security-container:
 security-scan:
     ARG CONTAINER_IMAGE
     ARG GOVULNCHECK=false
+    ARG LEVEL=critical
     FROM +security-container
 
-    RUN /grype ${CONTAINER_IMAGE} --fail-on critical
+    RUN /grype ${CONTAINER_IMAGE} --fail-on ${LEVEL}    
     RUN /trivy image --scanners vuln ${CONTAINER_IMAGE}
     IF [ $GOVULNCHECK = "true" ]
         BUILD +govulncheck-scan --CONTAINER-IMAGE=${CONTAINER_IMAGE}
