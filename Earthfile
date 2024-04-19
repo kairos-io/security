@@ -76,7 +76,7 @@ security-scan:
     FROM +security-container
 
     RUN --no-cache /trivy image --scanners vuln ${CONTAINER_IMAGE}
-    RUN --no-cache /grype ${CONTAINER_IMAGE} --fail-on ${LEVEL} --only-fixed --verbose
+    RUN --no-cache /grype ${CONTAINER_IMAGE} --fail-on ${LEVEL} --verbose
     IF [ $GOVULNCHECK = "true" ]
         BUILD +govulncheck-scan --CONTAINER-IMAGE=${CONTAINER_IMAGE}
     END
