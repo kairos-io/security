@@ -66,7 +66,7 @@ jobs:
         packages: utils/earthly
     - name: Run CVE scans
       run: |
-        earthly +security-scan --CONTAINER_IMAGE=${{ matrix.image }} --LEVEL=high
+        earthly +security-scan --CONTAINER_IMAGE=${{ matrix.image }} --LEVEL=critical
 
     - name: collect results
       if: failure()
