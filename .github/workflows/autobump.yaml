@@ -21,6 +21,7 @@ jobs:
       id: "cpr"
       uses: peter-evans/create-pull-request@v6
       with:
+        signoff: true
         commit-message: Update dependencies
         title: Update framework images
         body: |
