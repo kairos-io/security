@@ -9,6 +9,8 @@ jobs:
   automerge-framework:
     runs-on: ubuntu-latest
     if: github.actor == 'github-actions[bot]' || github.actor == 'renovate[bot]' 
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Enable Pull Request Automerge
         run: gh pr merge --squash --auto "${{ github.event.pull_request.number }}"
