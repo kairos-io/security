@@ -28,7 +28,7 @@ concurrency:
 
 jobs:
   get-matrix:
-    runs-on: kvm
+    runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -54,7 +54,7 @@ jobs:
     strategy:
         fail-fast: false
         matrix: ${{fromJson(needs.get-matrix.outputs.matrix)}}
-    runs-on: kvm
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - run: |
