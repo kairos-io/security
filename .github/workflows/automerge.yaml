@@ -12,5 +12,6 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
+      - uses: actions/checkout@v4
       - name: Enable Pull Request Automerge
         run: gh pr merge --squash --auto "${{ github.event.pull_request.number }}"
