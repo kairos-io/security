@@ -8,17 +8,7 @@ permissions:
 jobs:
   automerge-framework:
     runs-on: ubuntu-latest
-    if: github.actor == 'github-actions[bot]' 
+    if: github.actor == 'github-actions[bot]' || github.actor == 'renovate[bot]' 
     steps:
-      - uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          pull-request-number: ${{ github.event.pull_request.number }}
-          merge-method: squash
-  automerge-renovate:
-    runs-on: ubuntu-latest
-    if: github.actor == 'renovate[bot]' 
-    steps:
-      - uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          pull-request-number: ${{ github.event.pull_request.number }}
-          merge-method: squash
+      - name: Enable Pull Request Automerge
+        run: gh pr merge --squash --auto "${{ github.event.pull_request.number }}"
