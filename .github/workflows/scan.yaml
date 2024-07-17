@@ -55,6 +55,7 @@ jobs:
         fail-fast: false
         matrix: ${{fromJson(needs.get-matrix.outputs.matrix)}}
     runs-on: ubuntu-latest
+    name: ${{ matrix.tag_name }}
     steps:
     - uses: actions/checkout@v4
     - run: |
@@ -67,7 +68,6 @@ jobs:
     - name: Run CVE scans
       run: |
         earthly +security-scan --CONTAINER_IMAGE=${{ matrix.image }} --LEVEL=critical
-
     - name: collect results
       if: failure()
       run: |
