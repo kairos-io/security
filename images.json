@@ -1,5 +1,9 @@
 [
   {
+    "image": "quay.io/kairos/framework:v2.10.0",
+    "tag_name": "v2.10.0"
+  },
+  {
     "image": "quay.io/kairos/framework:v2.4.5",
     "tag_name": "v2.4.5"
   },
@@ -12,11 +16,15 @@
     "tag_name": "v2.6.5"
   },
   {
-    "image": "quay.io/kairos/framework:v2.7.33",
-    "tag_name": "v2.7.33"
+    "image": "quay.io/kairos/framework:v2.7.41",
+    "tag_name": "v2.7.41"
   },
   {
-    "image": "quay.io/kairos/framework:v2.8.4",
-    "tag_name": "v2.8.4"
+    "image": "quay.io/kairos/framework:v2.8.5",
+    "tag_name": "v2.8.5"
+  },
+  {
+    "image": "quay.io/kairos/framework:v2.9.2",
+    "tag_name": "v2.9.2"
   }
 ]
