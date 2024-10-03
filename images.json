@@ -8,8 +8,8 @@
     "tag_name": "v2.11.7"
   },
   {
-    "image": "quay.io/kairos/framework:v2.12.1",
-    "tag_name": "v2.12.1"
+    "image": "quay.io/kairos/framework:v2.12.3",
+    "tag_name": "v2.12.3"
   },
   {
     "image": "quay.io/kairos/framework:v2.4.5",
