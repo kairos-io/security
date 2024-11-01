@@ -1,7 +1,7 @@
 VERSION 0.6
 
 # renovate: datasource=docker depName=aquasec/trivy
-ARG TRIVY_VERSION=0.56.2
+ARG TRIVY_VERSION=0.57.0
 ARG CONTAINER_BASE=fedora
 
 luet:
