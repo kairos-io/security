@@ -16,8 +16,8 @@
     "tag_name": "v2.13.0"
   },
   {
-    "image": "quay.io/kairos/framework:v2.14.1",
-    "tag_name": "v2.14.1"
+    "image": "quay.io/kairos/framework:v2.14.2",
+    "tag_name": "v2.14.2"
   },
   {
     "image": "quay.io/kairos/framework:v2.4.5",
