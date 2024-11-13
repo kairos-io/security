@@ -18,29 +18,5 @@
   {
     "image": "quay.io/kairos/framework:v2.14.3",
     "tag_name": "v2.14.3"
-  },
-  {
-    "image": "quay.io/kairos/framework:v2.4.5",
-    "tag_name": "v2.4.5"
-  },
-  {
-    "image": "quay.io/kairos/framework:v2.5.7",
-    "tag_name": "v2.5.7"
-  },
-  {
-    "image": "quay.io/kairos/framework:v2.6.5",
-    "tag_name": "v2.6.5"
-  },
-  {
-    "image": "quay.io/kairos/framework:v2.7.41",
-    "tag_name": "v2.7.41"
-  },
-  {
-    "image": "quay.io/kairos/framework:v2.8.5",
-    "tag_name": "v2.8.5"
-  },
-  {
-    "image": "quay.io/kairos/framework:v2.9.2",
-    "tag_name": "v2.9.2"
   }
 ]
