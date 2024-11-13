@@ -9,7 +9,7 @@ PREFIX="v"
 OUTPUT_FILE=images.json
 PAGE=1
 PER_PAGE=100
-CUTOFF_VERSION="v2.10.0"
+CUTOFF_VERSION="v2.11.0"
 
 # Ensure jq_script is properly defined as a single-line string
 jq_script='[.[] | select(.tag_name) | {tag_name: .tag_name, version: .tag_name[1:], image: ("'"$IMAGE_BASE"':" + .tag_name + "'"$SUFFIX"'")}] | group_by(.version | split(".") | .[:2] | join(".")) | map(sort_by(.version | split(".") | map(tonumber)) | reverse | .[0] | {image: .image, tag_name: .tag_name})'
