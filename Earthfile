@@ -74,7 +74,8 @@ security-scan:
     ARG GOVULNCHECK=false
     ARG LEVEL=critical
     FROM +security-container
-
+    # This repo seems to have no request limit
+    ENV TRIVY_DB_REPOSITORY=public.ecr.aws/aquasecurity/trivy-db:2
     RUN --no-cache /trivy image --scanners vuln ${CONTAINER_IMAGE}
     RUN --no-cache /grype ${CONTAINER_IMAGE} --fail-on ${LEVEL} --verbose
     IF [ $GOVULNCHECK = "true" ]
@@ -87,6 +88,8 @@ security-report:
     ARG CONTAINER_IMAGE
     ARG GO_VULNCHECK=false
     FROM +security-container
+    # This repo seems to have no request limit
+    ENV TRIVY_DB_REPOSITORY=public.ecr.aws/aquasecurity/trivy-db:2
 
     WORKDIR /build
 
