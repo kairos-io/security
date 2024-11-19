@@ -84,7 +84,7 @@ jobs:
     #   run: echo "COMMIT_MSG=$(git log -1 --pretty=format:%s)" >> $GITHUB_ENV
     - name: notify if scanning fails
       if: failure()
-      uses: slackapi/slack-github-action@v1.27.0
+      uses: slackapi/slack-github-action@v1.27.1
       env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
