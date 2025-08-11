@@ -32,7 +32,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: |
           git fetch --prune --unshallow
           sudo apt update && sudo apt install -y jq
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     name: ${{ matrix.tag_name }}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - run: |
         git fetch --prune --unshallow
     - name: Install earthly
