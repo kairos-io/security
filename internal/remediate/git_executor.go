@@ -17,6 +17,7 @@ var _ Executor = (*GitExecutor)(nil)
 type GitExecutor struct {
 	Token  string // GH_TOKEN, for authenticated clone/push
 	DryRun bool
+	Prose  ProseClient // optional; nil -> deterministic PR body
 }
 
 func (g *GitExecutor) cloneURL(repo string) string {
@@ -93,7 +94,7 @@ func (g *GitExecutor) Open(in Intent, runID string) (state.LedgerEntry, error) {
 
 	// Create the PR with gh (GH_TOKEN is read from the environment by gh).
 	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", branch,
-		"--title", PRTitle(in), "--body", PRBody(in))
+		"--title", PRTitle(in), "--body", PRBodyWith(in, g.Prose))
 	if err != nil {
 		return entry, err
 	}
