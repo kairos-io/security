@@ -10,6 +10,7 @@ import (
 	"github.com/kairos-io/security/internal/correlate"
 	"github.com/kairos-io/security/internal/discover"
 	"github.com/kairos-io/security/internal/ghclient"
+	"github.com/kairos-io/security/internal/render"
 	"github.com/kairos-io/security/internal/state"
 	"github.com/kairos-io/security/internal/triage"
 	"github.com/spf13/cobra"
@@ -34,7 +35,7 @@ func newRootCmd() *cobra.Command {
 	root.AddCommand(newCollectCmd(gf))
 	root.AddCommand(newCorrelateCmd(gf))
 	root.AddCommand(newTriageCmd(gf))
-	root.AddCommand(newStubCmd("render"))
+	root.AddCommand(newRenderCmd(gf))
 	return root
 }
 
@@ -135,15 +136,46 @@ func newTriageCmd(gf *globalFlags) *cobra.Command {
 	}
 }
 
-func newStubCmd(name string) *cobra.Command {
-	return &cobra.Command{
-		Use:   name,
-		Short: "run the " + name + " phase",
+func newRenderCmd(gf *globalFlags) *cobra.Command {
+	var trackingRepo string
+	cmd := &cobra.Command{
+		Use:   "render",
+		Short: "write dashboard files and upsert the tracking issue",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Printf("%s: not implemented\n", name)
-			return nil
+			var c state.Correlated
+			if err := state.Load(gf.stateDir, state.CorrelatedFile, &c); err != nil {
+				return err
+			}
+			var tr state.Triage
+			if err := state.Load(gf.stateDir, state.TriageFile, &tr); err != nil {
+				return err
+			}
+			var findings state.Findings
+			_ = state.Load(gf.stateDir, state.FindingsFile, &findings)
+
+			in := render.Input{
+				Correlated:    c,
+				Triage:        tr,
+				CollectErrors: findings.Errors,
+				RunURL:        os.Getenv("KSEC_RUN_URL"),
+			}
+			md := render.DashboardMarkdown(in)
+			j, err := render.DashboardJSON(in)
+			if err != nil {
+				return err
+			}
+			if err := os.WriteFile("dashboard.md", []byte(md), 0o644); err != nil {
+				return err
+			}
+			if err := os.WriteFile("dashboard.json", j, 0o644); err != nil {
+				return err
+			}
+			_, err = render.UpsertTrackingIssue(ghclient.NewCLI(), trackingRepo, md, gf.dryRun)
+			return err
 		},
 	}
+	cmd.Flags().StringVar(&trackingRepo, "tracking-repo", "kairos-io/kairos", "repo to upsert the tracking issue into")
+	return cmd
 }
 
 func main() {
