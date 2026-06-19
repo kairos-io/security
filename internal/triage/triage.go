@@ -12,6 +12,10 @@ type AIClient interface {
 	Summarize(c state.Correlated) (focus []string, summaries map[string]string, narrative string, err error)
 }
 
+// FocusLimit caps the deterministic-fallback focus list so it stays a short,
+// human-readable shortlist rather than a dump of every finding.
+const FocusLimit = 20
+
 var sevRank = map[string]int{"critical": 4, "high": 3, "medium": 2, "low": 1, "unknown": 0, "": 0}
 
 var nowFn = func() string { return time.Now().UTC().Format("2006-01-02") }
@@ -58,15 +62,17 @@ func deterministicFocus(c state.Correlated) []string {
 	for _, it := range items {
 		out = append(out, it.id)
 	}
+	if len(out) > FocusLimit {
+		out = out[:FocusLimit]
+	}
 	return out
 }
 
 func templatedSummaries(c state.Correlated) map[string]string {
 	out := map[string]string{}
 	for _, f := range c.Findings {
-		if sevRank[f.Severity] >= sevRank["high"] {
-			out[f.ID] = fmt.Sprintf("%s %s in %s (%s)", f.Severity, f.CVEID, f.Repo, f.Package)
-		}
+		// Summarize every finding so each focus id resolves to readable text.
+		out[f.ID] = fmt.Sprintf("%s %s in %s (%s)", f.Severity, f.CVEID, f.Repo, f.Package)
 	}
 	for _, g := range c.Waterfall {
 		out[g.ID] = fmt.Sprintf("%s affects %d repos via %s", g.Severity, len(g.AffectedRepos), g.RootCause)

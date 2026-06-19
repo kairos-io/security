@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os/exec"
+	"strings"
 )
 
 type PullRequest struct {
@@ -45,7 +46,10 @@ func NewCLI() *CLI {
 		var out, errb bytes.Buffer
 		cmd.Stdout, cmd.Stderr = &out, &errb
 		if err := cmd.Run(); err != nil {
-			return nil, fmt.Errorf("gh %v: %v: %s", args, err, errb.String())
+			if stderr := strings.TrimSpace(errb.String()); stderr != "" {
+				return nil, fmt.Errorf("gh %s: %s", args[0], stderr)
+			}
+			return nil, fmt.Errorf("gh %s: %v", args[0], err)
 		}
 		return out.Bytes(), nil
 	}}
@@ -85,6 +89,15 @@ func (c *CLI) ListDependabotAlerts(repo string) ([]Alert, error) {
 	b, err := c.api(fmt.Sprintf("repos/%s/dependabot/alerts?state=open&per_page=100", repo),
 		"-q", "[.[] | {number, cveID: (.security_advisory.cve_id // \"\"), ghsa: .security_advisory.ghsa_id, package: .dependency.package.name, ecosystem: .dependency.package.ecosystem, severity: .security_advisory.severity, url: .html_url, fixedVersion: (.security_vulnerability.first_patched_version.identifier // \"\")}]")
 	if err != nil {
+		// Dependabot may be disabled, the repo archived, or the token may
+		// lack the required scope. GitHub answers all of these with 403;
+		// treat them as "no alerts" rather than a collection error.
+		msg := err.Error()
+		for _, s := range []string{"403", "Dependabot alerts are disabled", "not available", "not authorized", "admin:repo_hook"} {
+			if strings.Contains(msg, s) {
+				return nil, nil
+			}
+		}
 		return nil, err
 	}
 	var alerts []Alert
@@ -127,6 +140,13 @@ func (c *CLI) UpsertIssue(repo, marker, title, body string, labels []string) (in
 		n := matches[0]
 		_, err := c.run("issue", "edit", fmt.Sprint(n), "-R", repo, "--body", full)
 		return n, err
+	}
+	// Ensure each label exists before referencing it; `gh issue create`
+	// fails outright if a label is unknown. This is best-effort: a non-zero
+	// exit means the label already exists or we lack permission, neither of
+	// which should abort the create.
+	for _, l := range labels {
+		_, _ = c.run("label", "create", l, "-R", repo, "--color", "ededed", "--description", "kairos-security")
 	}
 	args := []string{"issue", "create", "-R", repo, "--title", title, "--body", full}
 	for _, l := range labels {

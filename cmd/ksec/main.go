@@ -87,20 +87,41 @@ func trivyRunner(ref string) ([]byte, error) {
 }
 
 // govulncheckRunner shallow-clones the repo to a temp dir and runs govulncheck.
+// Non-Go repos (no root go.mod) are skipped without error so they neither
+// produce a finding nor a collection error.
 func govulncheckRunner(r state.Repo) ([]byte, error) {
+	// Only scan repos that have a root go.mod; otherwise govulncheck just
+	// fails ("exit status 1") on docs/helm/.github repos.
+	if err := exec.Command("gh", "api", "repos/"+r.Repo+"/contents/go.mod").Run(); err != nil {
+		return nil, nil // not a Go repo (or inaccessible): skip
+	}
+
 	dir, err := os.MkdirTemp("", "ksec-src-*")
 	if err != nil {
 		return nil, err
 	}
 	defer os.RemoveAll(dir)
-	clone := exec.Command("git", "clone", "--depth", "1", "--branch", r.Branch,
-		"https://github.com/"+r.Repo+".git", dir)
+
+	// Clone the default branch (no --branch): repos differ between main/master.
+	// Authenticate with the token so private repos and rate limits work.
+	url := "https://github.com/" + r.Repo + ".git"
+	if token := os.Getenv("GH_TOKEN"); token != "" {
+		url = "https://x-access-token:" + token + "@github.com/" + r.Repo + ".git"
+	}
+	clone := exec.Command("git", "clone", "--depth", "1", url, dir)
 	if out, err := clone.CombinedOutput(); err != nil {
 		return nil, fmt.Errorf("clone: %v: %s", err, out)
 	}
+
 	cmd := exec.Command("govulncheck", "-json", "./...")
 	cmd.Dir = dir
-	return cmd.Output() // non-zero exit with findings still yields JSON on stdout
+	out, err := cmd.Output()
+	if err != nil && len(out) == 0 {
+		// No JSON at all: a real failure. A non-zero exit with output is
+		// normal — govulncheck exits non-zero when it finds vulnerabilities.
+		return nil, err
+	}
+	return out, nil
 }
 
 func newCorrelateCmd(gf *globalFlags) *cobra.Command {
@@ -187,8 +208,12 @@ func newRenderCmd(gf *globalFlags) *cobra.Command {
 			// The tracking issue body is not committed, so keep the run-log
 			// footer (RunURL) there for traceability.
 			issueBody := render.DashboardMarkdown(in)
-			_, err = render.UpsertTrackingIssue(ghclient.NewCLI(), trackingRepo, issueBody, gf.dryRun)
-			return err
+			// The dashboard files and site/index.html are already written, so a
+			// flaky issue API call must not fail the pipeline; warn and move on.
+			if _, err := render.UpsertTrackingIssue(ghclient.NewCLI(), trackingRepo, issueBody, gf.dryRun); err != nil {
+				fmt.Fprintf(os.Stderr, "warning: tracking issue upsert failed: %v\n", err)
+			}
+			return nil
 		},
 	}
 	cmd.Flags().StringVar(&trackingRepo, "tracking-repo", "kairos-io/kairos", "repo to upsert the tracking issue into")
