@@ -18,6 +18,10 @@ import (
 // OpenAIClient talks to an OpenAI-compatible chat-completions endpoint
 // (LocalAI). It replaces the earlier nib-based client: nib is an interactive
 // agent TUI, not a prompt->JSON client, so triage calls the model directly.
+//
+// To get reliable structured output we never ask the model for free-form JSON;
+// instead we force a function/tool call whose parameters are a JSON schema, so
+// the backend grammar-constrains the output to that shape.
 type OpenAIClient struct {
 	endpoint    string // base URL, e.g. http://localhost:8080
 	model       string
@@ -40,11 +44,48 @@ func NewOpenAIClient(cfg config.AIConfig) *OpenAIClient {
 	}
 }
 
-// aiResponse is the JSON contract we instruct the model to emit.
-type aiResponse struct {
-	Focus     []string          `json:"focus"`
-	Summaries map[string]string `json:"summaries"`
-	Narrative string            `json:"narrative"`
+const triageToolName = "report_triage"
+
+// triageToolParameters is the JSON schema the model's tool-call arguments must
+// satisfy. summaries is an array of {id, summary} (not an arbitrary-key object)
+// because fixed-shape objects are far more reliable under grammar constraints.
+const triageToolParameters = `{
+  "type": "object",
+  "properties": {
+    "focus": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Most urgent finding/waterfall ids, most urgent first, at most 20"
+    },
+    "summaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "summary": {"type": "string"}
+        },
+        "required": ["id", "summary"]
+      },
+      "description": "One-line human summary per focus id"
+    },
+    "narrative": {
+      "type": "string",
+      "description": "2-3 sentence overview of what to focus on"
+    }
+  },
+  "required": ["focus", "summaries", "narrative"]
+}`
+
+type toolFunctionDef struct {
+	Name        string          `json:"name"`
+	Description string          `json:"description"`
+	Parameters  json.RawMessage `json:"parameters"`
+}
+
+type toolDef struct {
+	Type     string          `json:"type"`
+	Function toolFunctionDef `json:"function"`
 }
 
 type chatMessage struct {
@@ -57,15 +98,39 @@ type chatRequest struct {
 	Messages    []chatMessage `json:"messages"`
 	Temperature float64       `json:"temperature"`
 	MaxTokens   int           `json:"max_tokens,omitempty"`
+	Tools       []toolDef     `json:"tools,omitempty"`
+	ToolChoice  interface{}   `json:"tool_choice,omitempty"`
+}
+
+type toolCallFunction struct {
+	Name      string `json:"name"`
+	Arguments string `json:"arguments"`
 }
 
 type chatResponse struct {
 	Choices []struct {
-		Message chatMessage `json:"message"`
+		Message struct {
+			Content   string `json:"content"`
+			ToolCalls []struct {
+				Function toolCallFunction `json:"function"`
+			} `json:"tool_calls"`
+			// Older OpenAI-compatible shape.
+			FunctionCall *toolCallFunction `json:"function_call"`
+		} `json:"message"`
 	} `json:"choices"`
 	Error *struct {
 		Message string `json:"message"`
 	} `json:"error"`
+}
+
+// toolArgs is the shape of the tool-call arguments (matches the schema above).
+type toolArgs struct {
+	Focus     []string `json:"focus"`
+	Summaries []struct {
+		ID      string `json:"id"`
+		Summary string `json:"summary"`
+	} `json:"summaries"`
+	Narrative string `json:"narrative"`
 }
 
 // briefFinding is a compact, token-light view of a finding for the prompt, so
@@ -109,11 +174,8 @@ func (c *OpenAIClient) Summarize(cor state.Correlated) ([]string, map[string]str
 	}
 
 	prompt := "You are a security triage assistant for the Kairos project. " +
-		"Given this JSON of correlated security findings, return ONLY a single JSON object " +
-		"(no prose, no markdown fences) with exactly these keys: " +
-		`"focus" (array of the most urgent finding/waterfall "id" values, most urgent first, at most 20), ` +
-		`"summaries" (object mapping each focus id to a one-line human summary), ` +
-		`"narrative" (2-3 sentence overview of what to focus on). ` +
+		"Analyse these correlated security findings and call the " + triageToolName +
+		" function to report the most urgent items to focus on. " +
 		"Only use id values that appear in the input. Findings:\n" + string(payload)
 
 	reqBody, err := json.Marshal(chatRequest{
@@ -121,6 +183,19 @@ func (c *OpenAIClient) Summarize(cor state.Correlated) ([]string, map[string]str
 		Messages:    []chatMessage{{Role: "user", Content: prompt}},
 		Temperature: c.temperature,
 		MaxTokens:   c.maxTokens,
+		Tools: []toolDef{{
+			Type: "function",
+			Function: toolFunctionDef{
+				Name:        triageToolName,
+				Description: "Report prioritized security triage results.",
+				Parameters:  json.RawMessage(triageToolParameters),
+			},
+		}},
+		// Force the model to call our function rather than reply with prose.
+		ToolChoice: map[string]interface{}{
+			"type":     "function",
+			"function": map[string]string{"name": triageToolName},
+		},
 	})
 	if err != nil {
 		return nil, nil, "", err
@@ -156,16 +231,35 @@ func (c *OpenAIClient) Summarize(cor state.Correlated) ([]string, map[string]str
 		return nil, nil, "", fmt.Errorf("chat response had no choices (raw: %q)", snippet(body))
 	}
 
-	content := cr.Choices[0].Message.Content
-	var resp aiResponse
-	if err := json.Unmarshal([]byte(extractJSON(content)), &resp); err != nil {
-		return nil, nil, "", fmt.Errorf("model did not return valid JSON: %w (content: %q)", err, snippet([]byte(content)))
+	// Prefer the forced tool call; fall back to function_call, then to parsing
+	// JSON out of the message content (for backends that ignore tools).
+	msg := cr.Choices[0].Message
+	var rawArgs string
+	switch {
+	case len(msg.ToolCalls) > 0 && msg.ToolCalls[0].Function.Arguments != "":
+		rawArgs = msg.ToolCalls[0].Function.Arguments
+	case msg.FunctionCall != nil && msg.FunctionCall.Arguments != "":
+		rawArgs = msg.FunctionCall.Arguments
+	case strings.TrimSpace(msg.Content) != "":
+		rawArgs = extractJSON(msg.Content)
+	default:
+		return nil, nil, "", fmt.Errorf("model returned neither a tool call nor content (raw: %q)", snippet(body))
 	}
-	return resp.Focus, resp.Summaries, resp.Narrative, nil
+
+	var args toolArgs
+	if err := json.Unmarshal([]byte(rawArgs), &args); err != nil {
+		return nil, nil, "", fmt.Errorf("tool-call arguments were not valid JSON: %w (args: %q)", err, snippet([]byte(rawArgs)))
+	}
+
+	summaries := make(map[string]string, len(args.Summaries))
+	for _, s := range args.Summaries {
+		summaries[s.ID] = s.Summary
+	}
+	return args.Focus, summaries, args.Narrative, nil
 }
 
 // extractJSON pulls the JSON object out of a model reply that may be wrapped in
-// markdown fences or surrounded by prose.
+// markdown fences or surrounded by prose (content-fallback path only).
 func extractJSON(s string) string {
 	s = strings.TrimSpace(s)
 	if i := strings.Index(s, "```"); i >= 0 {
