@@ -1,27 +1,6 @@
 # Hybrid repo overrides. Auto-discovery (kairos-io org + kairos-init deps) is the
 # base; this file ADDS external repos, EXCLUDES repos, and overrides metadata.
 repos:
-  # Framework container images (ported from the legacy images.json). The imageCVE
-  # collector scans each ref with trivy. One ref per supported minor release.
-  # TODO: auto-refresh this tag list (renovate custom-manager or a discover step)
-  # rather than maintaining it by hand.
-  - repo: kairos-io/kairos-framework
-    kind: org
-    branch: master
-    criticality: high
-    artifacts:
-      - type: image
-        ref: quay.io/kairos/framework:v2.11.7
-      - type: image
-        ref: quay.io/kairos/framework:v2.12.4
-      - type: image
-        ref: quay.io/kairos/framework:v2.13.0
-      - type: image
-        ref: quay.io/kairos/framework:v2.14.8
-      - type: image
-        ref: quay.io/kairos/framework:v2.15.14
-      - type: image
-        ref: quay.io/kairos/framework:v2.16.1
   - repo: mudler/edgevpn
     kind: external
     branch: master
