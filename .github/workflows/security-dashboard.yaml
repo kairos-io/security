@@ -38,27 +38,49 @@ jobs:
         with:
           go-version: "1.22"
 
+      # Install everything into a workspace-local bin/ on PATH, so we never
+      # need root-owned dirs (ARC runners typically run as a non-root user).
+      - name: Set up local tools dir
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/bin"
+          echo "$GITHUB_WORKSPACE/bin" >> "$GITHUB_PATH"
+
       - name: Install scanners
         run: |
           go install golang.org/x/vuln/cmd/govulncheck@latest
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
-
-      - name: Start LocalAI (small model)
-        run: |
-          MODEL="${LOCALAI_MODEL:-$(yq '.localai.model.name' ai.yaml)}"
-          docker run -d --name localai -p 8080:8080 \
-            -e MODELS_PATH=/models \
-            quay.io/go-skynet/local-ai:${LOCALAI_VERSION:-latest} \
-            "$MODEL"
-          for i in $(seq 1 60); do
-            curl -sf "$LOCALAI_URL/readyz" && break || sleep 5
-          done
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b "$GITHUB_WORKSPACE/bin"
 
       - name: Install nib
         run: go install github.com/mudler/nib@${NIB_VERSION:-latest}
 
+      # LocalAI runs as a downloaded binary (no Docker — ARC runners have no
+      # dind). Best-effort: if it can't start or load the model, triage uses
+      # its deterministic fallback, so the pipeline must not fail here.
+      - name: Start LocalAI (binary, best-effort)
+        continue-on-error: true
+        run: |
+          set +e
+          curl -sfL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o "$GITHUB_WORKSPACE/bin/yq" && chmod +x "$GITHUB_WORKSPACE/bin/yq"
+          ver="${LOCALAI_VERSION:-latest}"
+          if [ "$ver" = "latest" ]; then
+            url="https://github.com/mudler/LocalAI/releases/latest/download/local-ai-Linux-x86_64"
+          else
+            url="https://github.com/mudler/LocalAI/releases/download/${ver}/local-ai-Linux-x86_64"
+          fi
+          curl -sfL "$url" -o "$GITHUB_WORKSPACE/bin/local-ai" && chmod +x "$GITHUB_WORKSPACE/bin/local-ai"
+          MODEL="${LOCALAI_MODEL:-$(yq '.localai.model.name' ai.yaml)}"
+          echo "Starting LocalAI with model: $MODEL"
+          local-ai run "$MODEL" --address ":8080" > localai.log 2>&1 &
+          for i in $(seq 1 60); do
+            curl -sf "$LOCALAI_URL/readyz" >/dev/null 2>&1 && break || sleep 5
+          done
+          if ! curl -sf "$LOCALAI_URL/readyz" >/dev/null 2>&1; then
+            echo "LocalAI not ready after timeout; triage will use the deterministic fallback."
+            echo "---- localai.log (tail) ----"; tail -n 50 localai.log 2>/dev/null || true
+          fi
+
       - name: Build ksec
-        run: go build -o /usr/local/bin/ksec ./cmd/ksec
+        run: go build -o "$GITHUB_WORKSPACE/bin/ksec" ./cmd/ksec
 
       - name: Run pipeline
         run: |
@@ -94,7 +116,7 @@ jobs:
   deploy:
     needs: dashboard
     if: ${{ needs.dashboard.result == 'success' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run != 'true')) }}
-    runs-on: ubuntu-latest
+    runs-on: cncf-ubuntu-4-16-x86
     permissions:
       pages: write
       id-token: write
