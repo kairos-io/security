@@ -10,6 +10,7 @@ import (
 	"github.com/kairos-io/security/internal/correlate"
 	"github.com/kairos-io/security/internal/discover"
 	"github.com/kairos-io/security/internal/ghclient"
+	"github.com/kairos-io/security/internal/remediate"
 	"github.com/kairos-io/security/internal/render"
 	"github.com/kairos-io/security/internal/state"
 	"github.com/kairos-io/security/internal/triage"
@@ -36,6 +37,7 @@ func newRootCmd() *cobra.Command {
 	root.AddCommand(newCollectCmd(gf))
 	root.AddCommand(newCorrelateCmd(gf))
 	root.AddCommand(newTriageCmd(gf))
+	root.AddCommand(newRemediateCmd(gf))
 	root.AddCommand(newRenderCmd(gf))
 	return root
 }
@@ -190,6 +192,39 @@ func newTriageCmd(gf *globalFlags) *cobra.Command {
 	return cmd
 }
 
+func newRemediateCmd(gf *globalFlags) *cobra.Command {
+	var maxPRs int
+	cmd := &cobra.Command{
+		Use:   "remediate",
+		Short: "open and maintain dependency-bump PRs for actionable findings",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			var c state.Correlated
+			if err := state.Load(gf.stateDir, state.CorrelatedFile, &c); err != nil {
+				return err
+			}
+			var ledger state.Ledger
+			_ = state.Load(gf.stateDir, state.LedgerFile, &ledger) // best-effort: empty on first run
+
+			runID := os.Getenv("KSEC_RUN_URL")
+			if runID == "" {
+				runID = "local"
+			}
+			intents, deferred := remediate.Plan(c, ledger, maxPRs)
+			if deferred > 0 {
+				fmt.Fprintf(os.Stderr, "remediate: %d new bumps deferred by --max-prs=%d\n", deferred, maxPRs)
+			}
+			ex := &remediate.GitExecutor{Token: os.Getenv("GH_TOKEN"), DryRun: gf.dryRun}
+			out, results := remediate.Run(intents, ex, ledger, runID)
+			for _, r := range results {
+				fmt.Fprintf(os.Stderr, "remediate: %s %s -> %s %s\n", r.Action, r.Key, r.State, r.Detail)
+			}
+			return state.Save(gf.stateDir, state.LedgerFile, out)
+		},
+	}
+	cmd.Flags().IntVar(&maxPRs, "max-prs", 10, "maximum NEW PRs to open per run (blast-radius guard)")
+	return cmd
+}
+
 func newRenderCmd(gf *globalFlags) *cobra.Command {
 	var trackingRepo string
 	cmd := &cobra.Command{
@@ -208,11 +243,14 @@ func newRenderCmd(gf *globalFlags) *cobra.Command {
 			_ = state.Load(gf.stateDir, state.FindingsFile, &findings)
 			var repos []state.Repo
 			_ = state.Load(gf.stateDir, state.ReposFile, &repos) // best-effort: show all tracked repos
+			var ledger state.Ledger
+			_ = state.Load(gf.stateDir, state.LedgerFile, &ledger) // best-effort
 
 			in := render.Input{
 				Correlated:    c,
 				Triage:        tr,
 				Repos:         repos,
+				Ledger:        ledger,
 				CollectErrors: findings.Errors,
 				RunURL:        os.Getenv("KSEC_RUN_URL"),
 			}

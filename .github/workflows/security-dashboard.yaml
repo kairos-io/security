@@ -30,6 +30,10 @@ jobs:
       # Scheduled runs are LIVE by default; dispatch can request dry-run; forks force it.
       DRYRUN: ${{ (github.event.inputs.dry_run == 'true' || github.event.pull_request.head.repo.fork) && '--dry-run' || '' }}
       KSEC_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      # Remediation writes to OTHER repos. Keep it dry-run until KSEC_BOT_TOKEN
+      # has contents:write + pull_requests:write on the targets. Flip to "" to
+      # go live.
+      REMEDIATE_DRYRUN: --dry-run
       # Cross-repo reads + the kairos tracking-issue write use the scoped bot token.
       GH_TOKEN: ${{ secrets.KSEC_BOT_TOKEN }}
       LOCALAI_URL: http://localhost:8080
@@ -132,6 +136,7 @@ jobs:
           ksec collect   --state-dir state
           ksec correlate --state-dir state
           ksec triage    --state-dir state --require-ai
+          ksec remediate --state-dir state $REMEDIATE_DRYRUN
           ksec render    --state-dir state $DRYRUN
 
       - name: Commit state + dashboards
