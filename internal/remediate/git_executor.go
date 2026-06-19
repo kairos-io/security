@@ -3,9 +3,11 @@ package remediate
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/kairos-io/security/internal/state"
 )
@@ -24,13 +26,18 @@ func (g *GitExecutor) cloneURL(repo string) string {
 	return "https://github.com/" + repo + ".git"
 }
 
-func run(dir string, name string, args ...string) ([]byte, error) {
+func (g *GitExecutor) run(dir string, name string, args ...string) ([]byte, error) {
 	cmd := exec.Command(name, args...)
 	cmd.Dir = dir
 	var out, errb bytes.Buffer
 	cmd.Stdout, cmd.Stderr = &out, &errb
 	if err := cmd.Run(); err != nil {
-		return out.Bytes(), fmt.Errorf("%s %v: %v: %s", name, args, err, errb.String())
+		msg := fmt.Sprintf("%s %v: %v: %s", name, args, err, errb.String())
+		// Never leak the live token into errors that flow to the ledger or CI logs.
+		if g.Token != "" {
+			msg = strings.ReplaceAll(msg, g.Token, "***")
+		}
+		return out.Bytes(), errors.New(msg)
 	}
 	return out.Bytes(), nil
 }
@@ -56,36 +63,36 @@ func (g *GitExecutor) Open(in Intent, runID string) (state.LedgerEntry, error) {
 	}
 	defer os.RemoveAll(dir)
 
-	if _, err := run("", "git", "clone", "--depth", "1", g.cloneURL(in.Repo), dir); err != nil {
+	if _, err := g.run("", "git", "clone", "--depth", "1", g.cloneURL(in.Repo), dir); err != nil {
 		return entry, err
 	}
-	if _, err := run(dir, "git", "checkout", "-b", branch); err != nil {
+	if _, err := g.run(dir, "git", "checkout", "-b", branch); err != nil {
 		return entry, err
 	}
-	if _, err := run(dir, "go", "get", in.Bump.Package+"@"+in.Bump.To); err != nil {
+	if _, err := g.run(dir, "go", "get", in.Bump.Package+"@"+in.Bump.To); err != nil {
 		return entry, err
 	}
-	if _, err := run(dir, "go", "mod", "tidy"); err != nil {
+	if _, err := g.run(dir, "go", "mod", "tidy"); err != nil {
 		return entry, err
 	}
 	// Verify-before-push: a broken build must not be pushed.
-	if _, err := run(dir, "go", "build", "./..."); err != nil {
+	if _, err := g.run(dir, "go", "build", "./..."); err != nil {
 		entry.State = "build-failed"
 		entry.History = []state.LedgerEvent{{Run: runID, Action: "build-failed", Detail: err.Error()}}
 		return entry, nil // not an error: recorded for a human, run continues
 	}
 
-	run(dir, "git", "config", "user.name", "kairos-security-bot")
-	run(dir, "git", "config", "user.email", "bot@kairos.io")
-	if _, err := run(dir, "git", "commit", "-am", PRTitle(in)); err != nil {
+	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
+	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
+	if _, err := g.run(dir, "git", "commit", "-am", PRTitle(in)); err != nil {
 		return entry, err
 	}
-	if _, err := run(dir, "git", "push", "-u", "origin", branch); err != nil {
+	if _, err := g.run(dir, "git", "push", "-u", "origin", branch); err != nil {
 		return entry, err
 	}
 
 	// Create the PR with gh (GH_TOKEN is read from the environment by gh).
-	out, err := run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", branch,
+	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", branch,
 		"--title", PRTitle(in), "--body", PRBody(in))
 	if err != nil {
 		return entry, err
@@ -105,7 +112,7 @@ func (g *GitExecutor) Reconcile(e state.LedgerEntry, runID string) (state.Ledger
 		}
 		return e, nil
 	}
-	out, err := run("", "gh", "pr", "view", fmt.Sprint(e.PRNumber), "-R", e.Repo,
+	out, err := g.run("", "gh", "pr", "view", fmt.Sprint(e.PRNumber), "-R", e.Repo,
 		"--json", "state,mergedAt", "-q", "{state: .state, mergedAt: .mergedAt}")
 	if err != nil {
 		return e, err
