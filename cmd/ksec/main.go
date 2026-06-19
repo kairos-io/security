@@ -11,6 +11,7 @@ import (
 	"github.com/kairos-io/security/internal/discover"
 	"github.com/kairos-io/security/internal/ghclient"
 	"github.com/kairos-io/security/internal/state"
+	"github.com/kairos-io/security/internal/triage"
 	"github.com/spf13/cobra"
 )
 
@@ -32,7 +33,7 @@ func newRootCmd() *cobra.Command {
 	root.AddCommand(newDiscoverCmd(gf))
 	root.AddCommand(newCollectCmd(gf))
 	root.AddCommand(newCorrelateCmd(gf))
-	root.AddCommand(newStubCmd("triage"))
+	root.AddCommand(newTriageCmd(gf))
 	root.AddCommand(newStubCmd("render"))
 	return root
 }
@@ -111,6 +112,25 @@ func newCorrelateCmd(gf *globalFlags) *cobra.Command {
 				return err
 			}
 			return state.Save(gf.stateDir, state.CorrelatedFile, correlate.Run(in))
+		},
+	}
+}
+
+func newTriageCmd(gf *globalFlags) *cobra.Command {
+	return &cobra.Command{
+		Use:   "triage",
+		Short: "prioritize findings and write the AI summary",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			var c state.Correlated
+			if err := state.Load(gf.stateDir, state.CorrelatedFile, &c); err != nil {
+				return err
+			}
+			aiCfg, err := config.LoadAI("ai.yaml")
+			if err != nil {
+				return err
+			}
+			out := triage.Run(c, triage.NewNibClient(aiCfg), aiCfg.LocalAI.Model.Name)
+			return state.Save(gf.stateDir, state.TriageFile, out)
 		},
 	}
 }
