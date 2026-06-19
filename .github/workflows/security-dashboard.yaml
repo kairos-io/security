@@ -54,9 +54,6 @@ jobs:
           go install golang.org/x/vuln/cmd/govulncheck@latest
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b "$GITHUB_WORKSPACE/bin"
 
-      - name: Install nib
-        run: go install github.com/mudler/nib@${NIB_VERSION:-latest}
-
       # ARC runners are ephemeral, so cache the downloaded model weights between
       # runs (keyed on ai.yaml, so a model change invalidates the cache).
       - name: Cache LocalAI models

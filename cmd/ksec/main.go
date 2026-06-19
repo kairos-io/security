@@ -152,9 +152,9 @@ func newTriageCmd(gf *globalFlags) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			fmt.Fprintf(os.Stderr, "triage: requesting AI summary — nib mode=%q model=%q endpoint=%q\n",
-				aiCfg.Nib.Mode, aiCfg.Nib.Model, aiCfg.Nib.Endpoint)
-			out, aiErr := triage.Run(c, triage.NewNibClient(aiCfg), aiCfg.LocalAI.Model.Name)
+			fmt.Fprintf(os.Stderr, "triage: requesting AI summary — model=%q endpoint=%q\n",
+				aiCfg.Nib.Model, aiCfg.Nib.Endpoint)
+			out, aiErr := triage.Run(c, triage.NewOpenAIClient(aiCfg), aiCfg.LocalAI.Model.Name)
 			if aiErr != nil {
 				fmt.Fprintf(os.Stderr, "triage: ❌ AI UNAVAILABLE: %v\n", aiErr)
 				if requireAI {

@@ -6,9 +6,10 @@ localai:
     name: "gemma-4-e2b-it"     # overridable: LOCALAI_MODEL; confirm exact LocalAI gallery slug
     gallery: "gemma-4-e2b-it"  # gallery entry / model URI to preload
     quant: ""
+# AI client settings. Triage calls LocalAI's OpenAI-compatible chat endpoint
+# directly (nib was an interactive agent TUI, not a prompt->JSON client).
+# Kept under the "nib" key for config compatibility.
 nib:
-  version: "latest"            # overridable: NIB_VERSION
-  mode: "yolo"
   model: ""                    # defaults to localai.model.name
   endpoint: ""                 # defaults to localai.endpoint
   maxTokens: 4096
