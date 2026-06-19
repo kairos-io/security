@@ -213,7 +213,13 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			if deferred > 0 {
 				fmt.Fprintf(os.Stderr, "remediate: %d new bumps deferred by --max-prs=%d\n", deferred, maxPRs)
 			}
+			// Load AI config up front: it enables AI-drafted PR prose (used when
+			// PRs are opened in remediate.Run below) and the comment reactions.
+			aiCfg, _ := config.LoadAI("ai.yaml")
 			ex := &remediate.GitExecutor{Token: os.Getenv("GH_TOKEN"), DryRun: gf.dryRun}
+			if aiCfg.Nib.Endpoint != "" {
+				ex.Prose = remediate.NewOpenAIProse(aiCfg)
+			}
 			out, results := remediate.Run(intents, ex, ledger, runID)
 			for _, r := range results {
 				fmt.Fprintf(os.Stderr, "remediate: %s %s -> %s %s\n", r.Action, r.Key, r.State, r.Detail)
@@ -222,7 +228,6 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			// loop when an AI endpoint is configured: without one the classifier
 			// errors on every comment, appending a needs-human event forever and
 			// churning the ledger across runs.
-			aiCfg, _ := config.LoadAI("ai.yaml")
 			if aiCfg.Nib.Endpoint != "" {
 				classifier := remediate.NewOpenAIClassifier(aiCfg)
 				gh := ghclient.NewCLI()
