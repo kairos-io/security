@@ -57,6 +57,14 @@ jobs:
       - name: Install nib
         run: go install github.com/mudler/nib@${NIB_VERSION:-latest}
 
+      # ARC runners are ephemeral, so cache the downloaded model weights between
+      # runs (keyed on ai.yaml, so a model change invalidates the cache).
+      - name: Cache LocalAI models
+        uses: actions/cache@v4
+        with:
+          path: models
+          key: localai-models-${{ hashFiles('ai.yaml') }}
+
       # LocalAI runs as a downloaded binary (no Docker — ARC runners have no
       # dind). Best-effort: if it can't start or load the model, triage uses
       # its deterministic fallback, so the pipeline must not fail here.
@@ -82,15 +90,30 @@ jobs:
           local-ai --version 2>&1 | head -5 || echo "local-ai --version failed"
           MODEL="${LOCALAI_MODEL:-$(yq '.localai.model.name' ai.yaml)}"
           echo "Starting LocalAI with model: $MODEL"
-          local-ai run "$MODEL" --address ":8080" > localai.log 2>&1 &
-          for i in $(seq 1 60); do
-            curl -sf "$LOCALAI_URL/readyz" >/dev/null 2>&1 && break || sleep 5
+          local-ai run "$MODEL" --address ":8080" --models-path "$GITHUB_WORKSPACE/models" > localai.log 2>&1 &
+          LAI_PID=$!
+          # readyz only means the server is up — the model still has to download
+          # and load. Wait until a real completion succeeds (or time out, in
+          # which case triage falls back). First inference triggers the load, so
+          # allow a long per-attempt timeout.
+          deadline=$(( SECONDS + 1200 ))   # up to 20 min for download + load
+          ready=0
+          while [ "$SECONDS" -lt "$deadline" ]; do
+            if ! kill -0 "$LAI_PID" 2>/dev/null; then
+              echo "local-ai exited early; log tail:"; tail -n 100 localai.log 2>/dev/null; break
+            fi
+            resp=$(curl -s -m 180 "$LOCALAI_URL/v1/chat/completions" \
+              -H 'Content-Type: application/json' \
+              -d "{\"model\":\"$MODEL\",\"messages\":[{\"role\":\"user\",\"content\":\"ping\"}],\"max_tokens\":1}")
+            if printf '%s' "$resp" | grep -q '"choices"'; then ready=1; break; fi
+            echo "model not ready yet (~$(( (deadline - SECONDS) / 60 ))m left): $(printf '%s' "$resp" | head -c 200)"
+            sleep 15
           done
-          if curl -sf "$LOCALAI_URL/readyz" >/dev/null 2>&1; then
-            echo "LocalAI is ready. Models:"; curl -s "$LOCALAI_URL/v1/models" | head -c 2000; echo
+          if [ "$ready" = 1 ]; then
+            echo "LocalAI model '$MODEL' is loaded and answering."
           else
-            echo "LocalAI not ready after timeout; triage will use the deterministic fallback."
-            echo "---- localai.log (tail) ----"; tail -n 80 localai.log 2>/dev/null || true
+            echo "LocalAI model not ready; triage will use the deterministic fallback."
+            echo "---- localai.log (tail) ----"; tail -n 100 localai.log 2>/dev/null || true
           fi
 
       - name: Build ksec
