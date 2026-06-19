@@ -139,7 +139,8 @@ func newCorrelateCmd(gf *globalFlags) *cobra.Command {
 }
 
 func newTriageCmd(gf *globalFlags) *cobra.Command {
-	return &cobra.Command{
+	var requireAI bool
+	cmd := &cobra.Command{
 		Use:   "triage",
 		Short: "prioritize findings and write the AI summary",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -151,10 +152,25 @@ func newTriageCmd(gf *globalFlags) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			out := triage.Run(c, triage.NewNibClient(aiCfg), aiCfg.LocalAI.Model.Name)
+			fmt.Fprintf(os.Stderr, "triage: requesting AI summary — nib mode=%q model=%q endpoint=%q\n",
+				aiCfg.Nib.Mode, aiCfg.Nib.Model, aiCfg.Nib.Endpoint)
+			out, aiErr := triage.Run(c, triage.NewNibClient(aiCfg), aiCfg.LocalAI.Model.Name)
+			if aiErr != nil {
+				fmt.Fprintf(os.Stderr, "triage: ❌ AI UNAVAILABLE: %v\n", aiErr)
+				if requireAI {
+					return fmt.Errorf("AI triage required (--require-ai) but failed: %w", aiErr)
+				}
+				fmt.Fprintln(os.Stderr, "triage: falling back to deterministic prioritization (use --require-ai to fail instead)")
+			} else {
+				fmt.Fprintf(os.Stderr, "triage: ✅ AI summary OK — model=%q focus=%d narrative=%dB\n",
+					out.Model, len(out.Focus), len(out.Narrative))
+			}
 			return state.Save(gf.stateDir, state.TriageFile, out)
 		},
 	}
+	cmd.Flags().BoolVar(&requireAI, "require-ai", false,
+		"fail the phase if the AI summary cannot be produced (instead of falling back)")
+	return cmd
 }
 
 func newRenderCmd(gf *globalFlags) *cobra.Command {

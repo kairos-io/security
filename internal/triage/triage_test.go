@@ -31,14 +31,16 @@ var sampleCorrelated = state.Correlated{
 
 func TestRunUsesAIWhenAvailable(t *testing.T) {
 	ai := stubAI{focus: []string{"crit1"}, summaries: map[string]string{"crit1": "bad"}, narrative: "n"}
-	got := Run(sampleCorrelated, ai, "m")
+	got, err := Run(sampleCorrelated, ai, "m")
+	assert.NoError(t, err)
 	assert.True(t, got.AIAvailable)
 	assert.Equal(t, []string{"crit1"}, got.Focus)
 	assert.Equal(t, "n", got.Narrative)
 }
 
 func TestRunFallsBackOnAIError(t *testing.T) {
-	got := Run(sampleCorrelated, stubAI{err: errors.New("model down")}, "m")
+	got, err := Run(sampleCorrelated, stubAI{err: errors.New("model down")}, "m")
+	assert.Error(t, err)
 	assert.False(t, got.AIAvailable)
 	// deterministic severity ordering: critical, high, low
 	require.Equal(t, []string{"crit1", "high1", "low1"}, got.Focus)
@@ -67,7 +69,8 @@ func TestRunFallbackCapsFocusAndSummarizesEveryFinding(t *testing.T) {
 	}
 	c := state.Correlated{Findings: findings}
 
-	got := Run(c, stubAI{err: errors.New("model down")}, "m")
+	got, err := Run(c, stubAI{err: errors.New("model down")}, "m")
+	assert.Error(t, err)
 	assert.False(t, got.AIAvailable)
 	require.Len(t, got.Focus, FocusLimit, "focus must be capped at FocusLimit")
 

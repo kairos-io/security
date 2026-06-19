@@ -52,7 +52,11 @@ func (n *NibClient) Summarize(c state.Correlated) ([]string, map[string]string, 
 	}
 	var resp aiResponse
 	if err := json.Unmarshal(bytes.TrimSpace(raw), &resp); err != nil {
-		return nil, nil, "", fmt.Errorf("parse model output: %w", err)
+		snippet := string(bytes.TrimSpace(raw))
+		if len(snippet) > 300 {
+			snippet = snippet[:300] + "…"
+		}
+		return nil, nil, "", fmt.Errorf("parse model output: %w (raw: %q)", err, snippet)
 	}
 	return resp.Focus, resp.Summaries, resp.Narrative, nil
 }

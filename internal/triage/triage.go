@@ -20,7 +20,13 @@ var sevRank = map[string]int{"critical": 4, "high": 3, "medium": 2, "low": 1, "u
 
 var nowFn = func() string { return time.Now().UTC().Format("2006-01-02") }
 
-func Run(c state.Correlated, ai AIClient, model string) state.Triage {
+// Run produces the triage. When an AI client is supplied and succeeds, the
+// returned Triage carries the model's output and AIAvailable is true. When the
+// AI client fails, Run still returns a fully-populated deterministic Triage
+// (so callers can render something) AND a non-nil error describing the AI
+// failure — the caller decides whether to fail hard or fall back. A nil AI
+// client is the deterministic path and is not an error.
+func Run(c state.Correlated, ai AIClient, model string) (state.Triage, error) {
 	t := state.Triage{GeneratedAt: nowFn(), Model: model, Summaries: map[string]string{}}
 	if ai != nil {
 		focus, summaries, narrative, err := ai.Summarize(c)
@@ -29,15 +35,21 @@ func Run(c state.Correlated, ai AIClient, model string) state.Triage {
 			t.Focus = focus
 			t.Summaries = summaries
 			t.Narrative = narrative
-			return t
+			return t, nil
 		}
+		applyFallback(&t, c)
+		return t, fmt.Errorf("AI summarize failed: %w", err)
 	}
+	applyFallback(&t, c)
+	return t, nil
+}
+
+func applyFallback(t *state.Triage, c state.Correlated) {
 	t.AIAvailable = false
 	t.Focus = deterministicFocus(c)
 	t.Summaries = templatedSummaries(c)
 	t.Narrative = fmt.Sprintf("AI unavailable this run. %d findings, %d waterfall groups, ordered by severity.",
 		len(c.Findings), len(c.Waterfall))
-	return t
 }
 
 func deterministicFocus(c state.Correlated) []string {

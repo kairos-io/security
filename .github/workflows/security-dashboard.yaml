@@ -134,7 +134,7 @@ jobs:
           ksec discover  --state-dir state
           ksec collect   --state-dir state
           ksec correlate --state-dir state
-          ksec triage    --state-dir state
+          ksec triage    --state-dir state --require-ai
           ksec render    --state-dir state $DRYRUN
 
       - name: Commit state + dashboards

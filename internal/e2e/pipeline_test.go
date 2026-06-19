@@ -27,7 +27,8 @@ func TestPipelineCorrelateTriageRenderProducesSurfaces(t *testing.T) {
 	c := correlate.Run(findings)
 	require.Len(t, c.Waterfall, 1, "two repos sharing a go CVE form a waterfall front")
 
-	tr := triage.Run(c, failingAI{}, "test-model")
+	tr, aiErr := triage.Run(c, failingAI{}, "test-model")
+	assert.Error(t, aiErr, "failingAI must surface an error")
 	assert.False(t, tr.AIAvailable)
 	assert.NotEmpty(t, tr.Focus)
 
