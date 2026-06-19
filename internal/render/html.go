@@ -16,7 +16,17 @@ type htmlData struct {
 	Waterfall     []state.WaterfallGroup
 	Repos         []htmlRepoRow
 	CollectErrors []state.CollectionError
+	Ledger        []htmlLedgerEntry
 	RunURL        string
+}
+
+// htmlLedgerEntry exposes a bot PR ledger row to the template (exported fields).
+type htmlLedgerEntry struct {
+	Repo     string
+	Bump     string
+	State    string
+	PRNumber int
+	PRURL    string
 }
 
 type htmlFocus struct {
@@ -107,6 +117,16 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 {{end}}</ul>
 </section>{{end}}
 
+<section>
+<h2>&#129302; Bot PR ledger</h2>
+{{if .Ledger}}<table>
+<thead><tr><th>Repo</th><th>Bump</th><th>State</th><th>PR</th></tr></thead>
+<tbody>
+{{range .Ledger}}<tr><td>{{.Repo}}</td><td><code>{{.Bump}}</code></td><td>{{.State}}</td><td>{{if gt .PRNumber 0}}<a href="{{.PRURL}}">#{{.PRNumber}}</a>{{else}}&mdash;{{end}}</td></tr>
+{{end}}</tbody>
+</table>{{else}}<p class="empty">No bot PRs yet.</p>{{end}}
+</section>
+
 <footer>
 {{if .RunURL}}<a href="{{.RunURL}}">Run log</a>{{else}}Kairos central security dashboard{{end}}
 </footer>
@@ -157,6 +177,13 @@ func DashboardHTML(in Input) string {
 			Status: repoStatus(r), StatusClass: repoStatusClass(r),
 		})
 	}
+	ledger := make([]htmlLedgerEntry, 0, len(in.Ledger.Entries))
+	for _, e := range in.Ledger.Entries {
+		ledger = append(ledger, htmlLedgerEntry{
+			Repo: e.Repo, Bump: e.Bump.Package + "@" + e.Bump.To,
+			State: e.State, PRNumber: e.PRNumber, PRURL: e.PRURL,
+		})
+	}
 	data := htmlData{
 		GeneratedAt:   in.Triage.GeneratedAt,
 		AIAvailable:   in.Triage.AIAvailable,
@@ -165,6 +192,7 @@ func DashboardHTML(in Input) string {
 		Waterfall:     in.Correlated.Waterfall,
 		Repos:         repos,
 		CollectErrors: in.CollectErrors,
+		Ledger:        ledger,
 		RunURL:        in.RunURL,
 	}
 	var b strings.Builder

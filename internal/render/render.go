@@ -13,6 +13,7 @@ type Input struct {
 	Correlated    state.Correlated        `json:"correlated"`
 	Triage        state.Triage            `json:"triage"`
 	Repos         []state.Repo            `json:"repos"`
+	Ledger        state.Ledger            `json:"ledger"`
 	CollectErrors []state.CollectionError `json:"collectErrors"`
 	RunURL        string                  `json:"runURL"`
 }
@@ -81,6 +82,22 @@ func DashboardMarkdown(in Input) string {
 		fmt.Fprintf(&b, "## ⚠️ %d collection errors\n\n", len(in.CollectErrors))
 		for _, e := range in.CollectErrors {
 			fmt.Fprintf(&b, "- `%s` / %s: %s\n", e.Repo, e.Collector, e.Message)
+		}
+		b.WriteString("\n")
+	}
+
+	// Bot PR ledger
+	b.WriteString("## 🤖 Bot PR ledger\n\n")
+	if len(in.Ledger.Entries) == 0 {
+		b.WriteString("_No bot PRs yet._\n\n")
+	} else {
+		b.WriteString("| Repo | Bump | State | PR |\n|---|---|---|---|\n")
+		for _, e := range in.Ledger.Entries {
+			pr := "—"
+			if e.PRNumber > 0 {
+				pr = fmt.Sprintf("[#%d](%s)", e.PRNumber, e.PRURL)
+			}
+			fmt.Fprintf(&b, "| %s | %s@%s | %s | %s |\n", e.Repo, e.Bump.Package, e.Bump.To, e.State, pr)
 		}
 		b.WriteString("\n")
 	}

@@ -32,7 +32,10 @@ func sampleInput() Input {
 			{Repo: "kairos-io/x"},          // appears in CollectErrors -> "⚠️ errors"
 		},
 		CollectErrors: []state.CollectionError{{Repo: "kairos-io/x", Collector: "prs", Message: "rate limited"}},
-		RunURL:        "https://github.com/kairos-io/security/actions/runs/1",
+		Ledger: state.Ledger{Entries: []state.LedgerEntry{
+			{Key: "kairos-io/immucore|golang.org/x/net", Repo: "kairos-io/immucore", Package: "golang.org/x/net", State: "open", PRNumber: 412, PRURL: "https://github.com/kairos-io/immucore/pull/412", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
+		}},
+		RunURL: "https://github.com/kairos-io/security/actions/runs/1",
 	}
 }
 
