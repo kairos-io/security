@@ -140,6 +140,52 @@ func (g *GitExecutor) Reconcile(e state.LedgerEntry, runID string) (state.Ledger
 	return e, nil
 }
 
+var _ Adjuster = (*GitExecutor)(nil)
+
+func (g *GitExecutor) Adjust(entry state.LedgerEntry, toVersion, runID string) (state.LedgerEntry, error) {
+	entry.LastActionRun = runID
+	if g.DryRun {
+		fmt.Printf("[dry-run] would adjust %s PR #%d: go get %s@%s, force-push %s\n",
+			entry.Repo, entry.PRNumber, entry.Package, toVersion, entry.Branch)
+		entry.Bump.To = toVersion
+		return entry, nil
+	}
+	dir, err := os.MkdirTemp("", "ksec-adj-*")
+	if err != nil {
+		return entry, err
+	}
+	defer os.RemoveAll(dir)
+
+	if _, err := g.run("", "git", "clone", g.cloneURL(entry.Repo), dir); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "git", "checkout", entry.Branch); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "go", "get", entry.Package+"@"+toVersion); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "go", "mod", "tidy"); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "go", "build", "./..."); err != nil {
+		entry.State = "build-failed"
+		entry.History = append(entry.History, state.LedgerEvent{Run: runID, Action: "adjust-build-failed", Detail: err.Error()})
+		return entry, nil
+	}
+	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
+	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
+	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): adjust bump to "+toVersion); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "git", "push", "--force", "origin", entry.Branch); err != nil {
+		return entry, err
+	}
+	entry.Bump.To = toVersion
+	entry.History = append(entry.History, state.LedgerEvent{Run: runID, Action: "adjusted", Detail: "to " + toVersion})
+	return entry, nil
+}
+
 func prNumberFromURL(url string) int {
 	n := 0
 	for i := len(url) - 1; i >= 0; i-- {
