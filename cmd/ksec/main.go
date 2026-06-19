@@ -14,6 +14,7 @@ import (
 	"github.com/kairos-io/security/internal/state"
 	"github.com/kairos-io/security/internal/triage"
 	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v3"
 )
 
 // Flags shared by every phase.
@@ -40,21 +41,37 @@ func newRootCmd() *cobra.Command {
 }
 
 func newDiscoverCmd(gf *globalFlags) *cobra.Command {
-	return &cobra.Command{
+	var seedFrom string
+	cmd := &cobra.Command{
 		Use:   "discover",
 		Short: "build the tracked-repo list",
 		RunE: func(cmd *cobra.Command, args []string) error {
+			if seedFrom != "" {
+				repos, err := discover.SeedFromOrg(ghclient.NewCLI(), seedFrom, seedFrom+"/kairos-init", "main")
+				if err != nil {
+					return err
+				}
+				out, err := yaml.Marshal(struct {
+					Repos []state.Repo `yaml:"repos"`
+				}{repos})
+				if err != nil {
+					return err
+				}
+				_, err = cmd.OutOrStdout().Write(out)
+				return err
+			}
+
 			cfg, err := config.LoadRepos("repos.yaml")
 			if err != nil {
 				return err
 			}
-			repos, err := discover.Run(ghclient.NewCLI(), cfg, "kairos-io", "kairos-io/kairos-init", "main")
-			if err != nil {
-				return err
-			}
+			repos := discover.Normalize(cfg)
 			return state.Save(gf.stateDir, state.ReposFile, repos)
 		},
 	}
+	cmd.Flags().StringVar(&seedFrom, "seed-from", "",
+		"enumerate the given GitHub org once and print a curated repos.yaml block to stdout (does not write state)")
+	return cmd
 }
 
 func newCollectCmd(gf *globalFlags) *cobra.Command {
