@@ -1,0 +1,80 @@
+name: Security Dashboard
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print intended writes instead of performing them"
+        type: boolean
+        default: false
+  schedule:
+    - cron: "0 6 * * *"
+
+concurrency:
+  group: security-dashboard
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # commit state + dashboards back to this repo
+
+jobs:
+  dashboard:
+    runs-on: ubuntu-latest
+    env:
+      # Scheduled runs are LIVE by default; dispatch can request dry-run; forks force it.
+      DRYRUN: ${{ (github.event.inputs.dry_run == 'true' || github.event.pull_request.head.repo.fork) && '--dry-run' || '' }}
+      KSEC_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      # Cross-repo reads + the kairos tracking-issue write use the scoped bot token.
+      GH_TOKEN: ${{ secrets.KSEC_BOT_TOKEN }}
+      LOCALAI_URL: http://localhost:8080
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      - name: Install scanners
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Start LocalAI (small model)
+        run: |
+          MODEL="${LOCALAI_MODEL:-$(yq '.localai.model.name' ai.yaml)}"
+          docker run -d --name localai -p 8080:8080 \
+            -e MODELS_PATH=/models \
+            quay.io/go-skynet/local-ai:${LOCALAI_VERSION:-latest} \
+            "$MODEL"
+          for i in $(seq 1 60); do
+            curl -sf "$LOCALAI_URL/readyz" && break || sleep 5
+          done
+
+      - name: Install nib
+        run: go install github.com/mudler/nib@${NIB_VERSION:-latest}
+
+      - name: Build ksec
+        run: go build -o /usr/local/bin/ksec ./cmd/ksec
+
+      - name: Run pipeline
+        run: |
+          ksec discover  --state-dir state
+          ksec collect   --state-dir state
+          ksec correlate --state-dir state
+          ksec triage    --state-dir state
+          ksec render    --state-dir state $DRYRUN
+
+      - name: Commit state + dashboards
+        if: ${{ env.DRYRUN == '' }}
+        run: |
+          git config user.name "kairos-security-bot"
+          git config user.email "bot@kairos.io"
+          git add state/ dashboard.md dashboard.json
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "chore: update security dashboard [skip ci]"
+            git push
+          fi
