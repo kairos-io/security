@@ -61,7 +61,7 @@ jobs:
       # ARC runners are ephemeral, so cache the downloaded model weights between
       # runs (keyed on ai.yaml, so a model change invalidates the cache).
       - name: Cache LocalAI models
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: models
           key: localai-models-${{ hashFiles('ai.yaml') }}
