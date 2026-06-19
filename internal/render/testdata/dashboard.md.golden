@@ -1,0 +1,29 @@
+# Kairos Security Dashboard
+
+_Updated 2026-06-19._
+
+> Focus on the openssl critical first.
+
+## 🔥 Focus now
+
+- **crit1** — Critical openssl CVE in kairos image
+- **go-CVE-2025-1-golang.org/x/net**
+
+## 🌊 Waterfall fronts
+
+| Root cause | Severity | Bump | Affected repos |
+|---|---|---|---|
+| golang.org/x/net (CVE-2025-1) | high | golang.org/x/net@0.33.0 | kairos-io/immucore, kairos-io/kairos-agent |
+
+## 📦 Per-repo findings
+
+| Repo | Critical | High | Medium | Low | Total |
+|---|---|---|---|---|---|
+| kairos-io/kairos | 1 | 0 | 0 | 0 | 1 |
+
+## ⚠️ 1 collection errors
+
+- `kairos-io/x` / prs: rate limited
+
+---
+[Run log](https://github.com/kairos-io/security/actions/runs/1)
