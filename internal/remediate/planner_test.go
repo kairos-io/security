@@ -56,3 +56,84 @@ func TestPlanSkipsTargetsAlreadyInLedger(t *testing.T) {
 	require.Len(t, intents, 1)
 	assert.Equal(t, IntentReconcile, intents[0].Type)
 }
+
+// intentFor returns the first intent of the given type for a key, or nil.
+func intentFor(intents []Intent, typ IntentType, key string) *Intent {
+	for i := range intents {
+		if intents[i].Type == typ && intents[i].Key == key {
+			return &intents[i]
+		}
+	}
+	return nil
+}
+
+// A non-live ledger state (planned, from a prior dry-run) must NOT permanently
+// suppress the key: going live should re-open the PR while still reconciling.
+func TestPlanReopensPlannedLedgerEntry(t *testing.T) {
+	k := "kairos-io/immucore|golang.org/x/net"
+	c := state.Correlated{Findings: []state.Finding{
+		{ID: "a", Repo: "kairos-io/immucore", Type: "sourceCVE", Ecosystem: "go", Package: "golang.org/x/net", FixedVersion: "0.33.0", Severity: "high"},
+	}}
+	led := state.Ledger{Entries: []state.LedgerEntry{
+		{Key: k, Repo: "kairos-io/immucore", State: "planned", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
+	}}
+	intents, _ := Plan(c, led, 10)
+	require.NotNil(t, intentFor(intents, IntentReconcile, k), "expected reconcile for the existing entry")
+	open := intentFor(intents, IntentOpen, k)
+	require.NotNil(t, open, "expected re-open for the planned entry")
+	assert.Equal(t, "0.33.0", open.Bump.To)
+}
+
+// A transient build-failed entry must retry (re-open) on a later run.
+func TestPlanReopensBuildFailedLedgerEntry(t *testing.T) {
+	k := "kairos-io/immucore|golang.org/x/net"
+	c := state.Correlated{Findings: []state.Finding{
+		{ID: "a", Repo: "kairos-io/immucore", Type: "sourceCVE", Ecosystem: "go", Package: "golang.org/x/net", FixedVersion: "0.33.0", Severity: "high"},
+	}}
+	led := state.Ledger{Entries: []state.LedgerEntry{
+		{Key: k, Repo: "kairos-io/immucore", State: "build-failed", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
+	}}
+	intents, _ := Plan(c, led, 10)
+	require.NotNil(t, intentFor(intents, IntentOpen, k), "expected re-open for the build-failed entry")
+}
+
+// An open entry has a live PR maintained via reconcile: no new open.
+func TestPlanSkipsOpenLedgerEntryButReconciles(t *testing.T) {
+	k := "kairos-io/immucore|golang.org/x/net"
+	c := state.Correlated{Findings: []state.Finding{
+		{ID: "a", Repo: "kairos-io/immucore", Type: "sourceCVE", Ecosystem: "go", Package: "golang.org/x/net", FixedVersion: "0.33.0", Severity: "high"},
+	}}
+	led := state.Ledger{Entries: []state.LedgerEntry{
+		{Key: k, Repo: "kairos-io/immucore", State: "open", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
+	}}
+	intents, _ := Plan(c, led, 10)
+	require.NotNil(t, intentFor(intents, IntentReconcile, k))
+	assert.Nil(t, intentFor(intents, IntentOpen, k), "open entry must not be re-opened")
+}
+
+// A merged entry re-opens only when a NEWER fixed version is later required.
+func TestPlanReopensMergedOnlyForHigherVersion(t *testing.T) {
+	k := "kairos-io/immucore|golang.org/x/net"
+
+	// merged at 0.33.0, finding needs 0.36.0 -> re-open (re-bump).
+	cHigher := state.Correlated{Findings: []state.Finding{
+		{ID: "a", Repo: "kairos-io/immucore", Type: "sourceCVE", Ecosystem: "go", Package: "golang.org/x/net", FixedVersion: "0.36.0", Severity: "high"},
+	}}
+	ledLow := state.Ledger{Entries: []state.LedgerEntry{
+		{Key: k, Repo: "kairos-io/immucore", State: "merged", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
+	}}
+	intents, _ := Plan(cHigher, ledLow, 10)
+	open := intentFor(intents, IntentOpen, k)
+	require.NotNil(t, open, "merged at lower version must re-open for the newer fix")
+	assert.Equal(t, "0.36.0", open.Bump.To)
+
+	// merged at 0.36.0, finding needs 0.33.0 -> skip (already addressed).
+	cLower := state.Correlated{Findings: []state.Finding{
+		{ID: "a", Repo: "kairos-io/immucore", Type: "sourceCVE", Ecosystem: "go", Package: "golang.org/x/net", FixedVersion: "0.33.0", Severity: "high"},
+	}}
+	ledHigh := state.Ledger{Entries: []state.LedgerEntry{
+		{Key: k, Repo: "kairos-io/immucore", State: "merged", Bump: state.Bump{Package: "golang.org/x/net", To: "0.36.0"}},
+	}}
+	intents2, _ := Plan(cLower, ledHigh, 10)
+	assert.Nil(t, intentFor(intents2, IntentOpen, k), "merged at >= version must not re-open")
+}

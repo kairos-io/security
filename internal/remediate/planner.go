@@ -17,8 +17,9 @@ func actionable(f state.Finding) bool {
 func key(repo, pkg string) string { return repo + "|" + pkg }
 
 // higherVersion returns the "greater" of two version strings. We avoid a full
-// semver parser: trim a leading 'v' and compare dotted numeric segments,
-// falling back to string comparison.
+// semver parser: trim a leading 'v' and compare dotted-numeric segments,
+// ignoring any pre-release / build metadata. So "1.2.0" and "1.2.0-rc1"
+// compare equal.
 func higherVersion(a, b string) string {
 	if compareVersions(a, b) >= 0 {
 		return a
@@ -79,7 +80,9 @@ func Plan(c state.Correlated, ledger state.Ledger, maxNew int) ([]Intent, int) {
 		intents = append(intents, Intent{Type: IntentReconcile, Key: e.Key, Repo: e.Repo, Entry: e})
 	}
 
-	// 2) Collapse actionable findings into one target per repo+package.
+	// 2) Collapse ALL actionable findings into one target per repo+package
+	// (highest fixed version + worst severity). We do NOT skip keys already in
+	// the ledger here: the skip decision is made per state/version below.
 	type target struct {
 		repo, pkg, to, sev string
 	}
@@ -89,9 +92,6 @@ func Plan(c state.Correlated, ledger state.Ledger, maxNew int) ([]Intent, int) {
 			continue
 		}
 		k := key(f.Repo, f.Package)
-		if _, ok := ledger.ByKey(k); ok {
-			continue // already tracked
-		}
 		t := targets[k]
 		if t == nil {
 			targets[k] = &target{repo: f.Repo, pkg: f.Package, to: f.FixedVersion, sev: f.Severity}
@@ -103,9 +103,24 @@ func Plan(c state.Correlated, ledger state.Ledger, maxNew int) ([]Intent, int) {
 		}
 	}
 
-	// 3) Order new targets by severity (desc) then key (asc), apply the cap.
+	// 3) Decide which targets actually need a new IntentOpen, based on the
+	// existing ledger entry's STATE and version rather than mere presence:
+	//   - open/conflicted     -> skip (a live PR is already maintained; the
+	//                            IntentReconcile above covers it).
+	//   - merged/closed at an  -> skip (already addressed at >= our version).
+	//     equal/higher version
+	//   - everything else (no entry; planned/error/build-failed; or
+	//     merged/closed at a LOWER version) -> emit IntentOpen.
 	keys := make([]string, 0, len(targets))
-	for k := range targets {
+	for k, t := range targets {
+		if e, ok := ledger.ByKey(k); ok {
+			if e.State == "open" || e.State == "conflicted" {
+				continue
+			}
+			if (e.State == "merged" || e.State == "closed") && compareVersions(e.Bump.To, t.to) >= 0 {
+				continue
+			}
+		}
 		keys = append(keys, k)
 	}
 	sort.Slice(keys, func(i, j int) bool {

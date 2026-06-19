@@ -218,6 +218,10 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			for _, r := range results {
 				fmt.Fprintf(os.Stderr, "remediate: %s %s -> %s %s\n", r.Action, r.Key, r.State, r.Detail)
 			}
+			if gf.dryRun {
+				fmt.Fprintln(os.Stderr, "remediate: dry-run — ledger not persisted")
+				return nil
+			}
 			return state.Save(gf.stateDir, state.LedgerFile, out)
 		},
 	}

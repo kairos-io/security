@@ -105,7 +105,6 @@ func (g *GitExecutor) Open(in Intent, runID string) (state.LedgerEntry, error) {
 }
 
 func (g *GitExecutor) Reconcile(e state.LedgerEntry, runID string) (state.LedgerEntry, error) {
-	e.LastActionRun = runID
 	if e.PRNumber == 0 || g.DryRun {
 		if g.DryRun {
 			fmt.Printf("[dry-run] would reconcile %s (PR #%d)\n", e.Repo, e.PRNumber)
@@ -122,6 +121,7 @@ func (g *GitExecutor) Reconcile(e state.LedgerEntry, runID string) (state.Ledger
 		MergedAt string `json:"mergedAt"`
 	}
 	_ = json.Unmarshal(out, &view)
+	prior := e.State
 	switch {
 	case view.MergedAt != "" || view.State == "MERGED":
 		e.State = "merged"
@@ -130,7 +130,13 @@ func (g *GitExecutor) Reconcile(e state.LedgerEntry, runID string) (state.Ledger
 	default:
 		e.State = "open"
 	}
-	e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "reconciled", Detail: e.State})
+	// Only record a change when the state actually changed. An unchanged PR
+	// must leave the ledger byte-identical so the volatile run id doesn't churn
+	// it across runs.
+	if e.State != prior {
+		e.LastActionRun = runID
+		e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "reconciled", Detail: e.State})
+	}
 	return e, nil
 }
 
