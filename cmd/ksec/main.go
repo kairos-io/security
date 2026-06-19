@@ -7,6 +7,7 @@ import (
 
 	"github.com/kairos-io/security/internal/collect"
 	"github.com/kairos-io/security/internal/config"
+	"github.com/kairos-io/security/internal/correlate"
 	"github.com/kairos-io/security/internal/discover"
 	"github.com/kairos-io/security/internal/ghclient"
 	"github.com/kairos-io/security/internal/state"
@@ -30,7 +31,7 @@ func newRootCmd() *cobra.Command {
 
 	root.AddCommand(newDiscoverCmd(gf))
 	root.AddCommand(newCollectCmd(gf))
-	root.AddCommand(newStubCmd("correlate"))
+	root.AddCommand(newCorrelateCmd(gf))
 	root.AddCommand(newStubCmd("triage"))
 	root.AddCommand(newStubCmd("render"))
 	return root
@@ -98,6 +99,20 @@ func govulncheckRunner(r state.Repo) ([]byte, error) {
 	cmd := exec.Command("govulncheck", "-json", "./...")
 	cmd.Dir = dir
 	return cmd.Output() // non-zero exit with findings still yields JSON on stdout
+}
+
+func newCorrelateCmd(gf *globalFlags) *cobra.Command {
+	return &cobra.Command{
+		Use:   "correlate",
+		Short: "dedupe findings and build the waterfall graph",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			var in state.Findings
+			if err := state.Load(gf.stateDir, state.FindingsFile, &in); err != nil {
+				return err
+			}
+			return state.Save(gf.stateDir, state.CorrelatedFile, correlate.Run(in))
+		},
+	}
 }
 
 func newStubCmd(name string) *cobra.Command {
