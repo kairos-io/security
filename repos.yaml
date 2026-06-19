@@ -15,4 +15,25 @@ repos:
     artifacts:
       - type: go
         modpath: .
+  - repo: mudler/entities
+    kind: external
+    branch: master
+    criticality: medium
+    artifacts:
+      - type: go
+        modpath: .
+  - repo: mudler/go-pluggable
+    kind: external
+    branch: master
+    criticality: medium
+    artifacts:
+      - type: go
+        modpath: .
+  - repo: mauromorales/xpasswd
+    kind: external
+    branch: master
+    criticality: medium
+    artifacts:
+      - type: go
+        modpath: .
 exclude: []
