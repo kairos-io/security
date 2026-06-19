@@ -27,12 +27,21 @@ type Alert struct {
 	FixedVersion string `json:"fixedVersion"`
 }
 
+type ReviewComment struct {
+	ID     string `json:"id"`
+	Author string `json:"author"`
+	Body   string `json:"body"`
+}
+
 type GitHub interface {
 	ListOrgRepos(org string) ([]string, error)
 	GetFile(repo, path, ref string) ([]byte, error)
 	ListOpenPRs(repo string) ([]PullRequest, error)
 	ListDependabotAlerts(repo string) ([]Alert, error)
 	UpsertIssue(repo, marker, title, body string, labels []string) (int, error)
+	ListPRComments(repo string, pr int) ([]ReviewComment, error)
+	PostPRComment(repo string, pr int, body string) error
+	ClosePR(repo string, pr int, comment string) error
 }
 
 // CLI is the production GitHub client; it shells out to `gh`.
@@ -157,6 +166,26 @@ func (c *CLI) UpsertIssue(repo, marker, title, body string, labels []string) (in
 		return 0, err
 	}
 	return parseIssueNumberFromURL(out), nil
+}
+
+func (c *CLI) ListPRComments(repo string, pr int) ([]ReviewComment, error) {
+	b, err := c.run("pr", "view", fmt.Sprint(pr), "-R", repo, "--json", "comments",
+		"-q", "[.comments[] | {id: (.id|tostring), author: .author.login, body: .body}]")
+	if err != nil {
+		return nil, err
+	}
+	var out []ReviewComment
+	return out, json.Unmarshal(b, &out)
+}
+
+func (c *CLI) PostPRComment(repo string, pr int, body string) error {
+	_, err := c.run("pr", "comment", fmt.Sprint(pr), "-R", repo, "--body", body)
+	return err
+}
+
+func (c *CLI) ClosePR(repo string, pr int, comment string) error {
+	_, err := c.run("pr", "close", fmt.Sprint(pr), "-R", repo, "--comment", comment)
+	return err
 }
 
 func splitLines(b []byte) []string {
