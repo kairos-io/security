@@ -61,12 +61,14 @@ jobs:
         run: |
           set +e
           curl -sfL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o "$GITHUB_WORKSPACE/bin/yq" && chmod +x "$GITHUB_WORKSPACE/bin/yq"
+          # LocalAI release assets embed the version: local-ai-<tag>-linux-amd64.
           ver="${LOCALAI_VERSION:-latest}"
           if [ "$ver" = "latest" ]; then
-            url="https://github.com/mudler/LocalAI/releases/latest/download/local-ai-Linux-x86_64"
-          else
-            url="https://github.com/mudler/LocalAI/releases/download/${ver}/local-ai-Linux-x86_64"
+            ver="$(curl -sfL -H "Authorization: Bearer $GH_TOKEN" https://api.github.com/repos/mudler/LocalAI/releases/latest | yq -p=json '.tag_name')"
           fi
+          echo "LocalAI version: $ver"
+          url="https://github.com/mudler/LocalAI/releases/download/${ver}/local-ai-${ver}-linux-amd64"
+          echo "Downloading $url"
           curl -sfL "$url" -o "$GITHUB_WORKSPACE/bin/local-ai" && chmod +x "$GITHUB_WORKSPACE/bin/local-ai"
           MODEL="${LOCALAI_MODEL:-$(yq '.localai.model.name' ai.yaml)}"
           echo "Starting LocalAI with model: $MODEL"
