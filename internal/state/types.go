@@ -6,6 +6,7 @@ const (
 	FindingsFile   = "findings.json"
 	CorrelatedFile = "correlated.json"
 	TriageFile     = "triage.json"
+	LedgerFile     = "ledger.json"
 )
 
 type Artifact struct {
@@ -78,4 +79,30 @@ type Triage struct {
 	Focus       []string          `json:"focus"`
 	Summaries   map[string]string `json:"summaries"`
 	Narrative   string            `json:"narrative"`
+}
+
+type LedgerEvent struct {
+	Run    string `json:"run"`
+	Action string `json:"action"`
+	Detail string `json:"detail,omitempty"`
+}
+
+type LedgerEntry struct {
+	Key           string        `json:"key"` // "<repo>|<package>"
+	Repo          string        `json:"repo"`
+	Package       string        `json:"package"`
+	Branch        string        `json:"branch"`
+	PRNumber      int           `json:"prNumber,omitempty"`
+	PRURL         string        `json:"prURL,omitempty"`
+	State         string        `json:"state"` // planned|open|merged|closed|conflicted|build-failed|error
+	Bump          Bump          `json:"bump"`
+	Severity      string        `json:"severity,omitempty"`
+	CreatedRun    string        `json:"createdRun"`
+	LastActionRun string        `json:"lastActionRun"`
+	SeenComments  []string      `json:"seenComments,omitempty"` // reserved for Plan 3
+	History       []LedgerEvent `json:"history,omitempty"`
+}
+
+type Ledger struct {
+	Entries []LedgerEntry `json:"entries"`
 }
