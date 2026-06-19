@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   dashboard:
-    runs-on: oracle-vm-16cpu-64gb-x86-64-xnclt-runner
+    runs-on: oracle-vm-16cpu-64gb-x86-64
     env:
       # Scheduled runs are LIVE by default; dispatch can request dry-run; forks force it.
       DRYRUN: ${{ (github.event.inputs.dry_run == 'true' || github.event.pull_request.head.repo.fork) && '--dry-run' || '' }}
