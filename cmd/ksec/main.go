@@ -176,6 +176,14 @@ func newRenderCmd(gf *globalFlags) *cobra.Command {
 			if err := os.WriteFile("dashboard.json", j, 0o644); err != nil {
 				return err
 			}
+			// The HTML dashboard is published to GitHub Pages, not committed,
+			// so it can carry the per-run RunURL footer.
+			if err := os.MkdirAll("site", 0o755); err != nil {
+				return err
+			}
+			if err := os.WriteFile("site/index.html", []byte(render.DashboardHTML(in)), 0o644); err != nil {
+				return err
+			}
 			// The tracking issue body is not committed, so keep the run-log
 			// footer (RunURL) there for traceability.
 			issueBody := render.DashboardMarkdown(in)

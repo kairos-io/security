@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kairos Security Dashboard</title>
+<style>
+:root { color-scheme: light dark; }
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; padding: 2rem; line-height: 1.5; color: #1b1f23; background: #fff; }
+h1 { margin-top: 0; }
+.meta { color: #586069; font-size: 0.95rem; }
+.ai-warn { color: #b00020; font-weight: 600; }
+blockquote { border-left: 4px solid #d0d7de; margin: 1rem 0; padding: 0.25rem 1rem; color: #444; background: #f6f8fa; }
+section { margin: 2rem 0; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #d0d7de; padding: 0.4rem 0.6rem; text-align: left; }
+th { background: #f6f8fa; }
+td.num { text-align: right; }
+.sev-critical { background: #ffd6d6; color: #86181d; font-weight: 600; }
+.sev-high { background: #ffe3c2; color: #8a4b00; font-weight: 600; }
+.sev-medium { background: #fff7c2; color: #735c00; }
+.sev-low { background: #e8eaed; color: #444; }
+.empty { color: #586069; font-style: italic; }
+footer { margin-top: 2rem; border-top: 1px solid #d0d7de; padding-top: 1rem; color: #586069; font-size: 0.9rem; }
+code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
+</style>
+</head>
+<body>
+<h1>Kairos Security Dashboard</h1>
+<p class="meta">Updated 2026-06-19</p>
+<blockquote>Focus on the openssl critical first.</blockquote>
+
+<section>
+<h2>&#128293; Focus now</h2>
+<ol>
+<li><strong>crit1</strong> &mdash; Critical openssl CVE in kairos image</li>
+<li><strong>go-CVE-2025-1-golang.org/x/net</strong></li>
+</ol>
+</section>
+
+<section>
+<h2>&#127754; Waterfall fronts</h2>
+<table>
+<thead><tr><th>Root cause</th><th>Severity</th><th>Suggested bump</th><th>Affected repos</th></tr></thead>
+<tbody>
+<tr><td>golang.org/x/net (CVE-2025-1)</td><td class="sev-high">high</td><td><code>golang.org/x/net@0.33.0</code></td><td>kairos-io/immucore, kairos-io/kairos-agent</td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+<h2>&#128230; Per-repo findings</h2>
+<table>
+<thead><tr><th>Repo</th><th>Critical</th><th>High</th><th>Medium</th><th>Low</th><th>Total</th></tr></thead>
+<tbody>
+<tr><td>kairos-io/kairos</td><td class="num sev-critical">1</td><td class="num sev-high">0</td><td class="num sev-medium">0</td><td class="num sev-low">0</td><td class="num">1</td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+<h2>&#9888;&#65039; 1 collection error</h2>
+<ul>
+<li><code>kairos-io/x</code> / prs: rate limited</li>
+</ul>
+</section>
+
+<footer>
+<a href="https://github.com/kairos-io/security/actions/runs/1">Run log</a>
+</footer>
+</body>
+</html>

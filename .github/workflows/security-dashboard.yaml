@@ -16,6 +16,8 @@ concurrency:
 
 permissions:
   contents: write   # commit state + dashboards back to this repo
+  pages: write      # publish the HTML dashboard to GitHub Pages
+  id-token: write   # OIDC token required by deploy-pages
 
 jobs:
   dashboard:
@@ -78,3 +80,31 @@ jobs:
             git commit -m "chore: update security dashboard [skip ci]"
             git push
           fi
+
+      - name: Configure Pages
+        if: ${{ env.DRYRUN == '' }}
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: ${{ env.DRYRUN == '' }}
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: dashboard
+    if: ${{ needs.dashboard.result == 'success' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run != 'true')) }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
