@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 
+	"github.com/kairos-io/security/internal/collect"
 	"github.com/kairos-io/security/internal/config"
 	"github.com/kairos-io/security/internal/discover"
 	"github.com/kairos-io/security/internal/ghclient"
@@ -27,7 +29,7 @@ func newRootCmd() *cobra.Command {
 	root.PersistentFlags().BoolVar(&gf.dryRun, "dry-run", false, "print intended writes instead of performing them")
 
 	root.AddCommand(newDiscoverCmd(gf))
-	root.AddCommand(newStubCmd("collect"))
+	root.AddCommand(newCollectCmd(gf))
 	root.AddCommand(newStubCmd("correlate"))
 	root.AddCommand(newStubCmd("triage"))
 	root.AddCommand(newStubCmd("render"))
@@ -50,6 +52,52 @@ func newDiscoverCmd(gf *globalFlags) *cobra.Command {
 			return state.Save(gf.stateDir, state.ReposFile, repos)
 		},
 	}
+}
+
+func newCollectCmd(gf *globalFlags) *cobra.Command {
+	return &cobra.Command{
+		Use:   "collect",
+		Short: "gather raw findings per repo",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			var repos []state.Repo
+			if err := state.Load(gf.stateDir, state.ReposFile, &repos); err != nil {
+				return err
+			}
+			var prev state.Findings
+			_ = state.Load(gf.stateDir, state.FindingsFile, &prev) // best-effort for aging
+
+			gh := ghclient.NewCLI()
+			collectors := []collect.Collector{
+				collect.PRs{GH: gh},
+				collect.GHAlerts{GH: gh},
+				collect.ImageCVE{Runner: trivyRunner},
+				collect.SourceCVE{Runner: govulncheckRunner},
+			}
+			out := collect.Run(repos, collectors, prev)
+			return state.Save(gf.stateDir, state.FindingsFile, out)
+		},
+	}
+}
+
+func trivyRunner(ref string) ([]byte, error) {
+	return exec.Command("trivy", "image", "--quiet", "--scanners", "vuln", "--format", "json", ref).Output()
+}
+
+// govulncheckRunner shallow-clones the repo to a temp dir and runs govulncheck.
+func govulncheckRunner(r state.Repo) ([]byte, error) {
+	dir, err := os.MkdirTemp("", "ksec-src-*")
+	if err != nil {
+		return nil, err
+	}
+	defer os.RemoveAll(dir)
+	clone := exec.Command("git", "clone", "--depth", "1", "--branch", r.Branch,
+		"https://github.com/"+r.Repo+".git", dir)
+	if out, err := clone.CombinedOutput(); err != nil {
+		return nil, fmt.Errorf("clone: %v: %s", err, out)
+	}
+	cmd := exec.Command("govulncheck", "-json", "./...")
+	cmd.Dir = dir
+	return cmd.Output() // non-zero exit with findings still yields JSON on stdout
 }
 
 func newStubCmd(name string) *cobra.Command {
