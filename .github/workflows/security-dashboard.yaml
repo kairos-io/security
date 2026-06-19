@@ -7,6 +7,10 @@ on:
         description: "Print intended writes instead of performing them"
         type: boolean
         default: false
+      debug:
+        description: "Open an interactive tmate session before running the pipeline"
+        type: boolean
+        default: false
   schedule:
     - cron: "0 6 * * *"
 
@@ -66,23 +70,41 @@ jobs:
           if [ "$ver" = "latest" ]; then
             ver="$(curl -sfL -H "Authorization: Bearer $GH_TOKEN" https://api.github.com/repos/mudler/LocalAI/releases/latest | yq -p=json '.tag_name')"
           fi
-          echo "LocalAI version: $ver"
+          echo "LocalAI version resolved to: '$ver'"
           url="https://github.com/mudler/LocalAI/releases/download/${ver}/local-ai-${ver}-linux-amd64"
           echo "Downloading $url"
-          curl -sfL "$url" -o "$GITHUB_WORKSPACE/bin/local-ai" && chmod +x "$GITHUB_WORKSPACE/bin/local-ai"
+          code=$(curl -sL -w '%{http_code}' "$url" -o "$GITHUB_WORKSPACE/bin/local-ai")
+          echo "download HTTP status: $code"
+          chmod +x "$GITHUB_WORKSPACE/bin/local-ai" 2>/dev/null
+          echo "---- binary info ----"
+          ls -la "$GITHUB_WORKSPACE/bin/local-ai" 2>/dev/null || echo "binary not present"
+          file "$GITHUB_WORKSPACE/bin/local-ai" 2>/dev/null || true
+          local-ai --version 2>&1 | head -5 || echo "local-ai --version failed"
           MODEL="${LOCALAI_MODEL:-$(yq '.localai.model.name' ai.yaml)}"
           echo "Starting LocalAI with model: $MODEL"
           local-ai run "$MODEL" --address ":8080" > localai.log 2>&1 &
           for i in $(seq 1 60); do
             curl -sf "$LOCALAI_URL/readyz" >/dev/null 2>&1 && break || sleep 5
           done
-          if ! curl -sf "$LOCALAI_URL/readyz" >/dev/null 2>&1; then
+          if curl -sf "$LOCALAI_URL/readyz" >/dev/null 2>&1; then
+            echo "LocalAI is ready. Models:"; curl -s "$LOCALAI_URL/v1/models" | head -c 2000; echo
+          else
             echo "LocalAI not ready after timeout; triage will use the deterministic fallback."
-            echo "---- localai.log (tail) ----"; tail -n 50 localai.log 2>/dev/null || true
+            echo "---- localai.log (tail) ----"; tail -n 80 localai.log 2>/dev/null || true
           fi
 
       - name: Build ksec
         run: go build -o "$GITHUB_WORKSPACE/bin/ksec" ./cmd/ksec
+
+      # Interactive debugging: when dispatched with debug=true, pause here and
+      # expose an SSH/web tmate session (restricted to the run's actor). The
+      # full toolchain (ksec, local-ai, govulncheck, trivy, nib, yq) is on PATH;
+      # localai.log is in the workspace. Disconnect or `touch continue` to resume.
+      - name: Debug via tmate
+        if: ${{ github.event.inputs.debug == 'true' }}
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
 
       - name: Run pipeline
         run: |
