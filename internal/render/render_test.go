@@ -1,0 +1,51 @@
+package render
+
+import (
+	"os"
+	"path/filepath"
+	"testing"
+
+	"github.com/kairos-io/security/internal/state"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+)
+
+func sampleInput() Input {
+	return Input{
+		Correlated: state.Correlated{
+			Findings: []state.Finding{
+				{ID: "crit1", Repo: "kairos-io/kairos", Type: "imageCVE", CVEID: "CVE-2025-9999", Package: "openssl", Severity: "critical", FirstSeen: "2026-06-01", LastSeen: "2026-06-19"},
+			},
+			Waterfall: []state.WaterfallGroup{
+				{ID: "go-CVE-2025-1-golang.org/x/net", RootCause: "golang.org/x/net (CVE-2025-1)", Severity: "high", AffectedRepos: []string{"kairos-io/immucore", "kairos-io/kairos-agent"}, SuggestedBump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
+			},
+		},
+		Triage: state.Triage{
+			GeneratedAt: "2026-06-19", AIAvailable: true,
+			Focus:     []string{"crit1", "go-CVE-2025-1-golang.org/x/net"},
+			Summaries: map[string]string{"crit1": "Critical openssl CVE in kairos image"},
+			Narrative: "Focus on the openssl critical first.",
+		},
+		CollectErrors: []state.CollectionError{{Repo: "kairos-io/x", Collector: "prs", Message: "rate limited"}},
+		RunURL:        "https://github.com/kairos-io/security/actions/runs/1",
+	}
+}
+
+func TestDashboardMarkdownGolden(t *testing.T) {
+	got := DashboardMarkdown(sampleInput())
+	golden := filepath.Join("testdata", "dashboard.md.golden")
+	if os.Getenv("UPDATE_GOLDEN") == "1" {
+		require.NoError(t, os.WriteFile(golden, []byte(got), 0o644))
+	}
+	want, err := os.ReadFile(golden)
+	require.NoError(t, err)
+	assert.Equal(t, string(want), got)
+}
+
+func TestDashboardJSONIsStable(t *testing.T) {
+	a, err := DashboardJSON(sampleInput())
+	require.NoError(t, err)
+	b, err := DashboardJSON(sampleInput())
+	require.NoError(t, err)
+	assert.Equal(t, string(a), string(b))
+}
