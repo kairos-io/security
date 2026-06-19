@@ -1,0 +1,15 @@
+localai:
+  version: "latest"            # overridable: LOCALAI_VERSION
+  endpoint: "http://localhost:8080"   # overridable: LOCALAI_URL
+  startupTimeout: "5m"
+  model:
+    name: "small-instruct"     # overridable: LOCALAI_MODEL
+    gallery: ""                # gallery entry / model URI to preload
+    quant: ""
+nib:
+  version: "latest"            # overridable: NIB_VERSION
+  mode: "yolo"
+  model: ""                    # defaults to localai.model.name
+  endpoint: ""                 # defaults to localai.endpoint
+  maxTokens: 4096
+  temperature: 0.2
