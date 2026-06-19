@@ -1,6 +1,7 @@
 package remediate
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/kairos-io/security/internal/ghclient"
@@ -32,11 +33,17 @@ func TestDecideReaction(t *testing.T) {
 	assert.Equal(t, "r", adj.ReplyBody)
 }
 
-type fakeAdjuster struct{ called int }
+type fakeAdjuster struct {
+	called int
+	state  string // if set, returned as the entry State (e.g. "build-failed")
+}
 
 func (f *fakeAdjuster) Adjust(e state.LedgerEntry, to, run string) (state.LedgerEntry, error) {
 	f.called++
 	e.Bump.To = to
+	if f.state != "" {
+		e.State = f.state
+	}
 	return e, nil
 }
 
@@ -54,7 +61,7 @@ func TestReactToCommentsIdempotentAndActs(t *testing.T) {
 	require.NoError(t, ReactToComments(entry, gh, cls, adj, "bump", "run1", false))
 	assert.Equal(t, 1, adj.called, "adjusted to requested version")
 	assert.Equal(t, "0.36.0", entry.Bump.To)
-	assert.Contains(t, gh.Posted, "kairos-io/immucore#412: Bumping.")
+	assert.Contains(t, gh.Posted, "kairos-io/immucore#412: "+withReplyMarker("Bumping."))
 	assert.Contains(t, entry.SeenComments, "c1")
 	assert.NotContains(t, entry.SeenComments, "self", "never react to its own comment")
 
@@ -77,3 +84,57 @@ func TestReactToCommentsClassifierErrorSkips(t *testing.T) {
 }
 
 func assertErr() error { return assert.AnError }
+
+func TestReactSkipsOwnReplyByMarker(t *testing.T) {
+	gh := ghclient.NewFake()
+	// Authored by a non-bot login, but carrying the reply marker: this is the
+	// bot's own reply seen through a different App login and must be skipped.
+	gh.PRComments["r#1"] = []ghclient.ReviewComment{
+		{ID: "c1", Author: "some-app[bot]", Body: "On it.\n\n" + replyMarker},
+	}
+	entry := &state.LedgerEntry{Key: "r|p", Repo: "r", PRNumber: 1, State: "open"}
+	adj := &fakeAdjuster{}
+	cls := FakeClassifier{Result: Classification{Intent: "request-change", Version: "9.9.9", Reply: "x"}}
+
+	require.NoError(t, ReactToComments(entry, gh, cls, adj, "bump", "run1", false))
+	assert.Equal(t, 0, adj.called, "marked reply must not trigger an adjust")
+	assert.Empty(t, gh.Posted, "marked reply must not be classified or replied to")
+	assert.NotContains(t, entry.SeenComments, "c1", "skipped like an own/seen comment")
+}
+
+func TestReactBuildFailedPostsFailureNotAffirmative(t *testing.T) {
+	gh := ghclient.NewFake()
+	gh.PRComments["r#1"] = []ghclient.ReviewComment{
+		{ID: "c1", Author: "maintainer", Body: "pin to 9.9.9"},
+	}
+	entry := &state.LedgerEntry{Key: "r|p", Repo: "r", PRNumber: 1, State: "open"}
+	adj := &fakeAdjuster{state: "build-failed"}
+	cls := FakeClassifier{Result: Classification{Intent: "request-change", Version: "9.9.9", Reply: "Bumping."}}
+
+	require.NoError(t, ReactToComments(entry, gh, cls, adj, "bump", "run1", false))
+	for _, p := range gh.Posted {
+		assert.NotContains(t, p, "Bumping.", "must not post an affirmative reply on build failure")
+	}
+	var postedFailure bool
+	for _, p := range gh.Posted {
+		if strings.Contains(p, "did not build") {
+			postedFailure = true
+		}
+	}
+	assert.True(t, postedFailure, "a failure message must be posted")
+	assert.Contains(t, entry.SeenComments, "c1", "don't retry a version that breaks the build")
+}
+
+func TestReactCloseStopsProcessing(t *testing.T) {
+	gh := ghclient.NewFake()
+	gh.PRComments["r#1"] = []ghclient.ReviewComment{
+		{ID: "c1", Author: "maintainer", Body: "no thanks"},
+		{ID: "c2", Author: "maintainer", Body: "also no"},
+	}
+	entry := &state.LedgerEntry{Key: "r|p", Repo: "r", PRNumber: 1, State: "open"}
+	cls := FakeClassifier{Result: Classification{Intent: "nack", Reply: "closing"}}
+
+	require.NoError(t, ReactToComments(entry, gh, cls, &fakeAdjuster{}, "bump", "run1", false))
+	assert.Len(t, gh.Closed, 1, "stop processing comments after closing the PR")
+	assert.Equal(t, "closed", entry.State)
+}

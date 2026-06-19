@@ -144,6 +144,12 @@ func (g *GitExecutor) Reconcile(e state.LedgerEntry, runID string) (state.Ledger
 var _ Adjuster = (*GitExecutor)(nil)
 
 func (g *GitExecutor) Adjust(entry state.LedgerEntry, toVersion, runID string) (state.LedgerEntry, error) {
+	// Hard invariant: we only ever force-push bot-managed branches. Guard first,
+	// before any clone or push, so a corrupted ledger can't make us rewrite a
+	// real branch (e.g. main).
+	if !strings.HasPrefix(entry.Branch, "ksec/") {
+		return entry, fmt.Errorf("refusing to adjust non-ksec branch %q", entry.Branch)
+	}
 	entry.LastActionRun = runID
 	if g.DryRun {
 		fmt.Printf("[dry-run] would adjust %s PR #%d: go get %s@%s, force-push %s\n",
@@ -172,6 +178,18 @@ func (g *GitExecutor) Adjust(entry state.LedgerEntry, toVersion, runID string) (
 	if _, err := g.run(dir, "go", "build", "./..."); err != nil {
 		entry.State = "build-failed"
 		entry.History = append(entry.History, state.LedgerEvent{Run: runID, Action: "adjust-build-failed", Detail: err.Error()})
+		return entry, nil
+	}
+	// If the branch is already at the requested version, go get/tidy produce no
+	// diff. A `git commit -am` would then fail and we'd re-clone and retry every
+	// run forever. Detect the no-op and return without committing or pushing.
+	porcelain, err := g.run(dir, "git", "status", "--porcelain")
+	if err != nil {
+		return entry, err
+	}
+	if len(bytes.TrimSpace(porcelain)) == 0 {
+		entry.Bump.To = toVersion
+		entry.History = append(entry.History, state.LedgerEvent{Run: runID, Action: "already-current"})
 		return entry, nil
 	}
 	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
