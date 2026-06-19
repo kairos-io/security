@@ -93,14 +93,38 @@ func (c *CLI) ListDependabotAlerts(repo string) ([]Alert, error) {
 
 func (c *CLI) UpsertIssue(repo, marker, title, body string, labels []string) (int, error) {
 	full := body + "\n\n" + marker
-	// Find an existing issue containing the marker.
-	listed, err := c.run("issue", "list", "-R", repo, "--state", "open", "--search", marker, "--limit", "1", "--json", "number", "-q", ".[].number")
+	// Find an existing issue deterministically by label + exact title.
+	// Full-text search does not reliably match text inside HTML comments,
+	// so we cannot rely on the marker for lookup; the marker remains in the
+	// body only as an in-body sentinel.
+	listArgs := []string{"issue", "list", "-R", repo, "--state", "open",
+		"--search", title + " in:title", "--json", "number,title", "-q", "."}
+	if len(labels) > 0 {
+		// Filter by the last label (the bot label) for a tighter match.
+		listArgs = append(listArgs, "--label", labels[len(labels)-1])
+	}
+	listed, err := c.run(listArgs...)
 	if err != nil {
 		return 0, err
 	}
-	if lines := splitLines(listed); len(lines) > 0 {
-		var n int
-		fmt.Sscanf(lines[0], "%d", &n)
+	var found []struct {
+		Number int    `json:"number"`
+		Title  string `json:"title"`
+	}
+	if len(bytes.TrimSpace(listed)) > 0 {
+		if err := json.Unmarshal(listed, &found); err != nil {
+			return 0, err
+		}
+	}
+	// Guard against `in:title` fuzzy matches: require an exact title match.
+	var matches []int
+	for _, f := range found {
+		if f.Title == title {
+			matches = append(matches, f.Number)
+		}
+	}
+	if len(matches) == 1 {
+		n := matches[0]
 		_, err := c.run("issue", "edit", fmt.Sprint(n), "-R", repo, "--body", full)
 		return n, err
 	}

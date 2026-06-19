@@ -159,8 +159,14 @@ func newRenderCmd(gf *globalFlags) *cobra.Command {
 				CollectErrors: findings.Errors,
 				RunURL:        os.Getenv("KSEC_RUN_URL"),
 			}
-			md := render.DashboardMarkdown(in)
-			j, err := render.DashboardJSON(in)
+			// Committed artifacts must be deterministic across runs of the
+			// same data, so render them with the volatile RunURL stripped.
+			// This lets the workflow's no-op commit guard succeed when only
+			// the run id changed.
+			fileIn := in
+			fileIn.RunURL = ""
+			md := render.DashboardMarkdown(fileIn)
+			j, err := render.DashboardJSON(fileIn)
 			if err != nil {
 				return err
 			}
@@ -170,7 +176,10 @@ func newRenderCmd(gf *globalFlags) *cobra.Command {
 			if err := os.WriteFile("dashboard.json", j, 0o644); err != nil {
 				return err
 			}
-			_, err = render.UpsertTrackingIssue(ghclient.NewCLI(), trackingRepo, md, gf.dryRun)
+			// The tracking issue body is not committed, so keep the run-log
+			// footer (RunURL) there for traceability.
+			issueBody := render.DashboardMarkdown(in)
+			_, err = render.UpsertTrackingIssue(ghclient.NewCLI(), trackingRepo, issueBody, gf.dryRun)
 			return err
 		},
 	}
