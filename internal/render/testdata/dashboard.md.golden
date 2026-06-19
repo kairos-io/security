@@ -17,9 +17,11 @@ _Updated 2026-06-19._
 
 ## 📦 Per-repo findings
 
-| Repo | Critical | High | Medium | Low | Total |
-|---|---|---|---|---|---|
-| kairos-io/kairos | 1 | 0 | 0 | 0 | 1 |
+| Repo | Critical | High | Medium | Low | Total | Status |
+|---|---|---|---|---|---|---|
+| kairos-io/kairos | 1 | 0 | 0 | 0 | 1 | ok |
+| kairos-io/kairos-sdk | 0 | 0 | 0 | 0 | 0 | clean |
+| kairos-io/x | 0 | 0 | 0 | 0 | 0 | ⚠️ errors |
 
 ## ⚠️ 1 collection errors
 

@@ -189,10 +189,13 @@ func newRenderCmd(gf *globalFlags) *cobra.Command {
 			}
 			var findings state.Findings
 			_ = state.Load(gf.stateDir, state.FindingsFile, &findings)
+			var repos []state.Repo
+			_ = state.Load(gf.stateDir, state.ReposFile, &repos) // best-effort: show all tracked repos
 
 			in := render.Input{
 				Correlated:    c,
 				Triage:        tr,
+				Repos:         repos,
 				CollectErrors: findings.Errors,
 				RunURL:        os.Getenv("KSEC_RUN_URL"),
 			}

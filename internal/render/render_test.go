@@ -26,6 +26,11 @@ func sampleInput() Input {
 			Summaries: map[string]string{"crit1": "Critical openssl CVE in kairos image"},
 			Narrative: "Focus on the openssl critical first.",
 		},
+		Repos: []state.Repo{
+			{Repo: "kairos-io/kairos"},     // has the critical finding -> "ok"
+			{Repo: "kairos-io/kairos-sdk"}, // no findings, no error -> "clean"
+			{Repo: "kairos-io/x"},          // appears in CollectErrors -> "⚠️ errors"
+		},
 		CollectErrors: []state.CollectionError{{Repo: "kairos-io/x", Collector: "prs", Message: "rate limited"}},
 		RunURL:        "https://github.com/kairos-io/security/actions/runs/1",
 	}
@@ -40,6 +45,16 @@ func TestDashboardMarkdownGolden(t *testing.T) {
 	want, err := os.ReadFile(golden)
 	require.NoError(t, err)
 	assert.Equal(t, string(want), got)
+}
+
+// TestDashboardMarkdownRepoStatus confirms the per-repo table lists tracked
+// repos beyond those with findings: a clean repo shows "clean" and an errored
+// repo shows the "⚠️ errors" status.
+func TestDashboardMarkdownRepoStatus(t *testing.T) {
+	got := DashboardMarkdown(sampleInput())
+	assert.Contains(t, got, "| kairos-io/kairos-sdk | 0 | 0 | 0 | 0 | 0 | clean |")
+	assert.Contains(t, got, "| kairos-io/x | 0 | 0 | 0 | 0 | 0 | ⚠️ errors |")
+	assert.Contains(t, got, "| kairos-io/kairos | 1 | 0 | 0 | 0 | 1 | ok |")
 }
 
 func TestDashboardJSONIsStable(t *testing.T) {

@@ -12,6 +12,7 @@ import (
 type Input struct {
 	Correlated    state.Correlated        `json:"correlated"`
 	Triage        state.Triage            `json:"triage"`
+	Repos         []state.Repo            `json:"repos"`
 	CollectErrors []state.CollectionError `json:"collectErrors"`
 	RunURL        string                  `json:"runURL"`
 }
@@ -68,10 +69,10 @@ func DashboardMarkdown(in Input) string {
 
 	// Per-repo table
 	b.WriteString("## 📦 Per-repo findings\n\n")
-	b.WriteString("| Repo | Critical | High | Medium | Low | Total |\n|---|---|---|---|---|---|\n")
-	for _, row := range perRepoRows(in.Correlated.Findings) {
-		fmt.Fprintf(&b, "| %s | %d | %d | %d | %d | %d |\n",
-			row.repo, row.crit, row.high, row.med, row.low, row.total)
+	b.WriteString("| Repo | Critical | High | Medium | Low | Total | Status |\n|---|---|---|---|---|---|---|\n")
+	for _, row := range perRepoRows(in.Repos, in.Correlated.Findings, in.CollectErrors) {
+		fmt.Fprintf(&b, "| %s | %d | %d | %d | %d | %d | %s |\n",
+			row.repo, row.crit, row.high, row.med, row.low, row.total, repoStatus(row))
 	}
 	b.WriteString("\n")
 
@@ -93,16 +94,28 @@ func DashboardMarkdown(in Input) string {
 type repoRow struct {
 	repo                        string
 	crit, high, med, low, total int
+	errored                     bool
 }
 
-func perRepoRows(findings []state.Finding) []repoRow {
+// perRepoRows enumerates the union of every tracked repo, every repo that
+// produced a finding, and every repo that produced a collection error, so that
+// clean and errored repos remain visible. It is backward compatible: passing a
+// nil repos slice still yields a row for each repo seen in findings or errs.
+func perRepoRows(repos []state.Repo, findings []state.Finding, errs []state.CollectionError) []repoRow {
 	idx := map[string]*repoRow{}
-	for _, f := range findings {
-		r := idx[f.Repo]
+	get := func(name string) *repoRow {
+		r := idx[name]
 		if r == nil {
-			r = &repoRow{repo: f.Repo}
-			idx[f.Repo] = r
+			r = &repoRow{repo: name}
+			idx[name] = r
 		}
+		return r
+	}
+	for _, repo := range repos {
+		get(repo.Repo)
+	}
+	for _, f := range findings {
+		r := get(f.Repo)
 		r.total++
 		switch f.Severity {
 		case "critical":
@@ -115,6 +128,9 @@ func perRepoRows(findings []state.Finding) []repoRow {
 			r.low++
 		}
 	}
+	for _, e := range errs {
+		get(e.Repo).errored = true
+	}
 	rows := make([]repoRow, 0, len(idx))
 	for _, r := range idx {
 		rows = append(rows, *r)
@@ -126,7 +142,23 @@ func perRepoRows(findings []state.Finding) []repoRow {
 		if rows[i].high != rows[j].high {
 			return rows[i].high > rows[j].high
 		}
+		if rows[i].total != rows[j].total {
+			return rows[i].total > rows[j].total
+		}
 		return rows[i].repo < rows[j].repo
 	})
 	return rows
+}
+
+// repoStatus classifies a per-repo row for display: errored repos take
+// precedence, then repos with no findings are "clean", otherwise "ok".
+func repoStatus(r repoRow) string {
+	switch {
+	case r.errored:
+		return "⚠️ errors"
+	case r.total == 0:
+		return "clean"
+	default:
+		return "ok"
+	}
 }

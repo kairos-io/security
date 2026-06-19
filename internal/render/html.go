@@ -28,6 +28,8 @@ type htmlFocus struct {
 type htmlRepoRow struct {
 	Repo                        string
 	Crit, High, Med, Low, Total int
+	Status                      string
+	StatusClass                 string
 }
 
 // dashboardHTMLTmpl renders a self-contained page. All dynamic values are
@@ -58,6 +60,8 @@ td.num { text-align: right; }
 .sev-high { background: #ffe3c2; color: #8a4b00; font-weight: 600; }
 .sev-medium { background: #fff7c2; color: #735c00; }
 .sev-low { background: #e8eaed; color: #444; }
+.status-errored { color: #8a4b00; font-weight: 600; }
+.status-clean { color: #586069; }
 .empty { color: #586069; font-style: italic; }
 footer { margin-top: 2rem; border-top: 1px solid #d0d7de; padding-top: 1rem; color: #586069; font-size: 0.9rem; }
 code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
@@ -88,10 +92,10 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 <section>
 <h2>&#128230; Per-repo findings</h2>
 <table>
-<thead><tr><th>Repo</th><th>Critical</th><th>High</th><th>Medium</th><th>Low</th><th>Total</th></tr></thead>
+<thead><tr><th>Repo</th><th>Critical</th><th>High</th><th>Medium</th><th>Low</th><th>Total</th><th>Status</th></tr></thead>
 <tbody>
-{{range .Repos}}<tr><td>{{.Repo}}</td><td class="num sev-critical">{{.Crit}}</td><td class="num sev-high">{{.High}}</td><td class="num sev-medium">{{.Med}}</td><td class="num sev-low">{{.Low}}</td><td class="num">{{.Total}}</td></tr>
-{{else}}<tr><td colspan="6" class="empty">No findings.</td></tr>
+{{range .Repos}}<tr><td>{{.Repo}}</td><td class="num sev-critical">{{.Crit}}</td><td class="num sev-high">{{.High}}</td><td class="num sev-medium">{{.Med}}</td><td class="num sev-low">{{.Low}}</td><td class="num">{{.Total}}</td><td class="{{.StatusClass}}">{{.Status}}</td></tr>
+{{else}}<tr><td colspan="7" class="empty">No repos tracked.</td></tr>
 {{end}}</tbody>
 </table>
 </section>
@@ -109,6 +113,19 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 </body>
 </html>
 `))
+
+// repoStatusClass returns the CSS class for a repo's status cell: errored rows
+// are amber/red, clean rows are muted gray, ok rows use the default style.
+func repoStatusClass(r repoRow) string {
+	switch {
+	case r.errored:
+		return "status-errored"
+	case r.total == 0:
+		return "status-clean"
+	default:
+		return ""
+	}
+}
 
 func severityClass(sev string) string {
 	switch sev {
@@ -132,11 +149,12 @@ func DashboardHTML(in Input) string {
 	for _, id := range in.Triage.Focus {
 		focus = append(focus, htmlFocus{ID: id, Summary: in.Triage.Summaries[id]})
 	}
-	rows := perRepoRows(in.Correlated.Findings)
+	rows := perRepoRows(in.Repos, in.Correlated.Findings, in.CollectErrors)
 	repos := make([]htmlRepoRow, 0, len(rows))
 	for _, r := range rows {
 		repos = append(repos, htmlRepoRow{
 			Repo: r.repo, Crit: r.crit, High: r.high, Med: r.med, Low: r.low, Total: r.total,
+			Status: repoStatus(r), StatusClass: repoStatusClass(r),
 		})
 	}
 	data := htmlData{
