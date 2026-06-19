@@ -3,8 +3,8 @@ localai:
   endpoint: "http://localhost:8080"   # overridable: LOCALAI_URL
   startupTimeout: "5m"
   model:
-    name: "small-instruct"     # overridable: LOCALAI_MODEL
-    gallery: ""                # gallery entry / model URI to preload
+    name: "gemma-4-e2b-it"     # overridable: LOCALAI_MODEL; confirm exact LocalAI gallery slug
+    gallery: "gemma-4-e2b-it"  # gallery entry / model URI to preload
     quant: ""
 nib:
   version: "latest"            # overridable: NIB_VERSION
