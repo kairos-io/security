@@ -218,6 +218,20 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			for _, r := range results {
 				fmt.Fprintf(os.Stderr, "remediate: %s %s -> %s %s\n", r.Action, r.Key, r.State, r.Detail)
 			}
+			// React to review comments on PRs we own.
+			aiCfg, _ := config.LoadAI("ai.yaml")
+			classifier := remediate.NewOpenAIClassifier(aiCfg)
+			gh := ghclient.NewCLI()
+			for i := range out.Entries {
+				e := &out.Entries[i]
+				if e.State != "open" || e.PRNumber == 0 {
+					continue
+				}
+				title := remediate.PRTitle(remediate.Intent{Package: e.Package, Bump: e.Bump})
+				if err := remediate.ReactToComments(e, gh, classifier, ex, title, runID, gf.dryRun); err != nil {
+					fmt.Fprintf(os.Stderr, "remediate: react %s: %v\n", e.Key, err)
+				}
+			}
 			if gf.dryRun {
 				fmt.Fprintln(os.Stderr, "remediate: dry-run — ledger not persisted")
 				return nil
