@@ -196,6 +196,7 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 	var maxPRs int
 	var aiProse bool
 	var automerge bool
+	var repair bool
 	cmd := &cobra.Command{
 		Use:   "remediate",
 		Short: "open and maintain dependency-bump PRs for actionable findings",
@@ -244,6 +245,13 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			if aiProse && aiCfg.Nib.Endpoint != "" {
 				ex.Prose = remediate.NewOpenAIProse(aiCfg)
 			}
+			// The nib agent repairs build breaks / conflicts on owned PRs. It is
+			// only wired when --repair is set and an AI endpoint is configured;
+			// it is used solely on build/verify failures, degrading otherwise to
+			// the deterministic build-failed/needsHuman behavior.
+			if repair && aiCfg.Nib.Endpoint != "" {
+				ex.Agent = remediate.NewNibAgent(aiCfg)
+			}
 			out, results := remediate.Run(intents, ex, ledger, runID)
 			for _, r := range results {
 				fmt.Fprintf(os.Stderr, "remediate: %s %s -> %s %s\n", r.Action, r.Key, r.State, r.Detail)
@@ -277,6 +285,7 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 	cmd.Flags().IntVar(&maxPRs, "max-prs", 10, "maximum NEW PRs to open per run (blast-radius guard)")
 	cmd.Flags().BoolVar(&aiProse, "ai-pr-prose", true, "use the AI model to draft PR descriptions (falls back to deterministic text)")
 	cmd.Flags().BoolVar(&automerge, "automerge", false, "merge addressing PRs (ours/dependabot/renovate) when green and unblocked")
+	cmd.Flags().BoolVar(&repair, "repair", true, "use the nib agent to repair build breaks / conflicts")
 	return cmd
 }
 
@@ -301,13 +310,23 @@ func newRenderCmd(gf *globalFlags) *cobra.Command {
 			var ledger state.Ledger
 			_ = state.Load(gf.stateDir, state.LedgerFile, &ledger) // best-effort
 
+			// Best-effort cross-repo coordination narrative for the dashboard.
+			// On any AI failure the summary stays empty and the section is omitted.
+			summary := ""
+			if aiCfg, err := config.LoadAI("ai.yaml"); err == nil {
+				if s, err := remediate.SummarizeLedger(aiCfg, ledger); err == nil {
+					summary = s
+				}
+			}
+
 			in := render.Input{
-				Correlated:    c,
-				Triage:        tr,
-				Repos:         repos,
-				Ledger:        ledger,
-				CollectErrors: findings.Errors,
-				RunURL:        os.Getenv("KSEC_RUN_URL"),
+				Correlated:          c,
+				Triage:              tr,
+				Repos:               repos,
+				Ledger:              ledger,
+				CollectErrors:       findings.Errors,
+				RunURL:              os.Getenv("KSEC_RUN_URL"),
+				CoordinationSummary: summary,
 			}
 			// Committed artifacts must be deterministic across runs of the
 			// same data, so render them with the volatile RunURL stripped.

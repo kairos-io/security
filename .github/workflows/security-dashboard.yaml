@@ -40,6 +40,12 @@ jobs:
       # Cross-repo reads + the kairos tracking-issue write use the scoped bot token.
       GH_TOKEN: ${{ secrets.KSEC_BOT_TOKEN }}
       LOCALAI_URL: http://localhost:8080
+      # nib reaches the model through an OpenAI-compatible endpoint (LocalAI).
+      # NOTE: the exact nib env-var names are the integration point — confirm
+      # them against nib's docs and adjust if nib expects different names.
+      OPENAI_API_BASE: http://localhost:8080/v1
+      OPENAI_API_KEY: sk-localai
+      NIB_MODEL: ${{ vars.LOCALAI_MODEL }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -119,6 +125,13 @@ jobs:
             echo "LocalAI model not ready; triage will use the deterministic fallback."
             echo "---- localai.log (tail) ----"; tail -n 100 localai.log 2>/dev/null || true
           fi
+
+      # nib is the agent that repairs build breaks / conflicts on owned PRs
+      # during remediation. It reads its model config from the OPENAI_* / NIB_*
+      # env above (LocalAI). Best-effort: if it can't reach the model, remediate
+      # records build-failed/needsHuman exactly as without it.
+      - name: Install nib
+        run: go install github.com/mudler/nib@${NIB_VERSION:-latest}
 
       - name: Build ksec
         run: go build -o "$GITHUB_WORKSPACE/bin/ksec" ./cmd/ksec
