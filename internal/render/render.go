@@ -16,6 +16,8 @@ type Input struct {
 	Ledger        state.Ledger            `json:"ledger"`
 	CollectErrors []state.CollectionError `json:"collectErrors"`
 	RunURL        string                  `json:"runURL"`
+	// CoordinationSummary is an AI-generated cross-repo coordination narrative.
+	CoordinationSummary string `json:"coordinationSummary,omitempty"`
 }
 
 func DashboardJSON(in Input) ([]byte, error) {
@@ -37,6 +39,12 @@ func DashboardMarkdown(in Input) string {
 
 	if in.Triage.Narrative != "" {
 		b.WriteString("> " + in.Triage.Narrative + "\n\n")
+	}
+
+	// Cross-repo coordination narrative
+	if in.CoordinationSummary != "" {
+		b.WriteString("## 🧭 Coordination\n\n")
+		b.WriteString(in.CoordinationSummary + "\n\n")
 	}
 
 	// Focus now

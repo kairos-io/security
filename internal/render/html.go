@@ -9,15 +9,16 @@ import (
 
 // htmlData is the view model passed to the HTML template.
 type htmlData struct {
-	GeneratedAt   string
-	AIAvailable   bool
-	Narrative     string
-	Focus         []htmlFocus
-	Waterfall     []state.WaterfallGroup
-	Repos         []htmlRepoRow
-	CollectErrors []state.CollectionError
-	Ledger        []htmlLedgerEntry
-	RunURL        string
+	GeneratedAt         string
+	AIAvailable         bool
+	Narrative           string
+	CoordinationSummary string
+	Focus               []htmlFocus
+	Waterfall           []state.WaterfallGroup
+	Repos               []htmlRepoRow
+	CollectErrors       []state.CollectionError
+	Ledger              []htmlLedgerEntry
+	RunURL              string
 }
 
 // htmlLedgerEntry exposes a bot PR ledger row to the template (exported fields).
@@ -83,6 +84,13 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 <h1>Kairos Security Dashboard</h1>
 <p class="meta">Updated {{.GeneratedAt}}{{if not .AIAvailable}} &mdash; <span class="ai-warn">&#9888;&#65039; AI unavailable this run</span>{{end}}</p>
 {{if .Narrative}}<blockquote>{{.Narrative}}</blockquote>{{end}}
+{{- if .CoordinationSummary}}
+
+<section>
+<h2>&#129517; Coordination</h2>
+<p>{{.CoordinationSummary}}</p>
+</section>
+{{- end}}
 
 <section>
 <h2>&#128293; Focus now</h2>
@@ -209,15 +217,16 @@ func DashboardHTML(in Input) string {
 		})
 	}
 	data := htmlData{
-		GeneratedAt:   in.Triage.GeneratedAt,
-		AIAvailable:   in.Triage.AIAvailable,
-		Narrative:     in.Triage.Narrative,
-		Focus:         focus,
-		Waterfall:     in.Correlated.Waterfall,
-		Repos:         repos,
-		CollectErrors: in.CollectErrors,
-		Ledger:        ledger,
-		RunURL:        in.RunURL,
+		GeneratedAt:         in.Triage.GeneratedAt,
+		AIAvailable:         in.Triage.AIAvailable,
+		Narrative:           in.Triage.Narrative,
+		CoordinationSummary: in.CoordinationSummary,
+		Focus:               focus,
+		Waterfall:           in.Correlated.Waterfall,
+		Repos:               repos,
+		CollectErrors:       in.CollectErrors,
+		Ledger:              ledger,
+		RunURL:              in.RunURL,
 	}
 	var b strings.Builder
 	if err := dashboardHTMLTmpl.Execute(&b, data); err != nil {

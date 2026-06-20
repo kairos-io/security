@@ -60,6 +60,12 @@ func TestDashboardMarkdownRepoStatus(t *testing.T) {
 	assert.Contains(t, got, "| kairos-io/kairos | 1 | 0 | 0 | 0 | 1 | ok |")
 }
 
+func TestDashboardMarkdownCoordinationSummary(t *testing.T) {
+	got := DashboardMarkdown(Input{CoordinationSummary: "X cascading"})
+	assert.Contains(t, got, "Coordination")
+	assert.Contains(t, got, "X cascading")
+}
+
 func TestDashboardJSONIsStable(t *testing.T) {
 	a, err := DashboardJSON(sampleInput())
 	require.NoError(t, err)
