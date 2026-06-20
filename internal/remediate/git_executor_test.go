@@ -18,6 +18,15 @@ func TestRunRedactsToken(t *testing.T) {
 	assert.Contains(t, err.Error(), "***")
 }
 
+func TestRepinRefusesNonKsecBranch(t *testing.T) {
+	// The ksec guard (after the State!="open" check, before `go list`/clone)
+	// must reject a non-ksec branch without touching the network.
+	g := &GitExecutor{}
+	_, err := g.Repin(state.LedgerEntry{State: "open", Branch: "main", Package: "m"}, "run")
+	require.Error(t, err)
+	assert.Contains(t, err.Error(), "ksec")
+}
+
 func TestAdjustRefusesNonKsecBranch(t *testing.T) {
 	// The non-ksec guard is the very first thing Adjust does, so this must fail
 	// without touching the network (no clone/push for a real branch like main).

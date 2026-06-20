@@ -81,7 +81,14 @@ func Run(intents []Intent, ex Executor, ledger state.Ledger, run string) (state.
 			byKey[entry.Key] = entry
 			results = append(results, Result{Key: entry.Key, Action: "cascade", State: entry.State})
 		case IntentRepin:
+			// Repin operates on the live (possibly reconciled) entry, not the
+			// stale pre-run snapshot: the planner emits both an IntentReconcile
+			// and an IntentRepin for each pseudo cascade entry, and reconcile
+			// runs first and updates byKey[key].
 			prior := *in.Entry
+			if live, ok := byKey[in.Key]; ok {
+				prior = live
+			}
 			entry, err := ex.Repin(prior, run)
 			if err != nil {
 				prior.LastActionRun = run

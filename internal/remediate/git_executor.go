@@ -324,6 +324,17 @@ func (g *GitExecutor) Repin(e state.LedgerEntry, runID string) (state.LedgerEntr
 		fmt.Printf("[dry-run] would check %s for a release tag to re-pin %s\n", module, e.Repo)
 		return e, nil
 	}
+	// Never re-pin / force-push a merged or closed PR: only an open cascade PR
+	// is a live re-pin candidate.
+	if e.State != "open" {
+		return e, nil
+	}
+	// Hard invariant: we only ever force-push bot-managed branches. Guard before
+	// any go list / clone / push so a corrupted ledger can't make us rewrite a
+	// real branch (e.g. main).
+	if !strings.HasPrefix(e.Branch, "ksec/") {
+		return e, fmt.Errorf("refusing to repin non-ksec branch %q", e.Branch)
+	}
 	// Find the latest published tag for the module.
 	out, err := g.run("", "go", "list", "-m", "-versions", module)
 	tag := latestTag(out) // highest vN.N.N token on the line; "" if none

@@ -57,6 +57,27 @@ func TestRunCascadeAndRepin(t *testing.T) {
 	require.Len(t, results, 2)
 }
 
+// Repin must build on the reconciled entry, not the stale pre-run snapshot.
+// Here reconcile flips the entry to merged and repin echoes its input; the
+// final entry must be merged (proving repin read the reconciled entry).
+func TestRunRepinBuildsOnReconciledEntry(t *testing.T) {
+	entry := state.LedgerEntry{Key: "c|m", Repo: "c", Package: "m", State: "open", Kind: "cascade", Pseudo: true}
+	intents := []Intent{
+		{Type: IntentReconcile, Key: "c|m", Repo: "c", Entry: &entry},
+		{Type: IntentRepin, Key: "c|m", Entry: &entry},
+	}
+	fake := &FakeExecutor{
+		Reconciled: map[string]state.LedgerEntry{
+			"c|m": {Key: "c|m", Repo: "c", Package: "m", State: "merged", Kind: "cascade", Pseudo: true},
+		},
+		// Repin echoes whatever it is handed.
+	}
+	out, _ := Run(intents, fake, state.Ledger{}, "2026-06-20")
+	require.Len(t, out.Entries, 1)
+	assert.Equal(t, "merged", out.Entries[0].State,
+		"repin must operate on the reconciled (merged) entry, not the stale open snapshot")
+}
+
 func TestRunAdopts(t *testing.T) {
 	intents := []Intent{
 		{Type: IntentAdopt, Key: "r|p", Repo: "r", Package: "p", PRNumber: 9, PRURL: "u9", Source: "dependabot"},

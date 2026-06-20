@@ -151,6 +151,7 @@ func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclie
 		})
 	}
 	if graph != nil {
+		seen := map[string]bool{}
 		for i := range ledger.Entries {
 			e := &ledger.Entries[i]
 			mod := graph.ModuleOf(e.Repo)
@@ -159,11 +160,17 @@ func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclie
 			}
 			for _, consumer := range graph.Consumers(mod) {
 				ck := key(consumer, mod)
+				if seen[ck] {
+					continue // already cascaded this consumer this run (intra-run dedup)
+				}
 				if ce, ok := ledger.ByKey(ck); ok {
-					if ce.State == "open" || ce.State == "conflicted" || ce.State == "merged" {
-						continue // already cascading / done
+					// open/conflicted/merged: already cascading or done.
+					// closed: a maintainer closed it; don't fight them by re-creating.
+					if ce.State == "open" || ce.State == "conflicted" || ce.State == "merged" || ce.State == "closed" {
+						continue
 					}
 				}
+				seen[ck] = true
 				pool = append(pool, newPR{
 					intent: Intent{Type: IntentCascade, Key: ck, Repo: consumer, Package: mod,
 						Ref: graph.BranchOf(e.Repo), CascadeFrom: e.Key, Severity: e.Severity},

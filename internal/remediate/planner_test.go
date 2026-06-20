@@ -194,6 +194,59 @@ func TestPlanCascadesMergedFirstPartyFix(t *testing.T) {
 	assert.Equal(t, "kairos-io/kairos-sdk|golang.org/x/net", cas.CascadeFrom)
 }
 
+// A maintainer who closes a cascade PR must not be fought: a closed cascade
+// ledger entry for the consumer suppresses re-creation.
+func TestPlanSkipsClosedCascade(t *testing.T) {
+	repos := []state.Repo{
+		{Repo: "kairos-io/kairos-sdk", Branch: "main"},
+		{Repo: "kairos-io/immucore", Branch: "master"},
+	}
+	gomod := map[string][]byte{
+		"kairos-io/kairos-sdk": []byte("module github.com/kairos-io/kairos-sdk\n"),
+		"kairos-io/immucore":   []byte("module github.com/kairos-io/immucore\nrequire github.com/kairos-io/kairos-sdk v0.7.0\n"),
+	}
+	g := BuildGraph(repos, gomod)
+	ck := "kairos-io/immucore|github.com/kairos-io/kairos-sdk"
+	ledger := state.Ledger{Entries: []state.LedgerEntry{
+		{Key: "kairos-io/kairos-sdk|golang.org/x/net", Repo: "kairos-io/kairos-sdk", State: "merged",
+			Kind: "direct", Severity: "high", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
+		{Key: ck, Repo: "kairos-io/immucore", Package: "github.com/kairos-io/kairos-sdk",
+			Kind: "cascade", State: "closed"},
+	}}
+	intents, _ := Plan(state.Correlated{}, ledger, nil, g, 10)
+	assert.Nil(t, intentFor(intents, IntentCascade, ck),
+		"a human-closed cascade must not be re-created")
+}
+
+// Two merged fixes in the SAME upstream repo must cascade a shared consumer at
+// most once per run.
+func TestPlanCascadeDedupsPerRun(t *testing.T) {
+	repos := []state.Repo{
+		{Repo: "kairos-io/kairos-sdk", Branch: "main"},
+		{Repo: "kairos-io/immucore", Branch: "master"},
+	}
+	gomod := map[string][]byte{
+		"kairos-io/kairos-sdk": []byte("module github.com/kairos-io/kairos-sdk\n"),
+		"kairos-io/immucore":   []byte("module github.com/kairos-io/immucore\nrequire github.com/kairos-io/kairos-sdk v0.7.0\n"),
+	}
+	g := BuildGraph(repos, gomod)
+	ck := "kairos-io/immucore|github.com/kairos-io/kairos-sdk"
+	ledger := state.Ledger{Entries: []state.LedgerEntry{
+		{Key: "kairos-io/kairos-sdk|golang.org/x/net", Repo: "kairos-io/kairos-sdk", State: "merged",
+			Kind: "direct", Severity: "high", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
+		{Key: "kairos-io/kairos-sdk|golang.org/x/crypto", Repo: "kairos-io/kairos-sdk", State: "merged",
+			Kind: "direct", Severity: "high", Bump: state.Bump{Package: "golang.org/x/crypto", To: "0.31.0"}},
+	}}
+	intents, _ := Plan(state.Correlated{}, ledger, nil, g, 10)
+	n := 0
+	for _, in := range intents {
+		if in.Type == IntentCascade && in.Key == ck {
+			n++
+		}
+	}
+	assert.Equal(t, 1, n, "consumer must be cascaded at most once per run")
+}
+
 func TestPlanRepinsPseudoCascade(t *testing.T) {
 	ledger := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: "kairos-io/immucore|github.com/kairos-io/kairos-sdk", Repo: "kairos-io/immucore",

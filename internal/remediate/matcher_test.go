@@ -46,6 +46,32 @@ func TestMatchPRRequiresVersion(t *testing.T) {
 	assert.True(t, ok)
 }
 
+// A version-aware match accepts a title version >= the required minimum, so a
+// dependabot/renovate bump that overshoots our floor is still adopted; a lower
+// bump or a version-less mention is not.
+func TestMatchPRAcceptsHigherVersion(t *testing.T) {
+	cases := []struct {
+		name     string
+		title    string
+		required string
+		want     bool
+	}{
+		{"higher bump matches", "Bump golang.org/x/net from 0.30.0 to 0.36.0", "0.33.0", true},
+		{"lower bump does not match", "Bump golang.org/x/net from 0.10.0 to 0.20.0", "0.33.0", false},
+		{"no version does not match", "remove golang.org/x/net usage", "0.33.0", false},
+		{"empty requirement matches", "remove golang.org/x/net usage", "", true},
+		{"v-prefixed token matches", "chore: golang.org/x/net v0.36.0", "0.33.0", true},
+		{"exact still matches", "Bump golang.org/x/net from 0.30.0 to 0.33.0", "0.33.0", true},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			prs := []ghclient.PullRequest{{Number: 1, Title: tc.title, Author: "dependabot[bot]"}}
+			_, _, ok := MatchPR("golang.org/x/net", tc.required, prs)
+			assert.Equal(t, tc.want, ok)
+		})
+	}
+}
+
 func TestIsOwnPRByBranch(t *testing.T) {
 	_, src, ok := MatchPR("golang.org/x/net", "", []ghclient.PullRequest{
 		{Number: 2, Title: "bump golang.org/x/net", Author: "someoneelse", HeadRef: "ksec/bump-golang-org-x-net-0-33-0"},

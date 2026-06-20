@@ -41,8 +41,7 @@ func BuildGraph(repos []state.Repo, gomodByRepo map[string][]byte) *DepGraph {
 		}
 	}
 	// Second pass: requires, keeping only first-party modules (those we map to a repo).
-	for repo, mod := range g.moduleOf {
-		_ = mod
+	for repo := range g.moduleOf {
 		for _, m := range reRequireLine.FindAllSubmatch(gomodByRepo[repo], -1) {
 			req := string(m[1])
 			if _, ok := g.repoOf[req]; ok {
