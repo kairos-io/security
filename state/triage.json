@@ -16,5 +16,5 @@
     "3bec20f2db07b1b0e4c2ccf11c452e4f314795618305e7376b03123964135a68": "Finding in mudler/edgevpn.",
     "64525ea2ba8fde52ee7d5a1ccc1b781c2cf26c27368615ea9f3edb59c39439ad": "Finding in mudler/edgevpn."
   },
-  "narrative": "This triage focuses on the initial set of correlated security findings across the mudler repositories. Since all severities are currently unknown, these items are prioritized for immediate investigation to determine their actual risk level. We need to quickly assess the impact of these vulnerabilities in the edgevpn and entities components."
+  "narrative": "Initial triage has been performed on correlated security findings. These initial focuses target issues across the 'mudler/edgevpn' and 'mudler/entities' repositories. Further investigation is required to determine the true severity of these findings."
 }

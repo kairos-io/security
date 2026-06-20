@@ -2,7 +2,7 @@
 
 _Updated 2026-06-20._
 
-> This triage focuses on the initial set of correlated security findings across the mudler repositories. Since all severities are currently unknown, these items are prioritized for immediate investigation to determine their actual risk level. We need to quickly assess the impact of these vulnerabilities in the edgevpn and entities components.
+> Initial triage has been performed on correlated security findings. These initial focuses target issues across the 'mudler/edgevpn' and 'mudler/entities' repositories. Further investigation is required to determine the true severity of these findings.
 
 ## 🔥 Focus now
 
