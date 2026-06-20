@@ -101,6 +101,9 @@ func DashboardMarkdown(in Input) string {
 			if kind == "" {
 				kind = "direct"
 			}
+			if e.CascadeFrom != "" {
+				kind = "cascade ↳ from " + e.CascadeFrom
+			}
 			source := e.Source
 			if source == "" {
 				source = "ksec"
@@ -111,7 +114,11 @@ func DashboardMarkdown(in Input) string {
 			} else if e.Blocked != "" {
 				st = "⛔ " + e.Blocked
 			}
-			fmt.Fprintf(&b, "| %s | %s@%s | %s | %s | %s | %s |\n", e.Repo, e.Bump.Package, e.Bump.To, kind, source, st, pr)
+			bump := fmt.Sprintf("%s@%s", e.Bump.Package, e.Bump.To)
+			if e.Pseudo {
+				bump += " (pseudo)"
+			}
+			fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s |\n", e.Repo, bump, kind, source, st, pr)
 		}
 		b.WriteString("\n")
 	}

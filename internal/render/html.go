@@ -185,6 +185,9 @@ func DashboardHTML(in Input) string {
 		if kind == "" {
 			kind = "direct"
 		}
+		if e.CascadeFrom != "" {
+			kind = "cascade ↳ from " + e.CascadeFrom
+		}
 		source := e.Source
 		if source == "" {
 			source = "ksec"
@@ -195,8 +198,12 @@ func DashboardHTML(in Input) string {
 		} else if e.Blocked != "" {
 			st = "⛔ " + e.Blocked
 		}
+		bump := e.Bump.Package + "@" + e.Bump.To
+		if e.Pseudo {
+			bump += " (pseudo)"
+		}
 		ledger = append(ledger, htmlLedgerEntry{
-			Repo: e.Repo, Bump: e.Bump.Package + "@" + e.Bump.To,
+			Repo: e.Repo, Bump: bump,
 			Kind: kind, Source: source,
 			State: st, PRNumber: e.PRNumber, PRURL: e.PRURL,
 		})

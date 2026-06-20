@@ -18,3 +18,13 @@ func TestDashboardMarkdownLedgerShowsSourceAndKind(t *testing.T) {
 	assert.Contains(t, md, "dependabot")
 	assert.Contains(t, md, "direct")
 }
+
+func TestDashboardMarkdownShowsPseudoCascade(t *testing.T) {
+	in := Input{Ledger: state.Ledger{Entries: []state.LedgerEntry{
+		{Key: "kairos-io/immucore|github.com/kairos-io/kairos-sdk", Repo: "kairos-io/immucore",
+			Package: "github.com/kairos-io/kairos-sdk", State: "open", Kind: "cascade", Pseudo: true,
+			CascadeFrom: "kairos-io/kairos-sdk|x", Bump: state.Bump{Package: "github.com/kairos-io/kairos-sdk", To: "main"}}}}}
+	md := DashboardMarkdown(in)
+	assert.Contains(t, md, "cascade")
+	assert.Contains(t, md, "pseudo")
+}
