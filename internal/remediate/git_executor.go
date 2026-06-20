@@ -318,10 +318,78 @@ func (g *GitExecutor) Cascade(in Intent, runID string) (state.LedgerEntry, error
 	return entry, nil
 }
 
-// TODO(plan-4b tasks 7-8): temporary stub so the build stays green
-// (var _ Executor = (*GitExecutor)(nil) requires it). Real implementation lands in task 8.
 func (g *GitExecutor) Repin(e state.LedgerEntry, runID string) (state.LedgerEntry, error) {
-	return state.LedgerEntry{}, fmt.Errorf("GitExecutor.Repin not implemented")
+	module := e.Package
+	if g.DryRun {
+		fmt.Printf("[dry-run] would check %s for a release tag to re-pin %s\n", module, e.Repo)
+		return e, nil
+	}
+	// Find the latest published tag for the module.
+	out, err := g.run("", "go", "list", "-m", "-versions", module)
+	tag := latestTag(out) // highest vN.N.N token on the line; "" if none
+	if err != nil || tag == "" {
+		e.Blocked = "awaiting-release"
+		return e, nil
+	}
+	dir, err := os.MkdirTemp("", "ksec-pin-*")
+	if err != nil {
+		return e, err
+	}
+	defer os.RemoveAll(dir)
+	if _, err := g.run("", "git", "clone", g.cloneURL(e.Repo), dir); err != nil {
+		return e, err
+	}
+	if _, err := g.run(dir, "git", "checkout", e.Branch); err != nil {
+		return e, err
+	}
+	if _, err := g.run(dir, "go", "get", module+"@"+tag); err != nil {
+		return e, err
+	}
+	if _, err := g.run(dir, "go", "mod", "tidy"); err != nil {
+		return e, err
+	}
+	if _, err := g.run(dir, "go", "build", "./..."); err != nil {
+		e.State = "build-failed"
+		e.NeedsHuman = true
+		e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "repin-build-failed", Detail: err.Error()})
+		return e, nil
+	}
+	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
+	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
+	if out, _ := g.run(dir, "git", "status", "--porcelain"); len(bytes.TrimSpace(out)) == 0 {
+		e.Pseudo = false
+		e.PinTarget = tag
+		e.Blocked = ""
+		return e, nil // already at the tag
+	}
+	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): re-pin "+module+" to "+tag); err != nil {
+		return e, err
+	}
+	if _, err := g.run(dir, "git", "push", "--force", "origin", e.Branch); err != nil {
+		return e, err
+	}
+	e.Pseudo = false
+	e.PinTarget = tag
+	e.Blocked = ""
+	e.Bump.To = tag
+	e.LastActionRun = runID
+	e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "repinned", Detail: tag})
+	return e, nil
+}
+
+// latestTag returns the highest vN.N.N token found in `go list -m -versions`
+// output (a single space-separated line: "<module> v1 v1.0.1 ..."), or "".
+func latestTag(b []byte) string {
+	best := ""
+	for _, tok := range strings.Fields(string(b)) {
+		if !strings.HasPrefix(tok, "v") {
+			continue
+		}
+		if best == "" || compareVersions(tok, best) > 0 {
+			best = tok
+		}
+	}
+	return best
 }
 
 func prNumberFromURL(url string) int {
