@@ -21,6 +21,22 @@ type GitExecutor struct {
 	Prose     ProseClient     // optional; nil -> deterministic PR body
 	GH        ghclient.GitHub // used by Adopt for comment/status/merge
 	Automerge bool
+	Agent     Agent // optional; when set, attempts to repair a broken build before giving up
+}
+
+// verifyOrRepair runs `go build ./...`; on failure it asks the agent (if any)
+// to repair the code and re-verifies. Returns true iff the tree builds (which
+// the caller requires before pushing).
+func (g *GitExecutor) verifyOrRepair(dir, task, runID string) bool {
+	if _, err := g.run(dir, "go", "build", "./..."); err == nil {
+		return true
+	} else if g.Agent == nil {
+		return false
+	} else {
+		_ = g.Agent.Repair(dir, RepairTask(err.Error()))
+	}
+	_, err := g.run(dir, "go", "build", "./...")
+	return err == nil
 }
 
 func (g *GitExecutor) cloneURL(repo string) string {
@@ -80,9 +96,10 @@ func (g *GitExecutor) Open(in Intent, runID string) (state.LedgerEntry, error) {
 		return entry, err
 	}
 	// Verify-before-push: a broken build must not be pushed.
-	if _, err := g.run(dir, "go", "build", "./..."); err != nil {
+	if !g.verifyOrRepair(dir, "open "+in.Package, runID) {
 		entry.State = "build-failed"
-		entry.History = []state.LedgerEvent{{Run: runID, Action: "build-failed", Detail: err.Error()}}
+		entry.NeedsHuman = true
+		entry.History = []state.LedgerEvent{{Run: runID, Action: "build-failed"}}
 		return entry, nil // not an error: recorded for a human, run continues
 	}
 
@@ -232,9 +249,10 @@ func (g *GitExecutor) Adjust(entry state.LedgerEntry, toVersion, runID string) (
 	if _, err := g.run(dir, "go", "mod", "tidy"); err != nil {
 		return entry, err
 	}
-	if _, err := g.run(dir, "go", "build", "./..."); err != nil {
+	if !g.verifyOrRepair(dir, "adjust "+entry.Package, runID) {
 		entry.State = "build-failed"
-		entry.History = append(entry.History, state.LedgerEvent{Run: runID, Action: "adjust-build-failed", Detail: err.Error()})
+		entry.NeedsHuman = true
+		entry.History = append(entry.History, state.LedgerEvent{Run: runID, Action: "adjust-build-failed"})
 		return entry, nil
 	}
 	// If the branch is already at the requested version, go get/tidy produce no
@@ -292,10 +310,10 @@ func (g *GitExecutor) Cascade(in Intent, runID string) (state.LedgerEntry, error
 	if _, err := g.run(dir, "go", "mod", "tidy"); err != nil {
 		return entry, err
 	}
-	if _, err := g.run(dir, "go", "build", "./..."); err != nil {
+	if !g.verifyOrRepair(dir, "cascade "+in.Package, runID) {
 		entry.State = "build-failed"
 		entry.NeedsHuman = true
-		entry.History = []state.LedgerEvent{{Run: runID, Action: "cascade-build-failed", Detail: err.Error()}}
+		entry.History = []state.LedgerEvent{{Run: runID, Action: "cascade-build-failed"}}
 		return entry, nil
 	}
 	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
@@ -359,10 +377,10 @@ func (g *GitExecutor) Repin(e state.LedgerEntry, runID string) (state.LedgerEntr
 	if _, err := g.run(dir, "go", "mod", "tidy"); err != nil {
 		return e, err
 	}
-	if _, err := g.run(dir, "go", "build", "./..."); err != nil {
+	if !g.verifyOrRepair(dir, "repin "+module, runID) {
 		e.State = "build-failed"
 		e.NeedsHuman = true
-		e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "repin-build-failed", Detail: err.Error()})
+		e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "repin-build-failed"})
 		return e, nil
 	}
 	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
