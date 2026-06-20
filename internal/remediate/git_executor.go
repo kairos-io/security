@@ -187,13 +187,16 @@ func (g *GitExecutor) Reconcile(e state.LedgerEntry, runID string) (state.Ledger
 		return e, nil
 	}
 	out, err := g.run("", "gh", "pr", "view", fmt.Sprint(e.PRNumber), "-R", e.Repo,
-		"--json", "state,mergedAt", "-q", "{state: .state, mergedAt: .mergedAt}")
+		"--json", "state,mergedAt,mergeable,headRefName",
+		"-q", "{state: .state, mergedAt: .mergedAt, mergeable: .mergeable, headRef: .headRefName}")
 	if err != nil {
 		return e, err
 	}
 	var view struct {
-		State    string `json:"state"`
-		MergedAt string `json:"mergedAt"`
+		State     string `json:"state"`
+		MergedAt  string `json:"mergedAt"`
+		Mergeable string `json:"mergeable"`
+		HeadRef   string `json:"headRef"`
 	}
 	_ = json.Unmarshal(out, &view)
 	prior := e.State
@@ -211,6 +214,15 @@ func (g *GitExecutor) Reconcile(e state.LedgerEntry, runID string) (state.Ledger
 	if e.State != prior {
 		e.LastActionRun = runID
 		e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "reconciled", Detail: e.State})
+	}
+	// An owned, open PR reporting conflicts is a resolution candidate: rebase it
+	// onto the base branch (agent-assisted) and force-push a building tree.
+	branch := e.Branch
+	if branch == "" {
+		branch = view.HeadRef
+	}
+	if e.State == "open" && view.Mergeable == "CONFLICTING" && strings.HasPrefix(branch, "ksec/") {
+		return g.ResolveConflict(e, runID)
 	}
 	return e, nil
 }
@@ -278,6 +290,77 @@ func (g *GitExecutor) Adjust(entry state.LedgerEntry, toVersion, runID string) (
 	entry.Bump.To = toVersion
 	entry.History = append(entry.History, state.LedgerEvent{Run: runID, Action: "adjusted", Detail: "to " + toVersion})
 	return entry, nil
+}
+
+// ResolveConflict rebases an owned, conflicted PR branch onto the repo's
+// default branch, using the agent to resolve conflicts if needed, then
+// force-pushes a building tree. Only ever touches ksec/ branches.
+func (g *GitExecutor) ResolveConflict(e state.LedgerEntry, runID string) (state.LedgerEntry, error) {
+	// Hard invariant: we only ever force-push bot-managed branches. Guard first,
+	// before any network, so a corrupted ledger can't make us rewrite a real
+	// branch (e.g. main).
+	if !strings.HasPrefix(e.Branch, "ksec/") {
+		return e, fmt.Errorf("refusing to resolve non-ksec branch %q", e.Branch)
+	}
+	if g.DryRun {
+		fmt.Printf("[dry-run] would resolve conflict on %s (PR #%d)\n", e.Repo, e.PRNumber)
+		return e, nil
+	}
+	dir, err := os.MkdirTemp("", "ksec-cfl-*")
+	if err != nil {
+		return e, err
+	}
+	defer os.RemoveAll(dir)
+
+	// Full clone (no --depth) so origin/HEAD resolves to the default branch and
+	// a rebase has the history it needs.
+	if _, err := g.run("", "git", "clone", g.cloneURL(e.Repo), dir); err != nil {
+		return e, err
+	}
+	if _, err := g.run(dir, "git", "checkout", e.Branch); err != nil {
+		return e, err
+	}
+	if _, err := g.run(dir, "git", "fetch", "origin"); err != nil {
+		return e, err
+	}
+	// Rebase onto the default branch. origin/HEAD points at it after a full clone.
+	if _, rebaseErr := g.run(dir, "git", "rebase", "origin/HEAD"); rebaseErr != nil {
+		// Conflicts (or no agent): try agent-assisted resolution.
+		resolved := false
+		if g.Agent != nil {
+			if aerr := g.Agent.Repair(dir, ConflictTask()); aerr == nil {
+				_, _ = g.run(dir, "git", "add", "-A")
+				if _, cerr := g.run(dir, "git", "-c", "core.editor=true", "rebase", "--continue"); cerr == nil {
+					resolved = true
+				}
+			}
+		}
+		if !resolved {
+			_, _ = g.run(dir, "git", "rebase", "--abort") // best-effort
+			e.NeedsHuman = true
+			e.Blocked = "conflict"
+			e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "conflict-unresolved"})
+			return e, nil
+		}
+	}
+	// Verify-before-push: never force-push a non-building tree.
+	if !g.verifyOrRepair(dir, "resolve conflict "+e.Repo, runID) {
+		e.NeedsHuman = true
+		e.Blocked = "conflict-build-failed"
+		e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "conflict-build-failed"})
+		return e, nil
+	}
+	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
+	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
+	if _, err := g.run(dir, "git", "push", "--force", "origin", e.Branch); err != nil {
+		return e, err
+	}
+	e.State = "open"
+	e.Blocked = ""
+	e.NeedsHuman = false
+	e.LastActionRun = runID
+	e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "conflict-resolved"})
+	return e, nil
 }
 
 func (g *GitExecutor) Cascade(in Intent, runID string) (state.LedgerEntry, error) {

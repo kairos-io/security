@@ -13,3 +13,12 @@ Do NOT change any dependency versions in go.mod/go.sum — only adapt the callin
 
 %s`, buildErr)
 }
+
+// ConflictTask is the prompt handed to the agent when a rebase of an owned PR
+// branch onto the base branch produces git merge conflicts. The dependency
+// version change from the branch must be preserved.
+func ConflictTask() string {
+	return "This branch has git merge conflicts after rebasing onto the base branch. " +
+		"Resolve every conflict marker so the code is correct and `go build ./...` compiles, " +
+		"keeping the dependency-version change from this branch."
+}

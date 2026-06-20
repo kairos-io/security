@@ -13,3 +13,7 @@ func TestRepairTask(t *testing.T) {
 	assert.Contains(t, strings.ToLower(task), "go build")
 	assert.Contains(t, strings.ToLower(task), "compile")
 }
+
+func TestConflictTask(t *testing.T) {
+	assert.Contains(t, strings.ToLower(ConflictTask()), "conflict")
+}
