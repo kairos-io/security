@@ -40,12 +40,13 @@ jobs:
       # Cross-repo reads + the kairos tracking-issue write use the scoped bot token.
       GH_TOKEN: ${{ secrets.KSEC_BOT_TOKEN }}
       LOCALAI_URL: http://localhost:8080
-      # nib reaches the model through an OpenAI-compatible endpoint (LocalAI).
-      # NOTE: the exact nib env-var names are the integration point — confirm
-      # them against nib's docs and adjust if nib expects different names.
-      OPENAI_API_BASE: http://localhost:8080/v1
-      OPENAI_API_KEY: sk-localai
-      NIB_MODEL: ${{ vars.LOCALAI_MODEL }}
+      # nib (the build-repair agent) reads MODEL/BASE_URL/API_KEY from env
+      # (verified against nib's config.Load: github.com/mudler/nib config.go).
+      # NibAgent ALSO sets these from ai.yaml at exec time (authoritative), so
+      # these are documentation/fallback. BASE_URL must include the /v1 suffix.
+      MODEL: ${{ vars.LOCALAI_MODEL }}
+      BASE_URL: http://localhost:8080/v1
+      API_KEY: sk-localai
     steps:
       - uses: actions/checkout@v4
         with:
