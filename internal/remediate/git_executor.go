@@ -406,6 +406,60 @@ func (g *GitExecutor) Repin(e state.LedgerEntry, runID string) (state.LedgerEntr
 	return e, nil
 }
 
+func (g *GitExecutor) Toolchain(in Intent, runID string) (state.LedgerEntry, error) {
+	branch := "ksec/toolchain-" + slug(in.ToolchainVersion)
+	entry := state.LedgerEntry{
+		Key: in.Key, Repo: in.Repo, Package: "go-toolchain", Branch: branch, Kind: "toolchain",
+		Severity: in.Severity, CreatedRun: runID, LastActionRun: runID,
+		Bump: state.Bump{Package: "go", To: in.ToolchainVersion},
+	}
+	if g.DryRun {
+		fmt.Printf("[dry-run] would bump go toolchain in %s to %s\n", in.Repo, in.ToolchainVersion)
+		entry.State = "planned"
+		return entry, nil
+	}
+	dir, err := os.MkdirTemp("", "ksec-tc-*")
+	if err != nil {
+		return entry, err
+	}
+	defer os.RemoveAll(dir)
+	if _, err := g.run("", "git", "clone", "--depth", "1", g.cloneURL(in.Repo), dir); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "git", "checkout", "-b", branch); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "go", "mod", "edit", "-go="+in.ToolchainVersion); err != nil {
+		return entry, err
+	}
+	_, _ = g.run(dir, "go", "mod", "tidy")
+	if !g.verifyOrRepair(dir, "go toolchain bump to "+in.ToolchainVersion, runID) {
+		entry.State = "build-failed"
+		entry.NeedsHuman = true
+		entry.History = []state.LedgerEvent{{Run: runID, Action: "toolchain-build-failed"}}
+		return entry, nil
+	}
+	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
+	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
+	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): bump go toolchain to "+in.ToolchainVersion); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "git", "push", "-u", "origin", branch); err != nil {
+		return entry, err
+	}
+	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", branch,
+		"--title", "chore(security): bump go toolchain to "+in.ToolchainVersion,
+		"--body", "Bumps the Go toolchain to "+in.ToolchainVersion+" to address a stdlib vulnerability. "+PRMarker(in.Key))
+	if err != nil {
+		return entry, err
+	}
+	entry.PRURL = strings.TrimSpace(string(out))
+	entry.PRNumber = prNumberFromURL(entry.PRURL)
+	entry.State = "open"
+	entry.History = []state.LedgerEvent{{Run: runID, Action: "toolchain-opened", Detail: entry.PRURL}}
+	return entry, nil
+}
+
 // latestTag returns the highest vN.N.N token found in `go list -m -versions`
 // output (a single space-separated line: "<module> v1 v1.0.1 ..."), or "".
 func latestTag(b []byte) string {

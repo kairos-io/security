@@ -4,12 +4,14 @@ import "github.com/kairos-io/security/internal/state"
 
 // FakeExecutor is an in-memory Executor for tests.
 type FakeExecutor struct {
-	Opened     map[string]state.LedgerEntry
-	Reconciled map[string]state.LedgerEntry
-	OpenErr    map[string]error
-	Adopted    map[string]state.LedgerEntry
-	Cascaded   map[string]state.LedgerEntry
-	Repinned   map[string]state.LedgerEntry
+	Opened       map[string]state.LedgerEntry
+	Reconciled   map[string]state.LedgerEntry
+	OpenErr      map[string]error
+	Adopted      map[string]state.LedgerEntry
+	Cascaded     map[string]state.LedgerEntry
+	Repinned     map[string]state.LedgerEntry
+	Toolchained  map[string]state.LedgerEntry
+	ToolchainErr map[string]error
 }
 
 func (f *FakeExecutor) Open(in Intent, run string) (state.LedgerEntry, error) {
@@ -53,4 +55,15 @@ func (f *FakeExecutor) Repin(e state.LedgerEntry, run string) (state.LedgerEntry
 		return r, nil
 	}
 	return e, nil
+}
+
+func (f *FakeExecutor) Toolchain(in Intent, run string) (state.LedgerEntry, error) {
+	if err := f.ToolchainErr[in.Key]; err != nil {
+		return state.LedgerEntry{}, err
+	}
+	if e, ok := f.Toolchained[in.Key]; ok {
+		return e, nil
+	}
+	return state.LedgerEntry{Key: in.Key, Repo: in.Repo, Package: "go-toolchain",
+		Kind: "toolchain", State: "open", CreatedRun: run, LastActionRun: run}, nil
 }

@@ -78,6 +78,35 @@ func TestRunRepinBuildsOnReconciledEntry(t *testing.T) {
 		"repin must operate on the reconciled (merged) entry, not the stale open snapshot")
 }
 
+func TestRunToolchain(t *testing.T) {
+	intents := []Intent{
+		{Type: IntentToolchain, Key: "r|go-toolchain", Repo: "r", ToolchainVersion: "1.22.5", Severity: "high"},
+	}
+	fake := &FakeExecutor{Toolchained: map[string]state.LedgerEntry{
+		"r|go-toolchain": {Key: "r|go-toolchain", Repo: "r", Package: "go-toolchain", Kind: "toolchain", State: "open"},
+	}}
+	out, results := Run(intents, fake, state.Ledger{}, "2026-06-20")
+	require.Len(t, out.Entries, 1)
+	assert.Equal(t, "toolchain", out.Entries[0].Kind)
+	assert.Equal(t, "open", out.Entries[0].State)
+	require.Len(t, results, 1)
+	assert.Equal(t, "toolchain", results[0].Action)
+}
+
+func TestRunToolchainIsolatesErrors(t *testing.T) {
+	intents := []Intent{
+		{Type: IntentToolchain, Key: "r|go-toolchain", Repo: "r", ToolchainVersion: "1.22.5", Severity: "high"},
+	}
+	fake := &FakeExecutor{ToolchainErr: map[string]error{"r|go-toolchain": errors.New("clone-failed")}}
+	out, results := Run(intents, fake, state.Ledger{}, "2026-06-20")
+	require.Len(t, out.Entries, 1)
+	assert.Equal(t, "error", out.Entries[0].State, "toolchain failure recorded, not aborted")
+	assert.Equal(t, "toolchain", out.Entries[0].Kind)
+	require.Len(t, results, 1)
+	assert.Equal(t, "toolchain", results[0].Action)
+	assert.Equal(t, "error", results[0].State)
+}
+
 func TestRunAdopts(t *testing.T) {
 	intents := []Intent{
 		{Type: IntentAdopt, Key: "r|p", Repo: "r", Package: "p", PRNumber: 9, PRURL: "u9", Source: "dependabot"},
