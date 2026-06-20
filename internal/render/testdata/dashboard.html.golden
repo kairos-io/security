@@ -72,9 +72,9 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 <section>
 <h2>&#129302; Bot PR ledger</h2>
 <table>
-<thead><tr><th>Repo</th><th>Bump</th><th>State</th><th>PR</th></tr></thead>
+<thead><tr><th>Repo</th><th>Bump</th><th>Kind</th><th>Source</th><th>State</th><th>PR</th></tr></thead>
 <tbody>
-<tr><td>kairos-io/immucore</td><td><code>golang.org/x/net@0.33.0</code></td><td>open</td><td><a href="https://github.com/kairos-io/immucore/pull/412">#412</a></td></tr>
+<tr><td>kairos-io/immucore</td><td><code>golang.org/x/net@0.33.0</code></td><td>direct</td><td>ksec</td><td>open</td><td><a href="https://github.com/kairos-io/immucore/pull/412">#412</a></td></tr>
 </tbody>
 </table>
 </section>

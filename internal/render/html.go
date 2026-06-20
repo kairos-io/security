@@ -24,6 +24,8 @@ type htmlData struct {
 type htmlLedgerEntry struct {
 	Repo     string
 	Bump     string
+	Kind     string
+	Source   string
 	State    string
 	PRNumber int
 	PRURL    string
@@ -120,9 +122,9 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 <section>
 <h2>&#129302; Bot PR ledger</h2>
 {{if .Ledger}}<table>
-<thead><tr><th>Repo</th><th>Bump</th><th>State</th><th>PR</th></tr></thead>
+<thead><tr><th>Repo</th><th>Bump</th><th>Kind</th><th>Source</th><th>State</th><th>PR</th></tr></thead>
 <tbody>
-{{range .Ledger}}<tr><td>{{.Repo}}</td><td><code>{{.Bump}}</code></td><td>{{.State}}</td><td>{{if gt .PRNumber 0}}<a href="{{.PRURL}}">#{{.PRNumber}}</a>{{else}}&mdash;{{end}}</td></tr>
+{{range .Ledger}}<tr><td>{{.Repo}}</td><td><code>{{.Bump}}</code></td><td>{{.Kind}}</td><td>{{.Source}}</td><td>{{.State}}</td><td>{{if gt .PRNumber 0}}<a href="{{.PRURL}}">#{{.PRNumber}}</a>{{else}}&mdash;{{end}}</td></tr>
 {{end}}</tbody>
 </table>{{else}}<p class="empty">No bot PRs yet.</p>{{end}}
 </section>
@@ -179,9 +181,24 @@ func DashboardHTML(in Input) string {
 	}
 	ledger := make([]htmlLedgerEntry, 0, len(in.Ledger.Entries))
 	for _, e := range in.Ledger.Entries {
+		kind := e.Kind
+		if kind == "" {
+			kind = "direct"
+		}
+		source := e.Source
+		if source == "" {
+			source = "ksec"
+		}
+		st := e.State
+		if e.NeedsHuman {
+			st = "⚠️ needs-human"
+		} else if e.Blocked != "" {
+			st = "⛔ " + e.Blocked
+		}
 		ledger = append(ledger, htmlLedgerEntry{
 			Repo: e.Repo, Bump: e.Bump.Package + "@" + e.Bump.To,
-			State: e.State, PRNumber: e.PRNumber, PRURL: e.PRURL,
+			Kind: kind, Source: source,
+			State: st, PRNumber: e.PRNumber, PRURL: e.PRURL,
 		})
 	}
 	data := htmlData{

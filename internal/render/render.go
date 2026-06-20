@@ -91,13 +91,27 @@ func DashboardMarkdown(in Input) string {
 	if len(in.Ledger.Entries) == 0 {
 		b.WriteString("_No bot PRs yet._\n\n")
 	} else {
-		b.WriteString("| Repo | Bump | State | PR |\n|---|---|---|---|\n")
+		b.WriteString("| Repo | Bump | Kind | Source | State | PR |\n|---|---|---|---|---|---|\n")
 		for _, e := range in.Ledger.Entries {
 			pr := "—"
 			if e.PRNumber > 0 {
 				pr = fmt.Sprintf("[#%d](%s)", e.PRNumber, e.PRURL)
 			}
-			fmt.Fprintf(&b, "| %s | %s@%s | %s | %s |\n", e.Repo, e.Bump.Package, e.Bump.To, e.State, pr)
+			kind := e.Kind
+			if kind == "" {
+				kind = "direct"
+			}
+			source := e.Source
+			if source == "" {
+				source = "ksec"
+			}
+			st := e.State
+			if e.NeedsHuman {
+				st = "⚠️ needs-human"
+			} else if e.Blocked != "" {
+				st = "⛔ " + e.Blocked
+			}
+			fmt.Fprintf(&b, "| %s | %s@%s | %s | %s | %s | %s |\n", e.Repo, e.Bump.Package, e.Bump.To, kind, source, st, pr)
 		}
 		b.WriteString("\n")
 	}
