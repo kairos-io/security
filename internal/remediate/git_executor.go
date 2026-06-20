@@ -105,6 +105,11 @@ func (g *GitExecutor) Open(in Intent, runID string) (state.LedgerEntry, error) {
 	return entry, nil
 }
 
+// TODO(plan-4a task 7): real Adopt
+func (g *GitExecutor) Adopt(in Intent, runID string) (state.LedgerEntry, error) {
+	return state.LedgerEntry{}, fmt.Errorf("adopt not implemented")
+}
+
 func (g *GitExecutor) Reconcile(e state.LedgerEntry, runID string) (state.LedgerEntry, error) {
 	if e.PRNumber == 0 || g.DryRun {
 		if g.DryRun {

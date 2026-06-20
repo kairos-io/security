@@ -38,3 +38,17 @@ func TestRunOpensReconcilesAndIsolatesErrors(t *testing.T) {
 	// a result per intent
 	assert.Len(t, results, 3)
 }
+
+func TestRunAdopts(t *testing.T) {
+	intents := []Intent{
+		{Type: IntentAdopt, Key: "r|p", Repo: "r", Package: "p", PRNumber: 9, PRURL: "u9", Source: "dependabot"},
+	}
+	fake := &FakeExecutor{Adopted: map[string]state.LedgerEntry{
+		"r|p": {Key: "r|p", Repo: "r", Package: "p", State: "open", PRNumber: 9, Source: "dependabot"},
+	}}
+	out, results := Run(intents, fake, state.Ledger{}, "2026-06-20")
+	require.Len(t, out.Entries, 1)
+	assert.Equal(t, "dependabot", out.Entries[0].Source)
+	require.Len(t, results, 1)
+	assert.Equal(t, "adopt", results[0].Action)
+}

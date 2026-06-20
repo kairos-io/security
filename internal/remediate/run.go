@@ -9,6 +9,7 @@ import (
 type Executor interface {
 	Open(in Intent, run string) (state.LedgerEntry, error)
 	Reconcile(e state.LedgerEntry, run string) (state.LedgerEntry, error)
+	Adopt(in Intent, run string) (state.LedgerEntry, error)
 }
 
 func Run(intents []Intent, ex Executor, ledger state.Ledger, run string) (state.Ledger, []Result) {
@@ -47,6 +48,21 @@ func Run(intents []Intent, ex Executor, ledger state.Ledger, run string) (state.
 			}
 			byKey[entry.Key] = entry
 			results = append(results, Result{Key: entry.Key, Action: "reconcile", State: entry.State})
+		case IntentAdopt:
+			entry, err := ex.Adopt(in, run)
+			if err != nil {
+				rec := state.LedgerEntry{
+					Key: in.Key, Repo: in.Repo, Package: in.Package, State: "error",
+					Source: in.Source, Kind: "direct", Bump: in.Bump, Severity: in.Severity,
+					PRNumber: in.PRNumber, PRURL: in.PRURL, CreatedRun: run, LastActionRun: run,
+					History: []state.LedgerEvent{{Run: run, Action: "adopt-failed", Detail: err.Error()}},
+				}
+				byKey[in.Key] = rec
+				results = append(results, Result{Key: in.Key, Action: "adopt", State: "error", Detail: err.Error()})
+				continue
+			}
+			byKey[entry.Key] = entry
+			results = append(results, Result{Key: entry.Key, Action: "adopt", State: entry.State})
 		}
 	}
 
