@@ -39,6 +39,24 @@ func TestRunOpensReconcilesAndIsolatesErrors(t *testing.T) {
 	assert.Len(t, results, 3)
 }
 
+func TestRunCascadeAndRepin(t *testing.T) {
+	entry := state.LedgerEntry{Key: "c|m", Repo: "c", Package: "m", State: "open", Kind: "cascade", Pseudo: true}
+	intents := []Intent{
+		{Type: IntentCascade, Key: "c|m", Repo: "c", Package: "m", Ref: "main", CascadeFrom: "u|x"},
+		{Type: IntentRepin, Key: "c|m", Entry: &entry},
+	}
+	fake := &FakeExecutor{
+		Cascaded: map[string]state.LedgerEntry{"c|m": {Key: "c|m", Repo: "c", Package: "m", State: "open", Kind: "cascade", Pseudo: true}},
+		Repinned: map[string]state.LedgerEntry{"c|m": {Key: "c|m", Repo: "c", Package: "m", State: "open", Kind: "cascade", Pseudo: false, PinTarget: "v1.0.0"}},
+	}
+	out, results := Run(intents, fake, state.Ledger{}, "2026-06-20")
+	require.Len(t, out.Entries, 1)
+	// repin ran after cascade (same key) -> pseudo cleared, pin set
+	assert.False(t, out.Entries[0].Pseudo)
+	assert.Equal(t, "v1.0.0", out.Entries[0].PinTarget)
+	require.Len(t, results, 2)
+}
+
 func TestRunAdopts(t *testing.T) {
 	intents := []Intent{
 		{Type: IntentAdopt, Key: "r|p", Repo: "r", Package: "p", PRNumber: 9, PRURL: "u9", Source: "dependabot"},

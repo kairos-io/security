@@ -262,6 +262,18 @@ func (g *GitExecutor) Adjust(entry state.LedgerEntry, toVersion, runID string) (
 	return entry, nil
 }
 
+// TODO(plan-4b tasks 7-8): temporary stub so the build stays green
+// (var _ Executor = (*GitExecutor)(nil) requires it). Real implementation lands in task 7.
+func (g *GitExecutor) Cascade(in Intent, runID string) (state.LedgerEntry, error) {
+	return state.LedgerEntry{}, fmt.Errorf("GitExecutor.Cascade not implemented")
+}
+
+// TODO(plan-4b tasks 7-8): temporary stub so the build stays green
+// (var _ Executor = (*GitExecutor)(nil) requires it). Real implementation lands in task 8.
+func (g *GitExecutor) Repin(e state.LedgerEntry, runID string) (state.LedgerEntry, error) {
+	return state.LedgerEntry{}, fmt.Errorf("GitExecutor.Repin not implemented")
+}
+
 func prNumberFromURL(url string) int {
 	n := 0
 	for i := len(url) - 1; i >= 0; i-- {

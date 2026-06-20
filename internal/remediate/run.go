@@ -10,6 +10,8 @@ type Executor interface {
 	Open(in Intent, run string) (state.LedgerEntry, error)
 	Reconcile(e state.LedgerEntry, run string) (state.LedgerEntry, error)
 	Adopt(in Intent, run string) (state.LedgerEntry, error)
+	Cascade(in Intent, run string) (state.LedgerEntry, error)
+	Repin(e state.LedgerEntry, run string) (state.LedgerEntry, error)
 }
 
 func Run(intents []Intent, ex Executor, ledger state.Ledger, run string) (state.Ledger, []Result) {
@@ -63,6 +65,33 @@ func Run(intents []Intent, ex Executor, ledger state.Ledger, run string) (state.
 			}
 			byKey[entry.Key] = entry
 			results = append(results, Result{Key: entry.Key, Action: "adopt", State: entry.State})
+		case IntentCascade:
+			entry, err := ex.Cascade(in, run)
+			if err != nil {
+				rec := state.LedgerEntry{
+					Key: in.Key, Repo: in.Repo, Package: in.Package, State: "error",
+					Kind: "cascade", CascadeFrom: in.CascadeFrom, Pseudo: true, Severity: in.Severity,
+					CreatedRun: run, LastActionRun: run,
+					History: []state.LedgerEvent{{Run: run, Action: "cascade-failed", Detail: err.Error()}},
+				}
+				byKey[in.Key] = rec
+				results = append(results, Result{Key: in.Key, Action: "cascade", State: "error", Detail: err.Error()})
+				continue
+			}
+			byKey[entry.Key] = entry
+			results = append(results, Result{Key: entry.Key, Action: "cascade", State: entry.State})
+		case IntentRepin:
+			prior := *in.Entry
+			entry, err := ex.Repin(prior, run)
+			if err != nil {
+				prior.LastActionRun = run
+				prior.History = append(prior.History, state.LedgerEvent{Run: run, Action: "repin-failed", Detail: err.Error()})
+				byKey[prior.Key] = prior
+				results = append(results, Result{Key: prior.Key, Action: "repin", State: "error", Detail: err.Error()})
+				continue
+			}
+			byKey[entry.Key] = entry
+			results = append(results, Result{Key: entry.Key, Action: "repin", State: entry.State})
 		}
 	}
 
