@@ -51,7 +51,9 @@ func (f *Fake) ClosePR(repo string, pr int, comment string) error {
 	f.Closed = append(f.Closed, prKey(repo, pr))
 	return nil
 }
-func (f *Fake) PRStatusOf(repo string, pr int) (PRStatus, error) { return f.Statuses[prKey(repo, pr)], nil }
+func (f *Fake) PRStatusOf(repo string, pr int) (PRStatus, error) {
+	return f.Statuses[prKey(repo, pr)], nil
+}
 func (f *Fake) MergePR(repo string, pr int, auto bool) error {
 	k := prKey(repo, pr)
 	if auto {

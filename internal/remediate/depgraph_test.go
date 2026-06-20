@@ -15,8 +15,8 @@ func TestBuildGraph(t *testing.T) {
 		{Repo: "kairos-io/kairos-agent"},
 	}
 	gomod := map[string][]byte{
-		"kairos-io/kairos-sdk": []byte("module github.com/kairos-io/kairos-sdk\ngo 1.22\n"),
-		"kairos-io/immucore": []byte("module github.com/kairos-io/immucore\nrequire github.com/kairos-io/kairos-sdk v0.7.0\n"),
+		"kairos-io/kairos-sdk":   []byte("module github.com/kairos-io/kairos-sdk\ngo 1.22\n"),
+		"kairos-io/immucore":     []byte("module github.com/kairos-io/immucore\nrequire github.com/kairos-io/kairos-sdk v0.7.0\n"),
 		"kairos-io/kairos-agent": []byte("module github.com/kairos-io/kairos-agent\nrequire (\n\tgithub.com/kairos-io/kairos-sdk v0.7.0\n\tgithub.com/kairos-io/immucore v0.5.0\n)\n"),
 	}
 	g := BuildGraph(repos, gomod)
