@@ -320,6 +320,11 @@ func (g *GitExecutor) ResolveConflict(e state.LedgerEntry, runID string) (state.
 	if _, err := g.run(dir, "git", "checkout", e.Branch); err != nil {
 		return e, err
 	}
+	// Set a committer identity before any rebase: `git rebase origin/HEAD` and
+	// `git rebase --continue` create commits, and a fresh clone has no identity
+	// configured in bare CI.
+	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
+	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
 	if _, err := g.run(dir, "git", "fetch", "origin"); err != nil {
 		return e, err
 	}
@@ -350,8 +355,6 @@ func (g *GitExecutor) ResolveConflict(e state.LedgerEntry, runID string) (state.
 		e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "conflict-build-failed"})
 		return e, nil
 	}
-	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
-	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
 	if _, err := g.run(dir, "git", "push", "--force", "origin", e.Branch); err != nil {
 		return e, err
 	}
@@ -524,6 +527,14 @@ func (g *GitExecutor) Toolchain(in Intent, runID string) (state.LedgerEntry, err
 	}
 	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
 	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
+	// No-op guard: if go.mod was already at this go directive, there is nothing
+	// to commit. Committing an empty diff fails and forces a re-clone every run,
+	// so mark the entry already-satisfied and return without committing/pushing.
+	if out, _ := g.run(dir, "git", "status", "--porcelain"); len(bytes.TrimSpace(out)) == 0 {
+		entry.State = "merged"
+		entry.History = []state.LedgerEvent{{Run: runID, Action: "toolchain-already-current"}}
+		return entry, nil
+	}
 	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): bump go toolchain to "+in.ToolchainVersion); err != nil {
 		return entry, err
 	}

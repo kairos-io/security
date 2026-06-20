@@ -334,6 +334,7 @@ func newRenderCmd(gf *globalFlags) *cobra.Command {
 			// the run id changed.
 			fileIn := in
 			fileIn.RunURL = ""
+			fileIn.CoordinationSummary = ""
 			md := render.DashboardMarkdown(fileIn)
 			j, err := render.DashboardJSON(fileIn)
 			if err != nil {
