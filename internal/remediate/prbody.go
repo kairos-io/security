@@ -43,3 +43,23 @@ This PR was opened automatically. The change is a deterministic
 %s`, in.Package, in.Bump.To, in.Severity, in.Package, in.Bump.To, in.Severity,
 		in.Package, in.Bump.To, PRMarker(in.Key))
 }
+
+func CascadeBranchName(in Intent) string {
+	return "ksec/cascade-" + slug(in.Package) + "-pseudo"
+}
+
+func CascadePRBody(in Intent) string {
+	return fmt.Sprintf(`## Automated security cascade
+
+This bumps **%s** to a pseudo-version of its latest default-branch commit, which
+contains an unreleased security fix. Once a maintainer cuts a release tag for
+that module, kairos-security will re-pin this PR to the tagged version.
+
+- Module: `+"`%s`"+`
+- Severity: %s
+- Please **tag a release** of the upstream module so this can be pinned cleanly.
+
+This PR was opened automatically by kairos-security. CI on this PR runs the tests.
+
+%s`, in.Package, in.Package, in.Severity, PRMarker(in.Key))
+}

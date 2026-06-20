@@ -27,3 +27,14 @@ func TestBranchAndTitleAndBody(t *testing.T) {
 	assert.True(t, strings.HasSuffix(strings.TrimSpace(body), PRMarker(in.Key)),
 		"marker must be the last line")
 }
+
+func TestCascadePRBodyAndBranch(t *testing.T) {
+	in := Intent{Type: IntentCascade, Key: "kairos-io/immucore|github.com/kairos-io/kairos-sdk",
+		Repo: "kairos-io/immucore", Package: "github.com/kairos-io/kairos-sdk", CascadeFrom: "kairos-io/kairos-sdk|x", Severity: "high"}
+	assert.Equal(t, "ksec/cascade-github-com-kairos-io-kairos-sdk-pseudo", CascadeBranchName(in))
+	body := CascadePRBody(in)
+	assert.Contains(t, body, "github.com/kairos-io/kairos-sdk")
+	assert.Contains(t, body, "pseudo")
+	assert.Contains(t, strings.ToLower(body), "tag")
+	assert.True(t, strings.HasSuffix(strings.TrimSpace(body), PRMarker(in.Key)))
+}
