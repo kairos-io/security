@@ -224,15 +224,15 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 				}
 			}
 			// Build the dependency graph (module<->repo, consumers) by
-				// fetching each tracked repo's go.mod. Best-effort: a repo whose
-				// go.mod can't be read is simply absent from the graph.
-				gomodByRepo := map[string][]byte{}
-				for _, r := range repos {
-					if b, err := gh.GetFile(r.Repo, "go.mod", r.Branch); err == nil {
-						gomodByRepo[r.Repo] = b
-					}
+			// fetching each tracked repo's go.mod. Best-effort: a repo whose
+			// go.mod can't be read is simply absent from the graph.
+			gomodByRepo := map[string][]byte{}
+			for _, r := range repos {
+				if b, err := gh.GetFile(r.Repo, "go.mod", r.Branch); err == nil {
+					gomodByRepo[r.Repo] = b
 				}
-				graph := remediate.BuildGraph(repos, gomodByRepo)
+			}
+			graph := remediate.BuildGraph(repos, gomodByRepo)
 			intents, deferred := remediate.Plan(c, ledger, prsByRepo, graph, maxPRs)
 			if deferred > 0 {
 				fmt.Fprintf(os.Stderr, "remediate: %d new bumps deferred by --max-prs=%d\n", deferred, maxPRs)
