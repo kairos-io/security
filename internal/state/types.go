@@ -101,6 +101,9 @@ type LedgerEntry struct {
 	Kind          string        `json:"kind,omitempty"`    // direct | cascade | toolchain
 	Blocked       string        `json:"blocked,omitempty"` // human-readable reason progress is stuck
 	NeedsHuman    bool          `json:"needsHuman,omitempty"`
+	CascadeFrom   string        `json:"cascadeFrom,omitempty"` // upstream ledger key that triggered this cascade bump
+	PinTarget     string        `json:"pinTarget,omitempty"`   // for a pseudo cascade: the tag to re-pin to ("" while still pseudo)
+	Pseudo        bool          `json:"pseudo,omitempty"`      // true while the bump points at a pseudo-version awaiting re-pin
 	CreatedRun    string        `json:"createdRun"`
 	LastActionRun string        `json:"lastActionRun"`
 	SeenComments  []string      `json:"seenComments,omitempty"` // reserved for Plan 3

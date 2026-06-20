@@ -28,6 +28,7 @@ func TestLedgerRoundTrip(t *testing.T) {
 	dir := t.TempDir()
 	in := Ledger{Entries: []LedgerEntry{{Key: "a|b", Repo: "a", Package: "b", State: "open",
 		Source: "dependabot", Kind: "direct", Blocked: "checks failing", NeedsHuman: true,
+		CascadeFrom: "kairos-io/kairos-sdk|golang.org/x/net", PinTarget: "v0.8.1", Pseudo: true,
 		Bump: Bump{Package: "b", To: "1.2.3"}, History: []LedgerEvent{{Run: "2026-06-20", Action: "opened"}}}}}
 	require.NoError(t, Save(dir, LedgerFile, in))
 	var out Ledger
