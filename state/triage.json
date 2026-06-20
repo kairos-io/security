@@ -1,16 +1,20 @@
 {
-  "generatedAt": "2026-06-19",
+  "generatedAt": "2026-06-20",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
   "focus": [
     "100711a774bd7bc82e690e3fa87c7440708776da84ce7b8b87f8b92b9369dbf4",
     "263ba6e3bec87208abe550dbadbf0c39d9469166b32f16d3081aede17e46b70c",
-    "3602fe7b3b70938c8887f5189957e46e98c89f2bae2bed8dceeffa47a0625c7d"
+    "3602fe7b3b70938c8887f5189957e46e98c89f2bae2bed8dceeffa47a0625c7d",
+    "3bec20f2db07b1b0e4c2ccf11c452e4f314795618305e7376b03123964135a68",
+    "64525ea2ba8fde52ee7d5a1ccc1b781c2cf26c27368615ea9f3edb59c39439ad"
   ],
   "summaries": {
-    "100711a774bd7bc82e690e3fa87c7440708776da84ce7b8b87f8b92b9369dbf4": "Finding in mudler/edgevpn repository.",
-    "263ba6e3bec87208abe550dbadbf0c39d9469166b32f16d3081aede17e46b70c": "Finding in mudler/edgevpn repository.",
-    "3602fe7b3b70938c8887f5189957e46e98c89f2bae2bed8dceeffa47a0625c7d": "Finding in mudler/entities repository."
+    "100711a774bd7bc82e690e3fa87c7440708776da84ce7b8b87f8b92b9369dbf4": "Finding in mudler/edgevpn.",
+    "263ba6e3bec87208abe550dbadbf0c39d9469166b32f16d3081aede17e46b70c": "Finding in mudler/edgevpn.",
+    "3602fe7b3b70938c8887f5189957e46e98c89f2bae2bed8dceeffa47a0625c7d": "Finding in mudler/entities.",
+    "3bec20f2db07b1b0e4c2ccf11c452e4f314795618305e7376b03123964135a68": "Finding in mudler/edgevpn.",
+    "64525ea2ba8fde52ee7d5a1ccc1b781c2cf26c27368615ea9f3edb59c39439ad": "Finding in mudler/edgevpn."
   },
-  "narrative": "This triage focuses on the initial set of findings from the mudler/edgevpn and mudler/entities repositories. These items require immediate investigation due to their presence in core infrastructure repositories. Please prioritize reviewing the context and potential impact of these specific vulnerabilities."
+  "narrative": "This triage focuses on the initial set of correlated security findings across the mudler repositories. Since all severities are currently unknown, these items are prioritized for immediate investigation to determine their actual risk level. We need to quickly assess the impact of these vulnerabilities in the edgevpn and entities components."
 }
