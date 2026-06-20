@@ -154,7 +154,7 @@ jobs:
 
       - name: Configure Pages
         if: ${{ env.DRYRUN == '' }}
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload Pages artifact
         if: ${{ env.DRYRUN == '' }}
