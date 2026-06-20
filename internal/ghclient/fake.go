@@ -21,6 +21,9 @@ type Fake struct {
 	PRComments map[string][]ReviewComment // key: "<repo>#<pr>"
 	Posted     []string
 	Closed     []string
+
+	Statuses map[string]PRStatus // key: "<repo>#<pr>"
+	Merged   []string
 }
 
 func NewFake() *Fake {
@@ -31,6 +34,7 @@ func NewFake() *Fake {
 		Alerts:     map[string][]Alert{},
 		Issues:     map[string]*FakeIssue{},
 		PRComments: map[string][]ReviewComment{},
+		Statuses:   map[string]PRStatus{},
 	}
 }
 
@@ -45,6 +49,15 @@ func (f *Fake) PostPRComment(repo string, pr int, body string) error {
 }
 func (f *Fake) ClosePR(repo string, pr int, comment string) error {
 	f.Closed = append(f.Closed, prKey(repo, pr))
+	return nil
+}
+func (f *Fake) PRStatusOf(repo string, pr int) (PRStatus, error) { return f.Statuses[prKey(repo, pr)], nil }
+func (f *Fake) MergePR(repo string, pr int, auto bool) error {
+	k := prKey(repo, pr)
+	if auto {
+		k += " (auto)"
+	}
+	f.Merged = append(f.Merged, k)
 	return nil
 }
 

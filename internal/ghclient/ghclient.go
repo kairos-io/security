@@ -33,6 +33,13 @@ type ReviewComment struct {
 	Body   string `json:"body"`
 }
 
+type PRStatus struct {
+	State          string `json:"state"`
+	Mergeable      bool   `json:"mergeable"`
+	ChecksPassing  bool   `json:"checksPassing"`
+	ReviewDecision string `json:"reviewDecision"`
+}
+
 type GitHub interface {
 	ListOrgRepos(org string) ([]string, error)
 	GetFile(repo, path, ref string) ([]byte, error)
@@ -42,6 +49,8 @@ type GitHub interface {
 	ListPRComments(repo string, pr int) ([]ReviewComment, error)
 	PostPRComment(repo string, pr int, body string) error
 	ClosePR(repo string, pr int, comment string) error
+	PRStatusOf(repo string, pr int) (PRStatus, error)
+	MergePR(repo string, pr int, auto bool) error
 }
 
 // CLI is the production GitHub client; it shells out to `gh`.
@@ -185,6 +194,27 @@ func (c *CLI) PostPRComment(repo string, pr int, body string) error {
 
 func (c *CLI) ClosePR(repo string, pr int, comment string) error {
 	_, err := c.run("pr", "close", fmt.Sprint(pr), "-R", repo, "--comment", comment)
+	return err
+}
+
+func (c *CLI) PRStatusOf(repo string, pr int) (PRStatus, error) {
+	b, err := c.run("pr", "view", fmt.Sprint(pr), "-R", repo,
+		"--json", "state,mergeable,reviewDecision,statusCheckRollup",
+		"-q", "{state: .state, mergeable: (.mergeable == \"MERGEABLE\"), reviewDecision: (.reviewDecision // \"\"), "+
+			"checksPassing: ([.statusCheckRollup[]? | select((.conclusion // .state) as $s | $s != \"SUCCESS\" and $s != \"NEUTRAL\" and $s != \"SKIPPED\")] | length == 0)}")
+	if err != nil {
+		return PRStatus{}, err
+	}
+	var s PRStatus
+	return s, json.Unmarshal(b, &s)
+}
+
+func (c *CLI) MergePR(repo string, pr int, auto bool) error {
+	args := []string{"pr", "merge", fmt.Sprint(pr), "-R", repo, "--squash"}
+	if auto {
+		args = append(args, "--auto")
+	}
+	_, err := c.run(args...)
 	return err
 }
 
