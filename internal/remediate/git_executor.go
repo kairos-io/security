@@ -262,10 +262,60 @@ func (g *GitExecutor) Adjust(entry state.LedgerEntry, toVersion, runID string) (
 	return entry, nil
 }
 
-// TODO(plan-4b tasks 7-8): temporary stub so the build stays green
-// (var _ Executor = (*GitExecutor)(nil) requires it). Real implementation lands in task 7.
 func (g *GitExecutor) Cascade(in Intent, runID string) (state.LedgerEntry, error) {
-	return state.LedgerEntry{}, fmt.Errorf("GitExecutor.Cascade not implemented")
+	branch := CascadeBranchName(in)
+	entry := state.LedgerEntry{
+		Key: in.Key, Repo: in.Repo, Package: in.Package, Branch: branch, Kind: "cascade",
+		CascadeFrom: in.CascadeFrom, Pseudo: true, Severity: in.Severity, CreatedRun: runID, LastActionRun: runID,
+		Bump: state.Bump{Package: in.Package, To: in.Ref},
+	}
+	if g.DryRun {
+		fmt.Printf("[dry-run] would cascade %s: branch %s, go get %s@%s (pseudo)\n", in.Repo, branch, in.Package, in.Ref)
+		entry.State = "planned"
+		entry.History = []state.LedgerEvent{{Run: runID, Action: "plan-cascade"}}
+		return entry, nil
+	}
+	dir, err := os.MkdirTemp("", "ksec-cas-*")
+	if err != nil {
+		return entry, err
+	}
+	defer os.RemoveAll(dir)
+	if _, err := g.run("", "git", "clone", "--depth", "1", g.cloneURL(in.Repo), dir); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "git", "checkout", "-b", branch); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "go", "get", in.Package+"@"+in.Ref); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "go", "mod", "tidy"); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "go", "build", "./..."); err != nil {
+		entry.State = "build-failed"
+		entry.NeedsHuman = true
+		entry.History = []state.LedgerEvent{{Run: runID, Action: "cascade-build-failed", Detail: err.Error()}}
+		return entry, nil
+	}
+	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
+	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
+	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): cascade-bump "+in.Package); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "git", "push", "-u", "origin", branch); err != nil {
+		return entry, err
+	}
+	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", branch,
+		"--title", "chore(security): cascade-bump "+in.Package, "--body", CascadePRBody(in))
+	if err != nil {
+		return entry, err
+	}
+	entry.PRURL = strings.TrimSpace(string(out))
+	entry.PRNumber = prNumberFromURL(entry.PRURL)
+	entry.State = "open"
+	entry.History = []state.LedgerEvent{{Run: runID, Action: "cascade-opened", Detail: entry.PRURL}}
+	return entry, nil
 }
 
 // TODO(plan-4b tasks 7-8): temporary stub so the build stays green
