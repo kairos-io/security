@@ -9,15 +9,18 @@ import (
 	"os/exec"
 	"strings"
 
+	"github.com/kairos-io/security/internal/ghclient"
 	"github.com/kairos-io/security/internal/state"
 )
 
 var _ Executor = (*GitExecutor)(nil)
 
 type GitExecutor struct {
-	Token  string // GH_TOKEN, for authenticated clone/push
-	DryRun bool
-	Prose  ProseClient // optional; nil -> deterministic PR body
+	Token     string // GH_TOKEN, for authenticated clone/push
+	DryRun    bool
+	Prose     ProseClient     // optional; nil -> deterministic PR body
+	GH        ghclient.GitHub // used by Adopt for comment/status/merge
+	Automerge bool
 }
 
 func (g *GitExecutor) cloneURL(repo string) string {
@@ -105,9 +108,58 @@ func (g *GitExecutor) Open(in Intent, runID string) (state.LedgerEntry, error) {
 	return entry, nil
 }
 
-// TODO(plan-4a task 7): real Adopt
+const nudgeMarker = "<!-- ksec:nudge -->"
+
 func (g *GitExecutor) Adopt(in Intent, runID string) (state.LedgerEntry, error) {
-	return state.LedgerEntry{}, fmt.Errorf("adopt not implemented")
+	entry := state.LedgerEntry{
+		Key: in.Key, Repo: in.Repo, Package: in.Package, Source: in.Source, Kind: "direct",
+		PRNumber: in.PRNumber, PRURL: in.PRURL, Bump: in.Bump, Severity: in.Severity,
+		State: "open", CreatedRun: runID, LastActionRun: runID,
+	}
+	if g.DryRun || g.GH == nil {
+		if g.DryRun {
+			fmt.Printf("[dry-run] would adopt %s PR #%d (%s): nudge%s\n", in.Repo, in.PRNumber, in.Source,
+				map[bool]string{true: " + automerge-if-green", false: ""}[g.Automerge])
+		}
+		entry.History = []state.LedgerEvent{{Run: runID, Action: "adopt", Detail: in.Source}}
+		return entry, nil
+	}
+
+	// Refresh live PR state.
+	if st, err := g.GH.PRStatusOf(in.Repo, in.PRNumber); err == nil {
+		switch st.State {
+		case "MERGED":
+			entry.State = "merged"
+		case "CLOSED":
+			entry.State = "closed"
+		}
+		// Optional automerge.
+		if g.Automerge && entry.State == "open" && ShouldAutomerge(st) {
+			if err := g.GH.MergePR(in.Repo, in.PRNumber, true); err == nil {
+				entry.History = append(entry.History, state.LedgerEvent{Run: runID, Action: "automerge-requested"})
+			}
+		}
+	}
+
+	// Idempotent nudge: only if we haven't commented the marker yet.
+	if entry.State == "open" {
+		nudged := false
+		if comments, err := g.GH.ListPRComments(in.Repo, in.PRNumber); err == nil {
+			for _, c := range comments {
+				if strings.Contains(c.Body, nudgeMarker) {
+					nudged = true
+					break
+				}
+			}
+		}
+		if !nudged {
+			body := fmt.Sprintf("This PR addresses a %s-severity security finding (%s). Tracked by kairos-security.\n\n%s",
+				in.Severity, in.Package, nudgeMarker)
+			_ = g.GH.PostPRComment(in.Repo, in.PRNumber, body)
+			entry.History = append(entry.History, state.LedgerEvent{Run: runID, Action: "nudged"})
+		}
+	}
+	return entry, nil
 }
 
 func (g *GitExecutor) Reconcile(e state.LedgerEntry, runID string) (state.LedgerEntry, error) {
