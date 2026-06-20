@@ -194,6 +194,7 @@ func newTriageCmd(gf *globalFlags) *cobra.Command {
 
 func newRemediateCmd(gf *globalFlags) *cobra.Command {
 	var maxPRs int
+	var aiProse bool
 	cmd := &cobra.Command{
 		Use:   "remediate",
 		Short: "open and maintain dependency-bump PRs for actionable findings",
@@ -217,7 +218,7 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			// PRs are opened in remediate.Run below) and the comment reactions.
 			aiCfg, _ := config.LoadAI("ai.yaml")
 			ex := &remediate.GitExecutor{Token: os.Getenv("GH_TOKEN"), DryRun: gf.dryRun}
-			if aiCfg.Nib.Endpoint != "" {
+			if aiProse && aiCfg.Nib.Endpoint != "" {
 				ex.Prose = remediate.NewOpenAIProse(aiCfg)
 			}
 			out, results := remediate.Run(intents, ex, ledger, runID)
@@ -252,6 +253,7 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 		},
 	}
 	cmd.Flags().IntVar(&maxPRs, "max-prs", 10, "maximum NEW PRs to open per run (blast-radius guard)")
+	cmd.Flags().BoolVar(&aiProse, "ai-pr-prose", true, "use the AI model to draft PR descriptions (falls back to deterministic text)")
 	return cmd
 }
 

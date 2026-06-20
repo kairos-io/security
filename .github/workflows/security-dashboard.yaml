@@ -30,10 +30,13 @@ jobs:
       # Scheduled runs are LIVE by default; dispatch can request dry-run; forks force it.
       DRYRUN: ${{ (github.event.inputs.dry_run == 'true' || github.event.pull_request.head.repo.fork) && '--dry-run' || '' }}
       KSEC_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      # Remediation writes to OTHER repos. Keep it dry-run until KSEC_BOT_TOKEN
-      # has contents:write + pull_requests:write on the targets. Flip to "" to
-      # go live.
-      REMEDIATE_DRYRUN: --dry-run
+      # Remediation is LIVE by default (same dry-run rule as the rest of the
+      # pipeline: dry-run only on a dispatch dry_run request or a fork PR).
+      # NOTE: live remediation needs KSEC_BOT_TOKEN to have contents:write +
+      # pull_requests:write on the target repos.
+      REMEDIATE_DRYRUN: ${{ (github.event.inputs.dry_run == 'true' || github.event.pull_request.head.repo.fork) && '--dry-run' || '' }}
+      # AI-drafted PR descriptions (set to "false" to use deterministic text).
+      AI_PR_PROSE: "true"
       # Cross-repo reads + the kairos tracking-issue write use the scoped bot token.
       GH_TOKEN: ${{ secrets.KSEC_BOT_TOKEN }}
       LOCALAI_URL: http://localhost:8080
@@ -136,7 +139,7 @@ jobs:
           ksec collect   --state-dir state
           ksec correlate --state-dir state
           ksec triage    --state-dir state --require-ai
-          ksec remediate --state-dir state $REMEDIATE_DRYRUN
+          ksec remediate --state-dir state $REMEDIATE_DRYRUN --ai-pr-prose=${AI_PR_PROSE}
           ksec render    --state-dir state $DRYRUN
 
       - name: Commit state + dashboards
