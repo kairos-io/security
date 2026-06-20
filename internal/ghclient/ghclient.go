@@ -9,11 +9,12 @@ import (
 )
 
 type PullRequest struct {
-	Number int      `json:"number"`
-	Title  string   `json:"title"`
-	Author string   `json:"author"`
-	URL    string   `json:"url"`
-	Labels []string `json:"labels"`
+	Number  int      `json:"number"`
+	Title   string   `json:"title"`
+	Author  string   `json:"author"`
+	URL     string   `json:"url"`
+	HeadRef string   `json:"headRef"`
+	Labels  []string `json:"labels"`
 }
 
 type Alert struct {
@@ -94,8 +95,8 @@ func (c *CLI) GetFile(repo, path, ref string) ([]byte, error) {
 
 func (c *CLI) ListOpenPRs(repo string) ([]PullRequest, error) {
 	b, err := c.run("pr", "list", "-R", repo, "--state", "open", "--limit", "200",
-		"--json", "number,title,author,url,labels",
-		"-q", "[.[] | {number, title, author: .author.login, url, labels: [.labels[].name]}]")
+		"--json", "number,title,author,url,headRefName,labels",
+		"-q", "[.[] | {number, title, author: .author.login, url, headRef: .headRefName, labels: [.labels[].name]}]")
 	if err != nil {
 		return nil, err
 	}

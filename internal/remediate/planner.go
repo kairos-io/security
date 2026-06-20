@@ -115,7 +115,7 @@ func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclie
 				continue
 			}
 		}
-		if pr, source, ok := MatchPR(t.pkg, prsByRepo[t.repo]); ok && source != "ksec" {
+		if pr, source, ok := MatchPR(t.pkg, t.to, prsByRepo[t.repo]); ok && source != "ksec" {
 			intents = append(intents, Intent{
 				Type: IntentAdopt, Key: k, Repo: t.repo, Package: t.pkg, Severity: t.sev,
 				Bump: state.Bump{Package: t.pkg, To: t.to}, PRNumber: pr.Number, PRURL: pr.URL, Source: source,
