@@ -195,6 +195,7 @@ func newTriageCmd(gf *globalFlags) *cobra.Command {
 func newRemediateCmd(gf *globalFlags) *cobra.Command {
 	var maxPRs int
 	var aiProse bool
+	var automerge bool
 	cmd := &cobra.Command{
 		Use:   "remediate",
 		Short: "open and maintain dependency-bump PRs for actionable findings",
@@ -210,15 +211,26 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			if runID == "" {
 				runID = "local"
 			}
-			// TODO(plan-4a task 9): pass real prsByRepo
-			intents, deferred := remediate.Plan(c, ledger, nil, maxPRs)
+			gh := ghclient.NewCLI()
+			// Collect open PRs per tracked repo so the planner can adopt existing
+			// dependabot/renovate/human PRs instead of duplicating them.
+			prsByRepo := map[string][]ghclient.PullRequest{}
+			var repos []state.Repo
+			if err := state.Load(gf.stateDir, state.ReposFile, &repos); err == nil {
+				for _, r := range repos {
+					if prs, err := gh.ListOpenPRs(r.Repo); err == nil {
+						prsByRepo[r.Repo] = prs
+					}
+				}
+			}
+			intents, deferred := remediate.Plan(c, ledger, prsByRepo, maxPRs)
 			if deferred > 0 {
 				fmt.Fprintf(os.Stderr, "remediate: %d new bumps deferred by --max-prs=%d\n", deferred, maxPRs)
 			}
 			// Load AI config up front: it enables AI-drafted PR prose (used when
 			// PRs are opened in remediate.Run below) and the comment reactions.
 			aiCfg, _ := config.LoadAI("ai.yaml")
-			ex := &remediate.GitExecutor{Token: os.Getenv("GH_TOKEN"), DryRun: gf.dryRun}
+			ex := &remediate.GitExecutor{Token: os.Getenv("GH_TOKEN"), DryRun: gf.dryRun, GH: gh, Automerge: automerge}
 			if aiProse && aiCfg.Nib.Endpoint != "" {
 				ex.Prose = remediate.NewOpenAIProse(aiCfg)
 			}
@@ -232,7 +244,6 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			// churning the ledger across runs.
 			if aiCfg.Nib.Endpoint != "" {
 				classifier := remediate.NewOpenAIClassifier(aiCfg)
-				gh := ghclient.NewCLI()
 				for i := range out.Entries {
 					e := &out.Entries[i]
 					if e.State != "open" || e.PRNumber == 0 {
@@ -255,6 +266,7 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 	}
 	cmd.Flags().IntVar(&maxPRs, "max-prs", 10, "maximum NEW PRs to open per run (blast-radius guard)")
 	cmd.Flags().BoolVar(&aiProse, "ai-pr-prose", true, "use the AI model to draft PR descriptions (falls back to deterministic text)")
+	cmd.Flags().BoolVar(&automerge, "automerge", false, "merge addressing PRs (ours/dependabot/renovate) when green and unblocked")
 	return cmd
 }
 
