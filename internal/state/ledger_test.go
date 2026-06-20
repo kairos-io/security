@@ -27,7 +27,8 @@ func TestLedgerByKey(t *testing.T) {
 func TestLedgerRoundTrip(t *testing.T) {
 	dir := t.TempDir()
 	in := Ledger{Entries: []LedgerEntry{{Key: "a|b", Repo: "a", Package: "b", State: "open",
-		Bump: Bump{Package: "b", To: "1.2.3"}, History: []LedgerEvent{{Run: "2026-06-19", Action: "opened"}}}}}
+		Source: "dependabot", Kind: "direct", Blocked: "checks failing", NeedsHuman: true,
+		Bump: Bump{Package: "b", To: "1.2.3"}, History: []LedgerEvent{{Run: "2026-06-20", Action: "opened"}}}}}
 	require.NoError(t, Save(dir, LedgerFile, in))
 	var out Ledger
 	require.NoError(t, Load(dir, LedgerFile, &out))

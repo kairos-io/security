@@ -16,8 +16,8 @@ type Artifact struct {
 }
 
 type Repo struct {
-	Repo        string     `json:"repo"`        // "owner/name"
-	Kind        string     `json:"kind"`        // "org" | "dep" | "external"
+	Repo        string     `json:"repo"` // "owner/name"
+	Kind        string     `json:"kind"` // "org" | "dep" | "external"
 	Branch      string     `json:"branch"`
 	Criticality string     `json:"criticality"` // "low" | "medium" | "high"
 	Artifacts   []Artifact `json:"artifacts"`
@@ -97,6 +97,10 @@ type LedgerEntry struct {
 	State         string        `json:"state"` // planned|open|merged|closed|conflicted|build-failed|error
 	Bump          Bump          `json:"bump"`
 	Severity      string        `json:"severity,omitempty"`
+	Source        string        `json:"source,omitempty"`  // ksec | dependabot | renovate | human
+	Kind          string        `json:"kind,omitempty"`    // direct | cascade | toolchain
+	Blocked       string        `json:"blocked,omitempty"` // human-readable reason progress is stuck
+	NeedsHuman    bool          `json:"needsHuman,omitempty"`
 	CreatedRun    string        `json:"createdRun"`
 	LastActionRun string        `json:"lastActionRun"`
 	SeenComments  []string      `json:"seenComments,omitempty"` // reserved for Plan 3
