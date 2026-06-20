@@ -261,3 +261,21 @@ func TestPlanRepinsPseudoCascade(t *testing.T) {
 	}
 	assert.True(t, found, "expected a repin intent for the pseudo cascade entry")
 }
+
+func TestPlanToolchainForStdlib(t *testing.T) {
+	c := state.Correlated{Findings: []state.Finding{
+		{ID: "s", Repo: "kairos-io/immucore", Type: "sourceCVE", Ecosystem: "go",
+			Package: "stdlib", FixedVersion: "go1.22.5", Severity: "high"},
+	}}
+	intents, _ := Plan(c, state.Ledger{}, nil, nil, 10)
+	var tc *Intent
+	for i := range intents {
+		if intents[i].Type == IntentToolchain {
+			tc = &intents[i]
+		}
+	}
+	require.NotNil(t, tc)
+	assert.Equal(t, "kairos-io/immucore", tc.Repo)
+	assert.Equal(t, "1.22.5", tc.ToolchainVersion) // leading "go" stripped
+	assert.Equal(t, "kairos-io/immucore|go-toolchain", tc.Key)
+}

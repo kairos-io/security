@@ -2,6 +2,7 @@ package remediate
 
 import (
 	"sort"
+	"strings"
 
 	"github.com/kairos-io/security/internal/ghclient"
 	"github.com/kairos-io/security/internal/state"
@@ -12,10 +13,13 @@ var sevRank = map[string]int{"critical": 4, "high": 3, "medium": 2, "low": 1, "u
 // actionable reports whether a finding can be auto-bumped.
 func actionable(f state.Finding) bool {
 	return (f.Type == "sourceCVE" || f.Type == "ghAlert") &&
-		f.Ecosystem == "go" && f.Package != "" && f.FixedVersion != ""
+		f.Ecosystem == "go" && f.Package != "" && f.Package != "stdlib" && f.FixedVersion != ""
 }
 
 func key(repo, pkg string) string { return repo + "|" + pkg }
+
+// toolchainKey is the ledger key for a repo's Go toolchain bump intent.
+func toolchainKey(repo string) string { return repo + "|go-toolchain" }
 
 // higherVersion returns the "greater" of two version strings. We avoid a full
 // semver parser: trim a leading 'v' and compare dotted-numeric segments,
@@ -178,6 +182,40 @@ func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclie
 				})
 			}
 		}
+	}
+
+	// Toolchain: a stdlib finding (Package=="stdlib") can't be `go get`-ed; it
+	// needs a Go toolchain bump. Collapse stdlib findings into one bump per repo
+	// (highest fixed Go version, worst severity) and emit into the same capped
+	// pool, skipping repos already covered by a live/closed ledger entry.
+	type tc struct{ ver, sev string }
+	tcByRepo := map[string]*tc{}
+	for _, f := range c.Findings {
+		if f.Package != "stdlib" || f.Ecosystem != "go" || f.FixedVersion == "" {
+			continue
+		}
+		ver := strings.TrimPrefix(f.FixedVersion, "go")
+		t := tcByRepo[f.Repo]
+		if t == nil {
+			tcByRepo[f.Repo] = &tc{ver: ver, sev: f.Severity}
+			continue
+		}
+		t.ver = higherVersion(t.ver, ver)
+		if sevRank[f.Severity] > sevRank[t.sev] {
+			t.sev = f.Severity
+		}
+	}
+	for repo, t := range tcByRepo {
+		if e, ok := ledger.ByKey(toolchainKey(repo)); ok {
+			if e.State == "open" || e.State == "conflicted" || e.State == "merged" || e.State == "closed" {
+				continue
+			}
+		}
+		pool = append(pool, newPR{
+			intent: Intent{Type: IntentToolchain, Key: toolchainKey(repo), Repo: repo,
+				ToolchainVersion: t.ver, Severity: t.sev},
+			sev: t.sev,
+		})
 	}
 
 	sort.SliceStable(pool, func(i, j int) bool {
