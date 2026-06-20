@@ -3,6 +3,7 @@ package remediate
 import (
 	"sort"
 
+	"github.com/kairos-io/security/internal/ghclient"
 	"github.com/kairos-io/security/internal/state"
 )
 
@@ -71,7 +72,7 @@ func splitVer(s string) []int {
 	return out
 }
 
-func Plan(c state.Correlated, ledger state.Ledger, maxNew int) ([]Intent, int) {
+func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclient.PullRequest, maxNew int) ([]Intent, int) {
 	var intents []Intent
 
 	// 1) Reconcile every existing ledger entry.
@@ -83,9 +84,7 @@ func Plan(c state.Correlated, ledger state.Ledger, maxNew int) ([]Intent, int) {
 	// 2) Collapse ALL actionable findings into one target per repo+package
 	// (highest fixed version + worst severity). We do NOT skip keys already in
 	// the ledger here: the skip decision is made per state/version below.
-	type target struct {
-		repo, pkg, to, sev string
-	}
+	type target struct{ repo, pkg, to, sev string }
 	targets := map[string]*target{}
 	for _, f := range c.Findings {
 		if !actionable(f) {
@@ -103,15 +102,10 @@ func Plan(c state.Correlated, ledger state.Ledger, maxNew int) ([]Intent, int) {
 		}
 	}
 
-	// 3) Decide which targets actually need a new IntentOpen, based on the
-	// existing ledger entry's STATE and version rather than mere presence:
-	//   - open/conflicted     -> skip (a live PR is already maintained; the
-	//                            IntentReconcile above covers it).
-	//   - merged/closed at an  -> skip (already addressed at >= our version).
-	//     equal/higher version
-	//   - everything else (no entry; planned/error/build-failed; or
-	//     merged/closed at a LOWER version) -> emit IntentOpen.
-	keys := make([]string, 0, len(targets))
+	// 3) Decide per target. Targets already covered by one of our live PRs are
+	// skipped (reconcile handles them). Otherwise: adopt an external PR if one
+	// addresses it, else mark it a gap to open.
+	var openKeys []string
 	for k, t := range targets {
 		if e, ok := ledger.ByKey(k); ok {
 			if e.State == "open" || e.State == "conflicted" {
@@ -121,20 +115,28 @@ func Plan(c state.Correlated, ledger state.Ledger, maxNew int) ([]Intent, int) {
 				continue
 			}
 		}
-		keys = append(keys, k)
+		if pr, source, ok := MatchPR(t.pkg, prsByRepo[t.repo]); ok && source != "ksec" {
+			intents = append(intents, Intent{
+				Type: IntentAdopt, Key: k, Repo: t.repo, Package: t.pkg, Severity: t.sev,
+				Bump: state.Bump{Package: t.pkg, To: t.to}, PRNumber: pr.Number, PRURL: pr.URL, Source: source,
+			})
+			continue
+		}
+		openKeys = append(openKeys, k)
 	}
-	sort.Slice(keys, func(i, j int) bool {
-		ti, tj := targets[keys[i]], targets[keys[j]]
+
+	sort.Slice(openKeys, func(i, j int) bool {
+		ti, tj := targets[openKeys[i]], targets[openKeys[j]]
 		if sevRank[ti.sev] != sevRank[tj.sev] {
 			return sevRank[ti.sev] > sevRank[tj.sev]
 		}
-		return keys[i] < keys[j]
+		return openKeys[i] < openKeys[j]
 	})
 
 	deferred := 0
-	for n, k := range keys {
+	for n, k := range openKeys {
 		if n >= maxNew {
-			deferred = len(keys) - n
+			deferred = len(openKeys) - n
 			break
 		}
 		t := targets[k]

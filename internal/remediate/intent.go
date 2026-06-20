@@ -7,6 +7,7 @@ type IntentType string
 const (
 	IntentOpen      IntentType = "open"
 	IntentReconcile IntentType = "reconcile"
+	IntentAdopt     IntentType = "adopt"
 )
 
 type Intent struct {
@@ -17,6 +18,9 @@ type Intent struct {
 	Severity string
 	Bump     state.Bump
 	Entry    *state.LedgerEntry // set for IntentReconcile
+	PRNumber int
+	PRURL    string
+	Source   string // dependabot | renovate | human (for IntentAdopt)
 }
 
 type Result struct {

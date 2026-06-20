@@ -3,6 +3,7 @@ package remediate
 import (
 	"testing"
 
+	"github.com/kairos-io/security/internal/ghclient"
 	"github.com/kairos-io/security/internal/state"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -21,7 +22,7 @@ func TestPlanOpensNewActionableTargetsDedupedAndCapped(t *testing.T) {
 		{ID: "e", Repo: "kairos-io/kairos", Type: "sourceCVE", Ecosystem: "go", Package: "x/text", Severity: "low"},
 	}}
 
-	intents, deferred := Plan(c, state.Ledger{}, 1) // cap to 1 new PR
+	intents, deferred := Plan(c, state.Ledger{}, nil, 1) // cap to 1 new PR
 	require.Len(t, intents, 1)
 	assert.Equal(t, 1, deferred)
 	in := intents[0]
@@ -37,7 +38,7 @@ func TestPlanReconcilesExistingLedgerEntries(t *testing.T) {
 	led := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: "kairos-io/immucore|golang.org/x/net", Repo: "kairos-io/immucore", State: "open"},
 	}}
-	intents, _ := Plan(c, led, 10)
+	intents, _ := Plan(c, led, nil, 10)
 	require.Len(t, intents, 1)
 	assert.Equal(t, IntentReconcile, intents[0].Type)
 	require.NotNil(t, intents[0].Entry)
@@ -51,7 +52,7 @@ func TestPlanSkipsTargetsAlreadyInLedger(t *testing.T) {
 	led := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: "kairos-io/immucore|golang.org/x/net", State: "open"},
 	}}
-	intents, _ := Plan(c, led, 10)
+	intents, _ := Plan(c, led, nil, 10)
 	// only the reconcile for the existing entry; no new open
 	require.Len(t, intents, 1)
 	assert.Equal(t, IntentReconcile, intents[0].Type)
@@ -77,7 +78,7 @@ func TestPlanReopensPlannedLedgerEntry(t *testing.T) {
 	led := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: k, Repo: "kairos-io/immucore", State: "planned", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
 	}}
-	intents, _ := Plan(c, led, 10)
+	intents, _ := Plan(c, led, nil, 10)
 	require.NotNil(t, intentFor(intents, IntentReconcile, k), "expected reconcile for the existing entry")
 	open := intentFor(intents, IntentOpen, k)
 	require.NotNil(t, open, "expected re-open for the planned entry")
@@ -93,7 +94,7 @@ func TestPlanReopensBuildFailedLedgerEntry(t *testing.T) {
 	led := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: k, Repo: "kairos-io/immucore", State: "build-failed", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
 	}}
-	intents, _ := Plan(c, led, 10)
+	intents, _ := Plan(c, led, nil, 10)
 	require.NotNil(t, intentFor(intents, IntentOpen, k), "expected re-open for the build-failed entry")
 }
 
@@ -106,7 +107,7 @@ func TestPlanSkipsOpenLedgerEntryButReconciles(t *testing.T) {
 	led := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: k, Repo: "kairos-io/immucore", State: "open", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
 	}}
-	intents, _ := Plan(c, led, 10)
+	intents, _ := Plan(c, led, nil, 10)
 	require.NotNil(t, intentFor(intents, IntentReconcile, k))
 	assert.Nil(t, intentFor(intents, IntentOpen, k), "open entry must not be re-opened")
 }
@@ -122,7 +123,7 @@ func TestPlanReopensMergedOnlyForHigherVersion(t *testing.T) {
 	ledLow := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: k, Repo: "kairos-io/immucore", State: "merged", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
 	}}
-	intents, _ := Plan(cHigher, ledLow, 10)
+	intents, _ := Plan(cHigher, ledLow, nil, 10)
 	open := intentFor(intents, IntentOpen, k)
 	require.NotNil(t, open, "merged at lower version must re-open for the newer fix")
 	assert.Equal(t, "0.36.0", open.Bump.To)
@@ -134,6 +135,31 @@ func TestPlanReopensMergedOnlyForHigherVersion(t *testing.T) {
 	ledHigh := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: k, Repo: "kairos-io/immucore", State: "merged", Bump: state.Bump{Package: "golang.org/x/net", To: "0.36.0"}},
 	}}
-	intents2, _ := Plan(cLower, ledHigh, 10)
+	intents2, _ := Plan(cLower, ledHigh, nil, 10)
 	assert.Nil(t, intentFor(intents2, IntentOpen, k), "merged at >= version must not re-open")
+}
+
+func TestPlanAdoptsExistingExternalPR(t *testing.T) {
+	c := state.Correlated{Findings: []state.Finding{
+		{ID: "a", Repo: "kairos-io/immucore", Type: "sourceCVE", Ecosystem: "go",
+			Package: "golang.org/x/net", FixedVersion: "0.33.0", Severity: "high"},
+	}}
+	prs := map[string][]ghclient.PullRequest{
+		"kairos-io/immucore": {{Number: 7, Title: "Bump golang.org/x/net to 0.33.0", Author: "renovate[bot]", URL: "u7"}},
+	}
+	intents, _ := Plan(c, state.Ledger{}, prs, 10)
+	require.Len(t, intents, 1)
+	assert.Equal(t, IntentAdopt, intents[0].Type)
+	assert.Equal(t, 7, intents[0].PRNumber)
+	assert.Equal(t, "renovate", intents[0].Source)
+}
+
+func TestPlanOpensWhenNoExternalPR(t *testing.T) {
+	c := state.Correlated{Findings: []state.Finding{
+		{ID: "a", Repo: "kairos-io/immucore", Type: "sourceCVE", Ecosystem: "go",
+			Package: "golang.org/x/net", FixedVersion: "0.33.0", Severity: "high"},
+	}}
+	intents, _ := Plan(c, state.Ledger{}, nil, 10)
+	require.Len(t, intents, 1)
+	assert.Equal(t, IntentOpen, intents[0].Type)
 }

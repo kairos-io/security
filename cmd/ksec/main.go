@@ -210,7 +210,8 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			if runID == "" {
 				runID = "local"
 			}
-			intents, deferred := remediate.Plan(c, ledger, maxPRs)
+			// TODO(plan-4a task 9): pass real prsByRepo
+			intents, deferred := remediate.Plan(c, ledger, nil, maxPRs)
 			if deferred > 0 {
 				fmt.Fprintf(os.Stderr, "remediate: %d new bumps deferred by --max-prs=%d\n", deferred, maxPRs)
 			}
