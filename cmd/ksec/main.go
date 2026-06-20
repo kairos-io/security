@@ -223,7 +223,8 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 					}
 				}
 			}
-			intents, deferred := remediate.Plan(c, ledger, prsByRepo, maxPRs)
+			// TODO(plan-4b task 9): pass real depgraph
+			intents, deferred := remediate.Plan(c, ledger, prsByRepo, nil, maxPRs)
 			if deferred > 0 {
 				fmt.Fprintf(os.Stderr, "remediate: %d new bumps deferred by --max-prs=%d\n", deferred, maxPRs)
 			}

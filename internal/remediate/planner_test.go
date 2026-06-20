@@ -22,7 +22,7 @@ func TestPlanOpensNewActionableTargetsDedupedAndCapped(t *testing.T) {
 		{ID: "e", Repo: "kairos-io/kairos", Type: "sourceCVE", Ecosystem: "go", Package: "x/text", Severity: "low"},
 	}}
 
-	intents, deferred := Plan(c, state.Ledger{}, nil, 1) // cap to 1 new PR
+	intents, deferred := Plan(c, state.Ledger{}, nil, nil, 1) // cap to 1 new PR
 	require.Len(t, intents, 1)
 	assert.Equal(t, 1, deferred)
 	in := intents[0]
@@ -38,7 +38,7 @@ func TestPlanReconcilesExistingLedgerEntries(t *testing.T) {
 	led := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: "kairos-io/immucore|golang.org/x/net", Repo: "kairos-io/immucore", State: "open"},
 	}}
-	intents, _ := Plan(c, led, nil, 10)
+	intents, _ := Plan(c, led, nil, nil, 10)
 	require.Len(t, intents, 1)
 	assert.Equal(t, IntentReconcile, intents[0].Type)
 	require.NotNil(t, intents[0].Entry)
@@ -52,7 +52,7 @@ func TestPlanSkipsTargetsAlreadyInLedger(t *testing.T) {
 	led := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: "kairos-io/immucore|golang.org/x/net", State: "open"},
 	}}
-	intents, _ := Plan(c, led, nil, 10)
+	intents, _ := Plan(c, led, nil, nil, 10)
 	// only the reconcile for the existing entry; no new open
 	require.Len(t, intents, 1)
 	assert.Equal(t, IntentReconcile, intents[0].Type)
@@ -78,7 +78,7 @@ func TestPlanReopensPlannedLedgerEntry(t *testing.T) {
 	led := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: k, Repo: "kairos-io/immucore", State: "planned", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
 	}}
-	intents, _ := Plan(c, led, nil, 10)
+	intents, _ := Plan(c, led, nil, nil, 10)
 	require.NotNil(t, intentFor(intents, IntentReconcile, k), "expected reconcile for the existing entry")
 	open := intentFor(intents, IntentOpen, k)
 	require.NotNil(t, open, "expected re-open for the planned entry")
@@ -94,7 +94,7 @@ func TestPlanReopensBuildFailedLedgerEntry(t *testing.T) {
 	led := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: k, Repo: "kairos-io/immucore", State: "build-failed", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
 	}}
-	intents, _ := Plan(c, led, nil, 10)
+	intents, _ := Plan(c, led, nil, nil, 10)
 	require.NotNil(t, intentFor(intents, IntentOpen, k), "expected re-open for the build-failed entry")
 }
 
@@ -107,7 +107,7 @@ func TestPlanSkipsOpenLedgerEntryButReconciles(t *testing.T) {
 	led := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: k, Repo: "kairos-io/immucore", State: "open", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
 	}}
-	intents, _ := Plan(c, led, nil, 10)
+	intents, _ := Plan(c, led, nil, nil, 10)
 	require.NotNil(t, intentFor(intents, IntentReconcile, k))
 	assert.Nil(t, intentFor(intents, IntentOpen, k), "open entry must not be re-opened")
 }
@@ -123,7 +123,7 @@ func TestPlanReopensMergedOnlyForHigherVersion(t *testing.T) {
 	ledLow := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: k, Repo: "kairos-io/immucore", State: "merged", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
 	}}
-	intents, _ := Plan(cHigher, ledLow, nil, 10)
+	intents, _ := Plan(cHigher, ledLow, nil, nil, 10)
 	open := intentFor(intents, IntentOpen, k)
 	require.NotNil(t, open, "merged at lower version must re-open for the newer fix")
 	assert.Equal(t, "0.36.0", open.Bump.To)
@@ -135,7 +135,7 @@ func TestPlanReopensMergedOnlyForHigherVersion(t *testing.T) {
 	ledHigh := state.Ledger{Entries: []state.LedgerEntry{
 		{Key: k, Repo: "kairos-io/immucore", State: "merged", Bump: state.Bump{Package: "golang.org/x/net", To: "0.36.0"}},
 	}}
-	intents2, _ := Plan(cLower, ledHigh, nil, 10)
+	intents2, _ := Plan(cLower, ledHigh, nil, nil, 10)
 	assert.Nil(t, intentFor(intents2, IntentOpen, k), "merged at >= version must not re-open")
 }
 
@@ -147,7 +147,7 @@ func TestPlanAdoptsExistingExternalPR(t *testing.T) {
 	prs := map[string][]ghclient.PullRequest{
 		"kairos-io/immucore": {{Number: 7, Title: "Bump golang.org/x/net to 0.33.0", Author: "renovate[bot]", URL: "u7"}},
 	}
-	intents, _ := Plan(c, state.Ledger{}, prs, 10)
+	intents, _ := Plan(c, state.Ledger{}, prs, nil, 10)
 	require.Len(t, intents, 1)
 	assert.Equal(t, IntentAdopt, intents[0].Type)
 	assert.Equal(t, 7, intents[0].PRNumber)
@@ -159,7 +159,52 @@ func TestPlanOpensWhenNoExternalPR(t *testing.T) {
 		{ID: "a", Repo: "kairos-io/immucore", Type: "sourceCVE", Ecosystem: "go",
 			Package: "golang.org/x/net", FixedVersion: "0.33.0", Severity: "high"},
 	}}
-	intents, _ := Plan(c, state.Ledger{}, nil, 10)
+	intents, _ := Plan(c, state.Ledger{}, nil, nil, 10)
 	require.Len(t, intents, 1)
 	assert.Equal(t, IntentOpen, intents[0].Type)
+}
+
+func TestPlanCascadesMergedFirstPartyFix(t *testing.T) {
+	repos := []state.Repo{
+		{Repo: "kairos-io/kairos-sdk", Branch: "main"},
+		{Repo: "kairos-io/immucore", Branch: "master"},
+	}
+	gomod := map[string][]byte{
+		"kairos-io/kairos-sdk": []byte("module github.com/kairos-io/kairos-sdk\n"),
+		"kairos-io/immucore":   []byte("module github.com/kairos-io/immucore\nrequire github.com/kairos-io/kairos-sdk v0.7.0\n"),
+	}
+	g := BuildGraph(repos, gomod)
+	// A merged fix in the sdk repo -> cascade a pseudo bump into immucore.
+	ledger := state.Ledger{Entries: []state.LedgerEntry{
+		{Key: "kairos-io/kairos-sdk|golang.org/x/net", Repo: "kairos-io/kairos-sdk", State: "merged",
+			Kind: "direct", Severity: "high", Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
+	}}
+	intents, _ := Plan(state.Correlated{}, ledger, nil, g, 10)
+
+	var cas *Intent
+	for i := range intents {
+		if intents[i].Type == IntentCascade {
+			cas = &intents[i]
+		}
+	}
+	require.NotNil(t, cas, "expected a cascade intent")
+	assert.Equal(t, "kairos-io/immucore", cas.Repo)
+	assert.Equal(t, "github.com/kairos-io/kairos-sdk", cas.Package)
+	assert.Equal(t, "main", cas.Ref) // sdk's default branch for the pseudo go get
+	assert.Equal(t, "kairos-io/kairos-sdk|golang.org/x/net", cas.CascadeFrom)
+}
+
+func TestPlanRepinsPseudoCascade(t *testing.T) {
+	ledger := state.Ledger{Entries: []state.LedgerEntry{
+		{Key: "kairos-io/immucore|github.com/kairos-io/kairos-sdk", Repo: "kairos-io/immucore",
+			Package: "github.com/kairos-io/kairos-sdk", State: "open", Kind: "cascade", Pseudo: true},
+	}}
+	intents, _ := Plan(state.Correlated{}, ledger, nil, nil, 10)
+	var found bool
+	for _, in := range intents {
+		if in.Type == IntentRepin && in.Key == "kairos-io/immucore|github.com/kairos-io/kairos-sdk" {
+			found = true
+		}
+	}
+	assert.True(t, found, "expected a repin intent for the pseudo cascade entry")
 }

@@ -72,7 +72,7 @@ func splitVer(s string) []int {
 	return out
 }
 
-func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclient.PullRequest, maxNew int) ([]Intent, int) {
+func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclient.PullRequest, graph *DepGraph, maxNew int) ([]Intent, int) {
 	var intents []Intent
 
 	// 1) Reconcile every existing ledger entry.
@@ -125,25 +125,67 @@ func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclie
 		openKeys = append(openKeys, k)
 	}
 
-	sort.Slice(openKeys, func(i, j int) bool {
-		ti, tj := targets[openKeys[i]], targets[openKeys[j]]
-		if sevRank[ti.sev] != sevRank[tj.sev] {
-			return sevRank[ti.sev] > sevRank[tj.sev]
+	// Repin: every pseudo cascade entry is a repin candidate (the executor
+	// decides whether a tag is available yet).
+	for i := range ledger.Entries {
+		e := &ledger.Entries[i]
+		if e.Kind == "cascade" && e.Pseudo && e.State == "open" {
+			intents = append(intents, Intent{Type: IntentRepin, Key: e.Key, Repo: e.Repo, Entry: e})
 		}
-		return openKeys[i] < openKeys[j]
-	})
+	}
 
+	// Cascade: a merged fix in a first-party module repo means that module's
+	// default branch has the fix; bump it in each consumer that isn't already
+	// tracked for it. Cascade PRs share the maxNew cap with direct opens.
+	type newPR struct {
+		intent Intent
+		sev    string
+	}
+	var pool []newPR
+	for _, k := range openKeys { // direct gaps from the earlier 4a logic
+		t := targets[k]
+		pool = append(pool, newPR{
+			intent: Intent{Type: IntentOpen, Key: k, Repo: t.repo, Package: t.pkg, Severity: t.sev,
+				Bump: state.Bump{Package: t.pkg, To: t.to}},
+			sev: t.sev,
+		})
+	}
+	if graph != nil {
+		for i := range ledger.Entries {
+			e := &ledger.Entries[i]
+			mod := graph.ModuleOf(e.Repo)
+			if mod == "" || e.State != "merged" {
+				continue
+			}
+			for _, consumer := range graph.Consumers(mod) {
+				ck := key(consumer, mod)
+				if ce, ok := ledger.ByKey(ck); ok {
+					if ce.State == "open" || ce.State == "conflicted" || ce.State == "merged" {
+						continue // already cascading / done
+					}
+				}
+				pool = append(pool, newPR{
+					intent: Intent{Type: IntentCascade, Key: ck, Repo: consumer, Package: mod,
+						Ref: graph.BranchOf(e.Repo), CascadeFrom: e.Key, Severity: e.Severity},
+					sev: e.Severity,
+				})
+			}
+		}
+	}
+
+	sort.SliceStable(pool, func(i, j int) bool {
+		if sevRank[pool[i].sev] != sevRank[pool[j].sev] {
+			return sevRank[pool[i].sev] > sevRank[pool[j].sev]
+		}
+		return pool[i].intent.Key < pool[j].intent.Key
+	})
 	deferred := 0
-	for n, k := range openKeys {
+	for n := range pool {
 		if n >= maxNew {
-			deferred = len(openKeys) - n
+			deferred = len(pool) - n
 			break
 		}
-		t := targets[k]
-		intents = append(intents, Intent{
-			Type: IntentOpen, Key: k, Repo: t.repo, Package: t.pkg, Severity: t.sev,
-			Bump: state.Bump{Package: t.pkg, To: t.to},
-		})
+		intents = append(intents, pool[n].intent)
 	}
 	return intents, deferred
 }

@@ -8,19 +8,23 @@ const (
 	IntentOpen      IntentType = "open"
 	IntentReconcile IntentType = "reconcile"
 	IntentAdopt     IntentType = "adopt"
+	IntentCascade   IntentType = "cascade"
+	IntentRepin     IntentType = "repin"
 )
 
 type Intent struct {
-	Type     IntentType
-	Key      string
-	Repo     string
-	Package  string
-	Severity string
-	Bump     state.Bump
-	Entry    *state.LedgerEntry // set for IntentReconcile
-	PRNumber int
-	PRURL    string
-	Source   string // dependabot | renovate | human (for IntentAdopt)
+	Type        IntentType
+	Key         string
+	Repo        string
+	Package     string
+	Severity    string
+	Bump        state.Bump
+	Entry       *state.LedgerEntry // set for IntentReconcile
+	PRNumber    int
+	PRURL       string
+	Source      string // dependabot | renovate | human (for IntentAdopt)
+	Ref         string // module's default branch for the pseudo `go get` (IntentCascade)
+	CascadeFrom string // upstream ledger key that triggered this cascade (IntentCascade)
 }
 
 type Result struct {
