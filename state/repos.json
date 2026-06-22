@@ -4,42 +4,48 @@
     "kind": "org",
     "branch": "main",
     "criticality": "high",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/cluster-api-provider-kairos",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/entangle",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/entangle-proxy",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/go-nodepair",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/go-ukify",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/hadron",
@@ -51,153 +57,177 @@
         "type": "image",
         "ref": "ghcr.io/kairos-io/hadron:main"
       }
-    ]
+    ],
+    "scan": {}
   },
   {
     "repo": "kairos-io/immucore",
     "kind": "org",
     "branch": "main",
     "criticality": "high",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/kairos",
     "kind": "org",
     "branch": "main",
     "criticality": "high",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/kairos-agent",
     "kind": "org",
     "branch": "main",
     "criticality": "high",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/kairos-init",
     "kind": "org",
     "branch": "main",
     "criticality": "high",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/kairos-installer",
     "kind": "org",
     "branch": "main",
     "criticality": "high",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/kairos-lab",
     "kind": "org",
     "branch": "main",
     "criticality": "low",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/kairos-must-burn",
     "kind": "org",
     "branch": "main",
     "criticality": "low",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {
+      "source": false
+    }
   },
   {
     "repo": "kairos-io/kairos-operator",
     "kind": "org",
     "branch": "main",
     "criticality": "high",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/kairos-sdk",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/kcrypt",
     "kind": "org",
     "branch": "main",
     "criticality": "high",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/kcrypt-discovery-challenger",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/netboot",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/provider-kairos",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/provider-kubernetes",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/simple-mdns-server",
     "kind": "org",
     "branch": "main",
     "criticality": "low",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "kairos-io/tpm-helpers",
     "kind": "org",
     "branch": "main",
     "criticality": "high",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "mauromorales/xpasswd",
     "kind": "external",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "mudler/edgevpn",
     "kind": "external",
     "branch": "main",
     "criticality": "high",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "mudler/entities",
     "kind": "external",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "mudler/go-pluggable",
     "kind": "external",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   },
   {
     "repo": "mudler/yip",
     "kind": "external",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null
+    "artifacts": null,
+    "scan": {}
   }
 ]
