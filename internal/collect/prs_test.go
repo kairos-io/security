@@ -36,11 +36,11 @@ func TestOpenPRsTracksOnlyCVETied(t *testing.T) {
 	for _, p := range prs {
 		nums[p.Number] = p.Source
 	}
-	assert.Contains(t, nums, 2)          // tied to the x/crypto finding
+	assert.Contains(t, nums, 2) // tied to the x/crypto finding
 	assert.Equal(t, "dependabot", nums[2])
-	assert.NotContains(t, nums, 5)       // unrelated bump -> dropped (no noise)
-	assert.Contains(t, nums, 7)          // security label
-	assert.Contains(t, nums, 9)          // ours
+	assert.NotContains(t, nums, 5) // unrelated bump -> dropped (no noise)
+	assert.Contains(t, nums, 7)    // security label
+	assert.Contains(t, nums, 9)    // ours
 }
 
 func TestOpenPRsEmptyWhenNoFindings(t *testing.T) {
