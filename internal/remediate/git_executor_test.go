@@ -35,3 +35,26 @@ func TestAdjustRefusesNonKsecBranch(t *testing.T) {
 	require.Error(t, err)
 	assert.Contains(t, err.Error(), "ksec")
 }
+
+func TestForkSlug(t *testing.T) {
+	assert.Equal(t, "kairos-security-bot/edgevpn", forkSlug("kairos-security-bot", "mudler/edgevpn"))
+	assert.Equal(t, "bot/kairos", forkSlug("bot", "kairos-io/kairos"))
+}
+
+func TestPRHead(t *testing.T) {
+	ext := func(string) bool { return true }
+	org := func(string) bool { return false }
+	g := &GitExecutor{ForkOwner: "kairos-security-bot", ShouldFork: ext}
+	assert.Equal(t, "kairos-security-bot:ksec/x", g.prHead("mudler/edgevpn", "ksec/x"))
+
+	g2 := &GitExecutor{ForkOwner: "kairos-security-bot", ShouldFork: org}
+	assert.Equal(t, "ksec/x", g2.prHead("kairos-io/kairos", "ksec/x"))
+
+	g3 := &GitExecutor{} // nil ShouldFork -> never fork
+	assert.Equal(t, "ksec/x", g3.prHead("mudler/edgevpn", "ksec/x"))
+}
+
+func TestForkURL(t *testing.T) {
+	g := &GitExecutor{ForkOwner: "bot", Token: "tok"}
+	assert.Equal(t, "https://x-access-token:tok@github.com/bot/edgevpn.git", g.forkURL("mudler/edgevpn"))
+}

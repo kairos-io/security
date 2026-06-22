@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path"
 	"strings"
 
 	"github.com/kairos-io/security/internal/ghclient"
@@ -22,6 +23,31 @@ type GitExecutor struct {
 	GH        ghclient.GitHub // used by Adopt for comment/status/merge
 	Automerge bool
 	Agent     Agent // optional; when set, attempts to repair a broken build before giving up
+	// ForkOwner is the account that owns the bot's forks; when forking, PRs are
+	// opened cross-fork (head "ForkOwner:branch") and pushes go to the fork.
+	ForkOwner string
+	// ShouldFork decides whether a given repo must be remediated via a fork
+	// (e.g. EXTERNAL repos the bot can't push to). nil means never fork.
+	ShouldFork func(repo string) bool
+}
+
+func forkSlug(forkOwner, repo string) string { return forkOwner + "/" + path.Base(repo) }
+
+func (g *GitExecutor) forking(repo string) bool { return g.ShouldFork != nil && g.ShouldFork(repo) }
+
+func (g *GitExecutor) prHead(repo, branch string) string {
+	if g.forking(repo) {
+		return g.ForkOwner + ":" + branch
+	}
+	return branch
+}
+
+func (g *GitExecutor) forkURL(repo string) string {
+	slug := forkSlug(g.ForkOwner, repo)
+	if g.Token != "" {
+		return "https://x-access-token:" + g.Token + "@github.com/" + slug + ".git"
+	}
+	return "https://github.com/" + slug + ".git"
 }
 
 // verifyOrRepair runs `go build ./...`; on failure it asks the agent (if any)
