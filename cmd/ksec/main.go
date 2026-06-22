@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"os/exec"
@@ -134,13 +135,10 @@ func govulncheckRunner(r state.Repo) ([]byte, error) {
 
 	cmd := exec.Command("govulncheck", "-json", "./...")
 	cmd.Dir = dir
-	out, err := cmd.Output()
-	if err != nil && len(out) == 0 {
-		// No JSON at all: a real failure. A non-zero exit with output is
-		// normal — govulncheck exits non-zero when it finds vulnerabilities.
-		return nil, err
-	}
-	return out, nil
+	var stderr bytes.Buffer
+	cmd.Stderr = &stderr
+	out, runErr := cmd.Output()
+	return collect.ClassifyGovulncheck(out, stderr.Bytes(), runErr)
 }
 
 func newCorrelateCmd(gf *globalFlags) *cobra.Command {
