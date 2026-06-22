@@ -224,6 +224,20 @@ func (g *GitExecutor) Reconcile(e state.LedgerEntry, runID string) (state.Ledger
 	if e.State == "open" && view.Mergeable == "CONFLICTING" && strings.HasPrefix(branch, "ksec/") {
 		return g.ResolveConflict(e, runID)
 	}
+	// A foreign (adopted) PR we don't own that is conflicting: we cannot rebase
+	// it, so flag it for the planner to supersede with our own PR.
+	if e.State == "open" && view.Mergeable == "CONFLICTING" && e.Source != "ksec" {
+		if e.Blocked != "upstream-conflict" {
+			e.Blocked = "upstream-conflict"
+			e.LastActionRun = runID
+			e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "upstream-conflict"})
+		}
+		return e, nil
+	}
+	// Conflict cleared on a previously-blocked entry.
+	if e.Blocked == "upstream-conflict" && view.Mergeable != "CONFLICTING" {
+		e.Blocked = ""
+	}
 	return e, nil
 }
 
