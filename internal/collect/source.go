@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
+	"strings"
 
 	"github.com/kairos-io/security/internal/state"
 )
@@ -29,12 +30,16 @@ type govulnLine struct {
 				} `json:"events"`
 			} `json:"ranges"`
 		} `json:"affected"`
+		DatabaseSpecific *struct {
+			Severity string `json:"severity"`
+		} `json:"database_specific"`
 	} `json:"osv"`
 	Finding *struct {
 		OSV   string `json:"osv"`
 		Trace []struct {
-			Module  string `json:"module"`
-			Version string `json:"version"`
+			Module   string `json:"module"`
+			Version  string `json:"version"`
+			Function string `json:"function"`
 		} `json:"trace"`
 	} `json:"finding"`
 }
@@ -45,7 +50,7 @@ func (c SourceCVE) Collect(repo state.Repo) ([]state.Finding, error) {
 		return nil, err
 	}
 	type adv struct {
-		cve, fixed, summary string
+		cve, fixed, summary, severity string
 	}
 	advisories := map[string]adv{}
 	var findings []govulnLine
@@ -63,6 +68,9 @@ func (c SourceCVE) Collect(repo state.Repo) ([]state.Finding, error) {
 		}
 		if gl.OSV != nil {
 			a := adv{summary: gl.OSV.Summary}
+			if gl.OSV.DatabaseSpecific != nil {
+				a.severity = gl.OSV.DatabaseSpecific.Severity
+			}
 			for _, al := range gl.OSV.Aliases {
 				if len(al) > 3 && al[:3] == "CVE" {
 					a.cve = al
@@ -89,6 +97,9 @@ func (c SourceCVE) Collect(repo state.Repo) ([]state.Finding, error) {
 		if len(gl.Finding.Trace) == 0 {
 			continue
 		}
+		if gl.Finding.Trace[0].Function == "" {
+			continue // not reachable: required but not called
+		}
 		t := gl.Finding.Trace[0]
 		a := advisories[gl.Finding.OSV]
 		cve := a.cve
@@ -104,7 +115,7 @@ func (c SourceCVE) Collect(repo state.Repo) ([]state.Finding, error) {
 			Package:        t.Module,
 			CurrentVersion: t.Version,
 			FixedVersion:   a.fixed,
-			Severity:       "unknown",
+			Severity:       severityFromOSV(a.severity),
 			Source:         "govulncheck",
 			Title:          a.summary,
 			FirstSeen:      Today(),
@@ -117,4 +128,19 @@ func (c SourceCVE) Collect(repo state.Repo) ([]state.Finding, error) {
 		res = append(res, f)
 	}
 	return res, nil
+}
+
+func severityFromOSV(s string) string {
+	switch strings.ToUpper(strings.TrimSpace(s)) {
+	case "CRITICAL":
+		return "critical"
+	case "HIGH":
+		return "high"
+	case "MODERATE", "MEDIUM":
+		return "medium"
+	case "LOW":
+		return "low"
+	default:
+		return "high" // reachable vuln with no severity data is actionable
+	}
 }
