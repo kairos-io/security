@@ -80,6 +80,8 @@ repos:
   - repo: kairos-io/kairos-must-burn
     kind: org
     criticality: low
+    scan:
+      source: false
   - repo: kairos-io/kairos-lab
     kind: org
     criticality: low

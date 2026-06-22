@@ -117,6 +117,10 @@ func trivyRunner(ref string) ([]byte, error) {
 // Non-Go repos (no root go.mod) are skipped without error so they neither
 // produce a finding nor a collection error.
 func govulncheckRunner(r state.Repo) ([]byte, error) {
+	if !r.SourceScanEnabled() {
+		return nil, nil // explicitly opted out of source scanning
+	}
+
 	// Only scan repos that have a root go.mod; otherwise govulncheck just
 	// fails ("exit status 1") on docs/helm/.github repos.
 	if err := exec.Command("gh", "api", "repos/"+r.Repo+"/contents/go.mod").Run(); err != nil {

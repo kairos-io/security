@@ -16,13 +16,25 @@ type Artifact struct {
 	ModPath string `json:"modpath,omitempty"` // module path within repo, when Type=="go"
 }
 
+// ScanConfig holds per-repo scan opt-outs. A nil Source means source scanning
+// is enabled (the default); set it to false to skip source scans (e.g. for a
+// GTK4/cgo app that govulncheck cannot build headless).
+type ScanConfig struct {
+	Source *bool `json:"source,omitempty" yaml:"source"`
+}
+
 type Repo struct {
 	Repo        string     `json:"repo"` // "owner/name"
 	Kind        string     `json:"kind"` // "org" | "dep" | "external"
 	Branch      string     `json:"branch"`
 	Criticality string     `json:"criticality"` // "low" | "medium" | "high"
 	Artifacts   []Artifact `json:"artifacts"`
+	Scan        ScanConfig `json:"scan,omitempty" yaml:"scan"`
 }
+
+// SourceScanEnabled reports whether source scanning is enabled for the repo.
+// It defaults to true when unset.
+func (r Repo) SourceScanEnabled() bool { return r.Scan.Source == nil || *r.Scan.Source }
 
 type Finding struct {
 	ID             string `json:"id"` // stable dedupe key

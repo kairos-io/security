@@ -210,6 +210,7 @@ type repoRow struct {
 	repo                        string
 	crit, high, med, low, total int
 	errored                     bool
+	skipped                     bool // source scanning opted out for this repo
 }
 
 // perRepoRows enumerates the union of every tracked repo, every repo that
@@ -227,7 +228,7 @@ func perRepoRows(repos []state.Repo, findings []state.Finding, errs []state.Coll
 		return r
 	}
 	for _, repo := range repos {
-		get(repo.Repo)
+		get(repo.Repo).skipped = !repo.SourceScanEnabled()
 	}
 	for _, f := range findings {
 		r := get(f.Repo)
@@ -266,11 +267,14 @@ func perRepoRows(repos []state.Repo, findings []state.Finding, errs []state.Coll
 }
 
 // repoStatus classifies a per-repo row for display: errored repos take
-// precedence, then repos with no findings are "clean", otherwise "ok".
+// precedence, then source-scan opt-outs with no findings are "skipped: not
+// source-scannable", then repos with no findings are "clean", otherwise "ok".
 func repoStatus(r repoRow) string {
 	switch {
 	case r.errored:
 		return "⚠️ errors"
+	case r.total == 0 && r.skipped:
+		return "skipped: not source-scannable"
 	case r.total == 0:
 		return "clean"
 	default:

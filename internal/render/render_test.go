@@ -113,3 +113,10 @@ func TestDashboardJSONIsStable(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, string(a), string(b))
 }
+
+func TestDashboardMarksSkippedRepo(t *testing.T) {
+	f := false
+	in := Input{Repos: []state.Repo{{Repo: "o/r", Scan: state.ScanConfig{Source: &f}}}}
+	md := DashboardMarkdown(in)
+	assert.Contains(t, md, "skipped: not source-scannable")
+}
