@@ -144,6 +144,7 @@ func DashboardMarkdown(in Input) string {
 	}
 
 	// Open PRs
+	supersededBy, conflictedURLs := correlateOpenPRs(in.Ledger.Entries)
 	b.WriteString("## 📋 Open PRs\n\n")
 	if len(in.OpenPRs) == 0 {
 		b.WriteString("_None._\n\n")
@@ -158,7 +159,7 @@ func DashboardMarkdown(in Input) string {
 			if pr.URL != "" {
 				link = fmt.Sprintf("[#%d %s](%s)", pr.Number, pr.Title, pr.URL)
 			}
-			fmt.Fprintf(&b, "- %s — %s\n", link, pr.Source)
+			fmt.Fprintf(&b, "- %s — %s — %s\n", link, pr.Source, openPRStatus(pr, supersededBy, conflictedURLs))
 		}
 		b.WriteString("\n")
 	}
@@ -195,7 +196,19 @@ func DashboardMarkdown(in Input) string {
 			if e.Pseudo {
 				bump += " (pseudo)"
 			}
+			if e.Supersedes != "" {
+				bump += " ↳ supersedes " + e.Supersedes
+			}
 			fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s |\n", e.Repo, bump, kind, source, st, pr)
+		}
+		b.WriteString("\n")
+	}
+
+	// Needs human roll-up
+	if rows := needsHumanRows(in.Ledger.Entries); len(rows) > 0 {
+		b.WriteString("## 🚑 Needs human\n\n")
+		for _, r := range rows {
+			fmt.Fprintf(&b, "- %s\n", r)
 		}
 		b.WriteString("\n")
 	}
@@ -263,6 +276,55 @@ func perRepoRows(repos []state.Repo, findings []state.Finding, errs []state.Coll
 		}
 		return rows[i].repo < rows[j].repo
 	})
+	return rows
+}
+
+// correlateOpenPRs builds two lookup maps from the ledger in a single pass:
+// supersededBy maps a foreign PR URL to the ksec entry that supersedes it
+// (keyed on e.Supersedes), and conflictedURLs marks foreign PR URLs that have a
+// ledger entry blocked on an upstream conflict (keyed on e.PRURL). Both are
+// derived from the already-sorted ledger, so no map-order leak reaches output.
+func correlateOpenPRs(entries []state.LedgerEntry) (supersededBy map[string]state.LedgerEntry, conflictedURLs map[string]bool) {
+	supersededBy = map[string]state.LedgerEntry{}
+	conflictedURLs = map[string]bool{}
+	for _, e := range entries {
+		if e.Supersedes != "" {
+			supersededBy[e.Supersedes] = e
+		}
+		if e.PRURL != "" && e.Blocked == "upstream-conflict" {
+			conflictedURLs[e.PRURL] = true
+		}
+	}
+	return supersededBy, conflictedURLs
+}
+
+// openPRStatus reports the human-facing status/action for a tracked PR by
+// correlating it with the ledger: a superseding ksec PR, an upstream conflict
+// being superseded, or plain "tracked".
+func openPRStatus(pr state.TrackedPR, supersededBy map[string]state.LedgerEntry, conflictedURLs map[string]bool) string {
+	if e, ok := supersededBy[pr.URL]; ok {
+		return fmt.Sprintf("superseded by [#%d](%s)", e.PRNumber, e.PRURL)
+	}
+	if conflictedURLs[pr.URL] {
+		return "conflicted → superseding"
+	}
+	return "tracked"
+}
+
+// needsHumanRows lists, in ledger order, each entry flagged NeedsHuman as
+// "<repo> <bump> — <Blocked or state>".
+func needsHumanRows(entries []state.LedgerEntry) []string {
+	var rows []string
+	for _, e := range entries {
+		if !e.NeedsHuman {
+			continue
+		}
+		reason := e.Blocked
+		if reason == "" {
+			reason = e.State
+		}
+		rows = append(rows, fmt.Sprintf("%s %s@%s — %s", e.Repo, e.Bump.Package, e.Bump.To, reason))
+	}
 	return rows
 }
 

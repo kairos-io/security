@@ -106,6 +106,28 @@ func TestOpenPRsSection(t *testing.T) {
 	assert.Contains(t, md, "dependabot")
 }
 
+func TestOpenPRShowsSupersededStatus(t *testing.T) {
+	in := Input{
+		OpenPRs: []state.TrackedPR{{Repo: "o/r", Number: 38, Title: "bump x", URL: "https://github.com/o/r/pull/38", Source: "bot"}},
+		Ledger: state.Ledger{Entries: []state.LedgerEntry{
+			{Key: "o/r|x", Repo: "o/r", Source: "ksec", State: "open", PRNumber: 77,
+				PRURL: "https://github.com/o/r/pull/77", Supersedes: "https://github.com/o/r/pull/38"},
+		}},
+	}
+	md := DashboardMarkdown(in)
+	assert.Contains(t, md, "superseded by") // status/action surfaced
+	assert.Contains(t, md, "/pull/77")      // links the ksec PR
+}
+
+func TestNeedsHumanRollup(t *testing.T) {
+	in := Input{Ledger: state.Ledger{Entries: []state.LedgerEntry{
+		{Key: "o/r|x", Repo: "o/r", State: "build-failed", NeedsHuman: true, Bump: state.Bump{Package: "x", To: "1.0"}},
+	}}}
+	md := DashboardMarkdown(in)
+	assert.Contains(t, md, "🚑 Needs human")
+	assert.Contains(t, md, "o/r")
+}
+
 func TestDashboardJSONIsStable(t *testing.T) {
 	a, err := DashboardJSON(sampleInput())
 	require.NoError(t, err)

@@ -19,6 +19,7 @@ type htmlData struct {
 	CollectErrors       []state.CollectionError
 	OpenPRs             []htmlOpenPRGroup
 	Ledger              []htmlLedgerEntry
+	NeedsHuman          []string
 	RunURL              string
 }
 
@@ -34,6 +35,7 @@ type htmlOpenPR struct {
 	Title  string
 	URL    string
 	Source string
+	Status string
 }
 
 // htmlLedgerEntry exposes a bot PR ledger row to the template (exported fields).
@@ -147,7 +149,7 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 <h2>&#128203; Open PRs</h2>
 {{if .OpenPRs}}{{range .OpenPRs}}<h3>{{.Repo}}</h3>
 <ul>
-{{range .PRs}}<li>{{if .URL}}<a href="{{.URL}}">#{{.Number}} {{.Title}}</a>{{else}}#{{.Number}} {{.Title}}{{end}} &mdash; {{.Source}}</li>
+{{range .PRs}}<li>{{if .URL}}<a href="{{.URL}}">#{{.Number}} {{.Title}}</a>{{else}}#{{.Number}} {{.Title}}{{end}} &mdash; {{.Source}} &mdash; {{.Status}}</li>
 {{end}}</ul>
 {{end}}{{else}}<p class="empty">None.</p>{{end}}
 </section>
@@ -161,7 +163,14 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 {{end}}</tbody>
 </table>{{else}}<p class="empty">No bot PRs yet.</p>{{end}}
 </section>
-
+{{if .NeedsHuman}}
+<section>
+<h2>&#128657; Needs human</h2>
+<ul>
+{{range .NeedsHuman}}<li>{{.}}</li>
+{{end}}</ul>
+</section>
+{{end}}
 <footer>
 {{if .RunURL}}<a href="{{.RunURL}}">Run log</a>{{else}}Kairos central security dashboard{{end}}
 </footer>
@@ -250,12 +259,16 @@ func DashboardHTML(in Input) string {
 		if e.Pseudo {
 			bump += " (pseudo)"
 		}
+		if e.Supersedes != "" {
+			bump += " ↳ supersedes " + e.Supersedes
+		}
 		ledger = append(ledger, htmlLedgerEntry{
 			Repo: e.Repo, Bump: bump,
 			Kind: kind, Source: source,
 			State: st, PRNumber: e.PRNumber, PRURL: e.PRURL,
 		})
 	}
+	supersededBy, conflictedURLs := correlateOpenPRs(in.Ledger.Entries)
 	var openPRs []htmlOpenPRGroup
 	for _, pr := range in.OpenPRs {
 		if len(openPRs) == 0 || openPRs[len(openPRs)-1].Repo != pr.Repo {
@@ -264,6 +277,7 @@ func DashboardHTML(in Input) string {
 		g := &openPRs[len(openPRs)-1]
 		g.PRs = append(g.PRs, htmlOpenPR{
 			Number: pr.Number, Title: pr.Title, URL: pr.URL, Source: pr.Source,
+			Status: openPRStatus(pr, supersededBy, conflictedURLs),
 		})
 	}
 	data := htmlData{
@@ -277,6 +291,7 @@ func DashboardHTML(in Input) string {
 		CollectErrors:       in.CollectErrors,
 		OpenPRs:             openPRs,
 		Ledger:              ledger,
+		NeedsHuman:          needsHumanRows(in.Ledger.Entries),
 		RunURL:              in.RunURL,
 	}
 	var b strings.Builder
