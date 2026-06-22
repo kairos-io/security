@@ -91,13 +91,20 @@ func newCollectCmd(gf *globalFlags) *cobra.Command {
 
 			gh := ghclient.NewCLI()
 			collectors := []collect.Collector{
-				collect.PRs{GH: gh},
 				collect.GHAlerts{GH: gh},
 				collect.ImageCVE{Runner: trivyRunner},
 				collect.SourceCVE{Runner: govulncheckRunner},
 			}
 			out := collect.Run(repos, collectors, prev)
-			return state.Save(gf.stateDir, state.FindingsFile, out)
+			if err := state.Save(gf.stateDir, state.FindingsFile, out); err != nil {
+				return err
+			}
+			prs, prErrs := collect.OpenPRs(repos, gh)
+			out.Errors = append(out.Errors, prErrs...)
+			if len(prErrs) > 0 {
+				_ = state.Save(gf.stateDir, state.FindingsFile, out) // include PR-list errors
+			}
+			return state.Save(gf.stateDir, state.OpenPRsFile, prs)
 		},
 	}
 }

@@ -7,6 +7,7 @@ const (
 	CorrelatedFile = "correlated.json"
 	TriageFile     = "triage.json"
 	LedgerFile     = "ledger.json"
+	OpenPRsFile    = "openprs.json"
 )
 
 type Artifact struct {
@@ -39,6 +40,15 @@ type Finding struct {
 	URL            string `json:"url,omitempty"`
 	FirstSeen      string `json:"firstSeen"` // YYYY-MM-DD
 	LastSeen       string `json:"lastSeen"`  // YYYY-MM-DD
+}
+
+type TrackedPR struct {
+	Repo   string `json:"repo"`
+	Number int    `json:"number"`
+	Title  string `json:"title"`
+	Author string `json:"author"`
+	URL    string `json:"url"`
+	Source string `json:"source"` // renovate|dependabot|ksec|human
 }
 
 type CollectionError struct {

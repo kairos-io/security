@@ -9,19 +9,30 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestPRsCollectorFiltersSecurityPRs(t *testing.T) {
-	nowFn = func() string { return "2026-06-19" }
-	defer func() { nowFn = defaultNow }()
+type fakePRGH struct {
+	byRepo map[string][]ghclient.PullRequest
+	ghclient.GitHub
+}
 
-	gh := ghclient.NewFake()
-	gh.PRs["kairos-io/immucore"] = []ghclient.PullRequest{
-		{Number: 1, Title: "Bump x/net", Author: "renovate[bot]", URL: "u1"},
-		{Number: 2, Title: "Feature", Author: "alice", Labels: []string{"enhancement"}},
-		{Number: 3, Title: "Patch CVE", Author: "alice", Labels: []string{"security"}},
-	}
-	c := PRs{GH: gh}
-	fs, err := c.Collect(state.Repo{Repo: "kairos-io/immucore"})
-	require.NoError(t, err)
-	require.Len(t, fs, 2) // PR 1 (renovate) + PR 3 (security label)
-	assert.Equal(t, "pr", fs[0].Type)
+func (f fakePRGH) ListOpenPRs(repo string) ([]ghclient.PullRequest, error) {
+	return f.byRepo[repo], nil
+}
+
+func TestOpenPRsTracksAndClassifies(t *testing.T) {
+	gh := fakePRGH{byRepo: map[string][]ghclient.PullRequest{
+		"o/r": {
+			{Number: 2, Title: "bump y", Author: "dependabot[bot]", URL: "u2"},
+			{Number: 1, Title: "feature", Author: "alice"},                       // not tracked (no bot, no label)
+			{Number: 3, Title: "sec fix", Author: "bob", Labels: []string{"security"}, URL: "u3"},
+		},
+	}}
+	prs, errs := OpenPRs([]state.Repo{{Repo: "o/r"}}, gh)
+	require.Empty(t, errs)
+	require.Len(t, prs, 2)
+	// sorted by repo then number
+	assert.Equal(t, 2, prs[0].Number)
+	assert.Equal(t, "dependabot", prs[0].Source)
+	assert.Equal(t, "u2", prs[0].URL)
+	assert.Equal(t, 3, prs[1].Number)
+	assert.Equal(t, "human", prs[1].Source)
 }
