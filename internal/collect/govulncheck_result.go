@@ -3,6 +3,7 @@ package collect
 import (
 	"bytes"
 	"fmt"
+	"strings"
 )
 
 // ClassifyGovulncheck decides whether a govulncheck run that exited non-zero
@@ -19,5 +20,16 @@ func ClassifyGovulncheck(stdout, stderr []byte, runErr error) ([]byte, error) {
 	if bytes.Contains(stdout, []byte(`"osv"`)) || bytes.Contains(stdout, []byte(`"finding"`)) {
 		return stdout, nil // vulnerabilities found: non-zero exit is expected
 	}
-	return nil, fmt.Errorf("govulncheck: %v: %s", runErr, bytes.TrimSpace(stderr))
+	return nil, fmt.Errorf("govulncheck: %v: %s", runErr, truncErr(stderr, 240))
+}
+
+// truncErr renders tool stderr as a one-line, length-capped summary so a
+// build-failure (e.g. a cgo app missing system libs) doesn't flood the
+// dashboard or the committed findings.json with a multi-KB wall.
+func truncErr(b []byte, max int) string {
+	s := strings.Join(strings.Fields(string(b)), " ") // collapse all whitespace/newlines
+	if len(s) <= max {
+		return s
+	}
+	return s[:max] + " … (truncated)"
 }

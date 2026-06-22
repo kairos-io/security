@@ -2,6 +2,7 @@ package collect
 
 import (
 	"errors"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -25,4 +26,19 @@ func TestClassifyGovulncheck(t *testing.T) {
 		[]byte("go: updates to go.mod needed; module requires go >= 1.26"), errors.New("exit status 1"))
 	require.Error(t, err)
 	assert.Contains(t, err.Error(), "go >= 1.26")
+}
+
+func TestClassifyGovulncheckTruncatesHugeError(t *testing.T) {
+	huge := []byte(strings.Repeat("glib-2.0 not found; ", 5000)) // ~100KB, many lines
+	_, err := ClassifyGovulncheck([]byte(`{"config":{}}`+"\n"+`{"progress":{}}`), huge, errors.New("exit status 1"))
+	require.Error(t, err)
+	assert.LessOrEqual(t, len(err.Error()), 320) // capped, not a 100KB wall
+	assert.Contains(t, err.Error(), "truncated")
+}
+
+func TestTruncErr(t *testing.T) {
+	assert.Equal(t, "abc", truncErr([]byte("  abc \n"), 240))           // trimmed, under cap
+	long := truncErr([]byte(strings.Repeat("x", 1000)), 240)
+	assert.Equal(t, 240+len(" … (truncated)"), len(long))
+	assert.True(t, strings.HasSuffix(long, "… (truncated)"))
 }
