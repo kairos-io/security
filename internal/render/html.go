@@ -17,8 +17,23 @@ type htmlData struct {
 	Waterfall           []state.WaterfallGroup
 	Repos               []htmlRepoRow
 	CollectErrors       []state.CollectionError
+	OpenPRs             []htmlOpenPRGroup
 	Ledger              []htmlLedgerEntry
 	RunURL              string
+}
+
+// htmlOpenPRGroup exposes open PRs for a single repo to the template.
+type htmlOpenPRGroup struct {
+	Repo string
+	PRs  []htmlOpenPR
+}
+
+// htmlOpenPR exposes a single tracked PR to the template (exported fields).
+type htmlOpenPR struct {
+	Number int
+	Title  string
+	URL    string
+	Source string
 }
 
 // htmlLedgerEntry exposes a bot PR ledger row to the template (exported fields).
@@ -33,7 +48,8 @@ type htmlLedgerEntry struct {
 }
 
 type htmlFocus struct {
-	ID      string
+	Title   string
+	URL     string
 	Summary string
 }
 
@@ -95,7 +111,7 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 <section>
 <h2>&#128293; Focus now</h2>
 {{if .Focus}}<ol>
-{{range .Focus}}<li><strong>{{.ID}}</strong>{{if .Summary}} &mdash; {{.Summary}}{{end}}</li>
+{{range .Focus}}<li>{{if .URL}}<a href="{{.URL}}">{{.Title}}</a>{{else}}<strong>{{.Title}}</strong>{{end}}{{if .Summary}} &mdash; {{.Summary}}{{end}}</li>
 {{end}}</ol>{{else}}<p class="empty">Nothing flagged.</p>{{end}}
 </section>
 
@@ -126,6 +142,15 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 {{range .CollectErrors}}<li><code>{{.Repo}}</code> / {{.Collector}}: {{.Message}}</li>
 {{end}}</ul>
 </section>{{end}}
+
+<section>
+<h2>&#128203; Open PRs</h2>
+{{if .OpenPRs}}{{range .OpenPRs}}<h3>{{.Repo}}</h3>
+<ul>
+{{range .PRs}}<li>{{if .URL}}<a href="{{.URL}}">#{{.Number}} {{.Title}}</a>{{else}}#{{.Number}} {{.Title}}{{end}} &mdash; {{.Source}}</li>
+{{end}}</ul>
+{{end}}{{else}}<p class="empty">None.</p>{{end}}
+</section>
 
 <section>
 <h2>&#129302; Bot PR ledger</h2>
@@ -175,9 +200,24 @@ func severityClass(sev string) string {
 // DashboardHTML renders a self-contained HTML dashboard page. It is
 // deterministic for a given Input and escapes all dynamic text.
 func DashboardHTML(in Input) string {
+	byID := map[string]state.Finding{}
+	for _, f := range in.Correlated.Findings {
+		byID[f.ID] = f
+	}
 	focus := make([]htmlFocus, 0, len(in.Triage.Focus))
 	for _, id := range in.Triage.Focus {
-		focus = append(focus, htmlFocus{ID: id, Summary: in.Triage.Summaries[id]})
+		hf := htmlFocus{}
+		if f, ok := byID[id]; ok {
+			hf.Title, hf.URL = focusTitleURL(f)
+			if s := in.Triage.Summaries[id]; s != "" && !strings.HasPrefix(s, "Finding in ") {
+				hf.Summary = s
+			}
+		} else if s, ok := in.Triage.Summaries[id]; ok {
+			hf.Title = s
+		} else {
+			continue
+		}
+		focus = append(focus, hf)
 	}
 	rows := perRepoRows(in.Repos, in.Correlated.Findings, in.CollectErrors)
 	repos := make([]htmlRepoRow, 0, len(rows))
@@ -216,6 +256,16 @@ func DashboardHTML(in Input) string {
 			State: st, PRNumber: e.PRNumber, PRURL: e.PRURL,
 		})
 	}
+	var openPRs []htmlOpenPRGroup
+	for _, pr := range in.OpenPRs {
+		if len(openPRs) == 0 || openPRs[len(openPRs)-1].Repo != pr.Repo {
+			openPRs = append(openPRs, htmlOpenPRGroup{Repo: pr.Repo})
+		}
+		g := &openPRs[len(openPRs)-1]
+		g.PRs = append(g.PRs, htmlOpenPR{
+			Number: pr.Number, Title: pr.Title, URL: pr.URL, Source: pr.Source,
+		})
+	}
 	data := htmlData{
 		GeneratedAt:         in.Triage.GeneratedAt,
 		AIAvailable:         in.Triage.AIAvailable,
@@ -225,6 +275,7 @@ func DashboardHTML(in Input) string {
 		Waterfall:           in.Correlated.Waterfall,
 		Repos:               repos,
 		CollectErrors:       in.CollectErrors,
+		OpenPRs:             openPRs,
 		Ledger:              ledger,
 		RunURL:              in.RunURL,
 	}

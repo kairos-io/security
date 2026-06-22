@@ -18,6 +18,44 @@ type Input struct {
 	RunURL        string                  `json:"runURL"`
 	// CoordinationSummary is an AI-generated cross-repo coordination narrative.
 	CoordinationSummary string `json:"coordinationSummary,omitempty"`
+	// OpenPRs are the tracked remediation-relevant pull requests, grouped by repo.
+	OpenPRs []state.TrackedPR `json:"openPRs,omitempty"`
+}
+
+// findingLink renders a finding as a markdown title→URL link. For sourceCVE
+// findings with no URL it synthesizes an advisory link from the CVE/GHSA id.
+// It never emits the raw finding id: the title (or package, or "<repo>
+// finding") is used as the link text.
+func findingLink(f state.Finding) string {
+	title, url := focusTitleURL(f)
+	if url != "" {
+		return fmt.Sprintf("[%s](%s)", title, url)
+	}
+	return title
+}
+
+// focusTitleURL derives the human-facing title and (possibly synthesized)
+// advisory URL for a finding, shared by the markdown and HTML renderers. It
+// never returns the raw finding id.
+func focusTitleURL(f state.Finding) (title, url string) {
+	url = f.URL
+	if url == "" && f.Type == "sourceCVE" {
+		id := f.CVEID
+		if id == "" {
+			id = f.GHSA
+		}
+		if id != "" {
+			url = "https://pkg.go.dev/vuln/" + id
+		}
+	}
+	title = f.Title
+	if title == "" {
+		title = f.Package
+	}
+	if title == "" {
+		title = f.Repo + " finding"
+	}
+	return title, url
 }
 
 func DashboardJSON(in Input) ([]byte, error) {
@@ -48,15 +86,23 @@ func DashboardMarkdown(in Input) string {
 	}
 
 	// Focus now
+	byID := map[string]state.Finding{}
+	for _, f := range in.Correlated.Findings {
+		byID[f.ID] = f
+	}
 	b.WriteString("## 🔥 Focus now\n\n")
 	if len(in.Triage.Focus) == 0 {
 		b.WriteString("_Nothing flagged._\n\n")
 	} else {
 		for _, id := range in.Triage.Focus {
-			if s, ok := in.Triage.Summaries[id]; ok {
-				fmt.Fprintf(&b, "- **%s** — %s\n", id, s)
-			} else {
-				fmt.Fprintf(&b, "- **%s**\n", id)
+			if f, ok := byID[id]; ok {
+				line := findingLink(f)
+				if s := in.Triage.Summaries[id]; s != "" && !strings.HasPrefix(s, "Finding in ") {
+					line += " — " + s
+				}
+				fmt.Fprintf(&b, "- %s\n", line)
+			} else if s, ok := in.Triage.Summaries[id]; ok {
+				fmt.Fprintf(&b, "- %s\n", s)
 			}
 		}
 		b.WriteString("\n")
@@ -90,6 +136,26 @@ func DashboardMarkdown(in Input) string {
 		fmt.Fprintf(&b, "## ⚠️ %d collection errors\n\n", len(in.CollectErrors))
 		for _, e := range in.CollectErrors {
 			fmt.Fprintf(&b, "- `%s` / %s: %s\n", e.Repo, e.Collector, e.Message)
+		}
+		b.WriteString("\n")
+	}
+
+	// Open PRs
+	b.WriteString("## 📋 Open PRs\n\n")
+	if len(in.OpenPRs) == 0 {
+		b.WriteString("_None._\n\n")
+	} else {
+		repo := ""
+		for _, pr := range in.OpenPRs {
+			if pr.Repo != repo {
+				repo = pr.Repo
+				fmt.Fprintf(&b, "**%s**\n\n", repo)
+			}
+			link := fmt.Sprintf("#%d %s", pr.Number, pr.Title)
+			if pr.URL != "" {
+				link = fmt.Sprintf("[#%d %s](%s)", pr.Number, pr.Title, pr.URL)
+			}
+			fmt.Fprintf(&b, "- %s — %s\n", link, pr.Source)
 		}
 		b.WriteString("\n")
 	}

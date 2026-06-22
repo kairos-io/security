@@ -35,8 +35,7 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 <section>
 <h2>&#128293; Focus now</h2>
 <ol>
-<li><strong>crit1</strong> &mdash; Critical openssl CVE in kairos image</li>
-<li><strong>go-CVE-2025-1-golang.org/x/net</strong></li>
+<li><strong>openssl</strong> &mdash; Critical openssl CVE in kairos image</li>
 </ol>
 </section>
 
@@ -67,6 +66,11 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 <ul>
 <li><code>kairos-io/x</code> / prs: rate limited</li>
 </ul>
+</section>
+
+<section>
+<h2>&#128203; Open PRs</h2>
+<p class="empty">None.</p>
 </section>
 
 <section>

@@ -22,7 +22,7 @@ func TestOpenPRsTracksAndClassifies(t *testing.T) {
 	gh := fakePRGH{byRepo: map[string][]ghclient.PullRequest{
 		"o/r": {
 			{Number: 2, Title: "bump y", Author: "dependabot[bot]", URL: "u2"},
-			{Number: 1, Title: "feature", Author: "alice"},                       // not tracked (no bot, no label)
+			{Number: 1, Title: "feature", Author: "alice"}, // not tracked (no bot, no label)
 			{Number: 3, Title: "sec fix", Author: "bob", Labels: []string{"security"}, URL: "u3"},
 		},
 	}}

@@ -6,8 +6,7 @@ _Updated 2026-06-19._
 
 ## 🔥 Focus now
 
-- **crit1** — Critical openssl CVE in kairos image
-- **go-CVE-2025-1-golang.org/x/net**
+- openssl — Critical openssl CVE in kairos image
 
 ## 🌊 Waterfall fronts
 
@@ -26,6 +25,10 @@ _Updated 2026-06-19._
 ## ⚠️ 1 collection errors
 
 - `kairos-io/x` / prs: rate limited
+
+## 📋 Open PRs
+
+_None._
 
 ## 🤖 Bot PR ledger
 

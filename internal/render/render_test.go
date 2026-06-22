@@ -66,6 +66,30 @@ func TestDashboardMarkdownCoordinationSummary(t *testing.T) {
 	assert.Contains(t, got, "X cascading")
 }
 
+func TestFocusShowsTitleLinkNotID(t *testing.T) {
+	in := Input{
+		Correlated: state.Correlated{Findings: []state.Finding{
+			{ID: "abc123", Repo: "o/r", Title: "x/net rapid reset", URL: "https://github.com/o/r/pull/9"},
+			{ID: "def456", Repo: "o/r", Type: "sourceCVE", CVEID: "GO-2024-3218", Title: "kad-dht issue"},
+		}},
+		Triage: state.Triage{Focus: []string{"abc123", "def456"}},
+	}
+	md := DashboardMarkdown(in)
+	assert.Contains(t, md, "[x/net rapid reset](https://github.com/o/r/pull/9)")
+	assert.Contains(t, md, "[kad-dht issue](https://pkg.go.dev/vuln/GO-2024-3218)")
+	assert.NotContains(t, md, "abc123") // raw id never shown
+}
+
+func TestOpenPRsSection(t *testing.T) {
+	in := Input{OpenPRs: []state.TrackedPR{
+		{Repo: "o/r", Number: 7, Title: "bump foo", URL: "https://github.com/o/r/pull/7", Source: "dependabot"},
+	}}
+	md := DashboardMarkdown(in)
+	assert.Contains(t, md, "📋 Open PRs")
+	assert.Contains(t, md, "[#7 bump foo](https://github.com/o/r/pull/7)")
+	assert.Contains(t, md, "dependabot")
+}
+
 func TestDashboardJSONIsStable(t *testing.T) {
 	a, err := DashboardJSON(sampleInput())
 	require.NoError(t, err)
