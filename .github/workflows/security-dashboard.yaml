@@ -165,7 +165,19 @@ jobs:
             echo "no changes"
           else
             git commit -m "chore: update security dashboard [skip ci]"
-            git push
+            # main may have advanced between checkout and now (a concurrent push
+            # or another commit), which rejects a bare push. Rebase our single
+            # artifact commit onto the latest main and retry. `-X theirs` keeps
+            # THIS run's freshly generated files if a racer touched the same
+            # artifacts; unrelated commits rebase cleanly (different files).
+            pushed=0
+            for i in 1 2 3 4 5; do
+              if git push origin HEAD:main; then pushed=1; break; fi
+              echo "push rejected (attempt $i) — rebasing onto latest origin/main"
+              git pull --rebase --autostash -X theirs origin main || git rebase --abort || true
+              sleep 3
+            done
+            [ "$pushed" = 1 ] || { echo "push failed after 5 attempts"; exit 1; }
           fi
 
       - name: Configure Pages
