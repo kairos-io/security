@@ -359,6 +359,7 @@ git commit -m "feat(render): deterministic 'This run' activity summary"
 
 - [ ] **Step 1: Add per-phase log lines** in `cmd/ksec/main.go` (stderr, at the end of each phase's RunE, before the final save/return):
   - **collect:** `fmt.Fprintf(os.Stderr, "collect: %d repos · %d findings · %d errors · %d PRs tied to CVEs\n", len(repos), len(out.Findings), len(out.Errors), len(prs))`
+  - **image scans (visibility):** make `trivyRunner` log each image scan so it's no longer invisible — `fmt.Fprintf(os.Stderr, "image-scan: trivy %s\n", ref)` before the `exec.Command`, and after: log the vuln count on success or the error (e.g. `image-scan: %s → error: %v` / `image-scan: %s → ok\n`). This answers "do we even run trivy?" in the CI log for hadron's OS image.
   - **triage:** after the existing AI ok/fail logging, add the finding count: `fmt.Fprintf(os.Stderr, "triage: %d findings, focus=%d\n", len(c.Findings), len(out.Focus))`
   - **remediate:** after `Run`, summarize the results by action: `fmt.Fprintf(os.Stderr, "remediate: %d intents → %s\n", len(intents), actionCounts(results))` where `actionCounts` tallies `r.Action` (open/adopt/supersede/cascade/toolchain/repin/reconcile/needs-human). Add a small `actionCounts(results []remediate.Result) string` helper in main.go (or inline a map tally).
   - **render:** `fmt.Fprintf(os.Stderr, "render: dashboard.md + site + issue\n")` (or include the issue number if returned).
