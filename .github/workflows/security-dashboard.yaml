@@ -40,13 +40,12 @@ jobs:
       # Cross-repo reads + the kairos tracking-issue write use the scoped bot token.
       GH_TOKEN: ${{ secrets.KSEC_BOT_TOKEN }}
       LOCALAI_URL: http://localhost:8080
-      # nib (the build-repair agent) reads MODEL/BASE_URL/API_KEY from env
-      # (verified against nib's config.Load: github.com/mudler/nib config.go).
-      # NibAgent ALSO sets these from ai.yaml at exec time (authoritative), so
-      # these are documentation/fallback. BASE_URL must include the /v1 suffix.
-      MODEL: ${{ vars.LOCALAI_MODEL }}
-      BASE_URL: http://localhost:8080/v1
-      API_KEY: sk-localai
+      # NOTE: do NOT set MODEL/BASE_URL/API_KEY at the job level. LocalAI reads
+      # API_KEY as its OWN server-side auth requirement, so a job-level API_KEY
+      # makes the LocalAI server reject the unauthenticated triage/summary
+      # clients with HTTP 401. nib's model env (MODEL/BASE_URL/API_KEY) is set
+      # per-subprocess by NibAgent (internal/remediate/nib_agent.go) from
+      # ai.yaml, so it never touches the LocalAI server or the other clients.
     steps:
       - uses: actions/checkout@v4
         with:
