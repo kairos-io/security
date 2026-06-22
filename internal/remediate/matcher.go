@@ -31,19 +31,24 @@ func isOwnPR(pr ghclient.PullRequest) bool {
 	return strings.HasPrefix(pr.HeadRef, "ksec/") || pr.Author == "kairos-security-bot"
 }
 
-func isBotLogin(login string) bool { return strings.HasSuffix(login, "[bot]") }
+// botName strips gh's bot-author decorations to the underlying name: the
+// "app/" prefix gh puts on GitHub App authors (e.g. "app/dependabot",
+// "app/renovate") and the "[bot]" suffix. Both forms -> "dependabot"/"renovate".
+func botName(login string) string {
+	return strings.TrimSuffix(strings.TrimPrefix(login, "app/"), "[bot]")
+}
 
 func classifySource(pr ghclient.PullRequest) string {
 	if isOwnPR(pr) {
 		return "ksec"
 	}
-	switch pr.Author {
-	case "renovate[bot]":
+	switch botName(pr.Author) {
+	case "renovate":
 		return "renovate"
-	case "dependabot[bot]":
+	case "dependabot":
 		return "dependabot"
 	}
-	if isBotLogin(pr.Author) {
+	if pr.IsBot {
 		return "bot"
 	}
 	return "human"

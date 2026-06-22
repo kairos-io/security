@@ -21,7 +21,7 @@ func (f fakePRGH) ListOpenPRs(repo string) ([]ghclient.PullRequest, error) {
 func TestOpenPRsTracksAndClassifies(t *testing.T) {
 	gh := fakePRGH{byRepo: map[string][]ghclient.PullRequest{
 		"o/r": {
-			{Number: 2, Title: "bump y", Author: "dependabot[bot]", URL: "u2"},
+			{Number: 2, Title: "bump y", Author: "app/dependabot", IsBot: true, URL: "u2"},
 			{Number: 1, Title: "feature", Author: "alice"}, // not tracked (no bot, no label)
 			{Number: 3, Title: "sec fix", Author: "bob", Labels: []string{"security"}, URL: "u3"},
 		},
@@ -39,10 +39,10 @@ func TestOpenPRsTracksAndClassifies(t *testing.T) {
 
 func TestOpenPRsTracksAnyBot(t *testing.T) {
 	gh := fakePRGH{byRepo: map[string][]ghclient.PullRequest{
-		"o/r": {{Number: 38, Title: "bump x", Author: "kairos-io-bot[bot]", URL: "u38"}},
+		"o/r": {{Number: 38, Title: "bump x", Author: "app/some-tool", IsBot: true, URL: "u38"}},
 	}}
 	prs, errs := OpenPRs([]state.Repo{{Repo: "o/r"}}, gh)
 	require.Empty(t, errs)
-	require.Len(t, prs, 1) // tracked even though not in the renovate/dependabot/ksec allowlist
+	require.Len(t, prs, 1) // tracked via is_bot even though not renovate/dependabot/ksec
 	assert.Equal(t, "bot", prs[0].Source)
 }

@@ -16,10 +16,13 @@ func TestClassifySource(t *testing.T) {
 }
 
 func TestClassifySourceRecognizesAnyBot(t *testing.T) {
-	// a novel GitHub App bot must classify as "bot", not "human"
-	assert.Equal(t, "bot", classifySource(ghclient.PullRequest{Author: "kairos-io-bot[bot]"}))
-	assert.Equal(t, "renovate", classifySource(ghclient.PullRequest{Author: "renovate[bot]"}))
-	assert.Equal(t, "dependabot", classifySource(ghclient.PullRequest{Author: "dependabot[bot]"}))
+	// gh reports App bots as "app/<name>" with is_bot=true (NOT a "[bot]" suffix).
+	assert.Equal(t, "dependabot", classifySource(ghclient.PullRequest{Author: "app/dependabot", IsBot: true}))
+	assert.Equal(t, "renovate", classifySource(ghclient.PullRequest{Author: "app/renovate", IsBot: true}))
+	// back-compat with the "[bot]" suffix form
+	assert.Equal(t, "dependabot", classifySource(ghclient.PullRequest{Author: "dependabot[bot]", IsBot: true}))
+	// a novel App bot -> "bot" (via is_bot), not "human"
+	assert.Equal(t, "bot", classifySource(ghclient.PullRequest{Author: "app/some-tool", IsBot: true}))
 	assert.Equal(t, "ksec", classifySource(ghclient.PullRequest{HeadRef: "ksec/x"}))
 	assert.Equal(t, "human", classifySource(ghclient.PullRequest{Author: "alice"}))
 }

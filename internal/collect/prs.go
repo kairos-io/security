@@ -28,7 +28,7 @@ func OpenPRs(repos []state.Repo, gh ghclient.GitHub) ([]state.TrackedPR, []state
 			}
 			out = append(out, state.TrackedPR{
 				Repo: repo.Repo, Number: pr.Number, Title: pr.Title,
-				Author: pr.Author, URL: pr.URL, Source: prSource(pr.Author),
+				Author: pr.Author, URL: pr.URL, Source: prSource(pr),
 			})
 		}
 	}
@@ -41,25 +41,31 @@ func OpenPRs(repos []state.Repo, gh ghclient.GitHub) ([]state.TrackedPR, []state
 	return out, errs
 }
 
-func isBotLogin(login string) bool { return strings.HasSuffix(login, "[bot]") }
+// botName strips gh's bot-author decorations: the "app/" prefix gh puts on
+// GitHub App authors (e.g. "app/dependabot", "app/renovate") and the "[bot]"
+// suffix. Both forms collapse to the underlying name.
+func botName(login string) string {
+	return strings.TrimSuffix(strings.TrimPrefix(login, "app/"), "[bot]")
+}
 
-func prSource(author string) string {
-	switch author {
-	case "renovate[bot]":
-		return "renovate"
-	case "dependabot[bot]":
-		return "dependabot"
-	case "kairos-security-bot":
+func prSource(pr ghclient.PullRequest) string {
+	if pr.Author == "kairos-security-bot" || strings.HasPrefix(pr.HeadRef, "ksec/") {
 		return "ksec"
 	}
-	if isBotLogin(author) {
+	switch botName(pr.Author) {
+	case "renovate":
+		return "renovate"
+	case "dependabot":
+		return "dependabot"
+	}
+	if pr.IsBot {
 		return "bot"
 	}
 	return "human"
 }
 
 func isSecurityPR(pr ghclient.PullRequest) bool {
-	if isBotLogin(pr.Author) || pr.Author == "kairos-security-bot" {
+	if pr.IsBot || pr.Author == "kairos-security-bot" {
 		return true
 	}
 	for _, l := range pr.Labels {
