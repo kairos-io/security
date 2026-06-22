@@ -36,3 +36,13 @@ func TestOpenPRsTracksAndClassifies(t *testing.T) {
 	assert.Equal(t, 3, prs[1].Number)
 	assert.Equal(t, "human", prs[1].Source)
 }
+
+func TestOpenPRsTracksAnyBot(t *testing.T) {
+	gh := fakePRGH{byRepo: map[string][]ghclient.PullRequest{
+		"o/r": {{Number: 38, Title: "bump x", Author: "kairos-io-bot[bot]", URL: "u38"}},
+	}}
+	prs, errs := OpenPRs([]state.Repo{{Repo: "o/r"}}, gh)
+	require.Empty(t, errs)
+	require.Len(t, prs, 1) // tracked even though not in the renovate/dependabot/ksec allowlist
+	assert.Equal(t, "bot", prs[0].Source)
+}

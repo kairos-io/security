@@ -15,6 +15,15 @@ func TestClassifySource(t *testing.T) {
 	assert.Equal(t, "human", classifySource(ghclient.PullRequest{Author: "alice"}))
 }
 
+func TestClassifySourceRecognizesAnyBot(t *testing.T) {
+	// a novel GitHub App bot must classify as "bot", not "human"
+	assert.Equal(t, "bot", classifySource(ghclient.PullRequest{Author: "kairos-io-bot[bot]"}))
+	assert.Equal(t, "renovate", classifySource(ghclient.PullRequest{Author: "renovate[bot]"}))
+	assert.Equal(t, "dependabot", classifySource(ghclient.PullRequest{Author: "dependabot[bot]"}))
+	assert.Equal(t, "ksec", classifySource(ghclient.PullRequest{HeadRef: "ksec/x"}))
+	assert.Equal(t, "human", classifySource(ghclient.PullRequest{Author: "alice"}))
+}
+
 func TestMatchPR(t *testing.T) {
 	prs := []ghclient.PullRequest{
 		{Number: 1, Title: "Bump golang.org/x/net from 0.30.0 to 0.33.0", Author: "dependabot[bot]"},

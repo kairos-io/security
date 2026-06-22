@@ -31,6 +31,8 @@ func isOwnPR(pr ghclient.PullRequest) bool {
 	return strings.HasPrefix(pr.HeadRef, "ksec/") || pr.Author == "kairos-security-bot"
 }
 
+func isBotLogin(login string) bool { return strings.HasSuffix(login, "[bot]") }
+
 func classifySource(pr ghclient.PullRequest) string {
 	if isOwnPR(pr) {
 		return "ksec"
@@ -40,9 +42,11 @@ func classifySource(pr ghclient.PullRequest) string {
 		return "renovate"
 	case "dependabot[bot]":
 		return "dependabot"
-	default:
-		return "human"
 	}
+	if isBotLogin(pr.Author) {
+		return "bot"
+	}
+	return "human"
 }
 
 // MatchPR returns the first open PR whose title contains the package path

@@ -2,14 +2,12 @@ package collect
 
 import (
 	"sort"
+	"strings"
 
 	"github.com/kairos-io/security/internal/ghclient"
 	"github.com/kairos-io/security/internal/state"
 )
 
-var botAuthors = map[string]bool{
-	"renovate[bot]": true, "dependabot[bot]": true, "kairos-security-bot": true,
-}
 var secLabels = map[string]bool{"security": true, "dependencies": true}
 
 // OpenPRs lists the tracked open PRs (bot-authored or security/dependencies
@@ -43,6 +41,8 @@ func OpenPRs(repos []state.Repo, gh ghclient.GitHub) ([]state.TrackedPR, []state
 	return out, errs
 }
 
+func isBotLogin(login string) bool { return strings.HasSuffix(login, "[bot]") }
+
 func prSource(author string) string {
 	switch author {
 	case "renovate[bot]":
@@ -51,13 +51,15 @@ func prSource(author string) string {
 		return "dependabot"
 	case "kairos-security-bot":
 		return "ksec"
-	default:
-		return "human"
 	}
+	if isBotLogin(author) {
+		return "bot"
+	}
+	return "human"
 }
 
 func isSecurityPR(pr ghclient.PullRequest) bool {
-	if botAuthors[pr.Author] {
+	if isBotLogin(pr.Author) || pr.Author == "kairos-security-bot" {
 		return true
 	}
 	for _, l := range pr.Labels {
