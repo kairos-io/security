@@ -1,8 +1,8 @@
 # Kairos Security Dashboard
 
-_Updated 2026-06-20._
+_Updated 2026-06-22._
 
-> Initial triage has been performed on correlated security findings. These initial focuses target issues across the 'mudler/edgevpn' and 'mudler/entities' repositories. Further investigation is required to determine the true severity of these findings.
+> This triage focuses on the initial set of correlated findings across the mudler/edgevpn and mudler/entities repositories. Since all findings currently have an 'unknown' severity, these initial items are prioritized for immediate review to establish risk levels.
 
 ## 🔥 Focus now
 

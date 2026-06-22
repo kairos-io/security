@@ -9,7 +9,7 @@
       "title": "#923 chore(deps): bump github.com/miekg/dns from 1.1.64 to 1.1.68 (@app/dependabot)",
       "url": "https://github.com/mudler/edgevpn/pull/923",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "263ba6e3bec87208abe550dbadbf0c39d9469166b32f16d3081aede17e46b70c",
@@ -20,7 +20,7 @@
       "title": "#943 chore(deps): bump codecov/codecov-action from 5.5.0 to 5.5.1 (@app/dependabot)",
       "url": "https://github.com/mudler/edgevpn/pull/943",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "3602fe7b3b70938c8887f5189957e46e98c89f2bae2bed8dceeffa47a0625c7d",
@@ -31,7 +31,7 @@
       "title": "#11 Bump golang.org/x/net from 0.0.0-20191209160850-c0dbc17a3553 to 0.7.0 (@app/dependabot)",
       "url": "https://github.com/mudler/entities/pull/11",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "3bec20f2db07b1b0e4c2ccf11c452e4f314795618305e7376b03123964135a68",
@@ -42,7 +42,7 @@
       "title": "#1009 chore(deps): bump docs/themes/docsy from `bbf68d4` to `01c827e` (@app/dependabot)",
       "url": "https://github.com/mudler/edgevpn/pull/1009",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "64525ea2ba8fde52ee7d5a1ccc1b781c2cf26c27368615ea9f3edb59c39439ad",
@@ -53,7 +53,7 @@
       "title": "#1006 chore(deps): bump github.com/labstack/echo/v4 from 4.13.3 to 4.15.1 (@app/dependabot)",
       "url": "https://github.com/mudler/edgevpn/pull/1006",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "6496275f084940bd0f01104113ca75410aaab99c1cf88016421644cf837ffc0e",
@@ -64,7 +64,7 @@
       "title": "#905 chore(deps): bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 (@app/dependabot)",
       "url": "https://github.com/mudler/edgevpn/pull/905",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "6e92a23e2ae5f7d4d87956411f6c475009c54cbbf5084e6bb2918e929ef1f42b",
@@ -75,7 +75,7 @@
       "title": "#946 chore(deps): bump github.com/libp2p/go-libp2p-kad-dht from 0.33.1 to 0.35.1 (@app/dependabot)",
       "url": "https://github.com/mudler/edgevpn/pull/946",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "723439e7cc4ae974697cd6ceb2659eb2559ce3d4f08209b720960e299a16d707",
@@ -86,7 +86,7 @@
       "title": "#927 chore(deps): bump actions/checkout from 4 to 5 (@app/dependabot)",
       "url": "https://github.com/mudler/edgevpn/pull/927",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "84f3b278ae9e055d0b1676c6a9445f49e506cfacb4ee4374abcf961acd29211c",
@@ -97,7 +97,7 @@
       "title": "#942 chore(deps): bump github.com/onsi/gomega from 1.37.0 to 1.38.2 (@app/dependabot)",
       "url": "https://github.com/mudler/edgevpn/pull/942",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "8ed76ba1af624bf731a449b602db26f134b1d1eb2e46182cf9b33307e324853f",
@@ -108,7 +108,7 @@
       "title": "#951 chore(deps): bump actions/download-artifact from 5 to 6 (@app/dependabot)",
       "url": "https://github.com/mudler/edgevpn/pull/951",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "b64bb3625176f97c8d21a6bedffe9c7ddb3f1439c2f81ad0830761aabccfa0f9",
@@ -119,7 +119,7 @@
       "title": "#939 chore(deps): bump actions/setup-go from 5 to 6 (@app/dependabot)",
       "url": "https://github.com/mudler/edgevpn/pull/939",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "c306ec2217a40c9719751828daf9458c689768ead61d3f211ef88b29a3680b43",
@@ -130,7 +130,7 @@
       "title": "#12 Bump golang.org/x/sys from 0.0.0-20200102141924-c96a22e43c9c to 0.1.0 (@app/dependabot)",
       "url": "https://github.com/mudler/entities/pull/12",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "c7b5ce825e06aedea38921e37c89bfd4fb855a1f9a611b50df13e83003dc81e5",
@@ -141,7 +141,7 @@
       "title": "#961 chore(deps): bump github.com/libp2p/go-libp2p-pubsub from 0.14.2 to 0.15.0 (@app/dependabot)",
       "url": "https://github.com/mudler/edgevpn/pull/961",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     },
     {
       "id": "d0a422705fbf31e9da0b032f2ab4bb791dd4725d7c5edda968b833090ca392af",
@@ -152,7 +152,7 @@
       "title": "#10 Bump golang.org/x/text from 0.3.2 to 0.3.8 (@app/dependabot)",
       "url": "https://github.com/mudler/entities/pull/10",
       "firstSeen": "2026-06-19",
-      "lastSeen": "2026-06-20"
+      "lastSeen": "2026-06-22"
     }
   ],
   "waterfall": null
