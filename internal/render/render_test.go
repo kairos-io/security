@@ -80,6 +80,22 @@ func TestFocusShowsTitleLinkNotID(t *testing.T) {
 	assert.NotContains(t, md, "abc123") // raw id never shown
 }
 
+// TestFocusSourceCVEWithCVEIDNoURL guards the synthesis fallback: a sourceCVE
+// finding whose only id is a CVE alias (not GO-prefixed) and which carries no
+// URL must render as a bare title, never a pkg.go.dev/vuln/CVE-… link (which
+// 400s, since pkg.go.dev/vuln only serves GO-… paths).
+func TestFocusSourceCVEWithCVEIDNoURL(t *testing.T) {
+	in := Input{
+		Correlated: state.Correlated{Findings: []state.Finding{
+			{ID: "ghi789", Repo: "o/r", Type: "sourceCVE", CVEID: "CVE-2023-39325", Title: "http2 rapid reset"},
+		}},
+		Triage: state.Triage{Focus: []string{"ghi789"}},
+	}
+	md := DashboardMarkdown(in)
+	assert.Contains(t, md, "- http2 rapid reset") // bare title, no link
+	assert.NotContains(t, md, "pkg.go.dev/vuln/CVE-")
+}
+
 func TestOpenPRsSection(t *testing.T) {
 	in := Input{OpenPRs: []state.TrackedPR{
 		{Repo: "o/r", Number: 7, Title: "bump foo", URL: "https://github.com/o/r/pull/7", Source: "dependabot"},

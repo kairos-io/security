@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// classifyGovulncheck decides whether a govulncheck run that exited non-zero
+// ClassifyGovulncheck decides whether a govulncheck run that exited non-zero
 // failed for real (build/load error) or merely found vulnerabilities. In -json
 // mode govulncheck emits config/progress objects on stdout before analysis, so
 // a non-empty stdout does NOT mean it succeeded — only the presence of an

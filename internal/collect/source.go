@@ -118,6 +118,7 @@ func (c SourceCVE) Collect(repo state.Repo) ([]state.Finding, error) {
 			Severity:       severityFromOSV(a.severity),
 			Source:         "govulncheck",
 			Title:          a.summary,
+			URL:            "https://pkg.go.dev/vuln/" + gl.Finding.OSV,
 			FirstSeen:      Today(),
 			LastSeen:       Today(),
 		}

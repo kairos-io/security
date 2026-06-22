@@ -51,6 +51,9 @@ func TestSourceCVEReachabilityAndSeverity(t *testing.T) {
 	assert.Equal(t, "example.com/m", out[0].Package)
 	assert.Equal(t, "high", out[0].Severity)
 	assert.Equal(t, "1.2.3", out[0].FixedVersion)
+	// The advisory URL is built from the GO id (not the CVE alias) so it
+	// resolves on pkg.go.dev/vuln, which only serves GO-… paths.
+	assert.Equal(t, "https://pkg.go.dev/vuln/GO-2024-1", out[0].URL)
 }
 
 func TestSeverityFromOSV(t *testing.T) {

@@ -44,7 +44,10 @@ func focusTitleURL(f state.Finding) (title, url string) {
 		if id == "" {
 			id = f.GHSA
 		}
-		if id != "" {
+		// pkg.go.dev/vuln only serves GO-… paths; a CVE/GHSA id there 400s.
+		// Synthesize only for GO-prefixed ids; otherwise leave url empty
+		// (bare title) rather than emit a dead link.
+		if strings.HasPrefix(id, "GO-") {
 			url = "https://pkg.go.dev/vuln/" + id
 		}
 	}

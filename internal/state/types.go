@@ -27,7 +27,7 @@ type Repo struct {
 type Finding struct {
 	ID             string `json:"id"` // stable dedupe key
 	Repo           string `json:"repo"`
-	Type           string `json:"type"` // "pr" | "imageCVE" | "sourceCVE" | "ghAlert"
+	Type           string `json:"type"` // "imageCVE" | "sourceCVE" | "ghAlert"
 	CVEID          string `json:"cveID,omitempty"`
 	GHSA           string `json:"ghsa,omitempty"`
 	Ecosystem      string `json:"ecosystem,omitempty"`
