@@ -218,6 +218,7 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 	var aiProse bool
 	var automerge bool
 	var repair bool
+	var seeds []string
 	cmd := &cobra.Command{
 		Use:   "remediate",
 		Short: "open and maintain dependency-bump PRs for actionable findings",
@@ -225,6 +226,16 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			var c state.Correlated
 			if err := state.Load(gf.stateDir, state.CorrelatedFile, &c); err != nil {
 				return err
+			}
+			for _, s := range seeds {
+				f, err := remediate.ParseSeed(s)
+				if err != nil {
+					return err
+				}
+				c.Findings = append(c.Findings, f)
+			}
+			if len(seeds) > 0 {
+				fmt.Fprintf(os.Stderr, "remediate: injected %d seed finding(s) for testing\n", len(seeds))
 			}
 			var ledger state.Ledger
 			_ = state.Load(gf.stateDir, state.LedgerFile, &ledger) // best-effort: empty on first run
@@ -319,6 +330,8 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 	cmd.Flags().BoolVar(&aiProse, "ai-pr-prose", true, "use the AI model to draft PR descriptions (falls back to deterministic text)")
 	cmd.Flags().BoolVar(&automerge, "automerge", false, "merge addressing PRs (ours/dependabot/renovate) when green and unblocked")
 	cmd.Flags().BoolVar(&repair, "repair", true, "use the nib agent to repair build breaks / conflicts")
+	cmd.Flags().StringArrayVar(&seeds, "seed", nil,
+		"inject a synthetic finding to test remediation: owner/repo=package@version (repeatable)")
 	return cmd
 }
 
