@@ -11,6 +11,10 @@ on:
         description: "Open an interactive tmate session before running the pipeline"
         type: boolean
         default: false
+      seed:
+        description: "Remediation test: inject a synthetic finding (owner/repo=package@version). Combine with dry_run to preview the PR."
+        type: string
+        default: ""
   schedule:
     - cron: "0 6 * * *"
 
@@ -147,12 +151,16 @@ jobs:
           limit-access-to-actor: true
 
       - name: Run pipeline
+        env:
+          # Optional remediation test: a dispatch can inject a synthetic finding
+          # (owner/repo=package@version) so the bot plans/opens a real PR for it.
+          SEED: ${{ github.event.inputs.seed }}
         run: |
           ksec discover  --state-dir state
           ksec collect   --state-dir state
           ksec correlate --state-dir state
           ksec triage    --state-dir state --require-ai
-          ksec remediate --state-dir state $REMEDIATE_DRYRUN --ai-pr-prose=${AI_PR_PROSE}
+          ksec remediate --state-dir state $REMEDIATE_DRYRUN --ai-pr-prose=${AI_PR_PROSE} ${SEED:+--seed "$SEED"}
           ksec render    --state-dir state $DRYRUN
 
       - name: Commit state + dashboards
