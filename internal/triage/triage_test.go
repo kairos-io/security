@@ -38,6 +38,16 @@ func TestRunUsesAIWhenAvailable(t *testing.T) {
 	assert.Equal(t, "n", got.Narrative)
 }
 
+func TestRunEmptyFindingsSkipsAI(t *testing.T) {
+	// A clean scan must not call the AI, so --require-ai cannot fail on empty
+	// input. stubAI returns an error; if Run called it, Run would surface that.
+	got, err := Run(state.Correlated{}, stubAI{err: errors.New("must not be called")}, "m")
+	require.NoError(t, err)
+	assert.True(t, got.AIAvailable)
+	assert.Empty(t, got.Focus)
+	assert.Contains(t, got.Narrative, "No security findings")
+}
+
 func TestRunFallsBackOnAIError(t *testing.T) {
 	got, err := Run(sampleCorrelated, stubAI{err: errors.New("model down")}, "m")
 	assert.Error(t, err)
