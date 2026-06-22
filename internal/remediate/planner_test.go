@@ -329,3 +329,17 @@ func TestPlanTerminalKsecEntryNotReadopted(t *testing.T) {
 		}
 	}
 }
+
+func TestPlanActionsSeedFinding(t *testing.T) {
+	f, err := ParseSeed("mudler/edgevpn=golang.org/x/net@0.33.0")
+	require.NoError(t, err)
+	intents, _ := Plan(state.Correlated{Findings: []state.Finding{f}}, state.Ledger{}, nil, nil, 10)
+	var got *Intent
+	for i := range intents {
+		if intents[i].Key == "mudler/edgevpn|golang.org/x/net" {
+			got = &intents[i]
+		}
+	}
+	require.NotNil(t, got, "seed finding must produce an intent")
+	assert.Equal(t, "0.33.0", got.Bump.To)
+}
