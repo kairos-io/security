@@ -37,7 +37,7 @@ func TestClassifyGovulncheckTruncatesHugeError(t *testing.T) {
 }
 
 func TestTruncErr(t *testing.T) {
-	assert.Equal(t, "abc", truncErr([]byte("  abc \n"), 240))           // trimmed, under cap
+	assert.Equal(t, "abc", truncErr([]byte("  abc \n"), 240)) // trimmed, under cap
 	long := truncErr([]byte(strings.Repeat("x", 1000)), 240)
 	assert.Equal(t, 240+len(" … (truncated)"), len(long))
 	assert.True(t, strings.HasSuffix(long, "… (truncated)"))
