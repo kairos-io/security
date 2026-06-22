@@ -188,12 +188,12 @@ func (g *GitExecutor) Open(in Intent, runID string) (state.LedgerEntry, error) {
 	if _, err := g.run(dir, "git", "commit", "-am", PRTitle(in)); err != nil {
 		return entry, err
 	}
-	if _, err := g.run(dir, "git", "push", "-u", "origin", branch); err != nil {
+	if err := g.pushBranch(dir, in.Repo, branch, false); err != nil {
 		return entry, err
 	}
 
 	// Create the PR with gh (GH_TOKEN is read from the environment by gh).
-	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", branch,
+	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", g.prHead(in.Repo, branch),
 		"--title", PRTitle(in), "--body", PRBodyWith(in, g.Prose))
 	if err != nil {
 		return entry, err
@@ -501,10 +501,10 @@ func (g *GitExecutor) Cascade(in Intent, runID string) (state.LedgerEntry, error
 	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): cascade-bump "+in.Package); err != nil {
 		return entry, err
 	}
-	if _, err := g.run(dir, "git", "push", "-u", "origin", branch); err != nil {
+	if err := g.pushBranch(dir, in.Repo, branch, false); err != nil {
 		return entry, err
 	}
-	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", branch,
+	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", g.prHead(in.Repo, branch),
 		"--title", "chore(security): cascade-bump "+in.Package, "--body", CascadePRBody(in))
 	if err != nil {
 		return entry, err
@@ -632,10 +632,10 @@ func (g *GitExecutor) Toolchain(in Intent, runID string) (state.LedgerEntry, err
 	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): bump go toolchain to "+in.ToolchainVersion); err != nil {
 		return entry, err
 	}
-	if _, err := g.run(dir, "git", "push", "-u", "origin", branch); err != nil {
+	if err := g.pushBranch(dir, in.Repo, branch, false); err != nil {
 		return entry, err
 	}
-	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", branch,
+	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", g.prHead(in.Repo, branch),
 		"--title", "chore(security): bump go toolchain to "+in.ToolchainVersion,
 		"--body", "Bumps the Go toolchain to "+in.ToolchainVersion+" to address a stdlib vulnerability. "+PRMarker(in.Key))
 	if err != nil {
@@ -687,10 +687,10 @@ func (g *GitExecutor) Supersede(in Intent, runID string) (state.LedgerEntry, err
 	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): bump "+in.Package+" to "+in.Bump.To); err != nil {
 		return entry, err
 	}
-	if _, err := g.run(dir, "git", "push", "-u", "origin", branch); err != nil {
+	if err := g.pushBranch(dir, in.Repo, branch, false); err != nil {
 		return entry, err
 	}
-	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", branch,
+	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", g.prHead(in.Repo, branch),
 		"--title", "chore(security): bump "+in.Package+" to "+in.Bump.To,
 		"--body", fmt.Sprintf("Supersedes %s, which had unresolved conflicts. %s", in.PRURL, PRMarker(in.Key)))
 	if err != nil {
