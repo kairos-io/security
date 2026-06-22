@@ -245,186 +245,30 @@
     }
   ],
   "ledger": {
-    "entries": []
+    "entries": [
+      {
+        "key": "mudler/edgevpn|golang.org/x/net",
+        "repo": "mudler/edgevpn",
+        "package": "golang.org/x/net",
+        "branch": "",
+        "state": "error",
+        "bump": {
+          "package": "golang.org/x/net",
+          "to": "0.33.0"
+        },
+        "severity": "high",
+        "createdRun": "https://github.com/kairos-io/security/actions/runs/27963191415",
+        "lastActionRun": "https://github.com/kairos-io/security/actions/runs/27963191415",
+        "history": [
+          {
+            "run": "https://github.com/kairos-io/security/actions/runs/27963191415",
+            "action": "open-failed",
+            "detail": "go [get golang.org/x/net@0.33.0]: exit status 1: go: golang.org/x/net@0.33.0: invalid version: unknown revision 0.33.0\n"
+          }
+        ]
+      }
+    ]
   },
   "collectErrors": null,
-  "runURL": "",
-  "openPRs": [
-    {
-      "repo": "kairos-io/cluster-api-provider-kairos",
-      "number": 38,
-      "title": "Bump golang.org/x/oauth2 from 0.21.0 to 0.27.0 in the go_modules group across 1 directory",
-      "author": "app/dependabot",
-      "url": "https://github.com/kairos-io/cluster-api-provider-kairos/pull/38",
-      "source": "human"
-    },
-    {
-      "repo": "kairos-io/entangle",
-      "number": 10,
-      "title": "Bump the go_modules group across 1 directory with 7 updates",
-      "author": "app/dependabot",
-      "url": "https://github.com/kairos-io/entangle/pull/10",
-      "source": "human"
-    },
-    {
-      "repo": "kairos-io/entangle-proxy",
-      "number": 14,
-      "title": "Bump the go_modules group across 1 directory with 7 updates",
-      "author": "app/dependabot",
-      "url": "https://github.com/kairos-io/entangle-proxy/pull/14",
-      "source": "human"
-    },
-    {
-      "repo": "kairos-io/go-nodepair",
-      "number": 27,
-      "title": "Bump the go_modules group across 1 directory with 6 updates",
-      "author": "app/dependabot",
-      "url": "https://github.com/kairos-io/go-nodepair/pull/27",
-      "source": "human"
-    },
-    {
-      "repo": "kairos-io/kcrypt",
-      "number": 509,
-      "title": "Bump github.com/docker/docker from 27.5.1+incompatible to 28.0.0+incompatible in the go_modules group across 1 directory",
-      "author": "app/dependabot",
-      "url": "https://github.com/kairos-io/kcrypt/pull/509",
-      "source": "human"
-    },
-    {
-      "repo": "kairos-io/netboot",
-      "number": 36,
-      "title": "Bump golang.org/x/crypto from 0.39.0 to 0.45.0",
-      "author": "app/dependabot",
-      "url": "https://github.com/kairos-io/netboot/pull/36",
-      "source": "human"
-    },
-    {
-      "repo": "kairos-io/simple-mdns-server",
-      "number": 4,
-      "title": "Bump the go_modules group across 1 directory with 2 updates",
-      "author": "app/dependabot",
-      "url": "https://github.com/kairos-io/simple-mdns-server/pull/4",
-      "source": "human"
-    },
-    {
-      "repo": "kairos-io/tpm-helpers",
-      "number": 6,
-      "title": "Bump the go_modules group across 1 directory with 3 updates",
-      "author": "app/dependabot",
-      "url": "https://github.com/kairos-io/tpm-helpers/pull/6",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "number": 905,
-      "title": "chore(deps): bump dependabot/fetch-metadata from 2.3.0 to 2.4.0",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/edgevpn/pull/905",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "number": 923,
-      "title": "chore(deps): bump github.com/miekg/dns from 1.1.64 to 1.1.68",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/edgevpn/pull/923",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "number": 927,
-      "title": "chore(deps): bump actions/checkout from 4 to 5",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/edgevpn/pull/927",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "number": 939,
-      "title": "chore(deps): bump actions/setup-go from 5 to 6",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/edgevpn/pull/939",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "number": 942,
-      "title": "chore(deps): bump github.com/onsi/gomega from 1.37.0 to 1.38.2",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/edgevpn/pull/942",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "number": 943,
-      "title": "chore(deps): bump codecov/codecov-action from 5.5.0 to 5.5.1",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/edgevpn/pull/943",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "number": 946,
-      "title": "chore(deps): bump github.com/libp2p/go-libp2p-kad-dht from 0.33.1 to 0.35.1",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/edgevpn/pull/946",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "number": 951,
-      "title": "chore(deps): bump actions/download-artifact from 5 to 6",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/edgevpn/pull/951",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "number": 961,
-      "title": "chore(deps): bump github.com/libp2p/go-libp2p-pubsub from 0.14.2 to 0.15.0",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/edgevpn/pull/961",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "number": 1006,
-      "title": "chore(deps): bump github.com/labstack/echo/v4 from 4.13.3 to 4.15.1",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/edgevpn/pull/1006",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "number": 1009,
-      "title": "chore(deps): bump docs/themes/docsy from `bbf68d4` to `01c827e`",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/edgevpn/pull/1009",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/entities",
-      "number": 10,
-      "title": "Bump golang.org/x/text from 0.3.2 to 0.3.8",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/entities/pull/10",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/entities",
-      "number": 11,
-      "title": "Bump golang.org/x/net from 0.0.0-20191209160850-c0dbc17a3553 to 0.7.0",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/entities/pull/11",
-      "source": "human"
-    },
-    {
-      "repo": "mudler/entities",
-      "number": 12,
-      "title": "Bump golang.org/x/sys from 0.0.0-20200102141924-c96a22e43c9c to 0.1.0",
-      "author": "app/dependabot",
-      "url": "https://github.com/mudler/entities/pull/12",
-      "source": "human"
-    }
-  ]
+  "runURL": ""
 }
