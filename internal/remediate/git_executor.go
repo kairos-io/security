@@ -346,7 +346,7 @@ func (g *GitExecutor) Adjust(entry state.LedgerEntry, toVersion, runID string) (
 	if _, err := g.run("", "git", "clone", g.cloneURL(entry.Repo), dir); err != nil {
 		return entry, err
 	}
-	if _, err := g.run(dir, "git", "checkout", entry.Branch); err != nil {
+	if err := g.checkoutOwnBranch(dir, entry.Repo, entry.Branch); err != nil {
 		return entry, err
 	}
 	if _, err := g.run(dir, "go", "get", entry.Package+"@"+toVersion); err != nil {
@@ -378,7 +378,7 @@ func (g *GitExecutor) Adjust(entry state.LedgerEntry, toVersion, runID string) (
 	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): adjust bump to "+toVersion); err != nil {
 		return entry, err
 	}
-	if _, err := g.run(dir, "git", "push", "--force", "origin", entry.Branch); err != nil {
+	if err := g.pushBranch(dir, entry.Repo, entry.Branch, true); err != nil {
 		return entry, err
 	}
 	entry.Bump.To = toVersion
@@ -411,7 +411,7 @@ func (g *GitExecutor) ResolveConflict(e state.LedgerEntry, runID string) (state.
 	if _, err := g.run("", "git", "clone", g.cloneURL(e.Repo), dir); err != nil {
 		return e, err
 	}
-	if _, err := g.run(dir, "git", "checkout", e.Branch); err != nil {
+	if err := g.checkoutOwnBranch(dir, e.Repo, e.Branch); err != nil {
 		return e, err
 	}
 	// Set a committer identity before any rebase: `git rebase origin/HEAD` and
@@ -449,7 +449,7 @@ func (g *GitExecutor) ResolveConflict(e state.LedgerEntry, runID string) (state.
 		e.History = append(e.History, state.LedgerEvent{Run: runID, Action: "conflict-build-failed"})
 		return e, nil
 	}
-	if _, err := g.run(dir, "git", "push", "--force", "origin", e.Branch); err != nil {
+	if err := g.pushBranch(dir, e.Repo, e.Branch, true); err != nil {
 		return e, err
 	}
 	e.State = "open"
@@ -548,7 +548,7 @@ func (g *GitExecutor) Repin(e state.LedgerEntry, runID string) (state.LedgerEntr
 	if _, err := g.run("", "git", "clone", g.cloneURL(e.Repo), dir); err != nil {
 		return e, err
 	}
-	if _, err := g.run(dir, "git", "checkout", e.Branch); err != nil {
+	if err := g.checkoutOwnBranch(dir, e.Repo, e.Branch); err != nil {
 		return e, err
 	}
 	if _, err := g.run(dir, "go", "get", module+"@"+tag); err != nil {
@@ -574,7 +574,7 @@ func (g *GitExecutor) Repin(e state.LedgerEntry, runID string) (state.LedgerEntr
 	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): re-pin "+module+" to "+tag); err != nil {
 		return e, err
 	}
-	if _, err := g.run(dir, "git", "push", "--force", "origin", e.Branch); err != nil {
+	if err := g.pushBranch(dir, e.Repo, e.Branch, true); err != nil {
 		return e, err
 	}
 	e.Pseudo = false
