@@ -167,16 +167,34 @@
       "263ba6e3bec87208abe550dbadbf0c39d9469166b32f16d3081aede17e46b70c",
       "3602fe7b3b70938c8887f5189957e46e98c89f2bae2bed8dceeffa47a0625c7d",
       "3bec20f2db07b1b0e4c2ccf11c452e4f314795618305e7376b03123964135a68",
-      "64525ea2ba8fde52ee7d5a1ccc1b781c2cf26c27368615ea9f3edb59c39439ad"
+      "64525ea2ba8fde52ee7d5a1ccc1b781c2cf26c27368615ea9f3edb59c39439ad",
+      "6496275f084940bd0f01104113ca75410aaab99c1cf88016421644cf837ffc0e",
+      "6e92a23e2ae5f7d4d87956411f6c475009c54cbbf5084e6bb2918e929ef1f42b",
+      "723439e7cc4ae974697cd6ceb2659eb2559ce3d4f08209b720960e299a16d707",
+      "84f3b278ae9e055d0b1676c6a9445f49e506cfacb4ee4374abcf961acd29211c",
+      "8ed76ba1af624bf731a449b602db26f134b1d1eb2e46182cf9b33307e324853f",
+      "b64bb3625176f97c8d21a6bedffe9c7ddb3f1439c2f81ad0830761aabccfa0f9",
+      "c306ec2217a40c9719751828daf9458c689768ead61d3f211ef88b29a3680b43",
+      "c7b5ce825e06aedea38921e37c89bfd4fb855a1f9a611b50df13e83003dc81e5",
+      "d0a422705fbf31e9da0b032f2ab4bb791dd4725d7c5edda968b833090ca392af"
     ],
     "summaries": {
       "100711a774bd7bc82e690e3fa87c7440708776da84ce7b8b87f8b92b9369dbf4": "Finding in mudler/edgevpn.",
       "263ba6e3bec87208abe550dbadbf0c39d9469166b32f16d3081aede17e46b70c": "Finding in mudler/edgevpn.",
       "3602fe7b3b70938c8887f5189957e46e98c89f2bae2bed8dceeffa47a0625c7d": "Finding in mudler/entities.",
       "3bec20f2db07b1b0e4c2ccf11c452e4f314795618305e7376b03123964135a68": "Finding in mudler/edgevpn.",
-      "64525ea2ba8fde52ee7d5a1ccc1b781c2cf26c27368615ea9f3edb59c39439ad": "Finding in mudler/edgevpn."
+      "64525ea2ba8fde52ee7d5a1ccc1b781c2cf26c27368615ea9f3edb59c39439ad": "Finding in mudler/edgevpn.",
+      "6496275f084940bd0f01104113ca75410aaab99c1cf88016421644cf837ffc0e": "Finding in mudler/edgevpn.",
+      "6e92a23e2ae5f7d4d87956411f6c475009c54cbbf5084e6bb2918e929ef1f42b": "Finding in mudler/edgevpn.",
+      "723439e7cc4ae974697cd6ceb2659eb2559ce3d4f08209b720960e299a16d707": "Finding in mudler/edgevpn.",
+      "84f3b278ae9e055d0b1676c6a9445f49e506cfacb4ee4374abcf961acd29211c": "Finding in mudler/edgevpn.",
+      "8ed76ba1af624bf731a449b602db26f134b1d1eb2e46182cf9b33307e324853f": "Finding in mudler/edgevpn.",
+      "b64bb3625176f97c8d21a6bedffe9c7ddb3f1439c2f81ad0830761aabccfa0f9": "Finding in mudler/edgevpn.",
+      "c306ec2217a40c9719751828daf9458c689768ead61d3f211ef88b29a3680b43": "Finding in mudler/entities.",
+      "c7b5ce825e06aedea38921e37c89bfd4fb855a1f9a611b50df13e83003dc81e5": "Finding in mudler/edgevpn.",
+      "d0a422705fbf31e9da0b032f2ab4bb791dd4725d7c5edda968b833090ca392af": "Finding in mudler/entities."
     },
-    "narrative": "This triage focuses on the initial set of correlated findings across the mudler/edgevpn and mudler/entities repositories. Since all findings currently have an 'unknown' severity, these initial items are prioritized for immediate review to establish risk levels."
+    "narrative": "This triage focuses on all correlated security findings across the mudler/edgevpn and mudler/entities repositories. Since severity is unknown, all findings are prioritized for immediate review to determine their actual risk level."
   },
   "repos": [
     {
