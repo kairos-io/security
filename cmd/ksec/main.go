@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/kairos-io/security/internal/collect"
 	"github.com/kairos-io/security/internal/config"
@@ -251,6 +252,17 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			// PRs are opened in remediate.Run below) and the comment reactions.
 			aiCfg, _ := config.LoadAI("ai.yaml")
 			ex := &remediate.GitExecutor{Token: os.Getenv("GH_TOKEN"), DryRun: gf.dryRun, GH: gh, Automerge: automerge}
+			// Fork external repos (kind: external) the bot can't push to
+			// directly; org repos push direct. ForkOwner is the PAT's own
+			// login, with KSEC_FORK_OWNER as override/fallback.
+			ex.ShouldFork = remediate.ForkByKind(repos)
+			forkOwner := os.Getenv("KSEC_FORK_OWNER")
+			if out, err := exec.Command("gh", "api", "user", "--jq", ".login").Output(); err == nil {
+				if login := strings.TrimSpace(string(out)); login != "" {
+					forkOwner = login
+				}
+			}
+			ex.ForkOwner = forkOwner
 			if aiProse && aiCfg.Nib.Endpoint != "" {
 				ex.Prose = remediate.NewOpenAIProse(aiCfg)
 			}
