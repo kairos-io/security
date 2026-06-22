@@ -11,6 +11,7 @@ import (
 type htmlData struct {
 	GeneratedAt         string
 	AIAvailable         bool
+	Activity            htmlActivity
 	Narrative           string
 	CoordinationSummary string
 	Focus               []htmlFocus
@@ -47,6 +48,17 @@ type htmlLedgerEntry struct {
 	State    string
 	PRNumber int
 	PRURL    string
+}
+
+// htmlActivity exposes the deterministic "This run" summary to the template
+// (exported fields). SourceBreakdown is the fixed-order PR-source string.
+type htmlActivity struct {
+	Repos, Skipped, Errored                    int
+	Findings, Crit, High, Med, Low, Unknown    int
+	PRs                                        int
+	SourceBreakdown                            string
+	LedgerOpen, Superseded, Merged, NeedsHuman int
+	Why                                        string
 }
 
 type htmlFocus struct {
@@ -102,6 +114,17 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 <h1>Kairos Security Dashboard</h1>
 <p class="meta">Updated {{.GeneratedAt}}{{if not .AIAvailable}} &mdash; <span class="ai-warn">&#9888;&#65039; AI unavailable this run</span>{{end}}</p>
 {{if .Narrative}}<blockquote>{{.Narrative}}</blockquote>{{end}}
+
+<section>
+<h2>&#128203; This run</h2>
+<ul>
+<li><strong>Scanned:</strong> {{.Activity.Repos}} repos{{if gt .Activity.Skipped 0}} ({{.Activity.Skipped}} skipped){{end}}{{if gt .Activity.Errored 0}} &middot; &#9888;&#65039; {{.Activity.Errored}} errored{{end}}</li>
+<li><strong>Findings:</strong> {{.Activity.Findings}} ({{.Activity.Crit}} critical / {{.Activity.High}} high / {{.Activity.Med}} medium / {{.Activity.Low}} low / {{.Activity.Unknown}} unknown)</li>
+<li><strong>CVE-related PRs:</strong> {{.Activity.PRs}}{{if gt .Activity.PRs 0}} ({{.Activity.SourceBreakdown}}){{end}}</li>
+<li><strong>Remediation:</strong> {{.Activity.LedgerOpen}} open &middot; {{.Activity.Superseded}} superseded &middot; {{.Activity.Merged}} merged &middot; {{.Activity.NeedsHuman}} need-human</li>
+<li><strong>Why:</strong> {{.Activity.Why}}</li>
+</ul>
+</section>
 {{- if .CoordinationSummary}}
 
 <section>
@@ -280,9 +303,17 @@ func DashboardHTML(in Input) string {
 			Status: openPRStatus(pr, supersededBy, conflictedURLs),
 		})
 	}
+	act := computeActivity(in)
 	data := htmlData{
-		GeneratedAt:         in.Triage.GeneratedAt,
-		AIAvailable:         in.Triage.AIAvailable,
+		GeneratedAt: in.Triage.GeneratedAt,
+		AIAvailable: in.Triage.AIAvailable,
+		Activity: htmlActivity{
+			Repos: act.Repos, Skipped: act.Skipped, Errored: act.Errored,
+			Findings: act.Findings, Crit: act.Crit, High: act.High, Med: act.Med, Low: act.Low, Unknown: act.Unknown,
+			PRs: act.PRs, SourceBreakdown: sourceBreakdown(act.PRsBySource),
+			LedgerOpen: act.LedgerOpen, Superseded: act.Superseded, Merged: act.Merged, NeedsHuman: act.NeedsHuman,
+			Why: act.Why,
+		},
 		Narrative:           in.Triage.Narrative,
 		CoordinationSummary: in.CoordinationSummary,
 		Focus:               focus,

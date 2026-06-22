@@ -78,6 +78,11 @@ func DashboardMarkdown(in Input) string {
 	}
 	b.WriteString("._\n\n")
 
+	// Deterministic run-activity summary, computed from committed state.
+	a := computeActivity(in)
+	b.WriteString("## 📋 This run\n\n")
+	b.WriteString(a.Markdown() + "\n")
+
 	if in.Triage.Narrative != "" {
 		b.WriteString("> " + in.Triage.Narrative + "\n\n")
 	}

@@ -33,6 +33,17 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 <blockquote>Focus on the openssl critical first.</blockquote>
 
 <section>
+<h2>&#128203; This run</h2>
+<ul>
+<li><strong>Scanned:</strong> 3 repos &middot; &#9888;&#65039; 1 errored</li>
+<li><strong>Findings:</strong> 1 (1 critical / 0 high / 0 medium / 0 low / 0 unknown)</li>
+<li><strong>CVE-related PRs:</strong> 0</li>
+<li><strong>Remediation:</strong> 1 open &middot; 0 superseded &middot; 0 merged &middot; 0 need-human</li>
+<li><strong>Why:</strong> 1 finding(s); 1 PR(s) open.</li>
+</ul>
+</section>
+
+<section>
 <h2>&#128293; Focus now</h2>
 <ol>
 <li><strong>openssl</strong> &mdash; Critical openssl CVE in kairos image</li>

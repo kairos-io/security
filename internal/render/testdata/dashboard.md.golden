@@ -2,6 +2,14 @@
 
 _Updated 2026-06-19._
 
+## 📋 This run
+
+- **Scanned:** 3 repos · ⚠️ 1 errored
+- **Findings:** 1 (1 critical / 0 high / 0 medium / 0 low / 0 unknown)
+- **CVE-related PRs:** 0
+- **Remediation:** 1 open · 0 superseded · 0 merged · 0 need-human
+- **Why:** 1 finding(s); 1 PR(s) open.
+
 > Focus on the openssl critical first.
 
 ## 🔥 Focus now
