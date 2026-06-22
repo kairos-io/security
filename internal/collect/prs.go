@@ -8,12 +8,18 @@ import (
 	"github.com/kairos-io/security/internal/state"
 )
 
-var secLabels = map[string]bool{"security": true, "dependencies": true}
-
-// OpenPRs lists the tracked open PRs (bot-authored or security/dependencies
-// labelled) across repos for the dashboard's PR list. These are remediation
-// artifacts, NOT security findings, so they no longer enter the findings set.
-func OpenPRs(repos []state.Repo, gh ghclient.GitHub) ([]state.TrackedPR, []state.CollectionError) {
+// OpenPRs lists the CVE-tied open PRs across repos for the dashboard's PR list.
+// A PR is kept only when it is security-relevant (see cveTied), so routine
+// dependabot/renovate bumps with no matching finding are dropped as noise.
+// These are remediation artifacts, NOT security findings, so they no longer
+// enter the findings set.
+func OpenPRs(repos []state.Repo, gh ghclient.GitHub, findings []state.Finding) ([]state.TrackedPR, []state.CollectionError) {
+	pkgsByRepo := map[string][]string{}
+	for _, f := range findings {
+		if f.Package != "" {
+			pkgsByRepo[f.Repo] = append(pkgsByRepo[f.Repo], strings.ToLower(f.Package))
+		}
+	}
 	var out []state.TrackedPR
 	var errs []state.CollectionError
 	for _, repo := range repos {
@@ -23,7 +29,7 @@ func OpenPRs(repos []state.Repo, gh ghclient.GitHub) ([]state.TrackedPR, []state
 			continue
 		}
 		for _, pr := range prs {
-			if !isSecurityPR(pr) {
+			if !cveTied(pr, pkgsByRepo[repo.Repo]) {
 				continue
 			}
 			out = append(out, state.TrackedPR{
@@ -64,12 +70,20 @@ func prSource(pr ghclient.PullRequest) string {
 	return "human"
 }
 
-func isSecurityPR(pr ghclient.PullRequest) bool {
-	if pr.IsBot || pr.Author == "kairos-security-bot" {
+// cveTied keeps a PR only when it is security-relevant: it bumps a package that
+// has a finding (CVE) in this repo, OR carries a `security` label, OR is ours.
+func cveTied(pr ghclient.PullRequest, findingPkgs []string) bool {
+	if pr.Author == "kairos-security-bot" || strings.HasPrefix(pr.HeadRef, "ksec/") {
 		return true
 	}
 	for _, l := range pr.Labels {
-		if secLabels[l] {
+		if l == "security" {
+			return true
+		}
+	}
+	title := strings.ToLower(pr.Title)
+	for _, pkg := range findingPkgs {
+		if strings.Contains(title, pkg) {
 			return true
 		}
 	}

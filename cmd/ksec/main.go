@@ -100,7 +100,7 @@ func newCollectCmd(gf *globalFlags) *cobra.Command {
 			if err := state.Save(gf.stateDir, state.FindingsFile, out); err != nil {
 				return err
 			}
-			prs, prErrs := collect.OpenPRs(repos, gh)
+			prs, prErrs := collect.OpenPRs(repos, gh, out.Findings)
 			out.Errors = append(out.Errors, prErrs...)
 			if len(prErrs) > 0 {
 				_ = state.Save(gf.stateDir, state.FindingsFile, out) // include PR-list errors

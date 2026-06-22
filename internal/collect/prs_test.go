@@ -18,31 +18,35 @@ func (f fakePRGH) ListOpenPRs(repo string) ([]ghclient.PullRequest, error) {
 	return f.byRepo[repo], nil
 }
 
-func TestOpenPRsTracksAndClassifies(t *testing.T) {
+func TestOpenPRsTracksOnlyCVETied(t *testing.T) {
+	findings := []state.Finding{
+		{Repo: "o/r", Package: "golang.org/x/crypto", CVEID: "GO-1", Severity: "high"},
+	}
 	gh := fakePRGH{byRepo: map[string][]ghclient.PullRequest{
 		"o/r": {
-			{Number: 2, Title: "bump y", Author: "app/dependabot", IsBot: true, URL: "u2"},
-			{Number: 1, Title: "feature", Author: "alice"}, // not tracked (no bot, no label)
-			{Number: 3, Title: "sec fix", Author: "bob", Labels: []string{"security"}, URL: "u3"},
+			{Number: 2, Title: "Bump golang.org/x/crypto from 0.39.0 to 0.45.0", Author: "app/dependabot", IsBot: true, URL: "u2"},
+			{Number: 5, Title: "Bump github.com/foo/bar to 1.2.3", Author: "app/dependabot", IsBot: true, URL: "u5"}, // no matching finding -> noise, dropped
+			{Number: 7, Title: "security hardening", Author: "alice", Labels: []string{"security"}, URL: "u7"},
+			{Number: 9, Title: "ksec bump", Author: "someone", URL: "u9", HeadRef: "ksec/bump-x"},
 		},
 	}}
-	prs, errs := OpenPRs([]state.Repo{{Repo: "o/r"}}, gh)
+	prs, errs := OpenPRs([]state.Repo{{Repo: "o/r"}}, gh, findings)
 	require.Empty(t, errs)
-	require.Len(t, prs, 2)
-	// sorted by repo then number
-	assert.Equal(t, 2, prs[0].Number)
-	assert.Equal(t, "dependabot", prs[0].Source)
-	assert.Equal(t, "u2", prs[0].URL)
-	assert.Equal(t, 3, prs[1].Number)
-	assert.Equal(t, "human", prs[1].Source)
+	nums := map[int]string{}
+	for _, p := range prs {
+		nums[p.Number] = p.Source
+	}
+	assert.Contains(t, nums, 2)          // tied to the x/crypto finding
+	assert.Equal(t, "dependabot", nums[2])
+	assert.NotContains(t, nums, 5)       // unrelated bump -> dropped (no noise)
+	assert.Contains(t, nums, 7)          // security label
+	assert.Contains(t, nums, 9)          // ours
 }
 
-func TestOpenPRsTracksAnyBot(t *testing.T) {
+func TestOpenPRsEmptyWhenNoFindings(t *testing.T) {
 	gh := fakePRGH{byRepo: map[string][]ghclient.PullRequest{
-		"o/r": {{Number: 38, Title: "bump x", Author: "app/some-tool", IsBot: true, URL: "u38"}},
+		"o/r": {{Number: 2, Title: "Bump x", Author: "app/dependabot", IsBot: true}},
 	}}
-	prs, errs := OpenPRs([]state.Repo{{Repo: "o/r"}}, gh)
-	require.Empty(t, errs)
-	require.Len(t, prs, 1) // tracked via is_bot even though not renovate/dependabot/ksec
-	assert.Equal(t, "bot", prs[0].Source)
+	prs, _ := OpenPRs([]state.Repo{{Repo: "o/r"}}, gh, nil)
+	assert.Empty(t, prs) // 0 findings -> no CVE-tied PRs -> no noise
 }
