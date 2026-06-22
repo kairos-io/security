@@ -46,7 +46,12 @@
     "kind": "org",
     "branch": "main",
     "criticality": "high",
-    "artifacts": null
+    "artifacts": [
+      {
+        "type": "image",
+        "ref": "ghcr.io/kairos-io/hadron:main"
+      }
+    ]
   },
   {
     "repo": "kairos-io/immucore",

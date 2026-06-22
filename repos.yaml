@@ -88,14 +88,16 @@ repos:
   # hadron is an OS, not a Go app, so source/govulncheck reachability is the
   # wrong lens. CVE tracking for an OS = trivy scanning its published OCI
   # image(s), surfacing OS-package (apk/deb/rpm), kernel, and baked-in lang-dep
-  # CVEs with real severities. Populate `artifacts` with the image ref(s) once
-  # confirmed (registry + which flavor/tag); until then hadron is tracked but
-  # contributes no findings.
+  # CVEs with real severities. We scan one representative image on the moving
+  # `main` tag (the repo's "main baseline", rebuilt continuously) so new OS/
+  # kernel CVEs surface even without a hadron release. Flavor variants also
+  # exist (ghcr.io/kairos-io/hadron-cloud, -trusted, -cloud-trusted) — add them
+  # here if fuller coverage is wanted.
   - repo: kairos-io/hadron
     kind: org
     criticality: high
-    # artifacts:
-    #   - {type: image, ref: quay.io/kairos/hadron:latest}
+    artifacts:
+      - {type: image, ref: ghcr.io/kairos-io/hadron:main}
 
   # --- external dependencies ---
   - repo: mudler/edgevpn
