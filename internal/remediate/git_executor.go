@@ -65,6 +65,60 @@ func (g *GitExecutor) verifyOrRepair(dir, task, runID string) bool {
 	return err == nil
 }
 
+func (g *GitExecutor) ensureFork(repo string) error {
+	if g.DryRun {
+		fmt.Printf("[dry-run] would ensure fork of %s under %s\n", repo, g.ForkOwner)
+		return nil
+	}
+	// Idempotent: gh exits 0 and prints "already exists" when the fork is present.
+	_, err := g.run("", "gh", "repo", "fork", repo, "--clone=false")
+	return err
+}
+
+func (g *GitExecutor) pushBranch(dir, repo, branch string, force bool) error {
+	args := []string{"push"}
+	if force {
+		args = append(args, "--force")
+	}
+	if !g.forking(repo) {
+		if g.DryRun {
+			fmt.Printf("[dry-run] would push %s to origin (%s)\n", branch, repo)
+			return nil
+		}
+		_, err := g.run(dir, "git", append(args, "-u", "origin", branch)...)
+		return err
+	}
+	if g.DryRun {
+		fmt.Printf("[dry-run] would push %s to fork %s\n", branch, forkSlug(g.ForkOwner, repo))
+		return nil
+	}
+	if err := g.ensureFork(repo); err != nil {
+		return err
+	}
+	_, _ = g.run(dir, "git", "remote", "add", "fork", g.forkURL(repo)) // ignore "already exists"
+	_, err := g.run(dir, "git", append(args, "fork", branch)...)
+	return err
+}
+
+func (g *GitExecutor) checkoutOwnBranch(dir, repo, branch string) error {
+	if !g.forking(repo) {
+		_, err := g.run(dir, "git", "checkout", branch)
+		return err
+	}
+	if g.DryRun {
+		return nil
+	}
+	if err := g.ensureFork(repo); err != nil {
+		return err
+	}
+	_, _ = g.run(dir, "git", "remote", "add", "fork", g.forkURL(repo))
+	if _, err := g.run(dir, "git", "fetch", "fork"); err != nil {
+		return err
+	}
+	_, err := g.run(dir, "git", "checkout", "-b", branch, "fork/"+branch)
+	return err
+}
+
 func (g *GitExecutor) cloneURL(repo string) string {
 	if g.Token != "" {
 		return "https://x-access-token:" + g.Token + "@github.com/" + repo + ".git"

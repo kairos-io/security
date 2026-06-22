@@ -58,3 +58,12 @@ func TestForkURL(t *testing.T) {
 	g := &GitExecutor{ForkOwner: "bot", Token: "tok"}
 	assert.Equal(t, "https://x-access-token:tok@github.com/bot/edgevpn.git", g.forkURL("mudler/edgevpn"))
 }
+
+func TestPushBranchDryRunNoWrites(t *testing.T) {
+	// Dry-run must not shell out, for both fork and non-fork repos.
+	g := &GitExecutor{DryRun: true, ForkOwner: "bot", ShouldFork: func(string) bool { return true }}
+	assert.NoError(t, g.pushBranch("/tmp/nonexistent", "mudler/edgevpn", "ksec/x", false))
+	g2 := &GitExecutor{DryRun: true} // org/no-fork
+	assert.NoError(t, g2.pushBranch("/tmp/nonexistent", "kairos-io/kairos", "ksec/x", true))
+	assert.NoError(t, g.ensureFork("mudler/edgevpn"))
+}
