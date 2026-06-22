@@ -568,6 +568,66 @@ func (g *GitExecutor) Toolchain(in Intent, runID string) (state.LedgerEntry, err
 	return entry, nil
 }
 
+func (g *GitExecutor) Supersede(in Intent, runID string) (state.LedgerEntry, error) {
+	branch := BranchName(in) // existing ksec/ bump branch name
+	entry := state.LedgerEntry{
+		Key: in.Key, Repo: in.Repo, Package: in.Package, Branch: branch, Source: "ksec", Kind: "direct",
+		Severity: in.Severity, Supersedes: in.PRURL, CreatedRun: runID, LastActionRun: runID,
+		Bump: state.Bump{Package: in.Package, To: in.Bump.To},
+	}
+	if g.DryRun {
+		fmt.Printf("[dry-run] would supersede %s PR %s with a fresh ksec PR (bump %s@%s)\n",
+			in.Repo, in.PRURL, in.Package, in.Bump.To)
+		entry.State = "planned"
+		return entry, nil
+	}
+	dir, err := os.MkdirTemp("", "ksec-sup-*")
+	if err != nil {
+		return entry, err
+	}
+	defer os.RemoveAll(dir)
+	if _, err := g.run("", "git", "clone", "--depth", "1", g.cloneURL(in.Repo), dir); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "git", "checkout", "-b", branch); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "go", "get", in.Package+"@v"+strings.TrimPrefix(in.Bump.To, "v")); err != nil {
+		return entry, err
+	}
+	_, _ = g.run(dir, "go", "mod", "tidy")
+	if !g.verifyOrRepair(dir, "supersede "+in.Package, runID) {
+		entry.State = "build-failed"
+		entry.NeedsHuman = true
+		entry.History = []state.LedgerEvent{{Run: runID, Action: "supersede-build-failed"}}
+		return entry, nil
+	}
+	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
+	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
+	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): bump "+in.Package+" to "+in.Bump.To); err != nil {
+		return entry, err
+	}
+	if _, err := g.run(dir, "git", "push", "-u", "origin", branch); err != nil {
+		return entry, err
+	}
+	out, err := g.run(dir, "gh", "pr", "create", "-R", in.Repo, "--head", branch,
+		"--title", "chore(security): bump "+in.Package+" to "+in.Bump.To,
+		"--body", fmt.Sprintf("Supersedes %s, which had unresolved conflicts. %s", in.PRURL, PRMarker(in.Key)))
+	if err != nil {
+		return entry, err
+	}
+	entry.PRURL = strings.TrimSpace(string(out))
+	entry.PRNumber = prNumberFromURL(entry.PRURL)
+	entry.State = "open"
+	entry.History = []state.LedgerEvent{{Run: runID, Action: "superseded", Detail: in.PRURL}}
+	// Comment on the foreign PR (best-effort; never edit/force-push its branch).
+	if in.PRNumber > 0 {
+		_ = g.GH.PostPRComment(in.Repo, in.PRNumber,
+			fmt.Sprintf("Superseded by %s — the original had unresolved conflicts. Tracked by kairos-security.", entry.PRURL))
+	}
+	return entry, nil
+}
+
 // latestTag returns the highest vN.N.N token found in `go list -m -versions`
 // output (a single space-separated line: "<module> v1 v1.0.1 ..."), or "".
 func latestTag(b []byte) string {

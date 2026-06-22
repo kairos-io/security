@@ -12,6 +12,7 @@ type FakeExecutor struct {
 	Repinned     map[string]state.LedgerEntry
 	Toolchained  map[string]state.LedgerEntry
 	ToolchainErr map[string]error
+	Superseded   map[string]state.LedgerEntry
 }
 
 func (f *FakeExecutor) Open(in Intent, run string) (state.LedgerEntry, error) {
@@ -66,4 +67,12 @@ func (f *FakeExecutor) Toolchain(in Intent, run string) (state.LedgerEntry, erro
 	}
 	return state.LedgerEntry{Key: in.Key, Repo: in.Repo, Package: "go-toolchain",
 		Kind: "toolchain", State: "open", CreatedRun: run, LastActionRun: run}, nil
+}
+
+func (f *FakeExecutor) Supersede(in Intent, run string) (state.LedgerEntry, error) {
+	if e, ok := f.Superseded[in.Key]; ok {
+		return e, nil
+	}
+	return state.LedgerEntry{Key: in.Key, Repo: in.Repo, Package: in.Package, State: "open",
+		Source: "ksec", Supersedes: in.PRURL, CreatedRun: run, LastActionRun: run}, nil
 }

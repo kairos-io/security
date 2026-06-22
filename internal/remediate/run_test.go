@@ -120,3 +120,17 @@ func TestRunAdopts(t *testing.T) {
 	require.Len(t, results, 1)
 	assert.Equal(t, "adopt", results[0].Action)
 }
+
+func TestRunSupersede(t *testing.T) {
+	intents := []Intent{{Type: IntentSupersede, Key: "o/r|p", Repo: "o/r", Package: "p",
+		PRNumber: 38, PRURL: "https://github.com/o/r/pull/38", Bump: state.Bump{Package: "p", To: "1.2.3"}}}
+	fake := &FakeExecutor{Superseded: map[string]state.LedgerEntry{
+		"o/r|p": {Key: "o/r|p", Repo: "o/r", Package: "p", State: "open", Source: "ksec",
+			Branch: "ksec/p", Supersedes: "https://github.com/o/r/pull/38", PRNumber: 77},
+	}}
+	out, results := Run(intents, fake, state.Ledger{}, "2026-06-22")
+	require.Len(t, out.Entries, 1)
+	assert.Equal(t, "https://github.com/o/r/pull/38", out.Entries[0].Supersedes)
+	assert.Equal(t, 77, out.Entries[0].PRNumber)
+	require.Len(t, results, 1)
+}

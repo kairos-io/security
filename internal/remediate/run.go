@@ -13,6 +13,7 @@ type Executor interface {
 	Cascade(in Intent, run string) (state.LedgerEntry, error)
 	Repin(e state.LedgerEntry, run string) (state.LedgerEntry, error)
 	Toolchain(in Intent, run string) (state.LedgerEntry, error)
+	Supersede(in Intent, run string) (state.LedgerEntry, error)
 }
 
 func Run(intents []Intent, ex Executor, ledger state.Ledger, run string) (state.Ledger, []Result) {
@@ -96,6 +97,21 @@ func Run(intents []Intent, ex Executor, ledger state.Ledger, run string) (state.
 			}
 			byKey[entry.Key] = entry
 			results = append(results, Result{Key: entry.Key, Action: "toolchain", State: entry.State})
+		case IntentSupersede:
+			entry, err := ex.Supersede(in, run)
+			if err != nil {
+				rec := state.LedgerEntry{
+					Key: in.Key, Repo: in.Repo, Package: in.Package, State: "error",
+					Source: "ksec", Kind: "direct", Severity: in.Severity, Supersedes: in.PRURL,
+					Blocked: "supersede-failed", Bump: in.Bump, CreatedRun: run, LastActionRun: run,
+					History: []state.LedgerEvent{{Run: run, Action: "supersede-failed", Detail: err.Error()}},
+				}
+				byKey[in.Key] = rec
+				results = append(results, Result{Key: in.Key, Action: "supersede", State: "error", Detail: err.Error()})
+				continue
+			}
+			byKey[entry.Key] = entry
+			results = append(results, Result{Key: entry.Key, Action: "supersede", State: entry.State})
 		case IntentRepin:
 			// Repin operates on the live (possibly reconciled) entry, not the
 			// stale pre-run snapshot: the planner emits both an IntentReconcile
