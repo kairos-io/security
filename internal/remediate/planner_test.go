@@ -302,3 +302,30 @@ func TestPlanSupersedesConflictedAdoptedPR(t *testing.T) {
 	assert.Equal(t, 38, sup.PRNumber)
 	assert.Equal(t, "https://github.com/o/r/pull/38", sup.PRURL)
 }
+
+func TestPlanTerminalKsecEntryNotReadopted(t *testing.T) {
+	// A ksec entry that build-failed (needs human) must NOT be re-adopted or
+	// re-opened even though a matching external bot PR exists for the target.
+	c := state.Correlated{Findings: []state.Finding{
+		{ID: "f1", Repo: "o/r", Type: "sourceCVE", Ecosystem: "go", Package: "golang.org/x/net",
+			FixedVersion: "0.33.0", Severity: "high"},
+	}}
+	prs := map[string][]ghclient.PullRequest{"o/r": {
+		{Number: 9, Title: "bump golang.org/x/net to 0.33.0", Author: "dependabot[bot]", URL: "u9"},
+	}}
+	ledger := state.Ledger{Entries: []state.LedgerEntry{{
+		Key: "o/r|golang.org/x/net", Repo: "o/r", Package: "golang.org/x/net", State: "build-failed",
+		Source: "ksec", NeedsHuman: true, Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"},
+	}}}
+	intents, _ := Plan(c, ledger, prs, nil, 10)
+	for _, in := range intents {
+		if in.Key != "o/r|golang.org/x/net" {
+			continue
+		}
+		// A bare reconcile is expected for every ledger entry; what must NOT
+		// happen is a re-adopt / re-open / re-supersede of the terminal entry.
+		if in.Type == IntentAdopt || in.Type == IntentOpen || in.Type == IntentSupersede {
+			t.Fatalf("terminal ksec entry must not be re-actioned, got %s", in.Type)
+		}
+	}
+}

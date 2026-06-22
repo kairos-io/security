@@ -569,7 +569,7 @@ func (g *GitExecutor) Toolchain(in Intent, runID string) (state.LedgerEntry, err
 }
 
 func (g *GitExecutor) Supersede(in Intent, runID string) (state.LedgerEntry, error) {
-	branch := BranchName(in) // existing ksec/ bump branch name
+	branch := BranchName(in) // fresh deterministic ksec/ bump branch
 	entry := state.LedgerEntry{
 		Key: in.Key, Repo: in.Repo, Package: in.Package, Branch: branch, Source: "ksec", Kind: "direct",
 		Severity: in.Severity, Supersedes: in.PRURL, CreatedRun: runID, LastActionRun: runID,

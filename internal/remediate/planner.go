@@ -120,6 +120,11 @@ func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclie
 	var openKeys []string
 	for k, t := range targets {
 		if e, ok := ledger.ByKey(k); ok {
+			// A ksec entry awaiting a human (build failed, errored, or explicitly
+			// flagged) is terminal — do not re-adopt/re-open/re-supersede it.
+			if e.Source == "ksec" && (e.NeedsHuman || e.State == "build-failed" || e.State == "error") {
+				continue
+			}
 			// A conflicted adopted PR we can't rebase: supersede it with our own.
 			if e.Source != "ksec" && e.Blocked == "upstream-conflict" && e.State == "open" {
 				pool = append(pool, newPR{
