@@ -126,6 +126,14 @@ func (c *CLI) ListDependabotAlerts(repo string) ([]Alert, error) {
 
 func (c *CLI) UpsertIssue(repo, marker, title, body string, labels []string) (int, error) {
 	full := body + "\n\n" + marker
+	// Ensure each label exists up front (best-effort, idempotent): the list
+	// below filters by `--label`, and `gh issue create` fails outright on an
+	// unknown label. `--force` updates an existing label instead of erroring.
+	// Errors are ignored so a missing label-create permission degrades
+	// silently rather than emitting a `'<label>' not found` warning.
+	for _, l := range labels {
+		_, _ = c.run("label", "create", l, "-R", repo, "--color", "ededed", "--description", "kairos-security", "--force")
+	}
 	// Find an existing issue deterministically by label + exact title.
 	// Full-text search does not reliably match text inside HTML comments,
 	// so we cannot rely on the marker for lookup; the marker remains in the
@@ -160,13 +168,6 @@ func (c *CLI) UpsertIssue(repo, marker, title, body string, labels []string) (in
 		n := matches[0]
 		_, err := c.run("issue", "edit", fmt.Sprint(n), "-R", repo, "--body", full)
 		return n, err
-	}
-	// Ensure each label exists before referencing it; `gh issue create`
-	// fails outright if a label is unknown. This is best-effort: a non-zero
-	// exit means the label already exists or we lack permission, neither of
-	// which should abort the create.
-	for _, l := range labels {
-		_, _ = c.run("label", "create", l, "-R", repo, "--color", "ededed", "--description", "kairos-security")
 	}
 	args := []string{"issue", "create", "-R", repo, "--title", title, "--body", full}
 	for _, l := range labels {

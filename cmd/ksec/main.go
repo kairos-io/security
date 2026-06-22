@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"sort"
 	"strings"
 
 	"github.com/kairos-io/security/internal/collect"
@@ -105,13 +106,22 @@ func newCollectCmd(gf *globalFlags) *cobra.Command {
 			if len(prErrs) > 0 {
 				_ = state.Save(gf.stateDir, state.FindingsFile, out) // include PR-list errors
 			}
+			fmt.Fprintf(os.Stderr, "collect: %d repos · %d findings · %d errors · %d PRs tied to CVEs\n",
+				len(repos), len(out.Findings), len(out.Errors), len(prs))
 			return state.Save(gf.stateDir, state.OpenPRsFile, prs)
 		},
 	}
 }
 
 func trivyRunner(ref string) ([]byte, error) {
-	return exec.Command("trivy", "image", "--quiet", "--scanners", "vuln", "--format", "json", ref).Output()
+	fmt.Fprintf(os.Stderr, "image-scan: trivy %s\n", ref)
+	out, err := exec.Command("trivy", "image", "--quiet", "--scanners", "vuln", "--format", "json", ref).Output()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "image-scan: %s → error: %v\n", ref, err)
+	} else {
+		fmt.Fprintf(os.Stderr, "image-scan: %s → ok\n", ref)
+	}
+	return out, err
 }
 
 // govulncheckRunner shallow-clones the repo to a temp dir and runs govulncheck.
@@ -194,6 +204,7 @@ func newTriageCmd(gf *globalFlags) *cobra.Command {
 				fmt.Fprintf(os.Stderr, "triage: ✅ AI summary OK — model=%q focus=%d narrative=%dB\n",
 					out.Model, len(out.Focus), len(out.Narrative))
 			}
+			fmt.Fprintf(os.Stderr, "triage: %d findings, focus=%d\n", len(c.Findings), len(out.Focus))
 			return state.Save(gf.stateDir, state.TriageFile, out)
 		},
 	}
@@ -277,6 +288,7 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 			for _, r := range results {
 				fmt.Fprintf(os.Stderr, "remediate: %s %s -> %s %s\n", r.Action, r.Key, r.State, r.Detail)
 			}
+			fmt.Fprintf(os.Stderr, "remediate: %d intents → %s\n", len(intents), actionCounts(results))
 			// React to review comments on PRs we own. Only run the reaction
 			// loop when an AI endpoint is configured: without one the classifier
 			// errors on every comment, appending a needs-human event forever and
@@ -308,6 +320,40 @@ func newRemediateCmd(gf *globalFlags) *cobra.Command {
 	cmd.Flags().BoolVar(&automerge, "automerge", false, "merge addressing PRs (ours/dependabot/renovate) when green and unblocked")
 	cmd.Flags().BoolVar(&repair, "repair", true, "use the nib agent to repair build breaks / conflicts")
 	return cmd
+}
+
+// actionCounts tallies results by their Action into a stable-ordered summary
+// string like "open=2 adopt=1". Ordering is fixed (not map iteration order)
+// so the log line is deterministic across runs.
+func actionCounts(results []remediate.Result) string {
+	counts := map[string]int{}
+	for _, r := range results {
+		counts[r.Action]++
+	}
+	order := []string{"open", "adopt", "supersede", "cascade", "toolchain", "repin", "reconcile", "needs-human"}
+	seen := map[string]bool{}
+	var parts []string
+	for _, a := range order {
+		if n := counts[a]; n > 0 {
+			parts = append(parts, fmt.Sprintf("%s=%d", a, n))
+			seen[a] = true
+		}
+	}
+	// Append any actions not in the known order, sorted for stability.
+	var extra []string
+	for a := range counts {
+		if !seen[a] {
+			extra = append(extra, a)
+		}
+	}
+	sort.Strings(extra)
+	for _, a := range extra {
+		parts = append(parts, fmt.Sprintf("%s=%d", a, counts[a]))
+	}
+	if len(parts) == 0 {
+		return "none"
+	}
+	return strings.Join(parts, " ")
 }
 
 func newRenderCmd(gf *globalFlags) *cobra.Command {
@@ -383,8 +429,14 @@ func newRenderCmd(gf *globalFlags) *cobra.Command {
 			issueBody := render.DashboardMarkdown(in)
 			// The dashboard files and site/index.html are already written, so a
 			// flaky issue API call must not fail the pipeline; warn and move on.
-			if _, err := render.UpsertTrackingIssue(ghclient.NewCLI(), trackingRepo, issueBody, gf.dryRun); err != nil {
+			issueNum, err := render.UpsertTrackingIssue(ghclient.NewCLI(), trackingRepo, issueBody, gf.dryRun)
+			if err != nil {
 				fmt.Fprintf(os.Stderr, "warning: tracking issue upsert failed: %v\n", err)
+				fmt.Fprintf(os.Stderr, "render: dashboard + site + issue (upsert failed)\n")
+			} else if issueNum > 0 {
+				fmt.Fprintf(os.Stderr, "render: dashboard + site + issue #%d\n", issueNum)
+			} else {
+				fmt.Fprintf(os.Stderr, "render: dashboard + site + issue\n")
 			}
 			return nil
 		},
