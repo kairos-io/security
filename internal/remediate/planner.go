@@ -109,9 +109,26 @@ func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclie
 	// 3) Decide per target. Targets already covered by one of our live PRs are
 	// skipped (reconcile handles them). Otherwise: adopt an external PR if one
 	// addresses it, else mark it a gap to open.
+	// Cascade PRs share the maxNew cap with direct opens. Declared here so the
+	// per-target loop below can also append supersede intents into the pool.
+	type newPR struct {
+		intent Intent
+		sev    string
+	}
+	var pool []newPR
+
 	var openKeys []string
 	for k, t := range targets {
 		if e, ok := ledger.ByKey(k); ok {
+			// A conflicted adopted PR we can't rebase: supersede it with our own.
+			if e.Source != "ksec" && e.Blocked == "upstream-conflict" && e.State == "open" {
+				pool = append(pool, newPR{
+					intent: Intent{Type: IntentSupersede, Key: k, Repo: t.repo, Package: t.pkg, Severity: t.sev,
+						Bump: state.Bump{Package: t.pkg, To: t.to}, PRNumber: e.PRNumber, PRURL: e.PRURL},
+					sev: t.sev,
+				})
+				continue
+			}
 			if e.State == "open" || e.State == "conflicted" {
 				continue
 			}
@@ -140,12 +157,7 @@ func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclie
 
 	// Cascade: a merged fix in a first-party module repo means that module's
 	// default branch has the fix; bump it in each consumer that isn't already
-	// tracked for it. Cascade PRs share the maxNew cap with direct opens.
-	type newPR struct {
-		intent Intent
-		sev    string
-	}
-	var pool []newPR
+	// tracked for it.
 	for _, k := range openKeys { // direct gaps from the earlier 4a logic
 		t := targets[k]
 		pool = append(pool, newPR{

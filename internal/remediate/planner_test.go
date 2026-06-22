@@ -279,3 +279,26 @@ func TestPlanToolchainForStdlib(t *testing.T) {
 	assert.Equal(t, "1.22.5", tc.ToolchainVersion) // leading "go" stripped
 	assert.Equal(t, "kairos-io/immucore|go-toolchain", tc.Key)
 }
+
+func TestPlanSupersedesConflictedAdoptedPR(t *testing.T) {
+	c := state.Correlated{Findings: []state.Finding{
+		{ID: "f1", Repo: "o/r", Type: "sourceCVE", Ecosystem: "go", Package: "golang.org/x/net",
+			FixedVersion: "0.33.0", Severity: "high"},
+	}}
+	ledger := state.Ledger{Entries: []state.LedgerEntry{{
+		Key: "o/r|golang.org/x/net", Repo: "o/r", Package: "golang.org/x/net", State: "open",
+		Source: "bot", Blocked: "upstream-conflict", PRNumber: 38, PRURL: "https://github.com/o/r/pull/38",
+		Bump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"},
+	}}}
+	intents, _ := Plan(c, ledger, nil, nil, 10)
+	var sup *Intent
+	for i := range intents {
+		if intents[i].Type == IntentSupersede {
+			sup = &intents[i]
+		}
+	}
+	require.NotNil(t, sup)
+	assert.Equal(t, "o/r|golang.org/x/net", sup.Key)
+	assert.Equal(t, 38, sup.PRNumber)
+	assert.Equal(t, "https://github.com/o/r/pull/38", sup.PRURL)
+}

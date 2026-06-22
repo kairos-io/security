@@ -11,6 +11,7 @@ const (
 	IntentCascade   IntentType = "cascade"
 	IntentRepin     IntentType = "repin"
 	IntentToolchain IntentType = "toolchain"
+	IntentSupersede IntentType = "supersede"
 )
 
 type Intent struct {
