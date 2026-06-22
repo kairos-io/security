@@ -1,5 +1,54 @@
 [
   {
+    "repo": "kairos-io/AuroraBoot",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "high",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/cluster-api-provider-kairos",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "medium",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/entangle",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "medium",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/entangle-proxy",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "medium",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/go-nodepair",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "medium",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "medium",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/hadron",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "high",
+    "artifacts": null
+  },
+  {
     "repo": "kairos-io/immucore",
     "kind": "org",
     "branch": "main",
@@ -28,10 +77,45 @@
     "artifacts": null
   },
   {
+    "repo": "kairos-io/kairos-installer",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "high",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/kairos-lab",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "low",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/kairos-must-burn",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "low",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/kairos-operator",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "high",
+    "artifacts": null
+  },
+  {
     "repo": "kairos-io/kairos-sdk",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/kcrypt",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "high",
     "artifacts": null
   },
   {
@@ -42,10 +126,38 @@
     "artifacts": null
   },
   {
+    "repo": "kairos-io/netboot",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "medium",
+    "artifacts": null
+  },
+  {
     "repo": "kairos-io/provider-kairos",
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/provider-kubernetes",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "medium",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/simple-mdns-server",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "low",
+    "artifacts": null
+  },
+  {
+    "repo": "kairos-io/tpm-helpers",
+    "kind": "org",
+    "branch": "main",
+    "criticality": "high",
     "artifacts": null
   },
   {
