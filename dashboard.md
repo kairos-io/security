@@ -79,9 +79,15 @@ _None._
 - [#10](https://github.com/kairos-io/entangle/pull/10) — ✅ **good** — This pull request only updates several indirect dependencies to newer versions. These types of dependency bumps are routine maintenance and do not introduce new security risks. The changes appear safe to merge automatically.
 **kairos-io/entangle-proxy**
 
-- [#5](https://github.com/kairos-io/entangle-proxy/pull/5) — ✅ **good** — This pull request only updates the version of the 'github.com/onsi/gomega' dependency to v1.42.0. This is a routine dependency update, which typically includes bug fixes and security patches, and poses a low risk. It is safe to auto-approve.
+- [#5](https://github.com/kairos-io/entangle-proxy/pull/5) — ✅ **good** — This is a routine dependency update from a well-known project, `github.com/onsi/gomega`. The changelog indicates that this version bump includes maintenance fixes and new features, which is generally a positive change. Since this is an automated dependency update, and the changes appear to be standard library updates and configuration adjustments, it is safe to auto-approve.
+  ↳ This pull request updates the dependency `github.com/onsi/gomega` from v1.18.1 to v1.42.1. The changes include adding a new marketplace plugin configuration and updating the project's development container setup files. This is a standard dependency upgrade that incorporates maintenance fixes and new features from the upstream library.
+    - github.com/onsi/gomega 1.18.1→1.42.1: compare v1.18.1...v1.42.1 ✓ 40000 bytes
+    - context: 102351 bytes
 - [#6](https://github.com/kairos-io/entangle-proxy/pull/6) — ✅ **good** — This pull request updates the dependency sigs.k8s.io/controller-runtime to version v0.24.1. This is a routine dependency update to a newer version, which is generally safe and necessary for maintaining security and compatibility.
-- [#10](https://github.com/kairos-io/entangle-proxy/pull/10) — ✅ **good** — This pull request updates several dependencies, including upgrading github.com/onsi/ginkgo to v2 and updating other related packages like go-logr, go-cmp, and protobuf. These are routine dependency maintenance updates, which generally improve security by incorporating patches for known vulnerabilities. The changes are reflected correctly in both go.mod and go.sum.
+- [#10](https://github.com/kairos-io/entangle-proxy/pull/10) — ✅ **good** — The pull request is a standard dependency update to a newer major version of Ginkgo. The changelog indicates this is a routine upgrade, and the context shows numerous related dependency bumps across the project. There are no immediate security red flags indicated in the provided context, making this change safe to auto-approve.
+  ↳ This PR updates the `github.com/onsi/ginkgo` dependency from v1.16.5 to v2.32.0. This major version upgrade includes new features like RSpec-style documentation output and various maintenance fixes. Additionally, several other related dependencies, such as `github.com/go-logr/logr` and various `golang.org/x` packages, have also been updated.
+    - github.com/go-logr/logr 1.2.0→1.4.3: compare v1.2.0...v1.4.3 ✓ 40000 bytes
+    - context: 104569 bytes
 - [#14](https://github.com/kairos-io/entangle-proxy/pull/14) — ✅ **good** — This pull request primarily updates several dependencies to newer versions, including core packages like `golang.org/x` and `google.golang.org/protobuf`. Updating dependencies is a crucial security practice to ensure that known vulnerabilities are patched. The changes appear to be dependency hygiene improvements and do not introduce any obvious security risks.
 - [#18](https://github.com/kairos-io/entangle-proxy/pull/18) — ✅ **good** — This pull request updates the version of the docker/build-push-action from v2 to v7. Updating dependencies to the latest stable version is a standard security and maintenance practice. This change is safe to auto-approve.
 - [#19](https://github.com/kairos-io/entangle-proxy/pull/19) — ✅ **good** — This pull request updates the docker/login-action dependency from v1 to v4. Updating dependencies is a standard maintenance practice that generally improves security and stability by incorporating bug fixes and security patches from the maintainers. This change is safe to auto-approve.
@@ -107,35 +113,92 @@ _None._
 - [#58](https://github.com/kairos-io/go-nodepair/pull/58) — ✅ **good** — This pull request updates the version of the github/codeql-action/upload-sarif action from v3 to v4. Updating dependencies, especially for security scanning tools, is a standard maintenance practice to ensure the latest features, bug fixes, and security patches are included. This change is safe to auto-approve.
 - [#59](https://github.com/kairos-io/go-nodepair/pull/59) — ✅ **good** — This pull request only modifies the configuration file for the Renovate bot. The changes involve migrating to a recommended configuration and adjusting package matching rules. This is a standard configuration update and poses no security risk.
 - [#62](https://github.com/kairos-io/go-nodepair/pull/62) — ✅ **good** — This pull request only updates the version of the 'actions/checkout' dependency from v4/v2 to v7 in two workflow files. This is a routine dependency update and does not introduce any new security concerns.
-**kairos-io/go-ukify**
-
-- [#31](https://github.com/kairos-io/go-ukify/pull/31) — ✅ **good** — This change is a routine dependency update to a specific digest for `github.com/foxboron/go-uefi`. Since this is an automated update, the risk is low, assuming the new digest is a standard patch or minor update. It is safe to auto-approve.
-  ↳ This PR updates the dependency `github.com/foxboron/go-uefi` by changing its version digest from `fab4fdf` to `d29549a`. This is a standard dependency update performed by an automated tool.
-- [#38](https://github.com/kairos-io/go-ukify/pull/38) — ✅ **good** — This is a routine dependency update for a security scanning tool. The version bump is minor, and the changelog suggests compatibility adjustments rather than breaking changes. Therefore, it is safe to auto-approve this update.
-  ↳ This PR updates the `securego/gosec` action dependency from v2.22.5 to v2.27.1. The release notes indicate minor changes, including a downgrade of a Google library to manage Go version compatibility.
-- [#39](https://github.com/kairos-io/go-ukify/pull/39) — ✅ **good** — This is a standard dependency bump to a newer version of a widely used testing library. The changes appear to be feature additions and internal maintenance/refactoring, which are generally safe. No immediate security vulnerabilities are apparent in the provided diffs.
-  ↳ This PR updates the `github.com/onsi/gomega` dependency from v1.37.0 to v1.42.1. The changes introduce new features such as a Claude plugin, updated development container support, and internal refactoring across documentation and formatting logic.
-- [#43](https://github.com/kairos-io/go-ukify/pull/43) — ✅ **good** — This is a routine dependency update for a widely used GitHub Action. Updating to a newer major version is generally safe and recommended to ensure the project benefits from bug fixes and security patches provided by the action maintainers.
-  ↳ This PR updates the `actions/setup-go` action from version 5 to version 6 in the release and unit test workflows. This is a routine dependency update to incorporate the latest changes and potential security fixes from the action maintainers.
-- [#46](https://github.com/kairos-io/go-ukify/pull/46) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
-- [#47](https://github.com/kairos-io/go-ukify/pull/47) — ✅ **good** — This pull request updates a dependency to a newer major version of a GitHub Action. Dependency updates, especially for security-related tools like CodeQL actions, are generally safe and recommended to incorporate bug fixes and security patches. The change is localized to updating the action version used for uploading SARIF files.
-  ↳ This PR updates the `github/codeql-action/upload-sarif` action from version v3 to v4 in the workflow file. This is a standard dependency update to ensure the workflow uses the latest version of the action.
-- [#48](https://github.com/kairos-io/go-ukify/pull/48) — ✅ **good** — This is a standard dependency update to a newer version of Ginkgo. The changes primarily involve adopting new features and updating project configuration and tooling to support the new version. Since this is a dependency bump and the changes appear to be related to feature adoption and configuration rather than core logic changes, it is safe to auto-approve.
-  ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.23.4 to v2.32.0. The changes include updates to configuration files, GitHub Actions workflows, and internal code to integrate new Ginkgo features like RSpec-style documentation output and improved spec filtering. Additionally, several project dependencies in `Gemfile.lock` have been updated to align with the new version.
-- [#50](https://github.com/kairos-io/go-ukify/pull/50) — ✅ **good** — This is a standard dependency update for a widely used library, and the release notes indicate bug fixes and enhancements. The accompanying code changes represent internal refactoring of the Viper library itself, which is typical for major version bumps. The dependency bump is safe to auto-approve.
-  ↳ This PR updates the `github.com/spf13/viper` dependency to v1.21.0, which includes bug fixes and new features. It also introduces significant internal refactoring to the configuration file finding mechanism using `locafero` and updates the encoding layer interfaces.
-- [#51](https://github.com/kairos-io/go-ukify/pull/51) — ✅ **good** — This is a standard dependency update to a newer version of a widely used library. While there are internal breaking changes within the library (like flag option renaming), the PR appears to implement the necessary migration steps, including updating `go.mod` and `go.sum`. The addition of a `SECURITY.md` file is a positive security enhancement. Therefore, this change is safe to auto-approve.
-  ↳ This PR updates the `github.com/spf13/cobra` dependency from v1.9.1 to v1.10.2, which includes internal refactors, updated documentation, and dependency bumps for `pflag` and `go.yaml.in/yaml/v3`. The update involves renaming a flag parsing option and updating several internal code paths.
-- [#53](https://github.com/kairos-io/go-ukify/pull/53) — ✅ **good** — This is a standard dependency update to a newer version of a well-known library. The changes involve feature additions (HMAC Session support) and bug fixes, which are generally beneficial. The extensive internal refactoring and added tests suggest a thorough update process. Therefore, this change is safe to auto-approve.
-  ↳ This PR updates the `go-tpm` dependency from v0.9.5 to v0.9.8, introducing support for HMAC Sessions in ReadPublic and fixing a typo in the TPM hierarchy name. It also includes significant internal refactoring in marshalling and reflection logic, along with new tests for audit sessions and time retrieval.
 **kairos-io/kairos**
 
 - [#4104](https://github.com/kairos-io/kairos/pull/4104) — ⚠️ **needs_human_verification** — The PR title suggests an automation task related to dependency upgrades. While automation can be beneficial, security review requires inspecting the actual code changes to ensure no unintended side effects or vulnerabilities were introduced during the pipeline wiring.
   ↳ The PR aims to automate the process of fetching the latest release and running validation tests within the upgrade pipeline.
 **kairos-io/kairos-operator**
 
-- [#114](https://github.com/kairos-io/kairos-operator/pull/114) — ✅ **good** — This change is a routine dependency update for a standard GitHub Action. Updating the digest to a newer version is a maintenance task and does not introduce any new security risks. It is safe to auto-approve.
-  ↳ This PR updates the digest for the `actions/checkout` dependency from `de0fac2` to `df4cb1c`. This is a routine dependency update for a standard GitHub Action and does not introduce any new security vulnerabilities.
-- [#115](https://github.com/kairos-io/kairos-operator/pull/115) — ✅ **good** — This change is a routine update of a dependency's digest, which is a standard practice for ensuring build reproducibility or applying minor security patches associated with the base image. It does not introduce any new code, logic changes, or new dependencies, making it safe for automatic approval.
-  ↳ This PR updates the Dockerfile and Dockerfile.node-labeler files to use a new digest (`478231bfd9677835606c249208483a3c43b31e941c1040c48747b111c7ab871c`) for the `docker.io/golang:1.26.4` image. This is a routine update of the image digest.
+- [#88](https://github.com/kairos-io/kairos-operator/pull/88) — ✅ **good** — This change is a routine version bump as described in the PR description, updating images from a previous beta tag to the next one. There are no immediate security concerns apparent from the diff itself, suggesting this is a safe maintenance update.
+  ↳ This PR updates the container images for the Kairos operator and node-labeler to version v0.1.0-beta5.
+    - no go.mod dependency bumps parsed from the PR diff
+    - context: 886 bytes
+- [#89](https://github.com/kairos-io/kairos-operator/pull/89) — ✅ **good** — This change is a routine dependency digest update for a widely used Docker action. Updating to a newer digest is standard maintenance and does not introduce any immediate security risks or obvious breaking changes. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the digest of the `docker/build-push-action` dependency across multiple workflow files from an older version to a newer one. This is a routine maintenance update for a standard Docker action.
+    - no go.mod dependency bumps parsed from the PR diff
+    - context: 2152 bytes
+- [#91](https://github.com/kairos-io/kairos-operator/pull/91) — ✅ **good** — This is a routine dependency digest update for an external tool. There are no apparent security risks introduced by updating a package digest, and this change is necessary for maintenance.
+  ↳ This PR updates the digest for the `azure/setup-kubectl` dependency from an older version to a newer one. This change is applied in the workflow file to ensure the build environment uses the latest specified version of the tool.
+    - no go.mod dependency bumps parsed from the PR diff
+    - context: 1690 bytes
+- [#92](https://github.com/kairos-io/kairos-operator/pull/92) — ✅ **good** — This is a routine dependency digest update for a base image. Updating base image digests is standard practice for security hygiene and ensuring the use of the latest available image, which is safe to auto-approve.
+  ↳ This PR updates the base image for the Dockerfile from an older Alpine digest (`2510918`) to a newer one (`fd791d7`). This ensures the build uses the latest, verified image digest for Alpine 3.23.
+    - no go.mod dependency bumps parsed from the PR diff
+    - context: 1604 bytes
+- [#93](https://github.com/kairos-io/kairos-operator/pull/93) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
+    - k8s.io/api 0.35.3→0.36.2: compare v0.35.3...v0.36.2 ✓ 40000 bytes
+    - k8s.io/apimachinery 0.35.3→0.36.2: compare v0.35.3...v0.36.2 ✓ 40000 bytes
+    - context: 97246 bytes
+- [#96](https://github.com/kairos-io/kairos-operator/pull/96) — ✅ **good** — This pull request is a routine version bump for existing images as described in the changelog. Since this is a dependency update and no specific security vulnerabilities are indicated in the context, it is safe to auto-approve.
+  ↳ This PR updates the Docker images for the Kairos operator and the operator-node-labeler to version v0.1.0-beta6.
+    - no go.mod dependency bumps parsed from the PR diff
+    - context: 886 bytes
+- [#98](https://github.com/kairos-io/kairos-operator/pull/98) — ✅ **good** — This is a minor version bump for a widely used testing framework. The changes primarily introduce new features, documentation, and minor dependency updates. There are no obvious security vulnerabilities introduced by this update, making it safe to auto-approve.
+  ↳ This PR updates the `github.com/onsi/ginkgo/v2` dependency to version v2.32.0. The changes introduce new features such as a Claude plugin, new devcontainer configurations, and updates to documentation and internal code structure. It also includes minor dependency updates in the Gemfile.lock.
+    - github.com/onsi/ginkgo/v2 2.28.1→2.32.0: compare v2.28.1...v2.32.0 ✓ 40000 bytes
+    - github.com/onsi/gomega 1.39.1→1.40.0: compare v1.39.1...v1.40.0 ✓ 40000 bytes
+    - context: 87633 bytes
+- [#100](https://github.com/kairos-io/kairos-operator/pull/100) — ✅ **good** — This is a dependency update to a minor version, which is generally safe. The changes appear to be feature additions (Claude plugin, devcontainer setup) and internal code cleanup/refactoring, which are positive for the project. The release notes suggest a strategy to minimize dependency bloat, indicating thoughtful maintenance.
+  ↳ This PR updates the dependency `github.com/onsi/gomega` from v1.39.1 to v1.42.1, introducing new features like a Claude plugin and updated development container configurations. It also includes significant internal refactoring in the `format` package and updates to documentation across the repository.
+    - github.com/onsi/gomega 1.39.1→1.42.1: compare v1.39.1...v1.42.1 ✓ 40000 bytes
+    - golang.org/x/mod 0.35.0→0.36.0: compare v0.35.0...v0.36.0 ✓ 16991 bytes
+    - context: 65356 bytes
+- [#102](https://github.com/kairos-io/kairos-operator/pull/102) — ✅ **good** — This change is a simple update of the digest for a base image. Updating the digest is a standard practice for ensuring the use of a specific, verified version of an image, which is a routine maintenance task and does not introduce new security risks.
+  ↳ This PR updates the digest of the `gcr.io/distroless/static:nonroot` Docker base image to a new, specified digest. This is a routine maintenance update for a base image dependency.
+    - no go.mod dependency bumps parsed from the PR diff
+    - context: 1727 bytes
+- [#103](https://github.com/kairos-io/kairos-operator/pull/103) — ✅ **good** — This is a dependency update for a devcontainer feature. While a major version bump (2 to 3) always carries a small risk of breaking changes, this is a standard maintenance update. Given the context of an automated bot PR, and assuming the upstream change is benign, it is safe to auto-approve.
+  ↳ This PR updates the version of the `ghcr.io/devcontainers/features/docker-in-docker` dependency from version 2 to version 3 in `devcontainer.json`. This change modifies the feature configuration to use the new version tag.
+    - no go.mod dependency bumps parsed from the PR diff
+    - context: 1523 bytes
+- [#112](https://github.com/kairos-io/kairos-operator/pull/112) — ✅ **good** — This is a routine dependency update bumping the image version within the beta track. Since this is a version bump and not a major architectural change, it is safe to auto-approve.
+  ↳ This PR updates the image tags for the Kairos operator and node-labeler from v0.1.0-beta4 to v0.1.0-beta7 within the Kustomize configuration.
+    - no go.mod dependency bumps parsed from the PR diff
+    - context: 886 bytes
+- [#117](https://github.com/kairos-io/kairos-operator/pull/117) — ✅ **good** — This is a routine dependency update for a standard GitHub action. Since this change is driven by an automated tool (Mend Renovate) and involves updating a common setup utility, it is generally safe to auto-approve.
+  ↳ This PR updates the digest for the `actions/setup-go` action across multiple workflow files from an older version to a newer one.
+    - no go.mod dependency bumps parsed from the PR diff
+    - context: 3067 bytes
+- [#118](https://github.com/kairos-io/kairos-operator/pull/118) — ✅ **good** — This pull request is a routine dependency digest update for the `docker/login-action`. It does not introduce any new code or apparent security vulnerabilities, making it safe to auto-approve.
+  ↳ This PR updates the digest of the `docker/login-action` dependency from `4907a6d` to `650006c`. This ensures the project is using the latest version of the action.
+    - no go.mod dependency bumps parsed from the PR diff
+    - context: 3058 bytes
+**kairos-io/kcrypt**
+
+- [#505](https://github.com/kairos-io/kcrypt/pull/505) — ✅ **good** — The change is a dependency update to a newer version of the Kairos SDK, which is generally safe. The accompanying code changes focus on internal refactoring and adding complex features like multipath device handling, which appear to be well-tested in the provided diff. This is safe to auto-approve.
+  ↳ This PR updates the `github.com/kairos-io/kairos-sdk` dependency from v0.9.4 to v0.11.0. It also includes significant internal refactoring within the `ghw` package to introduce robust support for multipath devices and update internal logging and provider management structures.
+    - github.com/kairos-io/kairos-sdk 0.9.4→0.11.0: compare v0.9.4...v0.11.0 ✓ 40000 bytes
+    - context: 48550 bytes
+- [#509](https://github.com/kairos-io/kcrypt/pull/509) — ✅ **good** — This is a necessary upgrade to a major dependency, which includes important security fixes mentioned in the release notes. Since the update is to a newer major version and addresses security concerns, it is safe to auto-approve.
+  ↳ This PR updates the dependency github.com/docker/docker from version 27.5.1+incompatible to 28.0.0+incompatible. This upgrade incorporates new features and critical security fixes released in the Docker 28.0.0 release.
+    - github.com/docker/docker 27.5.1+incompatible→28.0.0+incompatible: compare v27.5.1+incompatible...v28.0.0+incompatible failed: gh api: gh: Not Found (HTTP 404) (no upstream diff)
+    - context: 46086 bytes
+**kairos-io/kcrypt-discovery-challenger**
+
+- [#41](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/41) — ✅ **good** — This is a dependency update for a core Kubernetes controller library. The changelog indicates that this version includes bug fixes, which is generally a positive change. Assuming the project's existing test suite passes, this update is safe to auto-approve.
+  ↳ This PR updates the `sigs.k8s.io/controller-runtime` dependency from v0.15.0 to v0.24.1. The new version includes bug fixes, such as a regression fix in Apply typed error handling, and various underlying dependency upgrades.
+    - k8s.io/api 0.27.2→0.36.0: compare v0.27.2...v0.36.0 ✓ 40000 bytes
+    - context: 123927 bytes
+- [#190](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/190) — ✅ **good** — Updating core infrastructure dependencies like Kubernetes components to the latest stable version is a crucial security and stability practice. This change incorporates bug fixes and security patches from the upstream, making the project more resilient. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the core Kubernetes dependencies, k8s.io/api, k8s.io/apimachinery, and k8s.io/client-go, to version v0.36.2. This brings the project up to a recent, patched version of the Kubernetes ecosystem components.
+    - k8s.io/apimachinery 0.27.4→0.27.2: compare v0.27.4...v0.27.2 failed: <nil> (no upstream diff)
+    - github.com/emicklei/go-restful/v3 3.10.1→3.13.0: compare v3.10.1...v3.13.0 ✓ 40000 bytes
+    - context: 131955 bytes
+**kairos-io/simple-mdns-server**
+
+- [#4](https://github.com/kairos-io/simple-mdns-server/pull/4) — ✅ **good** — This is a standard dependency maintenance update performed by Dependabot. The changes involve updating core packages like `x/net` and `x/sys`, which are necessary for project health. Since this is an automated bump and no immediate security risks are apparent from the diffs, it is safe to auto-approve.
+  ↳ This pull request updates two dependencies: `golang.org/x/net` to version 0.23.0 and `golang.org/x/sys` to version 0.18.0. The updates include significant changes to networking code, context handling, and low-level CPU/system interaction logic.
+    - golang.org/x/net 0.0.0-20210410081132-afb366fc7cd1→0.23.0: compare afb366fc7cd1...v0.23.0 ✓ 40000 bytes
+    - golang.org/x/sys 0.0.0-20210330210617-4fbd30eecc44→0.18.0: compare 4fbd30eecc44...v0.18.0 ✓ 40000 bytes
+    - context: 85299 bytes
 
