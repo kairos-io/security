@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-06-23._
+_Updated 2026-06-24._
 
 ## 📋 This run
 

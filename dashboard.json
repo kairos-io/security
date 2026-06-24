@@ -4,7 +4,7 @@
     "waterfall": null
   },
   "triage": {
-    "generatedAt": "2026-06-23",
+    "generatedAt": "2026-06-24",
     "model": "gemma-4-e2b-it",
     "aiAvailable": true,
     "focus": null,
