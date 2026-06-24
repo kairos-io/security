@@ -36,9 +36,17 @@ type NibCfg struct {
 	Temperature float64 `yaml:"temperature"`
 }
 
+type ReviewCfg struct {
+	Enabled     bool     `yaml:"enabled"`
+	AutoApprove bool     `yaml:"autoApprove"`
+	MaxPerRun   int      `yaml:"maxPerRun"`
+	Notify      []string `yaml:"notify"`
+}
+
 type AIConfig struct {
 	LocalAI LocalAICfg `yaml:"localai"`
 	Nib     NibCfg     `yaml:"nib"`
+	Review  ReviewCfg  `yaml:"review"`
 }
 
 func readYAML[T any](path string, v *T) error {
@@ -74,6 +82,9 @@ func LoadAI(path string) (AIConfig, error) {
 	}
 	if cfg.Nib.Model == "" {
 		cfg.Nib.Model = cfg.LocalAI.Model.Name
+	}
+	if cfg.Review.MaxPerRun <= 0 {
+		cfg.Review.MaxPerRun = 20
 	}
 	return cfg, nil
 }

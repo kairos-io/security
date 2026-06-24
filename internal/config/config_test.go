@@ -57,3 +57,24 @@ nib:
 	assert.Equal(t, "override-model", cfg.LocalAI.Model.Name)
 	assert.Equal(t, "yolo", cfg.Nib.Mode)
 }
+
+func TestLoadAIReview(t *testing.T) {
+	dir := t.TempDir()
+	p := filepath.Join(dir, "ai.yaml")
+	require.NoError(t, os.WriteFile(p, []byte(`
+localai:
+  endpoint: http://localhost:8080
+  model:
+    name: m
+review:
+  enabled: true
+  autoApprove: true
+  notify: ["@team"]
+`), 0o644))
+	cfg, err := LoadAI(p)
+	require.NoError(t, err)
+	assert.True(t, cfg.Review.Enabled)
+	assert.True(t, cfg.Review.AutoApprove)
+	assert.Equal(t, []string{"@team"}, cfg.Review.Notify)
+	assert.Equal(t, 20, cfg.Review.MaxPerRun) // defaulted
+}
