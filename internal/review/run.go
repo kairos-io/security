@@ -60,27 +60,37 @@ func Run(repos []state.Repo, gh ghclient.GitHub, a Assessor, cfg config.ReviewCf
 				errs = append(errs, state.CollectionError{Repo: repo.Repo, Collector: "review", Message: derr.Error()})
 				continue
 			}
-			for _, b := range parseBumps(diff) {
+			var trace []string
+			bumps := parseBumps(diff)
+			if len(bumps) == 0 {
+				trace = append(trace, "no go.mod dependency bumps parsed from the PR diff")
+			}
+			for _, b := range bumps {
 				if ctx.Len() > maxContext {
 					break
 				}
 				gr, ok := moduleRepo(b.Module)
 				if !ok {
+					trace = append(trace, fmt.Sprintf("%s %s→%s: module not resolvable to a GitHub repo (skipped)", b.Module, b.From, b.To))
 					continue
 				}
-				ud, uerr := gh.CompareDiff(gr, "v"+b.From, "v"+b.To)
+				baseRef, headRef := compareRef(b.From), compareRef(b.To)
+				ud, uerr := gh.CompareDiff(gr, baseRef, headRef)
 				if uerr != nil || len(ud) == 0 {
+					trace = append(trace, fmt.Sprintf("%s %s→%s: compare %s...%s failed: %v (no upstream diff)", b.Module, b.From, b.To, baseRef, headRef, uerr))
 					continue // degrade: no upstream source diff for this bump
 				}
 				if len(ud) > maxBumpDiff {
 					ud = ud[:maxBumpDiff]
 				}
 				fmt.Fprintf(&ctx, "Upstream %s %s..%s:\n%s\n\n", b.Module, b.From, b.To, ud)
+				trace = append(trace, fmt.Sprintf("%s %s→%s: compare %s...%s ✓ %d bytes", b.Module, b.From, b.To, baseRef, headRef, len(ud)))
 			}
 			ctx.WriteString("PR diff:\n" + string(diff))
+			trace = append(trace, fmt.Sprintf("context: %d bytes", ctx.Len()))
 			verdict, reasoning, summary, _ := a.Assess(pr, ctx.String()) // assessor never hard-errors (defaults needs_human)
 			rv := state.PRReview{Repo: repo.Repo, PR: pr.Number, URL: pr.URL, HeadSHA: pr.HeadSHA,
-				Verdict: verdict, Reasoning: reasoning, ChangesSummary: summary, ReviewedRun: runID}
+				Verdict: verdict, Reasoning: reasoning, ChangesSummary: summary, Trace: trace, ReviewedRun: runID}
 			out = append(out, rv)
 			if dryRun {
 				fmt.Printf("[dry-run] would comment on %s#%d: %s — %s\n", repo.Repo, pr.Number, verdict, summary)
@@ -111,6 +121,13 @@ func comment(r state.PRReview, notify []string) string {
 	}
 	if len(notify) > 0 {
 		fmt.Fprintf(&b, "\n\ncc %s", strings.Join(notify, " "))
+	}
+	if len(r.Trace) > 0 {
+		b.WriteString("\n\n<details><summary>review trace</summary>\n\n```\n")
+		for _, line := range r.Trace {
+			b.WriteString(line + "\n")
+		}
+		b.WriteString("```\n\n</details>")
 	}
 	b.WriteString("\n\n" + reviewMarker)
 	return b.String()

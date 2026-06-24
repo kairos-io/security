@@ -2,6 +2,7 @@ package review
 
 import (
 	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/kairos-io/security/internal/config"
@@ -19,6 +20,7 @@ type fakeGH struct {
 	upserts  map[string]string // keyed "repo#pr" -> body (re-upsert overwrites: no spam)
 	compErr  error             // if set, CompareDiff returns it
 	approved []string          // "repo#pr"
+	compared [][3]string       // records each (repo, base, head) CompareDiff was called with
 }
 
 func (f *fakeGH) ListOpenPRs(repo string) ([]ghclient.PullRequest, error) { return f.prs[repo], nil }
@@ -26,6 +28,7 @@ func (f *fakeGH) PRDiff(repo string, pr int) ([]byte, error) {
 	return f.diffs[repo], nil
 }
 func (f *fakeGH) CompareDiff(repo, base, head string) ([]byte, error) {
+	f.compared = append(f.compared, [3]string{repo, base, head})
 	if f.compErr != nil {
 		return nil, f.compErr
 	}
@@ -192,4 +195,99 @@ func TestRunCapsNewAssessments(t *testing.T) {
 	require.Empty(t, errs)
 	assert.Len(t, gh.upserts, 2) // capped at MaxPerRun new assessments
 	assert.Len(t, out, 2)
+}
+
+func TestRunPseudoVersionComparesBySHA(t *testing.T) {
+	// A pseudo-version bump: compare must use the embedded commit SHAs as refs.
+	diff := []byte("--- a/go.mod\n+++ b/go.mod\n" +
+		"-	github.com/foo/bar v0.0.0-20241017190036-fab4fdf2f2f3\n" +
+		"+	github.com/foo/bar v0.0.0-20241101120000-d29549a44f29\n")
+	gh := &fakeGH{
+		prs: map[string][]ghclient.PullRequest{"o/r": {
+			{Number: 2, Title: "bump bar", IsBot: true, HeadSHA: "sha2", URL: "u2"},
+		}},
+		diffs:    map[string][]byte{"o/r": diff},
+		compares: map[string][]byte{"foo/bar fab4fdf2f2f3..d29549a44f29": []byte("upstream pseudo source change")},
+	}
+	a := &FakeAssessor{Verdict: "good", Reasoning: "clean"}
+	cfg := config.ReviewCfg{Enabled: true, MaxPerRun: 20}
+
+	out, errs := Run([]state.Repo{{Repo: "o/r"}}, gh, a, cfg, nil, "run1", false)
+	require.Empty(t, errs)
+	require.Len(t, out, 1)
+
+	// CompareDiff received the SHA refs, not the raw pseudo-version strings.
+	require.Len(t, gh.compared, 1)
+	assert.Equal(t, [3]string{"foo/bar", "fab4fdf2f2f3", "d29549a44f29"}, gh.compared[0])
+	assert.Contains(t, a.GotContext, "upstream pseudo source change")
+
+	// Trace records the successful compare with a byte count, plus the context line.
+	require.NotEmpty(t, out[0].Trace)
+	var sawCompare, sawContext bool
+	for _, line := range out[0].Trace {
+		if strings.Contains(line, "compare fab4fdf2f2f3...d29549a44f29 ✓") && strings.Contains(line, "bytes") {
+			sawCompare = true
+		}
+		if strings.HasPrefix(line, "context: ") {
+			sawContext = true
+		}
+	}
+	assert.True(t, sawCompare, "trace should record the successful SHA compare: %v", out[0].Trace)
+	assert.True(t, sawContext, "trace should record the context size: %v", out[0].Trace)
+
+	// The upserted comment embeds the collapsible trace block before the marker.
+	body := gh.upserts["o/r#2"]
+	assert.Contains(t, body, "<details><summary>review trace</summary>")
+	assert.Less(t, strings.Index(body, "<details>"), strings.Index(body, reviewMarker))
+}
+
+func TestRunTraceUnresolvableModule(t *testing.T) {
+	// A vanity/unresolvable module path -> trace records it was skipped.
+	diff := []byte("-	example.com/private/thing v1.0.0\n+	example.com/private/thing v1.1.0\n")
+	gh := &fakeGH{
+		prs: map[string][]ghclient.PullRequest{"o/r": {
+			{Number: 2, Title: "bump thing", IsBot: true, HeadSHA: "sha2", URL: "u2"},
+		}},
+		diffs: map[string][]byte{"o/r": diff},
+	}
+	a := &FakeAssessor{Verdict: "needs_human_verification", Reasoning: "no upstream"}
+	cfg := config.ReviewCfg{Enabled: true, MaxPerRun: 20}
+
+	out, errs := Run([]state.Repo{{Repo: "o/r"}}, gh, a, cfg, nil, "run1", false)
+	require.Empty(t, errs)
+	require.Len(t, out, 1)
+
+	assert.Empty(t, gh.compared) // unresolvable -> never calls CompareDiff
+	require.NotEmpty(t, out[0].Trace)
+	var sawSkip bool
+	for _, line := range out[0].Trace {
+		if strings.Contains(line, "example.com/private/thing") && strings.Contains(line, "module not resolvable") {
+			sawSkip = true
+		}
+	}
+	assert.True(t, sawSkip, "trace should record the unresolvable module skip: %v", out[0].Trace)
+}
+
+func TestRunTraceNoBumps(t *testing.T) {
+	gh := &fakeGH{
+		prs: map[string][]ghclient.PullRequest{"o/r": {
+			{Number: 2, Title: "docs only", IsBot: true, HeadSHA: "sha2", URL: "u2"},
+		}},
+		diffs: map[string][]byte{"o/r": []byte("--- a/README.md\n+++ b/README.md\n-old\n+new\n")},
+	}
+	a := &FakeAssessor{Verdict: "good", Reasoning: "docs"}
+	cfg := config.ReviewCfg{Enabled: true, MaxPerRun: 20}
+
+	out, errs := Run([]state.Repo{{Repo: "o/r"}}, gh, a, cfg, nil, "run1", false)
+	require.Empty(t, errs)
+	require.Len(t, out, 1)
+
+	require.NotEmpty(t, out[0].Trace)
+	var sawNoBumps bool
+	for _, line := range out[0].Trace {
+		if strings.Contains(line, "no go.mod dependency bumps parsed") {
+			sawNoBumps = true
+		}
+	}
+	assert.True(t, sawNoBumps, "trace should record the no-bumps case: %v", out[0].Trace)
 }
