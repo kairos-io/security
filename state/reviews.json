@@ -3,18 +3,20 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 409,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/409",
-    "headSHA": "8edf5f76215bdc93b0af3958456fe223a45ec573",
+    "headSHA": "64a224d432a3ad8b15480b6223f12e3b7618978e",
     "verdict": "good",
-    "reasoning": "This pull request only updates the digest for a dependency (`github.com/foxboron/sbctl`) and updates several indirect dependencies in go.mod and go.sum files. This is a routine dependency maintenance task, and there are no apparent security risks introduced by these changes.",
+    "reasoning": "This pull request appears to be a standard automated dependency update, primarily updating a dependency digest for github.com/foxboron/sbctl. Dependency updates are routine maintenance and generally safe, provided the updated versions do not introduce known critical vulnerabilities.",
+    "changesSummary": "This PR updates the digest for github.com/foxboron/sbctl to a specific commit hash, and also updates several other dependencies like github.com/fatih/color, golang.org/x/sys, and adds/updates packages such as github.com/go-piv/piv-go/v2 and kernel.org/pub/linux/libs/security/libcap/psx.",
     "reviewedRun": "2026-06-24"
   },
   {
     "repo": "kairos-io/AuroraBoot",
     "pr": 566,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/566",
-    "headSHA": "b4bda96b77d5d8d83f9d493b4b8067159ae26d71",
+    "headSHA": "a2a6310b6760e8728ec68783181d65c56d8eaa03",
     "verdict": "good",
-    "reasoning": "This pull request is a routine dependency update for 'lucide-react'. Updating dependencies is a standard maintenance task, and this change appears safe as it only updates the version number.",
+    "reasoning": "This is a routine dependency update for a well-known icon library (`lucide-react`). Since this change is driven by a bot and involves updating a dependency to a newer version, it is generally safe to auto-approve.",
+    "changesSummary": "This PR updates the dependency `lucide-react` from version ^0.468.0 to ^0.577.0. This is a standard dependency maintenance update, likely performed by a bot, to pull in the latest version of the library.",
     "reviewedRun": "2026-06-24"
   },
   {
@@ -118,6 +120,56 @@
   },
   {
     "repo": "kairos-io/go-nodepair",
+    "pr": 11,
+    "url": "https://github.com/kairos-io/go-nodepair/pull/11",
+    "headSHA": "84958751432bc910a09a705c7b45ca9adf781a17",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency update to a newer version of a well-known project. The changelog indicates that the upgrade includes fixes and new features, suggesting it is a safe and beneficial update. No immediate security risks are apparent from the provided context.",
+    "changesSummary": "This PR updates the dependency `github.com/ipfs/go-log` from version v1.0.5 to v2.9.2. This upgrade incorporates fixes and new features, including support for `slog.Group` in the zap bridge.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-nodepair",
+    "pr": 27,
+    "url": "https://github.com/kairos-io/go-nodepair/pull/27",
+    "headSHA": "8d7d9ab0f124dafb0573eab364c63d550cb3d3ff",
+    "verdict": "good",
+    "reasoning": "The changes involve updating several core dependencies across the project. The changelogs indicate that these updates include important security patches, such as restricting RSA key sizes in go-libp2p and fixing memory exhaustion attacks in quic-go. This is standard maintenance and security hygiene.",
+    "changesSummary": "This pull request updates several core dependencies, including go-libp2p, quic-go, golang.org/x/crypto, golang.org/x/image, golang.org/x/net, and google.golang.org/protobuf. The updates include critical security fixes, such as mitigating a DoS attack in go-libp2p and addressing memory exhaustion issues in quic-go.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-nodepair",
+    "pr": 37,
+    "url": "https://github.com/kairos-io/go-nodepair/pull/37",
+    "headSHA": "03664bfc8c64ac546ff3448c0498010cfa993497",
+    "verdict": "good",
+    "reasoning": "This appears to be a routine dependency update. Since this is a digest bump for a known dependency, and no specific security issues are indicated in the context, the change is considered safe for auto-approval.",
+    "changesSummary": "This PR updates the dependency github.com/kbinani/screenshot from digest b87d318 to 089614a. This is a standard dependency update managed by Mend Renovate.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-nodepair",
+    "pr": 44,
+    "url": "https://github.com/kairos-io/go-nodepair/pull/44",
+    "headSHA": "60c75fd1154910f8fa160810e5458cd12d93afca",
+    "verdict": "good",
+    "reasoning": "This is a minor version update for a dependency that appears to be a security scanning tool. Minor version bumps are typically safe and address maintenance or minor bug fixes without introducing significant breaking changes or new security risks.",
+    "changesSummary": "This PR updates the dependency `google/osv-scanner-action` from version v1.8.4 to v1.9.2 in the workflow configuration. This change ensures the project uses the latest version of the OSV scanner action.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-nodepair",
+    "pr": 46,
+    "url": "https://github.com/kairos-io/go-nodepair/pull/46",
+    "headSHA": "26772810dc811772d11019b7fd1e18b1a7f24d43",
+    "verdict": "needs_human_verification",
+    "reasoning": "This is a dependency update to a major version bump within the library. While dependency updates are generally safe, the new version introduces significant new features and internal API changes, such as the `--sleep-on-failure` mechanism and changes to suite control logic. A human review is recommended to ensure these changes do not introduce any unexpected breaking behavior in the application code.",
+    "changesSummary": "This PR updates the `github.com/onsi/ginkgo/v2` dependency from v2.29.0 to v2.32.0. This version introduces new features like RSpec-style documentation output (`-fd`) and a debugging aid called `--sleep-on-failure`. It also includes internal refactoring related to suite management and plugin support.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-nodepair",
     "pr": 47,
     "url": "https://github.com/kairos-io/go-nodepair/pull/47",
     "headSHA": "0fa4a1254cb57eacb5b51453b3b297acd62758c8",
@@ -177,6 +229,135 @@
     "headSHA": "4bba0d12c4a755634a1df6e5157151c5fc38dee1",
     "verdict": "good",
     "reasoning": "This pull request only updates the version of the 'actions/checkout' dependency from v4/v2 to v7 in two workflow files. This is a routine dependency update and does not introduce any new security concerns.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 31,
+    "url": "https://github.com/kairos-io/go-ukify/pull/31",
+    "headSHA": "80fbc135ff14662c51fb6b854ff03fccfddd1bf2",
+    "verdict": "good",
+    "reasoning": "This change is a routine dependency update to a specific digest for `github.com/foxboron/go-uefi`. Since this is an automated update, the risk is low, assuming the new digest is a standard patch or minor update. It is safe to auto-approve.",
+    "changesSummary": "This PR updates the dependency `github.com/foxboron/go-uefi` by changing its version digest from `fab4fdf` to `d29549a`. This is a standard dependency update performed by an automated tool.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 38,
+    "url": "https://github.com/kairos-io/go-ukify/pull/38",
+    "headSHA": "01c7618c968f2e27fb3d165bc3b8740d0f31edde",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update for a security scanning tool. The version bump is minor, and the changelog suggests compatibility adjustments rather than breaking changes. Therefore, it is safe to auto-approve this update.",
+    "changesSummary": "This PR updates the `securego/gosec` action dependency from v2.22.5 to v2.27.1. The release notes indicate minor changes, including a downgrade of a Google library to manage Go version compatibility.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 39,
+    "url": "https://github.com/kairos-io/go-ukify/pull/39",
+    "headSHA": "e2946457c2b9d4a0b12d56dab5af3ac3718d020e",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency bump to a newer version of a widely used testing library. The changes appear to be feature additions and internal maintenance/refactoring, which are generally safe. No immediate security vulnerabilities are apparent in the provided diffs.",
+    "changesSummary": "This PR updates the `github.com/onsi/gomega` dependency from v1.37.0 to v1.42.1. The changes introduce new features such as a Claude plugin, updated development container support, and internal refactoring across documentation and formatting logic.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 43,
+    "url": "https://github.com/kairos-io/go-ukify/pull/43",
+    "headSHA": "af46b50f75368b89586a3b6bafc4355c7ec6a08c",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update for a widely used GitHub Action. Updating to a newer major version is generally safe and recommended to ensure the project benefits from bug fixes and security patches provided by the action maintainers.",
+    "changesSummary": "This PR updates the `actions/setup-go` action from version 5 to version 6 in the release and unit test workflows. This is a routine dependency update to incorporate the latest changes and potential security fixes from the action maintainers.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 46,
+    "url": "https://github.com/kairos-io/go-ukify/pull/46",
+    "headSHA": "7b2e86575afd6ff3c2165be19e8657c3d818883d",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 47,
+    "url": "https://github.com/kairos-io/go-ukify/pull/47",
+    "headSHA": "39001cbc9b5e7f221dc8ce94c61bc118dbab7d42",
+    "verdict": "good",
+    "reasoning": "This pull request updates a dependency to a newer major version of a GitHub Action. Dependency updates, especially for security-related tools like CodeQL actions, are generally safe and recommended to incorporate bug fixes and security patches. The change is localized to updating the action version used for uploading SARIF files.",
+    "changesSummary": "This PR updates the `github/codeql-action/upload-sarif` action from version v3 to v4 in the workflow file. This is a standard dependency update to ensure the workflow uses the latest version of the action.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 48,
+    "url": "https://github.com/kairos-io/go-ukify/pull/48",
+    "headSHA": "cbaf9e60d9034ed953458cb5db5d323a544788b6",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency update to a newer version of Ginkgo. The changes primarily involve adopting new features and updating project configuration and tooling to support the new version. Since this is a dependency bump and the changes appear to be related to feature adoption and configuration rather than core logic changes, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.23.4 to v2.32.0. The changes include updates to configuration files, GitHub Actions workflows, and internal code to integrate new Ginkgo features like RSpec-style documentation output and improved spec filtering. Additionally, several project dependencies in `Gemfile.lock` have been updated to align with the new version.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 50,
+    "url": "https://github.com/kairos-io/go-ukify/pull/50",
+    "headSHA": "e4d71649dac466138814e5d4da5c095e6c9c6b2e",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency update for a widely used library, and the release notes indicate bug fixes and enhancements. The accompanying code changes represent internal refactoring of the Viper library itself, which is typical for major version bumps. The dependency bump is safe to auto-approve.",
+    "changesSummary": "This PR updates the `github.com/spf13/viper` dependency to v1.21.0, which includes bug fixes and new features. It also introduces significant internal refactoring to the configuration file finding mechanism using `locafero` and updates the encoding layer interfaces.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 51,
+    "url": "https://github.com/kairos-io/go-ukify/pull/51",
+    "headSHA": "81edd1a4d84c462e0dbfe0170955546f030bd512",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency update to a newer version of a widely used library. While there are internal breaking changes within the library (like flag option renaming), the PR appears to implement the necessary migration steps, including updating `go.mod` and `go.sum`. The addition of a `SECURITY.md` file is a positive security enhancement. Therefore, this change is safe to auto-approve.",
+    "changesSummary": "This PR updates the `github.com/spf13/cobra` dependency from v1.9.1 to v1.10.2, which includes internal refactors, updated documentation, and dependency bumps for `pflag` and `go.yaml.in/yaml/v3`. The update involves renaming a flag parsing option and updating several internal code paths.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 53,
+    "url": "https://github.com/kairos-io/go-ukify/pull/53",
+    "headSHA": "71ebd71cde1ec45e95f3ff288f50e72ba221526b",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency update to a newer version of a well-known library. The changes involve feature additions (HMAC Session support) and bug fixes, which are generally beneficial. The extensive internal refactoring and added tests suggest a thorough update process. Therefore, this change is safe to auto-approve.",
+    "changesSummary": "This PR updates the `go-tpm` dependency from v0.9.5 to v0.9.8, introducing support for HMAC Sessions in ReadPublic and fixing a typo in the TPM hierarchy name. It also includes significant internal refactoring in marshalling and reflection logic, along with new tests for audit sessions and time retrieval.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/kairos",
+    "pr": 4104,
+    "url": "https://github.com/kairos-io/kairos/pull/4104",
+    "headSHA": "e1273573082d8734e93f07a76584717ad713f154",
+    "verdict": "needs_human_verification",
+    "reasoning": "The PR title suggests an automation task related to dependency upgrades. While automation can be beneficial, security review requires inspecting the actual code changes to ensure no unintended side effects or vulnerabilities were introduced during the pipeline wiring.",
+    "changesSummary": "The PR aims to automate the process of fetching the latest release and running validation tests within the upgrade pipeline.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/kairos-operator",
+    "pr": 114,
+    "url": "https://github.com/kairos-io/kairos-operator/pull/114",
+    "headSHA": "637e037df47ab6ca29bbda383cc4718ea276e601",
+    "verdict": "good",
+    "reasoning": "This change is a routine dependency update for a standard GitHub Action. Updating the digest to a newer version is a maintenance task and does not introduce any new security risks. It is safe to auto-approve.",
+    "changesSummary": "This PR updates the digest for the `actions/checkout` dependency from `de0fac2` to `df4cb1c`. This is a routine dependency update for a standard GitHub Action and does not introduce any new security vulnerabilities.",
+    "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/kairos-operator",
+    "pr": 115,
+    "url": "https://github.com/kairos-io/kairos-operator/pull/115",
+    "headSHA": "239d7c84e5d9909b29e006bd2d55e6a443cb4864",
+    "verdict": "good",
+    "reasoning": "This change is a routine update of a dependency's digest, which is a standard practice for ensuring build reproducibility or applying minor security patches associated with the base image. It does not introduce any new code, logic changes, or new dependencies, making it safe for automatic approval.",
+    "changesSummary": "This PR updates the Dockerfile and Dockerfile.node-labeler files to use a new digest (`478231bfd9677835606c249208483a3c43b31e941c1040c48747b111c7ab871c`) for the `docker.io/golang:1.26.4` image. This is a routine update of the image digest.",
     "reviewedRun": "2026-06-24"
   }
 ]
