@@ -245,9 +245,17 @@ func (c *CLI) CompareDiff(repo, base, head string) ([]byte, error) {
 // creates one. Uses REST issue comments so the numeric id matches the PATCH
 // endpoint.
 func (c *CLI) UpsertPRComment(repo string, pr int, marker, body string) error {
-	listed, err := c.run("api", fmt.Sprintf("repos/%s/issues/%d/comments?per_page=100", repo, pr),
-		"-q", "[.[] | {id, body}]")
-	if err == nil && len(bytes.TrimSpace(listed)) > 0 {
+	// `--paginate --slurp` returns one array combining all comment pages, so the
+	// marker is found even past the first 100 comments.
+	listed, err := c.run("api", "--paginate", "--slurp",
+		fmt.Sprintf("repos/%s/issues/%d/comments", repo, pr),
+		"-q", "[.[][] | {id, body}]")
+	if err != nil {
+		// Could not list: do NOT blind-create (that would duplicate our comment
+		// on a transient failure). Skip this run; a later run upserts cleanly.
+		return fmt.Errorf("list comments: %w", err)
+	}
+	if len(bytes.TrimSpace(listed)) > 0 {
 		var cs []struct {
 			ID   int64  `json:"id"`
 			Body string `json:"body"`
