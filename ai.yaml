@@ -14,3 +14,10 @@ nib:
   endpoint: ""                 # defaults to localai.endpoint
   maxTokens: 4096
   temperature: 0.2
+# AI review of bot-authored PRs: scans each open bot PR's diff and posts a
+# verdict (good / bad / needs_human_verification). Idempotent on the PR head SHA.
+review:
+  enabled: true
+  autoApprove: false           # when true, a "good" verdict runs `gh pr review --approve` (never merges)
+  maxPerRun: 20                # cap NEW assessments/comments per run
+  notify: []                   # @handles/teams cc'd in the verdict comment, e.g. ["@kairos-io/maintainers"]
