@@ -33,11 +33,12 @@ type htmlReviewGroup struct {
 
 // htmlReview exposes a single bot-PR review to the template (exported fields).
 type htmlReview struct {
-	PR        int
-	URL       string
-	Icon      string
-	Verdict   string
-	Reasoning string
+	PR             int
+	URL            string
+	Icon           string
+	Verdict        string
+	Reasoning      string
+	ChangesSummary string
 }
 
 // htmlOpenPRGroup exposes open PRs for a single repo to the template.
@@ -215,7 +216,7 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 <h2>&#128270; Bot-PR reviews</h2>
 {{range .Reviews}}<h3>{{.Repo}}</h3>
 <ul>
-{{range .Reviews}}<li>{{if .URL}}<a href="{{.URL}}">#{{.PR}}</a>{{else}}#{{.PR}}{{end}} &mdash; {{.Icon}} <strong>{{.Verdict}}</strong> &mdash; {{.Reasoning}}</li>
+{{range .Reviews}}<li>{{if .URL}}<a href="{{.URL}}">#{{.PR}}</a>{{else}}#{{.PR}}{{end}} &mdash; {{.Icon}} <strong>{{.Verdict}}</strong> &mdash; {{.Reasoning}}{{if .ChangesSummary}}<br>&#8627; {{.ChangesSummary}}{{end}}</li>
 {{end}}</ul>
 {{end}}</section>
 {{- end}}
@@ -335,7 +336,7 @@ func DashboardHTML(in Input) string {
 		}
 		g := &reviews[len(reviews)-1]
 		g.Reviews = append(g.Reviews, htmlReview{
-			PR: r.PR, URL: r.URL, Icon: verdictIcon(r.Verdict), Verdict: r.Verdict, Reasoning: r.Reasoning,
+			PR: r.PR, URL: r.URL, Icon: verdictIcon(r.Verdict), Verdict: r.Verdict, Reasoning: r.Reasoning, ChangesSummary: r.ChangesSummary,
 		})
 	}
 	act := computeActivity(in)

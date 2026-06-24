@@ -248,6 +248,9 @@ func DashboardMarkdown(in Input) string {
 				link = fmt.Sprintf("[#%d](%s)", r.PR, r.URL)
 			}
 			fmt.Fprintf(&b, "- %s — %s **%s** — %s\n", link, verdictIcon(r.Verdict), r.Verdict, r.Reasoning)
+			if r.ChangesSummary != "" {
+				fmt.Fprintf(&b, "  ↳ %s\n", r.ChangesSummary)
+			}
 		}
 		b.WriteString("\n")
 	}
