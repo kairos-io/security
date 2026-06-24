@@ -8,6 +8,7 @@ const (
 	TriageFile     = "triage.json"
 	LedgerFile     = "ledger.json"
 	OpenPRsFile    = "openprs.json"
+	ReviewsFile    = "reviews.json"
 )
 
 type Artifact struct {
@@ -135,4 +136,14 @@ type LedgerEntry struct {
 
 type Ledger struct {
 	Entries []LedgerEntry `json:"entries"`
+}
+
+type PRReview struct {
+	Repo        string `json:"repo"`
+	PR          int    `json:"pr"`
+	URL         string `json:"url,omitempty"`
+	HeadSHA     string `json:"headSHA"`
+	Verdict     string `json:"verdict"` // good | bad | needs_human_verification
+	Reasoning   string `json:"reasoning,omitempty"`
+	ReviewedRun string `json:"reviewedRun,omitempty"`
 }

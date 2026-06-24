@@ -35,3 +35,12 @@ func TestLedgerRoundTrip(t *testing.T) {
 	require.NoError(t, Load(dir, LedgerFile, &out))
 	assert.Equal(t, in, out)
 }
+
+func TestPRReviewRoundTrip(t *testing.T) {
+	in := []PRReview{{Repo: "o/r", PR: 5, URL: "u", HeadSHA: "abc", Verdict: "good", Reasoning: "clean bump", ReviewedRun: "2026-06-24"}}
+	dir := t.TempDir()
+	require.NoError(t, Save(dir, ReviewsFile, in))
+	var out []PRReview
+	require.NoError(t, Load(dir, ReviewsFile, &out))
+	assert.Equal(t, in, out)
+}
