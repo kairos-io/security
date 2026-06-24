@@ -398,6 +398,13 @@ func newReviewCmd(gf *globalFlags) *cobra.Command {
 			}
 			fmt.Fprintf(os.Stderr, "review: %d reviews (good=%d bad=%d needs-human=%d) · %d errors\n",
 				len(reviews), counts["good"], counts["bad"], counts["needs_human_verification"], len(errs))
+			if gf.dryRun {
+				// Parity with remediate: a dry-run performs no writes and does
+				// NOT persist, so a preview never records a HeadSHA that would
+				// suppress a later live comment/approval for the same PR.
+				fmt.Fprintln(os.Stderr, "review: dry-run — reviews not persisted")
+				return nil
+			}
 			return state.Save(gf.stateDir, state.ReviewsFile, reviews)
 		},
 	}
