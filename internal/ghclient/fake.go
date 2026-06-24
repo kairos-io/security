@@ -24,6 +24,9 @@ type Fake struct {
 
 	Statuses map[string]PRStatus // key: "<repo>#<pr>"
 	Merged   []string
+
+	Diffs    map[string][]byte // key: "<repo>#<pr>" -> diff
+	Approved []string          // "<repo>#<pr>" recorded
 }
 
 func NewFake() *Fake {
@@ -35,6 +38,7 @@ func NewFake() *Fake {
 		Issues:     map[string]*FakeIssue{},
 		PRComments: map[string][]ReviewComment{},
 		Statuses:   map[string]PRStatus{},
+		Diffs:      map[string][]byte{},
 	}
 }
 
@@ -60,6 +64,14 @@ func (f *Fake) MergePR(repo string, pr int, auto bool) error {
 		k += " (auto)"
 	}
 	f.Merged = append(f.Merged, k)
+	return nil
+}
+
+func (f *Fake) PRDiff(repo string, pr int) ([]byte, error) {
+	return f.Diffs[prKey(repo, pr)], nil
+}
+func (f *Fake) ApprovePR(repo string, pr int, body string) error {
+	f.Approved = append(f.Approved, prKey(repo, pr)+": "+body)
 	return nil
 }
 

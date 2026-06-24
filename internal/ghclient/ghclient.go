@@ -15,6 +15,7 @@ type PullRequest struct {
 	IsBot   bool     `json:"isBot"` // gh author.is_bot — authoritative bot signal
 	URL     string   `json:"url"`
 	HeadRef string   `json:"headRef"`
+	HeadSHA string   `json:"headSHA"`
 	Labels  []string `json:"labels"`
 }
 
@@ -53,6 +54,8 @@ type GitHub interface {
 	ClosePR(repo string, pr int, comment string) error
 	PRStatusOf(repo string, pr int) (PRStatus, error)
 	MergePR(repo string, pr int, auto bool) error
+	PRDiff(repo string, pr int) ([]byte, error)
+	ApprovePR(repo string, pr int, body string) error
 }
 
 // CLI is the production GitHub client; it shells out to `gh`.
@@ -96,8 +99,8 @@ func (c *CLI) GetFile(repo, path, ref string) ([]byte, error) {
 
 func (c *CLI) ListOpenPRs(repo string) ([]PullRequest, error) {
 	b, err := c.run("pr", "list", "-R", repo, "--state", "open", "--limit", "200",
-		"--json", "number,title,author,url,headRefName,labels",
-		"-q", "[.[] | {number, title, author: .author.login, isBot: .author.is_bot, url, headRef: .headRefName, labels: [.labels[].name]}]")
+		"--json", "number,title,author,url,headRefName,headRefOid,labels",
+		"-q", "[.[] | {number, title, author: .author.login, isBot: .author.is_bot, url, headRef: .headRefName, headSHA: .headRefOid, labels: [.labels[].name]}]")
 	if err != nil {
 		return nil, err
 	}
@@ -218,6 +221,15 @@ func (c *CLI) MergePR(repo string, pr int, auto bool) error {
 		args = append(args, "--auto")
 	}
 	_, err := c.run(args...)
+	return err
+}
+
+func (c *CLI) PRDiff(repo string, pr int) ([]byte, error) {
+	return c.run("pr", "diff", fmt.Sprint(pr), "-R", repo)
+}
+
+func (c *CLI) ApprovePR(repo string, pr int, body string) error {
+	_, err := c.run("pr", "review", fmt.Sprint(pr), "-R", repo, "--approve", "--body", body)
 	return err
 }
 
