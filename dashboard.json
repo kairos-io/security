@@ -270,5 +270,187 @@
     ]
   },
   "collectErrors": null,
-  "runURL": ""
+  "runURL": "",
+  "reviews": [
+    {
+      "repo": "kairos-io/AuroraBoot",
+      "pr": 409,
+      "url": "https://github.com/kairos-io/AuroraBoot/pull/409",
+      "headSHA": "8edf5f76215bdc93b0af3958456fe223a45ec573",
+      "verdict": "good",
+      "reasoning": "This pull request only updates the digest for a dependency (`github.com/foxboron/sbctl`) and updates several indirect dependencies in go.mod and go.sum files. This is a routine dependency maintenance task, and there are no apparent security risks introduced by these changes.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/AuroraBoot",
+      "pr": 566,
+      "url": "https://github.com/kairos-io/AuroraBoot/pull/566",
+      "headSHA": "b4bda96b77d5d8d83f9d493b4b8067159ae26d71",
+      "verdict": "good",
+      "reasoning": "This pull request is a routine dependency update for 'lucide-react'. Updating dependencies is a standard maintenance task, and this change appears safe as it only updates the version number.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/cluster-api-provider-kairos",
+      "pr": 38,
+      "url": "https://github.com/kairos-io/cluster-api-provider-kairos/pull/38",
+      "headSHA": "df449648b6f857d1c8da59ae202be5b4e2337ca0",
+      "verdict": "good",
+      "reasoning": "This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/entangle",
+      "pr": 10,
+      "url": "https://github.com/kairos-io/entangle/pull/10",
+      "headSHA": "6a815eb6443be39eed91a76e2b61c49f8f370c0b",
+      "verdict": "good",
+      "reasoning": "This pull request only updates several indirect dependencies to newer versions. These types of dependency bumps are routine maintenance and do not introduce new security risks. The changes appear safe to merge automatically.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/entangle-proxy",
+      "pr": 5,
+      "url": "https://github.com/kairos-io/entangle-proxy/pull/5",
+      "headSHA": "9a973e8aa6d8bbb7bb48aa60c71b455ee559d75f",
+      "verdict": "good",
+      "reasoning": "This pull request only updates the version of the 'github.com/onsi/gomega' dependency to v1.42.0. This is a routine dependency update, which typically includes bug fixes and security patches, and poses a low risk. It is safe to auto-approve.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/entangle-proxy",
+      "pr": 6,
+      "url": "https://github.com/kairos-io/entangle-proxy/pull/6",
+      "headSHA": "2244eda9ad9b6a0d13dff29eab7a8d4051acb832",
+      "verdict": "good",
+      "reasoning": "This pull request updates the dependency sigs.k8s.io/controller-runtime to version v0.24.1. This is a routine dependency update to a newer version, which is generally safe and necessary for maintaining security and compatibility.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/entangle-proxy",
+      "pr": 10,
+      "url": "https://github.com/kairos-io/entangle-proxy/pull/10",
+      "headSHA": "64efb74f2414087cd569441f08460a7dd4960a80",
+      "verdict": "good",
+      "reasoning": "This pull request updates several dependencies, including upgrading github.com/onsi/ginkgo to v2 and updating other related packages like go-logr, go-cmp, and protobuf. These are routine dependency maintenance updates, which generally improve security by incorporating patches for known vulnerabilities. The changes are reflected correctly in both go.mod and go.sum.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/entangle-proxy",
+      "pr": 14,
+      "url": "https://github.com/kairos-io/entangle-proxy/pull/14",
+      "headSHA": "8096e479594e85b4e246a9ec750ff799b8e1f5a1",
+      "verdict": "good",
+      "reasoning": "This pull request primarily updates several dependencies to newer versions, including core packages like `golang.org/x` and `google.golang.org/protobuf`. Updating dependencies is a crucial security practice to ensure that known vulnerabilities are patched. The changes appear to be dependency hygiene improvements and do not introduce any obvious security risks.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/entangle-proxy",
+      "pr": 18,
+      "url": "https://github.com/kairos-io/entangle-proxy/pull/18",
+      "headSHA": "c7edae203e54845b02c8043c06a3eae77ae3f432",
+      "verdict": "good",
+      "reasoning": "This pull request updates the version of the docker/build-push-action from v2 to v7. Updating dependencies to the latest stable version is a standard security and maintenance practice. This change is safe to auto-approve.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/entangle-proxy",
+      "pr": 19,
+      "url": "https://github.com/kairos-io/entangle-proxy/pull/19",
+      "headSHA": "a7a17477f19fa837f8adcf861e0f5f0d292b36fc",
+      "verdict": "good",
+      "reasoning": "This pull request updates the docker/login-action dependency from v1 to v4. Updating dependencies is a standard maintenance practice that generally improves security and stability by incorporating bug fixes and security patches from the maintainers. This change is safe to auto-approve.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/entangle-proxy",
+      "pr": 20,
+      "url": "https://github.com/kairos-io/entangle-proxy/pull/20",
+      "headSHA": "244abc32675569ddaf0bf873544e36a8ea7d7adf",
+      "verdict": "good",
+      "reasoning": "This pull request primarily updates several dependencies, including core Kubernetes libraries (k8s.io/api, k8s.io/client-go, k8s.io/apimachinery) and other related packages, to newer versions. This is a standard maintenance task aimed at applying security patches and leveraging recent features. There are no changes to the application source code itself, making this change safe to auto-approve.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/entangle-proxy",
+      "pr": 22,
+      "url": "https://github.com/kairos-io/entangle-proxy/pull/22",
+      "headSHA": "505a66b96fb12d1174f6833979a9beb0b8c6ec5d",
+      "verdict": "good",
+      "reasoning": "This is a dependency update for a logging library. Updating to a newer patch version (v1.4.3) is generally safe and often includes bug fixes or minor security patches. No immediate security risks are apparent from the change itself.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/entangle-proxy",
+      "pr": 23,
+      "url": "https://github.com/kairos-io/entangle-proxy/pull/23",
+      "headSHA": "9b4ff15c9209e86ff5225043d1cb21537b8e0a6d",
+      "verdict": "good",
+      "reasoning": "This pull request updates the dependency for 'actions/checkout' from version v2 to v7 in two workflow files. This is a standard dependency update to a newer version, which is generally safe and beneficial for security and maintenance.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/go-nodepair",
+      "pr": 47,
+      "url": "https://github.com/kairos-io/go-nodepair/pull/47",
+      "headSHA": "0fa4a1254cb57eacb5b51453b3b297acd62758c8",
+      "verdict": "good",
+      "reasoning": "This pull request updates the version of the `github.com/onsi/gomega` dependency to v1.42.1 and also updates several related transitive dependencies (e.g., `golang.org/x/crypto`, `golang.org/x/mod`, etc.) to newer versions. This is a routine dependency maintenance task that improves security and stability. No immediate security concerns are identified from the diff.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/go-nodepair",
+      "pr": 53,
+      "url": "https://github.com/kairos-io/go-nodepair/pull/53",
+      "headSHA": "29a0ac19c357ca30fc24d87765633170f7e0a650",
+      "verdict": "good",
+      "reasoning": "This pull request updates a dependency, specifically the `google/osv-scanner-action`, to a newer version (v2.3.8). Updating dependencies is a standard maintenance practice and generally improves security and stability. There are no suspicious changes in the diff itself.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/go-nodepair",
+      "pr": 55,
+      "url": "https://github.com/kairos-io/go-nodepair/pull/55",
+      "headSHA": "eed59ebf26a0a86d54ed88ec98f23de357b1ae0d",
+      "verdict": "good",
+      "reasoning": "This pull request updates a dependency, github.com/lucasb-eyer/go-colorful, to version v1.4.0. This is a standard dependency update, and without further context indicating known vulnerabilities or breaking changes, it is considered safe to auto-approve.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/go-nodepair",
+      "pr": 57,
+      "url": "https://github.com/kairos-io/go-nodepair/pull/57",
+      "headSHA": "4548f0d86655f174f9a5eae4342ffd1362019187",
+      "verdict": "good",
+      "reasoning": "This pull request only updates the version of the 'actions/setup-go' action from v5 to v6. This is a routine maintenance update for a standard dependency and does not introduce any new security risks or significant functional changes that require manual review.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/go-nodepair",
+      "pr": 58,
+      "url": "https://github.com/kairos-io/go-nodepair/pull/58",
+      "headSHA": "8bdc5aa4b956d61a7f224f1339ef7cde34f97f2e",
+      "verdict": "good",
+      "reasoning": "This pull request updates the version of the github/codeql-action/upload-sarif action from v3 to v4. Updating dependencies, especially for security scanning tools, is a standard maintenance practice to ensure the latest features, bug fixes, and security patches are included. This change is safe to auto-approve.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/go-nodepair",
+      "pr": 59,
+      "url": "https://github.com/kairos-io/go-nodepair/pull/59",
+      "headSHA": "580f09cae58f5a3ea905b0df842a22f1fba31729",
+      "verdict": "good",
+      "reasoning": "This pull request only modifies the configuration file for the Renovate bot. The changes involve migrating to a recommended configuration and adjusting package matching rules. This is a standard configuration update and poses no security risk.",
+      "reviewedRun": "2026-06-24"
+    },
+    {
+      "repo": "kairos-io/go-nodepair",
+      "pr": 62,
+      "url": "https://github.com/kairos-io/go-nodepair/pull/62",
+      "headSHA": "4bba0d12c4a755634a1df6e5157151c5fc38dee1",
+      "verdict": "good",
+      "reasoning": "This pull request only updates the version of the 'actions/checkout' dependency from v4/v2 to v7 in two workflow files. This is a routine dependency update and does not introduce any new security concerns.",
+      "reviewedRun": "2026-06-24"
+    }
+  ]
 }
