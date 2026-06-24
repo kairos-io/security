@@ -251,6 +251,9 @@ func DashboardMarkdown(in Input) string {
 			if r.ChangesSummary != "" {
 				fmt.Fprintf(&b, "  ↳ %s\n", r.ChangesSummary)
 			}
+			for _, tl := range r.Trace {
+				fmt.Fprintf(&b, "    - %s\n", tl)
+			}
 		}
 		b.WriteString("\n")
 	}

@@ -130,7 +130,7 @@ func TestNeedsHumanRollup(t *testing.T) {
 
 func TestDashboardShowsBotPRReviews(t *testing.T) {
 	md := DashboardMarkdown(Input{Reviews: []state.PRReview{
-		{Repo: "kairos-io/AuroraBoot", PR: 566, URL: "https://github.com/kairos-io/AuroraBoot/pull/566", Verdict: "good", Reasoning: "clean go.mod bump", ChangesSummary: "bumps golang.org/x/net v0.30.0 → v0.31.0; bugfixes only"},
+		{Repo: "kairos-io/AuroraBoot", PR: 566, URL: "https://github.com/kairos-io/AuroraBoot/pull/566", Verdict: "good", Reasoning: "clean go.mod bump", ChangesSummary: "bumps golang.org/x/net v0.30.0 → v0.31.0; bugfixes only", Trace: []string{"foo/bar 1.0→1.1: compare v1.0.0...v1.1.0 ✓ 1234 bytes"}},
 		{Repo: "kairos-io/AuroraBoot", PR: 567, URL: "u567", Verdict: "needs_human_verification", Reasoning: "touches source"},
 	}})
 	assert.Contains(t, md, "🔎 Bot-PR reviews")
@@ -138,6 +138,7 @@ func TestDashboardShowsBotPRReviews(t *testing.T) {
 	assert.Contains(t, md, "good")
 	assert.Contains(t, md, "needs_human_verification")
 	assert.Contains(t, md, "  ↳ bumps golang.org/x/net v0.30.0 → v0.31.0; bugfixes only")
+	assert.Contains(t, md, "    - foo/bar 1.0→1.1: compare v1.0.0...v1.1.0 ✓ 1234 bytes")
 }
 
 func TestDashboardJSONIsStable(t *testing.T) {

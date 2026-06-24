@@ -139,12 +139,12 @@ type Ledger struct {
 }
 
 type PRReview struct {
-	Repo           string `json:"repo"`
-	PR             int    `json:"pr"`
-	URL            string `json:"url,omitempty"`
-	HeadSHA        string `json:"headSHA"`
-	Verdict        string `json:"verdict"` // good | bad | needs_human_verification
-	Reasoning      string `json:"reasoning,omitempty"`
+	Repo           string   `json:"repo"`
+	PR             int      `json:"pr"`
+	URL            string   `json:"url,omitempty"`
+	HeadSHA        string   `json:"headSHA"`
+	Verdict        string   `json:"verdict"` // good | bad | needs_human_verification
+	Reasoning      string   `json:"reasoning,omitempty"`
 	ChangesSummary string   `json:"changesSummary,omitempty"`
 	ReviewedRun    string   `json:"reviewedRun,omitempty"`
 	Trace          []string `json:"trace,omitempty"`
