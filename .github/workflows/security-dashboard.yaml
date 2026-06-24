@@ -161,6 +161,7 @@ jobs:
           ksec correlate --state-dir state
           ksec triage    --state-dir state --require-ai
           ksec remediate --state-dir state $REMEDIATE_DRYRUN --ai-pr-prose=${AI_PR_PROSE} ${SEED:+--seed "$SEED"}
+          ksec review    --state-dir state $REMEDIATE_DRYRUN
           ksec render    --state-dir state $DRYRUN
 
       - name: Commit state + dashboards

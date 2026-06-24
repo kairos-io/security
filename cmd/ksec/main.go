@@ -15,6 +15,7 @@ import (
 	"github.com/kairos-io/security/internal/ghclient"
 	"github.com/kairos-io/security/internal/remediate"
 	"github.com/kairos-io/security/internal/render"
+	"github.com/kairos-io/security/internal/review"
 	"github.com/kairos-io/security/internal/state"
 	"github.com/kairos-io/security/internal/triage"
 	"github.com/spf13/cobra"
@@ -41,6 +42,7 @@ func newRootCmd() *cobra.Command {
 	root.AddCommand(newCorrelateCmd(gf))
 	root.AddCommand(newTriageCmd(gf))
 	root.AddCommand(newRemediateCmd(gf))
+	root.AddCommand(newReviewCmd(gf))
 	root.AddCommand(newRenderCmd(gf))
 	return root
 }
@@ -367,6 +369,38 @@ func actionCounts(results []remediate.Result) string {
 		return "none"
 	}
 	return strings.Join(parts, " ")
+}
+
+func newReviewCmd(gf *globalFlags) *cobra.Command {
+	return &cobra.Command{
+		Use:   "review",
+		Short: "AI-assess open bot PRs and post a verdict",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			aiCfg, err := config.LoadAI("ai.yaml")
+			if err != nil {
+				return err
+			}
+			if !aiCfg.Review.Enabled || aiCfg.Nib.Endpoint == "" {
+				fmt.Fprintln(os.Stderr, "review: disabled or no AI endpoint — skipping")
+				return nil
+			}
+			var repos []state.Repo
+			if err := state.Load(gf.stateDir, state.ReposFile, &repos); err != nil {
+				return err
+			}
+			var prev []state.PRReview
+			_ = state.Load(gf.stateDir, state.ReviewsFile, &prev) // best-effort
+			gh := ghclient.NewCLI()
+			reviews, errs := review.Run(repos, gh, review.NewOpenAIAssessor(aiCfg), aiCfg.Review, prev, collect.Today(), gf.dryRun)
+			counts := map[string]int{}
+			for _, r := range reviews {
+				counts[r.Verdict]++
+			}
+			fmt.Fprintf(os.Stderr, "review: %d reviews (good=%d bad=%d needs-human=%d) · %d errors\n",
+				len(reviews), counts["good"], counts["bad"], counts["needs_human_verification"], len(errs))
+			return state.Save(gf.stateDir, state.ReviewsFile, reviews)
+		},
+	}
 }
 
 func newRenderCmd(gf *globalFlags) *cobra.Command {
