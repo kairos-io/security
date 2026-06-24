@@ -27,6 +27,12 @@ type Fake struct {
 
 	Diffs    map[string][]byte // key: "<repo>#<pr>" -> diff
 	Approved []string          // "<repo>#<pr>" recorded
+
+	Compares map[string][]byte // key: "<repo>:<base>...<head>" -> diff
+	// Upserts keys "<repo>#<pr>" -> latest body, so a second upsert
+	// overwrites rather than appends (lets tests assert no-spam).
+	Upserts  map[string]string
+	Upserted []string // "<repo>#<pr>" recorded in upsert order
 }
 
 func NewFake() *Fake {
@@ -39,6 +45,8 @@ func NewFake() *Fake {
 		PRComments: map[string][]ReviewComment{},
 		Statuses:   map[string]PRStatus{},
 		Diffs:      map[string][]byte{},
+		Compares:   map[string][]byte{},
+		Upserts:    map[string]string{},
 	}
 }
 
@@ -72,6 +80,18 @@ func (f *Fake) PRDiff(repo string, pr int) ([]byte, error) {
 }
 func (f *Fake) ApprovePR(repo string, pr int, body string) error {
 	f.Approved = append(f.Approved, prKey(repo, pr)+": "+body)
+	return nil
+}
+
+func (f *Fake) CompareDiff(repo, base, head string) ([]byte, error) {
+	return f.Compares[fmt.Sprintf("%s:%s...%s", repo, base, head)], nil
+}
+func (f *Fake) UpsertPRComment(repo string, pr int, marker, body string) error {
+	k := prKey(repo, pr)
+	if _, ok := f.Upserts[k]; !ok {
+		f.Upserted = append(f.Upserted, k)
+	}
+	f.Upserts[k] = body
 	return nil
 }
 

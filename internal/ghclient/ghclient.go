@@ -11,6 +11,7 @@ import (
 type PullRequest struct {
 	Number  int      `json:"number"`
 	Title   string   `json:"title"`
+	Body    string   `json:"body"`
 	Author  string   `json:"author"`
 	IsBot   bool     `json:"isBot"` // gh author.is_bot — authoritative bot signal
 	URL     string   `json:"url"`
@@ -56,6 +57,8 @@ type GitHub interface {
 	MergePR(repo string, pr int, auto bool) error
 	PRDiff(repo string, pr int) ([]byte, error)
 	ApprovePR(repo string, pr int, body string) error
+	CompareDiff(repo, base, head string) ([]byte, error)
+	UpsertPRComment(repo string, pr int, marker, body string) error
 }
 
 // CLI is the production GitHub client; it shells out to `gh`.
@@ -99,8 +102,8 @@ func (c *CLI) GetFile(repo, path, ref string) ([]byte, error) {
 
 func (c *CLI) ListOpenPRs(repo string) ([]PullRequest, error) {
 	b, err := c.run("pr", "list", "-R", repo, "--state", "open", "--limit", "200",
-		"--json", "number,title,author,url,headRefName,headRefOid,labels",
-		"-q", "[.[] | {number, title, author: .author.login, isBot: .author.is_bot, url, headRef: .headRefName, headSHA: .headRefOid, labels: [.labels[].name]}]")
+		"--json", "number,title,body,author,url,headRefName,headRefOid,labels",
+		"-q", "[.[] | {number, title, body: .body, author: .author.login, isBot: .author.is_bot, url, headRef: .headRefName, headSHA: .headRefOid, labels: [.labels[].name]}]")
 	if err != nil {
 		return nil, err
 	}
@@ -230,6 +233,35 @@ func (c *CLI) PRDiff(repo string, pr int) ([]byte, error) {
 
 func (c *CLI) ApprovePR(repo string, pr int, body string) error {
 	_, err := c.run("pr", "review", fmt.Sprint(pr), "-R", repo, "--approve", "--body", body)
+	return err
+}
+
+func (c *CLI) CompareDiff(repo, base, head string) ([]byte, error) {
+	return c.run("api", fmt.Sprintf("repos/%s/compare/%s...%s", repo, base, head),
+		"-H", "Accept: application/vnd.github.diff")
+}
+
+// UpsertPRComment edits our existing marker comment in place (no spam), or
+// creates one. Uses REST issue comments so the numeric id matches the PATCH
+// endpoint.
+func (c *CLI) UpsertPRComment(repo string, pr int, marker, body string) error {
+	listed, err := c.run("api", fmt.Sprintf("repos/%s/issues/%d/comments?per_page=100", repo, pr),
+		"-q", "[.[] | {id, body}]")
+	if err == nil && len(bytes.TrimSpace(listed)) > 0 {
+		var cs []struct {
+			ID   int64  `json:"id"`
+			Body string `json:"body"`
+		}
+		_ = json.Unmarshal(listed, &cs)
+		for _, cm := range cs {
+			if strings.Contains(cm.Body, marker) {
+				_, err := c.run("api", "-X", "PATCH",
+					fmt.Sprintf("repos/%s/issues/comments/%d", repo, cm.ID), "-f", "body="+body)
+				return err
+			}
+		}
+	}
+	_, err = c.run("api", fmt.Sprintf("repos/%s/issues/%d/comments", repo, pr), "-f", "body="+body)
 	return err
 }
 
