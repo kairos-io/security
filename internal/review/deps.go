@@ -9,6 +9,19 @@ type DepBump struct{ Module, From, To string }
 
 var reModLine = regexp.MustCompile(`^[+-]\s+(\S+)\s+v(\S+)`)
 
+// rePseudo matches a Go pseudo-version's trailing "-<14-digit-timestamp>-<sha>".
+var rePseudo = regexp.MustCompile(`[-.]\d{14}-([0-9a-f]{12,})$`)
+
+// compareRef maps a (v-stripped) module version to the ref to compare against
+// upstream: a pseudo-version compares by its embedded commit SHA, a real
+// release compares by its "v"-prefixed tag.
+func compareRef(version string) string {
+	if m := rePseudo.FindStringSubmatch(version); m != nil {
+		return m[1]
+	}
+	return "v" + version
+}
+
 // parseBumps extracts {module, from, to} from a PR's go.mod diff by pairing the
 // "-" old and "+" new version lines for the same module.
 func parseBumps(diff []byte) []DepBump {

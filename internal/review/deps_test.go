@@ -17,6 +17,13 @@ func TestParseBumps(t *testing.T) {
 	}, bumps)
 }
 
+func TestCompareRef(t *testing.T) {
+	assert.Equal(t, "v0.33.0", compareRef("0.33.0"))
+	assert.Equal(t, "fab4fdf2f2f3", compareRef("0.0.0-20241017190036-fab4fdf2f2f3"))
+	assert.Equal(t, "abcdef123456", compareRef("1.2.3-0.20240101000000-abcdef123456"))
+	assert.Equal(t, "v2.0.0+incompatible", compareRef("2.0.0+incompatible")) // not a pseudo-version
+}
+
 func TestModuleRepo(t *testing.T) {
 	cases := map[string]struct {
 		repo string

@@ -145,6 +145,7 @@ type PRReview struct {
 	HeadSHA        string `json:"headSHA"`
 	Verdict        string `json:"verdict"` // good | bad | needs_human_verification
 	Reasoning      string `json:"reasoning,omitempty"`
-	ChangesSummary string `json:"changesSummary,omitempty"`
-	ReviewedRun    string `json:"reviewedRun,omitempty"`
+	ChangesSummary string   `json:"changesSummary,omitempty"`
+	ReviewedRun    string   `json:"reviewedRun,omitempty"`
+	Trace          []string `json:"trace,omitempty"`
 }
