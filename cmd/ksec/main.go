@@ -425,6 +425,8 @@ func newRenderCmd(gf *globalFlags) *cobra.Command {
 			_ = state.Load(gf.stateDir, state.LedgerFile, &ledger) // best-effort
 			var openPRs []state.TrackedPR
 			_ = state.Load(gf.stateDir, state.OpenPRsFile, &openPRs) // best-effort
+			var reviews []state.PRReview
+			_ = state.Load(gf.stateDir, state.ReviewsFile, &reviews) // best-effort
 
 			// Best-effort cross-repo coordination narrative for the dashboard.
 			// On any AI failure the summary stays empty and the section is omitted.
@@ -444,6 +446,7 @@ func newRenderCmd(gf *globalFlags) *cobra.Command {
 				RunURL:              os.Getenv("KSEC_RUN_URL"),
 				CoordinationSummary: summary,
 				OpenPRs:             openPRs,
+				Reviews:             reviews,
 			}
 			// Committed artifacts must be deterministic across runs of the
 			// same data, so render them with the volatile RunURL stripped.

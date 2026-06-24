@@ -20,6 +20,22 @@ type Input struct {
 	CoordinationSummary string `json:"coordinationSummary,omitempty"`
 	// OpenPRs are the tracked remediation-relevant pull requests, grouped by repo.
 	OpenPRs []state.TrackedPR `json:"openPRs,omitempty"`
+	// Reviews are the AI bot-PR reviews, grouped by repo in the dashboard.
+	Reviews []state.PRReview `json:"reviews,omitempty"`
+}
+
+// verdictIcon maps a bot-PR review verdict to a display icon.
+func verdictIcon(verdict string) string {
+	switch verdict {
+	case "good":
+		return "✅"
+	case "bad":
+		return "⛔"
+	case "needs_human_verification":
+		return "⚠️"
+	default:
+		return ""
+	}
 }
 
 // findingLink renders a finding as a markdown title→URL link. For sourceCVE
@@ -214,6 +230,24 @@ func DashboardMarkdown(in Input) string {
 		b.WriteString("## 🚑 Needs human\n\n")
 		for _, r := range rows {
 			fmt.Fprintf(&b, "- %s\n", r)
+		}
+		b.WriteString("\n")
+	}
+
+	// Bot-PR reviews
+	if len(in.Reviews) > 0 {
+		b.WriteString("## 🔎 Bot-PR reviews\n\n")
+		repo := ""
+		for _, r := range in.Reviews {
+			if r.Repo != repo {
+				repo = r.Repo
+				fmt.Fprintf(&b, "**%s**\n\n", repo)
+			}
+			link := fmt.Sprintf("#%d", r.PR)
+			if r.URL != "" {
+				link = fmt.Sprintf("[#%d](%s)", r.PR, r.URL)
+			}
+			fmt.Fprintf(&b, "- %s — %s **%s** — %s\n", link, verdictIcon(r.Verdict), r.Verdict, r.Reasoning)
 		}
 		b.WriteString("\n")
 	}

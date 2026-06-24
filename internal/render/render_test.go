@@ -128,6 +128,17 @@ func TestNeedsHumanRollup(t *testing.T) {
 	assert.Contains(t, md, "o/r")
 }
 
+func TestDashboardShowsBotPRReviews(t *testing.T) {
+	md := DashboardMarkdown(Input{Reviews: []state.PRReview{
+		{Repo: "kairos-io/AuroraBoot", PR: 566, URL: "https://github.com/kairos-io/AuroraBoot/pull/566", Verdict: "good", Reasoning: "clean go.mod bump"},
+		{Repo: "kairos-io/AuroraBoot", PR: 567, URL: "u567", Verdict: "needs_human_verification", Reasoning: "touches source"},
+	}})
+	assert.Contains(t, md, "🔎 Bot-PR reviews")
+	assert.Contains(t, md, "[#566")
+	assert.Contains(t, md, "good")
+	assert.Contains(t, md, "needs_human_verification")
+}
+
 func TestDashboardJSONIsStable(t *testing.T) {
 	a, err := DashboardJSON(sampleInput())
 	require.NoError(t, err)

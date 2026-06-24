@@ -21,7 +21,23 @@ type htmlData struct {
 	OpenPRs             []htmlOpenPRGroup
 	Ledger              []htmlLedgerEntry
 	NeedsHuman          []string
+	Reviews             []htmlReviewGroup
 	RunURL              string
+}
+
+// htmlReviewGroup exposes bot-PR reviews for a single repo to the template.
+type htmlReviewGroup struct {
+	Repo    string
+	Reviews []htmlReview
+}
+
+// htmlReview exposes a single bot-PR review to the template (exported fields).
+type htmlReview struct {
+	PR        int
+	URL       string
+	Icon      string
+	Verdict   string
+	Reasoning string
 }
 
 // htmlOpenPRGroup exposes open PRs for a single repo to the template.
@@ -194,6 +210,15 @@ code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 3px; }
 {{end}}</ul>
 </section>
 {{end}}
+{{- if .Reviews}}
+<section>
+<h2>&#128270; Bot-PR reviews</h2>
+{{range .Reviews}}<h3>{{.Repo}}</h3>
+<ul>
+{{range .Reviews}}<li>{{if .URL}}<a href="{{.URL}}">#{{.PR}}</a>{{else}}#{{.PR}}{{end}} &mdash; {{.Icon}} <strong>{{.Verdict}}</strong> &mdash; {{.Reasoning}}</li>
+{{end}}</ul>
+{{end}}</section>
+{{- end}}
 <footer>
 {{if .RunURL}}<a href="{{.RunURL}}">Run log</a>{{else}}Kairos central security dashboard{{end}}
 </footer>
@@ -303,6 +328,16 @@ func DashboardHTML(in Input) string {
 			Status: openPRStatus(pr, supersededBy, conflictedURLs),
 		})
 	}
+	var reviews []htmlReviewGroup
+	for _, r := range in.Reviews {
+		if len(reviews) == 0 || reviews[len(reviews)-1].Repo != r.Repo {
+			reviews = append(reviews, htmlReviewGroup{Repo: r.Repo})
+		}
+		g := &reviews[len(reviews)-1]
+		g.Reviews = append(g.Reviews, htmlReview{
+			PR: r.PR, URL: r.URL, Icon: verdictIcon(r.Verdict), Verdict: r.Verdict, Reasoning: r.Reasoning,
+		})
+	}
 	act := computeActivity(in)
 	data := htmlData{
 		GeneratedAt: in.Triage.GeneratedAt,
@@ -323,6 +358,7 @@ func DashboardHTML(in Input) string {
 		OpenPRs:             openPRs,
 		Ledger:              ledger,
 		NeedsHuman:          needsHumanRows(in.Ledger.Entries),
+		Reviews:             reviews,
 		RunURL:              in.RunURL,
 	}
 	var b strings.Builder
