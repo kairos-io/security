@@ -10,7 +10,11 @@ import (
 	"github.com/kairos-io/security/internal/state"
 )
 
-const reviewMarker = "<!-- ksec:review -->"
+const (
+	reviewMarker = "<!-- ksec:review -->"
+	maxBumpDiff  = 40000 // per-bump upstream source diff cap
+	maxContext   = 60000 // total assembled context cap before the PR diff
+)
 
 func Run(repos []state.Repo, gh ghclient.GitHub, a Assessor, cfg config.ReviewCfg, prev []state.PRReview, runID string, dryRun bool) ([]state.PRReview, []state.CollectionError) {
 	prior := map[string]state.PRReview{}
@@ -45,21 +49,44 @@ func Run(repos []state.Repo, gh ghclient.GitHub, a Assessor, cfg config.ReviewCf
 				continue
 			}
 			assessed++
+			// Assemble the assessment context: changelog (PR body) + upstream source
+			// diffs for each bump + the PR's own diff.
+			var ctx strings.Builder
+			if strings.TrimSpace(pr.Body) != "" {
+				ctx.WriteString("PR description / changelog:\n" + pr.Body + "\n\n")
+			}
 			diff, derr := gh.PRDiff(repo.Repo, pr.Number)
 			if derr != nil {
 				errs = append(errs, state.CollectionError{Repo: repo.Repo, Collector: "review", Message: derr.Error()})
 				continue
 			}
-			verdict, reasoning, _ := a.Assess(diff, pr) // assessor never hard-errors (defaults needs_human)
+			for _, b := range parseBumps(diff) {
+				if ctx.Len() > maxContext {
+					break
+				}
+				gr, ok := moduleRepo(b.Module)
+				if !ok {
+					continue
+				}
+				ud, uerr := gh.CompareDiff(gr, "v"+b.From, "v"+b.To)
+				if uerr != nil || len(ud) == 0 {
+					continue // degrade: no upstream source diff for this bump
+				}
+				if len(ud) > maxBumpDiff {
+					ud = ud[:maxBumpDiff]
+				}
+				fmt.Fprintf(&ctx, "Upstream %s %s..%s:\n%s\n\n", b.Module, b.From, b.To, ud)
+			}
+			ctx.WriteString("PR diff:\n" + string(diff))
+			verdict, reasoning, summary, _ := a.Assess(pr, ctx.String()) // assessor never hard-errors (defaults needs_human)
 			rv := state.PRReview{Repo: repo.Repo, PR: pr.Number, URL: pr.URL, HeadSHA: pr.HeadSHA,
-				Verdict: verdict, Reasoning: reasoning, ReviewedRun: runID}
+				Verdict: verdict, Reasoning: reasoning, ChangesSummary: summary, ReviewedRun: runID}
 			out = append(out, rv)
-			body := comment(rv, cfg.Notify)
 			if dryRun {
-				fmt.Printf("[dry-run] would comment on %s#%d: %s\n", repo.Repo, pr.Number, verdict)
+				fmt.Printf("[dry-run] would comment on %s#%d: %s — %s\n", repo.Repo, pr.Number, verdict, summary)
 				continue
 			}
-			_ = gh.PostPRComment(repo.Repo, pr.Number, body)
+			_ = gh.UpsertPRComment(repo.Repo, pr.Number, reviewMarker, comment(rv, cfg.Notify))
 			if cfg.AutoApprove && verdict == "good" {
 				_ = gh.ApprovePR(repo.Repo, pr.Number, "kairos-security: automated review verdict good")
 			}
@@ -79,6 +106,9 @@ func key(repo string, pr int) string { return fmt.Sprintf("%s#%d", repo, pr) }
 func comment(r state.PRReview, notify []string) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, "🔎 kairos-security review: **%s** — %s", r.Verdict, r.Reasoning)
+	if r.ChangesSummary != "" {
+		b.WriteString("\n\n**Dependency changes:** " + r.ChangesSummary)
+	}
 	if len(notify) > 0 {
 		fmt.Fprintf(&b, "\n\ncc %s", strings.Join(notify, " "))
 	}

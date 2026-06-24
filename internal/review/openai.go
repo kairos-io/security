@@ -45,13 +45,13 @@ func NewOpenAIAssessor(cfg config.AIConfig) *OpenAIAssessor {
 }
 
 const (
-	assessToolName = "assess_pr"
-	verdictNeeds   = "needs_human_verification"
-	maxDiffBytes   = 60000
+	assessToolName  = "assess_pr"
+	verdictNeeds    = "needs_human_verification"
+	maxContextBytes = 60000
 )
 
 // assessToolParameters constrains the verdict to the three-value enum and
-// requires a free-form reasoning string.
+// requires a free-form reasoning string plus a short changes summary.
 const assessToolParameters = `{
   "type": "object",
   "properties": {
@@ -63,9 +63,13 @@ const assessToolParameters = `{
     "reasoning": {
       "type": "string",
       "description": "One to three sentences explaining the verdict"
+    },
+    "changesSummary": {
+      "type": "string",
+      "description": "One to three sentences summarizing what the dependency change actually does, based on the changelog and upstream source diff"
     }
   },
-  "required": ["verdict", "reasoning"]
+  "required": ["verdict", "reasoning", "changesSummary"]
 }`
 
 type toolFunctionDef struct {
@@ -116,26 +120,31 @@ type chatResponse struct {
 
 // assessArgs is the shape of the tool-call arguments (matches the schema above).
 type assessArgs struct {
-	Verdict   string `json:"verdict"`
-	Reasoning string `json:"reasoning"`
+	Verdict        string `json:"verdict"`
+	Reasoning      string `json:"reasoning"`
+	ChangesSummary string `json:"changesSummary"`
 }
 
-func (a *OpenAIAssessor) Assess(diff []byte, pr ghclient.PullRequest) (string, string, error) {
+func (a *OpenAIAssessor) Assess(pr ghclient.PullRequest, reviewContext string) (string, string, string, error) {
 	if a.endpoint == "" {
-		return verdictNeeds, "no AI endpoint configured; needs human verification", nil
+		return verdictNeeds, "no AI endpoint configured; needs human verification", "", nil
 	}
 
-	truncated := diff
+	truncated := reviewContext
 	note := ""
-	if len(truncated) > maxDiffBytes {
-		truncated = truncated[:maxDiffBytes]
-		note = "\n\n[diff truncated]"
+	if len(truncated) > maxContextBytes {
+		truncated = truncated[:maxContextBytes]
+		note = "\n\n[context truncated]"
 	}
 
 	prompt := "You are a security reviewer for the Kairos project assessing an " +
 		"automated dependency/bot pull request. Decide whether the change is safe " +
-		"to auto-approve. Call the " + assessToolName + " function with your verdict.\n\n" +
-		"PR title: " + pr.Title + "\n\nDiff:\n" + string(truncated) + note
+		"to auto-approve. The context below contains the PR description / changelog, " +
+		"the upstream source diff for each dependency bump, and the PR's own diff. " +
+		"Call the " + assessToolName + " function with your verdict, your reasoning, " +
+		"and a one to three sentence changesSummary describing what the dependency " +
+		"change actually does.\n\n" +
+		"PR title: " + pr.Title + "\n\nContext:\n" + truncated + note
 
 	reqBody, err := json.Marshal(chatRequest{
 		Model:       a.model,
@@ -157,7 +166,7 @@ func (a *OpenAIAssessor) Assess(diff []byte, pr ghclient.PullRequest) (string, s
 		},
 	})
 	if err != nil {
-		return verdictNeeds, "could not build review request: " + err.Error(), nil
+		return verdictNeeds, "could not build review request: " + err.Error(), "", nil
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
@@ -165,29 +174,29 @@ func (a *OpenAIAssessor) Assess(diff []byte, pr ghclient.PullRequest) (string, s
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost,
 		a.endpoint+"/v1/chat/completions", bytes.NewReader(reqBody))
 	if err != nil {
-		return verdictNeeds, "could not build review request: " + err.Error(), nil
+		return verdictNeeds, "could not build review request: " + err.Error(), "", nil
 	}
 	req.Header.Set("Content-Type", "application/json")
 
 	httpResp, err := a.httpc.Do(req)
 	if err != nil {
-		return verdictNeeds, fmt.Sprintf("review endpoint unreachable: %v", err), nil
+		return verdictNeeds, fmt.Sprintf("review endpoint unreachable: %v", err), "", nil
 	}
 	defer httpResp.Body.Close()
 	body, _ := io.ReadAll(httpResp.Body)
 	if httpResp.StatusCode != http.StatusOK {
-		return verdictNeeds, fmt.Sprintf("review endpoint returned HTTP %d", httpResp.StatusCode), nil
+		return verdictNeeds, fmt.Sprintf("review endpoint returned HTTP %d", httpResp.StatusCode), "", nil
 	}
 
 	var cr chatResponse
 	if err := json.Unmarshal(body, &cr); err != nil {
-		return verdictNeeds, "could not decode review response", nil
+		return verdictNeeds, "could not decode review response", "", nil
 	}
 	if cr.Error != nil {
-		return verdictNeeds, "review endpoint error: " + cr.Error.Message, nil
+		return verdictNeeds, "review endpoint error: " + cr.Error.Message, "", nil
 	}
 	if len(cr.Choices) == 0 {
-		return verdictNeeds, "review response had no choices", nil
+		return verdictNeeds, "review response had no choices", "", nil
 	}
 
 	msg := cr.Choices[0].Message
@@ -198,18 +207,18 @@ func (a *OpenAIAssessor) Assess(diff []byte, pr ghclient.PullRequest) (string, s
 	case msg.FunctionCall != nil && msg.FunctionCall.Arguments != "":
 		rawArgs = msg.FunctionCall.Arguments
 	default:
-		return verdictNeeds, "model did not return a tool call", nil
+		return verdictNeeds, "model did not return a tool call", "", nil
 	}
 
 	var args assessArgs
 	if err := json.Unmarshal([]byte(rawArgs), &args); err != nil {
-		return verdictNeeds, "tool-call arguments were not valid JSON", nil
+		return verdictNeeds, "tool-call arguments were not valid JSON", "", nil
 	}
 
 	switch args.Verdict {
 	case "good", "bad", verdictNeeds:
-		return args.Verdict, args.Reasoning, nil
+		return args.Verdict, args.Reasoning, args.ChangesSummary, nil
 	default:
-		return verdictNeeds, fmt.Sprintf("model returned an unrecognized verdict %q; needs human verification", args.Verdict), nil
+		return verdictNeeds, fmt.Sprintf("model returned an unrecognized verdict %q; needs human verification", args.Verdict), "", nil
 	}
 }

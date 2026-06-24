@@ -16,7 +16,11 @@ import (
 // forced tool call whose arguments are the given verdict/reasoning JSON.
 func toolCallResponse(t *testing.T, verdict, reasoning string) []byte {
 	t.Helper()
-	args, err := json.Marshal(map[string]string{"verdict": verdict, "reasoning": reasoning})
+	args, err := json.Marshal(map[string]string{
+		"verdict":        verdict,
+		"reasoning":      reasoning,
+		"changesSummary": "summary of " + verdict,
+	})
 	require.NoError(t, err)
 	resp := map[string]any{
 		"choices": []any{map[string]any{
@@ -44,15 +48,16 @@ func TestOpenAIAssessorReturnsVerdict(t *testing.T) {
 	defer srv.Close()
 
 	a := NewOpenAIAssessor(config.AIConfig{Nib: config.NibCfg{Endpoint: srv.URL, Model: "m"}})
-	verdict, reasoning, err := a.Assess([]byte("some diff"), ghclient.PullRequest{Title: "bump"})
+	verdict, reasoning, summary, err := a.Assess(ghclient.PullRequest{Title: "bump"}, "review context")
 	require.NoError(t, err)
 	assert.Equal(t, "bad", verdict)
 	assert.Equal(t, "dependency looks malicious", reasoning)
+	assert.Equal(t, "summary of bad", summary)
 }
 
 func TestOpenAIAssessorEmptyEndpointDegrades(t *testing.T) {
 	a := NewOpenAIAssessor(config.AIConfig{})
-	verdict, reasoning, err := a.Assess([]byte("diff"), ghclient.PullRequest{Title: "x"})
+	verdict, reasoning, _, err := a.Assess(ghclient.PullRequest{Title: "x"}, "ctx")
 	require.NoError(t, err) // never a hard error
 	assert.Equal(t, "needs_human_verification", verdict)
 	assert.NotEmpty(t, reasoning)
@@ -65,7 +70,7 @@ func TestOpenAIAssessorNon200Degrades(t *testing.T) {
 	defer srv.Close()
 
 	a := NewOpenAIAssessor(config.AIConfig{Nib: config.NibCfg{Endpoint: srv.URL, Model: "m"}})
-	verdict, _, err := a.Assess([]byte("diff"), ghclient.PullRequest{Title: "x"})
+	verdict, _, _, err := a.Assess(ghclient.PullRequest{Title: "x"}, "ctx")
 	require.NoError(t, err)
 	assert.Equal(t, "needs_human_verification", verdict)
 }
@@ -78,7 +83,7 @@ func TestOpenAIAssessorNoToolCallDegrades(t *testing.T) {
 	defer srv.Close()
 
 	a := NewOpenAIAssessor(config.AIConfig{Nib: config.NibCfg{Endpoint: srv.URL, Model: "m"}})
-	verdict, _, err := a.Assess([]byte("diff"), ghclient.PullRequest{Title: "x"})
+	verdict, _, _, err := a.Assess(ghclient.PullRequest{Title: "x"}, "ctx")
 	require.NoError(t, err)
 	assert.Equal(t, "needs_human_verification", verdict)
 }
@@ -91,7 +96,7 @@ func TestOpenAIAssessorOutOfEnumDegrades(t *testing.T) {
 	defer srv.Close()
 
 	a := NewOpenAIAssessor(config.AIConfig{Nib: config.NibCfg{Endpoint: srv.URL, Model: "m"}})
-	verdict, _, err := a.Assess([]byte("diff"), ghclient.PullRequest{Title: "x"})
+	verdict, _, _, err := a.Assess(ghclient.PullRequest{Title: "x"}, "ctx")
 	require.NoError(t, err)
 	assert.Equal(t, "needs_human_verification", verdict)
 }
