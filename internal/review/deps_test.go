@@ -87,3 +87,13 @@ func TestParseCompareURLsRejectsLookalikeHost(t *testing.T) {
 	assert.Len(t, got, 1)
 	assert.Equal(t, "o/r", got[0].Repo)
 }
+
+func TestParseCompareURLsTwoDot(t *testing.T) {
+	// renovate uses a two-dot range for action/image digest bumps
+	got := parseCompareURLs("bumps the action; see " +
+		"https://redirect.github.com/docker/login-action/compare/4907a6ddec9925e35a0a9e82d7399ccc52663121..650006c6eb7dba73a995cc03b0b2d7f5ca915bee for details")
+	require.Len(t, got, 1)
+	assert.Equal(t, "docker/login-action", got[0].Repo)
+	assert.Equal(t, "4907a6ddec9925e35a0a9e82d7399ccc52663121", got[0].Base)
+	assert.Equal(t, "650006c6eb7dba73a995cc03b0b2d7f5ca915bee", got[0].Head)
+}

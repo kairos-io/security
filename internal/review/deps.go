@@ -78,7 +78,10 @@ const maxCompares = 5
 // look-alike host like "attacker-github.com" can't smuggle in an arbitrary
 // repo target. (The host is otherwise discarded — fetches always go to
 // api.github.com — but anchoring it is cheap defense in depth.)
-var reCompare = regexp.MustCompile(`https?://(?:[\w-]+\.)*github\.com/([\w.\-]+)/([\w.\-]+)/compare/([\w.\-+/@]+?)\.\.\.([\w.\-+/@]+)`)
+// The separator is two-or-three dots: renovate uses the three-dot form for
+// version bumps and the two-dot range form for action/image *digest* bumps
+// (e.g. compare/<sha>..<sha>). CompareDiff always rebuilds it as three-dot.
+var reCompare = regexp.MustCompile(`https?://(?:[\w-]+\.)*github\.com/([\w.\-]+)/([\w.\-]+)/compare/([\w.\-+/@]+?)\.\.\.?([\w.\-+/@]+)`)
 
 // parseCompareURLs extracts GitHub compare links (owner/repo + base...head) from
 // a renovate/dependabot PR body. Base/head are taken verbatim — the bot already
