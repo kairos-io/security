@@ -76,3 +76,14 @@ func TestCompareTargetsUnifiesAndCaps(t *testing.T) {
 	assert.Equal(t, "baz/qux", got[1].Repo) // body link
 	assert.Equal(t, "v2.0.0", got[1].Base)  // verbatim from URL
 }
+
+func TestParseCompareURLsRejectsLookalikeHost(t *testing.T) {
+	// a look-alike host must not be parsed as a github.com compare target
+	assert.Empty(t, parseCompareURLs("https://attacker-github.com/evil/repo/compare/a...b"))
+	// scheme-required: a bare host reference is ignored
+	assert.Empty(t, parseCompareURLs("see github.com/foo/bar/compare/a...b for details"))
+	// legitimate subdomains still match
+	got := parseCompareURLs("https://redirect.github.com/o/r/compare/v1...v2")
+	assert.Len(t, got, 1)
+	assert.Equal(t, "o/r", got[0].Repo)
+}
