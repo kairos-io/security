@@ -91,9 +91,9 @@ func Run(repos []state.Repo, gh ghclient.GitHub, a Assessor, cfg config.ReviewCf
 			if upstreamBytes == 0 && strings.TrimSpace(pr.Body) == "" && verdict != "needs_human_verification" {
 				trace = append(trace, "insufficient context (no upstream diff or changelog) → forced needs_human_verification")
 				verdict = "needs_human_verification"
-				if reasoning == "" {
-					reasoning = "insufficient context to assess: no upstream diff or changelog available"
-				}
+				// Replace the model's reasoning: it judged on version numbers
+				// alone, so its rationale is not trustworthy here.
+				reasoning = "insufficient context to assess (no upstream diff or changelog available) — needs a human to review the change"
 			}
 			rv := state.PRReview{Repo: repo.Repo, PR: pr.Number, URL: pr.URL, HeadSHA: pr.HeadSHA,
 				Verdict: verdict, Reasoning: reasoning, ChangesSummary: summary, Trace: trace, ReviewedRun: runID}

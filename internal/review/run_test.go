@@ -166,7 +166,7 @@ func TestRunDryRunWritesNothing(t *testing.T) {
 func TestRunAutoApproveOnlyOnGood(t *testing.T) {
 	gh := &fakeGH{
 		prs: map[string][]ghclient.PullRequest{"o/r": {
-			{Number: 2, Title: "bad bump", IsBot: true, HeadSHA: "sha2", URL: "u2"},
+			{Number: 2, Title: "bad bump", IsBot: true, HeadSHA: "sha2", URL: "u2", Body: "### Release Notes"},
 		}},
 		diffs: map[string][]byte{"o/r": []byte("go.mod bump")},
 	}
