@@ -108,7 +108,7 @@ func TestRunAssemblesContextAndUpsertsOnce(t *testing.T) {
 
 	// Context carries the PR body and the labelled upstream diff.
 	assert.Contains(t, a.GotContext, "Bumps bar from 1.2.3 to 1.2.4 changelog")
-	assert.Contains(t, a.GotContext, "Upstream github.com/foo/bar 1.2.3..1.2.4:")
+	assert.Contains(t, a.GotContext, "Upstream github.com/foo/bar 1.2.3→1.2.4")
 	assert.Contains(t, a.GotContext, "upstream source change here")
 	assert.Contains(t, a.GotContext, "PR diff:")
 
@@ -242,7 +242,8 @@ func TestRunPseudoVersionComparesBySHA(t *testing.T) {
 }
 
 func TestRunTraceUnresolvableModule(t *testing.T) {
-	// A vanity/unresolvable module path -> trace records it was skipped.
+	// A vanity/unresolvable module path with no compare links in the body ->
+	// compareTargets yields nothing, so no upstream comparison is attempted.
 	diff := []byte("-	example.com/private/thing v1.0.0\n+	example.com/private/thing v1.1.0\n")
 	gh := &fakeGH{
 		prs: map[string][]ghclient.PullRequest{"o/r": {
@@ -259,13 +260,13 @@ func TestRunTraceUnresolvableModule(t *testing.T) {
 
 	assert.Empty(t, gh.compared) // unresolvable -> never calls CompareDiff
 	require.NotEmpty(t, out[0].Trace)
-	var sawSkip bool
+	var sawNoTargets bool
 	for _, line := range out[0].Trace {
-		if strings.Contains(line, "example.com/private/thing") && strings.Contains(line, "module not resolvable") {
-			sawSkip = true
+		if strings.Contains(line, "no upstream comparisons available") {
+			sawNoTargets = true
 		}
 	}
-	assert.True(t, sawSkip, "trace should record the unresolvable module skip: %v", out[0].Trace)
+	assert.True(t, sawNoTargets, "trace should record the no-targets case: %v", out[0].Trace)
 }
 
 func TestRunTraceNoBumps(t *testing.T) {
@@ -283,11 +284,50 @@ func TestRunTraceNoBumps(t *testing.T) {
 	require.Len(t, out, 1)
 
 	require.NotEmpty(t, out[0].Trace)
-	var sawNoBumps bool
+	var sawNoTargets bool
 	for _, line := range out[0].Trace {
-		if strings.Contains(line, "no go.mod dependency bumps parsed") {
-			sawNoBumps = true
+		if strings.Contains(line, "no upstream comparisons available") {
+			sawNoTargets = true
 		}
 	}
-	assert.True(t, sawNoBumps, "trace should record the no-bumps case: %v", out[0].Trace)
+	assert.True(t, sawNoTargets, "trace should record the no-targets case: %v", out[0].Trace)
+}
+
+func TestRunFetchesUpstreamFromBodyCompareLink(t *testing.T) {
+	// A bot PR with NO go.mod bump but a renovate body carrying a GitHub compare
+	// link (e.g. an npm bump). The upstream diff must be fetched using the body's
+	// verbatim base/head refs.
+	gh := &fakeGH{
+		prs: map[string][]ghclient.PullRequest{"o/r": {
+			{Number: 7, Title: "chore(deps): update lucide", IsBot: true, HeadSHA: "sha7", URL: "u7",
+				Body: "Updates lucide-react. See https://github.com/lucide-icons/lucide/compare/0.576.0...0.577.0 for details."},
+		}},
+		diffs:    map[string][]byte{"o/r": []byte("--- a/package.json\n+++ b/package.json\n-lucide\n+lucide\n")},
+		compares: map[string][]byte{"lucide-icons/lucide 0.576.0..0.577.0": []byte("upstream lucide source change")},
+	}
+	a := &FakeAssessor{Verdict: "good", Reasoning: "clean"}
+	cfg := config.ReviewCfg{Enabled: true, MaxPerRun: 20}
+
+	out, errs := Run([]state.Repo{{Repo: "o/r"}}, gh, a, cfg, nil, "run1", false)
+	require.Empty(t, errs)
+	require.Len(t, out, 1)
+
+	// CompareDiff was called with the verbatim refs from the body link.
+	require.Len(t, gh.compared, 1)
+	assert.Equal(t, [3]string{"lucide-icons/lucide", "0.576.0", "0.577.0"}, gh.compared[0])
+
+	// The fetched upstream diff is labelled and embedded in the assessor context.
+	assert.Contains(t, a.GotContext, "Upstream lucide-icons/lucide")
+	assert.Contains(t, a.GotContext, "upstream lucide source change")
+
+	// Trace records the successful compare with a ✓ and byte count.
+	require.NotEmpty(t, out[0].Trace)
+	var sawCompare bool
+	for _, line := range out[0].Trace {
+		if strings.Contains(line, "lucide-icons/lucide") &&
+			strings.Contains(line, "compare 0.576.0...0.577.0 ✓") && strings.Contains(line, "bytes") {
+			sawCompare = true
+		}
+	}
+	assert.True(t, sawCompare, "trace should record the successful body-link compare: %v", out[0].Trace)
 }

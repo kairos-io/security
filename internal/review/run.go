@@ -61,30 +61,24 @@ func Run(repos []state.Repo, gh ghclient.GitHub, a Assessor, cfg config.ReviewCf
 				continue
 			}
 			var trace []string
-			bumps := parseBumps(diff)
-			if len(bumps) == 0 {
-				trace = append(trace, "no go.mod dependency bumps parsed from the PR diff")
+			targets := compareTargets(diff, pr.Body)
+			if len(targets) == 0 {
+				trace = append(trace, "no upstream comparisons available (no go.mod bumps or compare links in the PR body)")
 			}
-			for _, b := range bumps {
+			for _, t := range targets {
 				if ctx.Len() > maxContext {
 					break
 				}
-				gr, ok := moduleRepo(b.Module)
-				if !ok {
-					trace = append(trace, fmt.Sprintf("%s %s→%s: module not resolvable to a GitHub repo (skipped)", b.Module, b.From, b.To))
-					continue
-				}
-				baseRef, headRef := compareRef(b.From), compareRef(b.To)
-				ud, uerr := gh.CompareDiff(gr, baseRef, headRef)
+				ud, uerr := gh.CompareDiff(t.Repo, t.Base, t.Head)
 				if uerr != nil || len(ud) == 0 {
-					trace = append(trace, fmt.Sprintf("%s %s→%s: compare %s...%s failed: %v (no upstream diff)", b.Module, b.From, b.To, baseRef, headRef, uerr))
-					continue // degrade: no upstream source diff for this bump
+					trace = append(trace, fmt.Sprintf("%s: compare %s...%s failed/empty (no upstream diff)", t.Label, t.Base, t.Head))
+					continue
 				}
 				if len(ud) > maxBumpDiff {
 					ud = ud[:maxBumpDiff]
 				}
-				fmt.Fprintf(&ctx, "Upstream %s %s..%s:\n%s\n\n", b.Module, b.From, b.To, ud)
-				trace = append(trace, fmt.Sprintf("%s %s→%s: compare %s...%s ✓ %d bytes", b.Module, b.From, b.To, baseRef, headRef, len(ud)))
+				fmt.Fprintf(&ctx, "Upstream %s (%s...%s):\n%s\n\n", t.Label, t.Base, t.Head, ud)
+				trace = append(trace, fmt.Sprintf("%s: compare %s...%s ✓ %d bytes", t.Label, t.Base, t.Head, len(ud)))
 			}
 			ctx.WriteString("PR diff:\n" + string(diff))
 			trace = append(trace, fmt.Sprintf("context: %d bytes", ctx.Len()))
