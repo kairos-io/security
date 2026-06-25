@@ -1,6 +1,7 @@
 package review
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 )
@@ -67,4 +68,61 @@ func moduleRepo(mod string) (string, bool) {
 		return "kubernetes-sigs/" + parts[1], true
 	}
 	return "", false
+}
+
+type CompareRef struct{ Repo, Base, Head, Label string }
+
+const maxCompares = 5
+
+var reCompare = regexp.MustCompile(`github\.com/([\w.\-]+)/([\w.\-]+)/compare/([\w.\-+/@]+?)\.\.\.([\w.\-+/@]+)`)
+
+// parseCompareURLs extracts GitHub compare links (owner/repo + base...head) from
+// a renovate/dependabot PR body. Base/head are taken verbatim — the bot already
+// resolved the repo's real tag form (incl. monorepos). Works for any ecosystem.
+func parseCompareURLs(body string) []CompareRef {
+	var out []CompareRef
+	seen := map[string]bool{}
+	for _, m := range reCompare.FindAllStringSubmatch(body, -1) {
+		repo := m[1] + "/" + m[2]
+		ref := CompareRef{Repo: repo, Base: m[3], Head: m[4],
+			Label: fmt.Sprintf("%s %s..%s (PR body)", repo, m[3], m[4])}
+		k := ref.Repo + "|" + ref.Base + "|" + ref.Head
+		if seen[k] {
+			continue
+		}
+		seen[k] = true
+		out = append(out, ref)
+	}
+	return out
+}
+
+// compareTargets unifies upstream comparisons from the Go go.mod bumps and the
+// PR-body compare links, deduped by repo|base|head and capped at maxCompares.
+func compareTargets(diff []byte, body string) []CompareRef {
+	var out []CompareRef
+	seen := map[string]bool{}
+	add := func(r CompareRef) {
+		if r.Repo == "" {
+			return
+		}
+		k := r.Repo + "|" + r.Base + "|" + r.Head
+		if seen[k] {
+			return
+		}
+		seen[k] = true
+		out = append(out, r)
+	}
+	for _, b := range parseBumps(diff) {
+		if repo, ok := moduleRepo(b.Module); ok {
+			add(CompareRef{Repo: repo, Base: compareRef(b.From), Head: compareRef(b.To),
+				Label: fmt.Sprintf("%s %s→%s", b.Module, b.From, b.To)})
+		}
+	}
+	for _, c := range parseCompareURLs(body) {
+		add(c)
+	}
+	if len(out) > maxCompares {
+		out = out[:maxCompares]
+	}
+	return out
 }

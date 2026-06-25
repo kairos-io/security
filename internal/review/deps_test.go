@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestParseBumps(t *testing.T) {
@@ -42,4 +43,36 @@ func TestModuleRepo(t *testing.T) {
 		assert.Equal(t, want.ok, ok, mod)
 		assert.Equal(t, want.repo, got, mod)
 	}
+}
+
+func TestParseCompareURLs(t *testing.T) {
+	body := "Release notes\n" +
+		"[Compare Source](https://redirect.github.com/lucide-icons/lucide/compare/0.576.0...0.577.0)\n" +
+		"Full Changelog: <https://github.com/lucide-icons/lucide/compare/0.468.0...0.577.0>\n" +
+		"dup: https://github.com/lucide-icons/lucide/compare/0.576.0...0.577.0\n"
+	got := parseCompareURLs(body)
+	// deduped: two distinct compares
+	assert.Len(t, got, 2)
+	assert.Equal(t, CompareRef{Repo: "lucide-icons/lucide", Base: "0.576.0", Head: "0.577.0",
+		Label: "lucide-icons/lucide 0.576.0..0.577.0 (PR body)"}, got[0])
+	assert.Equal(t, "0.468.0", got[1].Base)
+	assert.Equal(t, "0.577.0", got[1].Head)
+}
+
+func TestParseCompareURLsNone(t *testing.T) {
+	assert.Empty(t, parseCompareURLs("no links here"))
+}
+
+func TestCompareTargetsUnifiesAndCaps(t *testing.T) {
+	// a Go bump (via go.mod diff) + a body compare link → both, deduped
+	diff := []byte("--- a/go.mod\n+++ b/go.mod\n" +
+		"-\tgithub.com/foo/bar v1.2.0\n+\tgithub.com/foo/bar v1.3.0\n")
+	body := "https://github.com/baz/qux/compare/v2.0.0...v2.1.0"
+	got := compareTargets(diff, body)
+	require.Len(t, got, 2)
+	assert.Equal(t, "foo/bar", got[0].Repo) // Go path first
+	assert.Equal(t, "v1.2.0", got[0].Base)  // compareRef adds v
+	assert.Equal(t, "v1.3.0", got[0].Head)
+	assert.Equal(t, "baz/qux", got[1].Repo) // body link
+	assert.Equal(t, "v2.0.0", got[1].Base)  // verbatim from URL
 }
