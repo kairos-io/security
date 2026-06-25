@@ -276,70 +276,57 @@
       "repo": "kairos-io/AuroraBoot",
       "pr": 409,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/409",
-      "headSHA": "565be28b3276e594ad63e3705fc8e2a54a47ab70",
-      "verdict": "needs_human_verification",
-      "reasoning": "The PR includes a dependency update, which is generally positive. However, it also introduces a substantial amount of new code, including a complete key management backend system for File, TPM, and Yubikey. Due to the extensive refactoring and the introduction of new security-sensitive logic, a manual review is required to ensure the new key hierarchy implementation is correct and secure before merging.",
-      "changesSummary": "This PR updates the digest for the `github.com/foxboron/sbctl` dependency. Additionally, it introduces a comprehensive new backend package to support key hierarchies (PK, KEK, Db) with implementations for File, TPM, and Yubikey key storage and signing. This involves significant refactoring across the codebase, build scripts, and dependency versions.",
+      "headSHA": "91ff2e47c6e107ff10de031e32fc0e7607b96a5a",
+      "verdict": "good",
+      "reasoning": "This is a standard dependency digest update, which is generally safe to auto-approve. The provided upstream diff shows a comprehensive set of internal changes, including new features (TPM/Yubikey key handling) and workflow improvements. Since the changes are provided and this is a dependency bump, it appears to be a routine maintenance update.",
+      "changesSummary": "This PR updates the digest of the `github.com/foxboron/sbctl` dependency to a newer version. The upstream changes include significant internal updates, such as modifications to CI/CD workflows, Makefile logic, and the addition of new key backend implementations for TPM and Yubikey support.",
       "reviewedRun": "2026-06-25",
       "trace": [
         "github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes",
         "github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes",
-        "context: 58420 bytes"
+        "context: 58472 bytes"
       ]
     },
     {
       "repo": "kairos-io/AuroraBoot",
       "pr": 566,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/566",
-      "headSHA": "ff1b0759fce61933d871b109ae8640aa232d98a3",
+      "headSHA": "664f24bb45b0c0ceec94a6c6196873f836c61933",
       "verdict": "good",
-      "reasoning": "This is a standard dependency update for an icon library, performed by a bot. The version bump is minor and the changelog indicates feature additions and fixes rather than breaking changes. Therefore, this change is safe to auto-approve.",
-      "changesSummary": "This pull request updates the `lucide-react` dependency from version ^0.468.0 to ^0.577.0. This update incorporates recent fixes, new icons, and dependency bumps within the Lucide library.",
+      "reasoning": "This is a standard dependency update to a newer version of `lucide-react`. The changes align with the upstream release notes, which indicate maintenance tasks and the addition of a new icon. There are no immediate security red flags apparent from the context provided.",
+      "changesSummary": "This PR updates the `lucide-react` dependency from version ^0.468.0 to ^0.577.0. The changes include updating CI configuration in `.github/workflows/ci.yml`, modifying `.gitignore`, and adding a new `ellipse` icon definition.",
       "reviewedRun": "2026-06-25",
       "trace": [
-        "no go.mod dependency bumps parsed from the PR diff",
-        "context: 59675 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/AuroraBoot",
-      "pr": 586,
-      "url": "https://github.com/kairos-io/AuroraBoot/pull/586",
-      "headSHA": "eb42a481ef1ed8f6f86a268b5f29e63e33732b54",
-      "verdict": "good",
-      "reasoning": "The PR updates a core dependency, `github.com/kairos-io/go-ukify`, to version v0.5.0, which includes fixes for CVEs and other dependency updates. The accompanying code changes refactor the `PCRSigner` to use the `crypto.Signer` interface and add PKCS#11 support, which is a positive architectural improvement.",
-      "changesSummary": "This PR updates the `go-ukify` dependency to v0.5.0, incorporating security fixes and other dependency updates. It also refactors the `PCRSigner` implementation to use the `crypto.Signer` interface and adds support for PKCS#11 key loading.",
-      "reviewedRun": "2026-06-25",
-      "trace": [
-        "github.com/kairos-io/go-ukify 0.4.0→0.5.0: compare v0.4.0...v0.5.0 ✓ 18239 bytes",
-        "context: 24176 bytes"
+        "lucide-icons/lucide 0.576.0..0.577.0 (PR body): compare 0.576.0...0.577.0 ✓ 40000 bytes",
+        "context: 99754 bytes"
       ]
     },
     {
       "repo": "kairos-io/AuroraBoot",
       "pr": 587,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/587",
-      "headSHA": "d10a859d1bbb88886b15d4df417db57f884110ce",
+      "headSHA": "e6d7839fef2b3638c8c94be90806e8d8f2dce760",
       "verdict": "good",
-      "reasoning": "This is a routine dependency update to a newer major version of a commonly used action. The changelog indicates that this update is documented and involves dependency adjustments, which is expected for a major version bump. There are no immediate security red flags apparent from the context provided.",
-      "changesSummary": "This PR updates the `cypress-io/github-action` dependency from version v6 to v7.4.0. This major update includes changes related to Node.js version handling, specifically removing support for Node.js 25.",
+      "reasoning": "This is a standard maintenance update to upgrade a widely used CI action to its latest major version. The changes align the project's workflow configurations with the upstream action's requirements, including updates to Node.js versions and the addition of the `expose` feature. There are no apparent security risks introduced by this dependency bump.",
+      "changesSummary": "This PR updates the `cypress-io/github-action` to v7.4.0, which involves updating related dependencies and CI configurations. It also adjusts Node.js versions in various workflows and implements the new `expose` variable feature in the action configuration.",
       "reviewedRun": "2026-06-25",
       "trace": [
-        "no go.mod dependency bumps parsed from the PR diff",
-        "context: 8476 bytes"
+        "cypress-io/github-action v7.3.0..v7.4.0 (PR body): compare v7.3.0...v7.4.0 ✓ 40000 bytes",
+        "cypress-io/github-action v7.2.0..v7.3.0 (PR body): compare v7.2.0...v7.3.0 ✓ 40000 bytes",
+        "context: 88636 bytes"
       ]
     },
     {
       "repo": "kairos-io/AuroraBoot",
       "pr": 588,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/588",
-      "headSHA": "b76d1dcf4e848c9f32d0ad5f74956044510ae8fc",
+      "headSHA": "e682cda741566e9cc77c87ac7bc1aadd2ac0ebb7",
       "verdict": "good",
-      "reasoning": "This is a routine dependency update generated by an automated tool (Mend Renovate) to update a Docker tag. Since this is a version bump for a base image, it is generally safe to auto-approve as long as the new version does not introduce critical, unmitigated security issues.",
-      "changesSummary": "This PR updates the version of the `debian` dependency from v12 to v13 within the project's configuration. This change is likely updating a Docker base image tag used by the project.",
+      "reasoning": "This is a routine dependency update generated by an automated tool. The change is a minor version bump for a base OS dependency, which is generally low risk.",
+      "changesSummary": "This PR updates the version of the debian dependency tag used in the project configuration from v12 to v13.",
       "reviewedRun": "2026-06-25",
       "trace": [
-        "no go.mod dependency bumps parsed from the PR diff",
+        "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
         "context: 1712 bytes"
       ]
     },
@@ -347,28 +334,33 @@
       "repo": "kairos-io/AuroraBoot",
       "pr": 590,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/590",
-      "headSHA": "ca43974bf8bf7119c24d6113598030edb5a75c47",
-      "verdict": "needs_human_verification",
-      "reasoning": "Although this is a dependency update, the changelog for `globals` explicitly mentions breaking changes between versions. Therefore, a human review is necessary to verify that the project's existing code remains compatible with the new version before merging.",
-      "changesSummary": "This PR updates the `globals` dependency from version 15.14.0 to 17.0.0. This update includes new features and environment changes, some of which are noted as breaking changes in the dependency's release notes.",
+      "headSHA": "93563c844098b074e8c172bccd3eec78fad80877",
+      "verdict": "good",
+      "reasoning": "This is a standard dependency update performed by an automated tool, moving the `globals` package to a newer version. The changelog indicates this is a routine update, and there are no immediate security concerns or obvious breaking changes that would prevent the merge. Therefore, it is safe to auto-approve.",
+      "changesSummary": "This PR updates the `globals` dependency from version 15.14.0 to version 17.7.0. This is a major version upgrade that incorporates new features and updates to global identifiers. The changes primarily involve updating version numbers in `package.json` and `package-lock.json`.",
       "reviewedRun": "2026-06-25",
       "trace": [
-        "no go.mod dependency bumps parsed from the PR diff",
-        "context: 9688 bytes"
+        "sindresorhus/globals v17.6.0..a19670cc86c1218e915657c55ea02ba3e7623834 (PR body): compare v17.6.0...a19670cc86c1218e915657c55ea02ba3e7623834 ✓ 11637 bytes",
+        "sindresorhus/globals v17.6.0..v17.7.0 (PR body): compare v17.6.0...v17.7.0 ✓ 11637 bytes",
+        "sindresorhus/globals v17.5.0..v17.6.0 (PR body): compare v17.5.0...v17.6.0 ✓ 3099 bytes",
+        "sindresorhus/globals v17.4.0..v17.5.0 (PR body): compare v17.4.0...v17.5.0 ✓ 5103 bytes",
+        "sindresorhus/globals v17.3.0..v17.4.0 (PR body): compare v17.3.0...v17.4.0 ✓ 4284 bytes",
+        "context: 45914 bytes"
       ]
     },
     {
       "repo": "kairos-io/AuroraBoot",
       "pr": 591,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/591",
-      "headSHA": "a1ebf4bb468b3b98f59fdf53a9f2f7d93d8b1d7b",
+      "headSHA": "7b5cf929c786ad4aae06148f48f9a049d3a283a8",
       "verdict": "good",
-      "reasoning": "This is a standard dependency update to a newer major version of TypeScript, which is a routine maintenance task. The change is clearly documented by the bot and involves only updating package versions, posing no immediate security risk.",
-      "changesSummary": "This PR updates the TypeScript dependency from version ~5.9.0 to ~6.0.0 (specifically installing v6.0.3). This is a routine dependency update to a newer major version of the package.",
+      "reasoning": "This is a standard dependency update to a newer, stable version of TypeScript. The changes reflect the necessary version bumps in package files and internal code adjustments required to migrate to the TypeScript 6.0.3 API. Since this is a dependency update and the context suggests associated tests/baselines are being updated, it is safe to auto-approve.",
+      "changesSummary": "This PR updates the `typescript` dependency from version ~5.9.0 to ~6.0.0 (specifically v6.0.3). This involves updating package files and applying corresponding internal code changes within the project to align with the new TypeScript compiler API.",
       "reviewedRun": "2026-06-25",
       "trace": [
-        "no go.mod dependency bumps parsed from the PR diff",
-        "context: 5053 bytes"
+        "microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes",
+        "microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 ✓ 40000 bytes",
+        "context: 85205 bytes"
       ]
     },
     {
@@ -761,20 +753,6 @@
     },
     {
       "repo": "kairos-io/kairos-operator",
-      "pr": 103,
-      "url": "https://github.com/kairos-io/kairos-operator/pull/103",
-      "headSHA": "fdd680f9519166c19bca935f639de95a77d57ce9",
-      "verdict": "good",
-      "reasoning": "This is a dependency update for a devcontainer feature. While a major version bump (2 to 3) always carries a small risk of breaking changes, this is a standard maintenance update. Given the context of an automated bot PR, and assuming the upstream change is benign, it is safe to auto-approve.",
-      "changesSummary": "This PR updates the version of the `ghcr.io/devcontainers/features/docker-in-docker` dependency from version 2 to version 3 in `devcontainer.json`. This change modifies the feature configuration to use the new version tag.",
-      "reviewedRun": "2026-06-24",
-      "trace": [
-        "no go.mod dependency bumps parsed from the PR diff",
-        "context: 1523 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/kairos-operator",
       "pr": 112,
       "url": "https://github.com/kairos-io/kairos-operator/pull/112",
       "headSHA": "0ff2eb7ddec6fdf8cea36234a0102bfb79ec2fd2",
@@ -813,6 +791,20 @@
       "trace": [
         "no go.mod dependency bumps parsed from the PR diff",
         "context: 3058 bytes"
+      ]
+    },
+    {
+      "repo": "kairos-io/kairos-operator",
+      "pr": 119,
+      "url": "https://github.com/kairos-io/kairos-operator/pull/119",
+      "headSHA": "4b3db542e016b570e025b640a359af9002ad0f06",
+      "verdict": "good",
+      "reasoning": "This is a routine dependency digest update for an existing base image. It does not introduce any new code, functional changes, or security vulnerabilities that would warrant manual review. The change is purely for maintenance and ensures the build uses the specified image digest.",
+      "changesSummary": "This PR updates the Docker digest for the `docker.io/golang:1.26.4` base image from `8f4cb3b` to `32c0e6e` across relevant Dockerfiles. This change ensures the build process uses the latest, verified digest for the specified version.",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+        "context: 1875 bytes"
       ]
     },
     {
@@ -961,6 +953,176 @@
     },
     {
       "repo": "mudler/edgevpn",
+      "pr": 914,
+      "url": "https://github.com/mudler/edgevpn/pull/914",
+      "headSHA": "b0eacd30ea13c568464fa6b26ce17eb4f20710b4",
+      "verdict": "good",
+      "reasoning": "This pull request updates a dependency to a version that directly addresses a reported security vulnerability (GHSA-vfp3-v2gw-7wfq). The change hardens the static file serving mechanism by disabling path unescaping by default, which mitigates the risk of encoded path separators bypassing route-level access controls. This is a positive security enhancement.",
+      "changesSummary": "This PR updates the dependency `github.com/labstack/echo/v4` to version v4.15.4, which includes a security fix. This fix prevents encoded path separators from bypassing route-level middleware when serving static files by disabling path unescaping by default.",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes",
+        "github.com/mattn/go-colorable 0.1.14→0.1.15: compare v0.1.14...v0.1.15 ✓ 5234 bytes",
+        "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
+        "context: 90621 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 921,
+      "url": "https://github.com/mudler/edgevpn/pull/921",
+      "headSHA": "5f02f606cbb7561f4670247b56edb576403808f6",
+      "verdict": "good",
+      "reasoning": "This is a dependency update to a newer version of a trusted library. The changes appear to be internal refactoring and API adjustments within the dependency itself, which is standard maintenance. There are no obvious security vulnerabilities introduced by this upgrade.",
+      "changesSummary": "This PR updates the dependency `github.com/creachadair/otp` from v0.5.0 to v0.5.4. The update includes internal refactoring in the library to use a `WithKey` method for configuration initialization and updates the Base32 encoding logic in `otpauth/otpauth.go`.",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "github.com/creachadair/otp 0.5.0→0.5.4: compare v0.5.0...v0.5.4 ✓ 19443 bytes",
+        "creachadair/otp v0.5.3..v0.5.4 (PR body): compare v0.5.3...v0.5.4 ✓ 5883 bytes",
+        "creachadair/otp v0.5.2..v0.5.3 (PR body): compare v0.5.2...v0.5.3 ✓ 9482 bytes",
+        "creachadair/otp v0.5.1..v0.5.2 (PR body): compare v0.5.1...v0.5.2 ✓ 6039 bytes",
+        "creachadair/otp v0.5.0..v0.5.1 (PR body): compare v0.5.0...v0.5.1 ✓ 6271 bytes",
+        "context: 50945 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 923,
+      "url": "https://github.com/mudler/edgevpn/pull/923",
+      "headSHA": "f6f3145fda7fa685cc30799e9338df53c2f8f421",
+      "verdict": "needs_human_verification",
+      "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "github.com/miekg/dns 1.1.66→1.1.68: compare v1.1.66...v1.1.68 ✓ 40000 bytes",
+        "miekg/dns v1.1.64..v1.1.68 (PR body): compare v1.1.64...v1.1.68 ✓ 40000 bytes",
+        "context: 86107 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 927,
+      "url": "https://github.com/mudler/edgevpn/pull/927",
+      "headSHA": "c10acc2a0ac6cff7de7ab9f7d2c0b9098102e352",
+      "verdict": "good",
+      "reasoning": "This is a standard dependency upgrade to a newer major version, which is generally a positive security and maintenance practice. The changes include necessary updates to workflows to use the new action version and Node.js version, as well as internal code refactoring to align with the v5 API. No security regressions are apparent.",
+      "changesSummary": "This pull request bumps the `actions/checkout` dependency from version 4 to 5.0.0 and updates related configurations across workflows and source code. It also updates the Node.js version used in workflows to 24.x and refactors the URL helper logic for improved handling of GitHub Enterprise Cloud and other hostnames.",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "actions/checkout v4..v5.0.0 (PR body): compare v4...v5.0.0 ✓ 11870 bytes",
+        "actions/checkout v4..v4.3.0 (PR body): compare v4...v4.3.0 failed/empty (no upstream diff)",
+        "actions/checkout v4.2.1..v4.2.2 (PR body): compare v4.2.1...v4.2.2 ✓ 9872 bytes",
+        "actions/checkout v4.2.0..v4.2.1 (PR body): compare v4.2.0...v4.2.1 ✓ 3510 bytes",
+        "actions/checkout v4..v5 (PR body): compare v4...v5 ✓ 40000 bytes",
+        "context: 84131 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 939,
+      "url": "https://github.com/mudler/edgevpn/pull/939",
+      "headSHA": "f6ec0893377fd21426d4b1acaa00239a5d3f7e2b",
+      "verdict": "good",
+      "reasoning": "The change is a dependency bump for a widely used action, which is a standard maintenance task. The changelog indicates breaking changes, specifically a Node.js runtime upgrade, which requires verification in the CI pipeline. Assuming the project's CI passes successfully after this update, the change is safe to auto-approve.",
+      "changesSummary": "This PR upgrades the `actions/setup-go` dependency from version 5 to 6. This involves updating references in various GitHub Actions workflow files to use the new action version and incorporates breaking changes from v6.0.0, such as upgrading the Node.js runtime to node 24.x in affected workflows.",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "actions/setup-go v5..v6.0.0 (PR body): compare v5...v6.0.0 ✓ 40000 bytes",
+        "actions/setup-go v5..v5.5.0 (PR body): compare v5...v5.5.0 failed/empty (no upstream diff)",
+        "actions/setup-go v5..v6 (PR body): compare v5...v6 ✓ 40000 bytes",
+        "context: 92926 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 942,
+      "url": "https://github.com/mudler/edgevpn/pull/942",
+      "headSHA": "3facb984c9ec2ed3d713d141eed9672780cca210",
+      "verdict": "good",
+      "reasoning": "This is a routine dependency update to a newer minor version of a well-known testing library. The changes primarily involve version bumps and internal code refactoring, which are typical for dependency maintenance. Since this is a standard update and the changes appear to be focused on compatibility and minor fixes, it is safe to auto-approve.",
+      "changesSummary": "This PR bumps github.com/onsi/gomega to version 1.38.2 and updates several related dependencies, including golang.org/x/net, google.golang.org/protobuf, and gopkg.in/yaml.v3. It also includes internal refactoring in gstruct to improve handling of unexported fields and updates to internal error handling.",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "github.com/onsi/gomega 1.37.0→1.38.2: compare v1.37.0...v1.38.2 ✓ 34194 bytes",
+        "github.com/Masterminds/semver/v3 3.3.1→3.4.0: compare v3.3.1...v3.4.0 ✓ 40000 bytes",
+        "context: 89137 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 943,
+      "url": "https://github.com/mudler/edgevpn/pull/943",
+      "headSHA": "59b8f3764fe1d01788f142256c5823393c4633fb",
+      "verdict": "good",
+      "reasoning": "This is a routine dependency update for a well-known action. The changes are confined to updating the version number, and the upstream changes detailed in the changelog appear to be standard maintenance and minor feature updates, posing no immediate security risk.",
+      "changesSummary": "This pull request updates the `codecov/codecov-action` dependency from version 5.5.0 to 5.5.1. This version bump incorporates several underlying dependency updates for related actions, such as `actions/checkout` and `github/codeql-action`.",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "codecov/codecov-action v5.5.0..v5.5.1 (PR body): compare v5.5.0...v5.5.1 ✓ 10680 bytes",
+        "context: 21031 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 946,
+      "url": "https://github.com/mudler/edgevpn/pull/946",
+      "headSHA": "04fd640fcd4a015bfbe1b7954a811384b92f1b1b",
+      "verdict": "needs_human_verification",
+      "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "github.com/libp2p/go-libp2p-kad-dht 0.36.0→0.39.0: compare v0.36.0...v0.39.0 ✓ 40000 bytes",
+        "golang.org/x/sys 0.41.0→0.42.0: compare v0.41.0...v0.42.0 ✓ 28932 bytes",
+        "context: 212268 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 951,
+      "url": "https://github.com/mudler/edgevpn/pull/951",
+      "headSHA": "c58102b8ba385fa2b8d494b4c18dfd5d47ee4332",
+      "verdict": "good",
+      "reasoning": "This is a standard dependency bump for a widely used GitHub Action. The changes primarily involve updating the version number and migrating usage patterns in workflows, which is typical for dependency maintenance. The noted breaking change regarding Node v24.x support is documented, making the update safe to proceed with for automated approval.",
+      "changesSummary": "This PR bumps the dependency `actions/download-artifact` from version 5 to 6. It updates the dependency version in the configuration, modifies usage in workflow files to use the new version, and updates internal code imports. The release notes indicate a breaking change related to Node v24.x support.",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "actions/download-artifact v5..v6.0.0 (PR body): compare v5...v6.0.0 ✓ 40000 bytes",
+        "actions/download-artifact v5..v6 (PR body): compare v5...v6 ✓ 40000 bytes",
+        "context: 88447 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 961,
+      "url": "https://github.com/mudler/edgevpn/pull/961",
+      "headSHA": "e2db908d8393e36ef4cf2fe1b16d9762f9eed2e1",
+      "verdict": "good",
+      "reasoning": "The changes are a dependency bump to a newer minor version of a well-maintained library. The diffs show internal refactoring, modernization of logging, and the addition of new features (GossipSub v1.3 support and peer extensions). There are no apparent security regressions or breaking API changes that would warrant manual review.",
+      "changesSummary": "This PR bumps `go-libp2p-pubsub` to version 0.15.0, which includes internal refactoring for logging (migrating to `log/slog`), the addition of support for GossipSub protocol version 1.3, and the implementation of a new Peer Extensions mechanism for testing. These changes are primarily internal improvements and feature additions.",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "github.com/libp2p/go-libp2p-pubsub 0.14.2→0.15.0: compare v0.14.2...v0.15.0 ✓ 40000 bytes",
+        "libp2p/go-libp2p-pubsub v0.14.3..v0.15.0 (PR body): compare v0.14.3...v0.15.0 ✓ 40000 bytes",
+        "context: 116011 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 1001,
+      "url": "https://github.com/mudler/edgevpn/pull/1001",
+      "headSHA": "ee6a8c570666cf97d5b2d095c7c305b0fe788e03",
+      "verdict": "needs_human_verification",
+      "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "FortAwesome/Font-Awesome 7.0.0..7.0.1 (PR body): compare 7.0.0...7.0.1 ✓ 40000 bytes",
+        "FortAwesome/Font-Awesome 6.7.2..7.0.0 (PR body): compare 6.7.2...7.0.0 failed/empty (no upstream diff)",
+        "FortAwesome/Font-Awesome 6.7.1..6.7.2 (PR body): compare 6.7.1...6.7.2 ✓ 40000 bytes",
+        "context: 83524 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
       "pr": 1006,
       "url": "https://github.com/mudler/edgevpn/pull/1006",
       "headSHA": "b50bebf89b57268a3d68d4845596ec01b160c5a8",
@@ -1009,29 +1171,15 @@
       "repo": "mudler/edgevpn",
       "pr": 1042,
       "url": "https://github.com/mudler/edgevpn/pull/1042",
-      "headSHA": "15cb345ac326566bebea2557da79b8abebbd7e44",
+      "headSHA": "96bdee193c8ca842e748ce009544c2a17e66d1a2",
       "verdict": "good",
-      "reasoning": "This is a routine dependency update to a newer version of Ginkgo. The changelog indicates new features and improvements, including better debugging capabilities and new AI integration features. There are no immediate red flags suggesting a security vulnerability or a major breaking change that would prevent an automated merge.",
-      "changesSummary": "This PR updates the dependency `github.com/onsi/ginkgo/v2` from version v2.29.0 to v2.32.0. This update introduces new features like RSpec-style documentation output (`-fd`), improved suite orchestration via `globals.Reset()`, and a new plugin for integrating Claude Code skills.",
+      "reasoning": "This is a standard dependency update to a newer minor/patch version. The changelog indicates new features and debugging tools, suggesting this is a safe upgrade. However, a human review should verify that the new features do not introduce any unexpected regressions in the project's test suite.",
+      "changesSummary": "This PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.29.0 to v2.32.0. This update introduces new features such as RSpec-style documentation output (`-fd`) and a `--sleep-on-failure` debugging flag.",
       "reviewedRun": "2026-06-25",
       "trace": [
         "github.com/onsi/ginkgo/v2 2.29.0→2.32.0: compare v2.29.0...v2.32.0 ✓ 40000 bytes",
-        "context: 44311 bytes"
-      ]
-    },
-    {
-      "repo": "mudler/edgevpn",
-      "pr": 1044,
-      "url": "https://github.com/mudler/edgevpn/pull/1044",
-      "headSHA": "afd236733902ccdf25748de7a5c4e09243fea70a",
-      "verdict": "good",
-      "reasoning": "This is a minor version bump for a widely used testing library. The changes primarily involve adding a new feature (a Claude plugin) and updating documentation, which are generally low-risk. Since the changes are well-documented in the PR, it is safe to auto-approve.",
-      "changesSummary": "This PR updates the dependency `github.com/onsi/gomega` from v1.41.0 to v1.42.1. The update introduces a new Claude skill plugin, updates the changelog, and adds extensive documentation to explain the new features. This is a feature-focused dependency upgrade.",
-      "reviewedRun": "2026-06-25",
-      "trace": [
-        "github.com/onsi/gomega 1.41.0→1.42.1: compare v1.41.0...v1.42.1 ✓ 40000 bytes",
-        "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
-        "context: 90352 bytes"
+        "onsi/ginkgo v2.31.0..v2.32.0 (PR body): compare v2.31.0...v2.32.0 ✓ 35617 bytes",
+        "context: 80006 bytes"
       ]
     },
     {
@@ -1046,6 +1194,21 @@
       "trace": [
         "no go.mod dependency bumps parsed from the PR diff",
         "context: 42380 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 1046,
+      "url": "https://github.com/mudler/edgevpn/pull/1046",
+      "headSHA": "336b2e00c049ef8094f7b664c9758d210dd3d461",
+      "verdict": "good",
+      "reasoning": "This is a routine dependency update to a newer version of Autoprefixer. The changes primarily address compatibility fixes and minor logic adjustments, which are generally safe and beneficial for the project. There are no apparent security risks introduced by this version bump.",
+      "changesSummary": "The PR updates the `autoprefixer` dependency from v10.5.0 to v10.5.2. This update includes fixes for Firefox compatibility related to `-webkit-fill-available` and related adjustments in source code and test files.",
+      "reviewedRun": "2026-06-25",
+      "trace": [
+        "postcss/autoprefixer 10.5.1..10.5.2 (PR body): compare 10.5.1...10.5.2 ✓ 2688 bytes",
+        "postcss/autoprefixer 10.5.0..10.5.1 (PR body): compare 10.5.0...10.5.1 ✓ 40000 bytes",
+        "context: 54014 bytes"
       ]
     }
   ]
