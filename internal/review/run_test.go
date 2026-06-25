@@ -49,7 +49,7 @@ func (f *fakeGH) ApprovePR(repo string, pr int, body string) error {
 func TestRunAssessesBotPRsIdempotently(t *testing.T) {
 	gh := &fakeGH{
 		prs: map[string][]ghclient.PullRequest{"o/r": {
-			{Number: 2, Title: "bump x", Author: "app/dependabot", IsBot: true, HeadSHA: "sha2", URL: "u2"},
+			{Number: 2, Title: "bump x", Author: "app/dependabot", IsBot: true, HeadSHA: "sha2", URL: "u2", Body: "### Release Notes"},
 			{Number: 3, Title: "human pr", Author: "alice", HeadSHA: "sha3"}, // not a bot -> skipped
 		}},
 		diffs: map[string][]byte{"o/r": []byte("go.mod bump")},
@@ -148,7 +148,7 @@ func TestRunCompareDiffErrorStillAssesses(t *testing.T) {
 func TestRunDryRunWritesNothing(t *testing.T) {
 	gh := &fakeGH{
 		prs: map[string][]ghclient.PullRequest{"o/r": {
-			{Number: 2, Title: "bump x", IsBot: true, HeadSHA: "sha2", URL: "u2"},
+			{Number: 2, Title: "bump x", IsBot: true, HeadSHA: "sha2", URL: "u2", Body: "### Release Notes"},
 		}},
 		diffs: map[string][]byte{"o/r": []byte("go.mod bump")},
 	}
@@ -330,4 +330,47 @@ func TestRunFetchesUpstreamFromBodyCompareLink(t *testing.T) {
 		}
 	}
 	assert.True(t, sawCompare, "trace should record the successful body-link compare: %v", out[0].Trace)
+}
+
+func TestRunForcesNeedsHumanWhenNoContext(t *testing.T) {
+	// No changelog (empty body) and the upstream compare fails -> 0 bytes of
+	// evidence. Even if the model says "good", force needs_human_verification.
+	diff := []byte("-	github.com/foo/bar v1.2.3\n+	github.com/foo/bar v1.2.4\n")
+	gh := &fakeGH{
+		prs: map[string][]ghclient.PullRequest{"o/r": {
+			{Number: 2, Title: "bump bar", IsBot: true, HeadSHA: "sha2", URL: "u2", Body: ""},
+		}},
+		diffs:   map[string][]byte{"o/r": diff},
+		compErr: assert.AnError, // no upstream diff fetched
+	}
+	a := &FakeAssessor{Verdict: "good", Reasoning: "looks fine"} // model would pass it
+	cfg := config.ReviewCfg{Enabled: true, MaxPerRun: 20}
+
+	out, errs := Run([]state.Repo{{Repo: "o/r"}}, gh, a, cfg, nil, "run1", false)
+	require.Empty(t, errs)
+	require.Len(t, out, 1)
+	assert.Equal(t, "needs_human_verification", out[0].Verdict) // overridden
+	found := false
+	for _, tl := range out[0].Trace {
+		if strings.Contains(tl, "insufficient context") {
+			found = true
+		}
+	}
+	assert.True(t, found, "trace should record the forced override")
+}
+
+func TestRunKeepsVerdictWhenChangelogPresent(t *testing.T) {
+	// Empty upstream diff but a non-empty changelog body -> the model has
+	// something to go on, so its verdict stands.
+	gh := &fakeGH{
+		prs: map[string][]ghclient.PullRequest{"o/r": {
+			{Number: 3, Title: "bump x", IsBot: true, HeadSHA: "sha3", URL: "u3", Body: "### Release Notes\nfixed a bug"},
+		}},
+		diffs: map[string][]byte{"o/r": []byte("docs only\n")},
+	}
+	a := &FakeAssessor{Verdict: "good", Reasoning: "clean"}
+	cfg := config.ReviewCfg{Enabled: true, MaxPerRun: 20}
+	out, _ := Run([]state.Repo{{Repo: "o/r"}}, gh, a, cfg, nil, "run1", false)
+	require.Len(t, out, 1)
+	assert.Equal(t, "good", out[0].Verdict) // not forced (changelog present)
 }

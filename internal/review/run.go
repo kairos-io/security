@@ -61,6 +61,7 @@ func Run(repos []state.Repo, gh ghclient.GitHub, a Assessor, cfg config.ReviewCf
 				continue
 			}
 			var trace []string
+			upstreamBytes := 0
 			targets := compareTargets(diff, pr.Body)
 			if len(targets) == 0 {
 				trace = append(trace, "no upstream comparisons available (no go.mod bumps or compare links in the PR body)")
@@ -79,10 +80,21 @@ func Run(repos []state.Repo, gh ghclient.GitHub, a Assessor, cfg config.ReviewCf
 				}
 				fmt.Fprintf(&ctx, "Upstream %s (%s...%s):\n%s\n\n", t.Label, t.Base, t.Head, ud)
 				trace = append(trace, fmt.Sprintf("%s: compare %s...%s ✓ %d bytes", t.Label, t.Base, t.Head, len(ud)))
+				upstreamBytes += len(ud)
 			}
 			ctx.WriteString("PR diff:\n" + string(diff))
 			trace = append(trace, fmt.Sprintf("context: %d bytes", ctx.Len()))
 			verdict, reasoning, summary, _ := a.Assess(pr, ctx.String()) // assessor never hard-errors (defaults needs_human)
+			// Safety floor: with neither an upstream diff nor a changelog, the
+			// model can only see version numbers — not what changed — so don't
+			// trust a good/bad guess; force a human to look.
+			if upstreamBytes == 0 && strings.TrimSpace(pr.Body) == "" && verdict != "needs_human_verification" {
+				trace = append(trace, "insufficient context (no upstream diff or changelog) → forced needs_human_verification")
+				verdict = "needs_human_verification"
+				if reasoning == "" {
+					reasoning = "insufficient context to assess: no upstream diff or changelog available"
+				}
+			}
 			rv := state.PRReview{Repo: repo.Repo, PR: pr.Number, URL: pr.URL, HeadSHA: pr.HeadSHA,
 				Verdict: verdict, Reasoning: reasoning, ChangesSummary: summary, Trace: trace, ReviewedRun: runID}
 			out = append(out, rv)
