@@ -76,12 +76,16 @@ func TestDashboardHTMLSections(t *testing.T) {
 	for _, want := range []string{
 		"<!DOCTYPE html>",
 		"<title>Kairos Security Dashboard</title>",
-		"<h1>Kairos Security Dashboard",
+		`<span class="brand">Kairos `,
+		"Needs attention",
 		"Focus now",
 		"Waterfall fronts",
 		"Per-repo findings",
 		"collection error",
 		"actions/runs/1",
+		// repo names are links, and every link opens in a new tab
+		`href="https://github.com/kairos-io/kairos"`,
+		`target="_blank" rel="noopener"`,
 	} {
 		assert.True(t, strings.Contains(got, want), "expected output to contain %q", want)
 	}

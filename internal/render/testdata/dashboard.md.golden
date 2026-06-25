@@ -2,6 +2,8 @@
 
 _Updated 2026-06-19._
 
+🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
+
 ## 📋 This run
 
 - **Scanned:** 3 repos · ⚠️ 1 errored
@@ -26,13 +28,13 @@ _Updated 2026-06-19._
 
 | Repo | Critical | High | Medium | Low | Total | Status |
 |---|---|---|---|---|---|---|
-| kairos-io/kairos | 1 | 0 | 0 | 0 | 1 | ok |
-| kairos-io/kairos-sdk | 0 | 0 | 0 | 0 | 0 | clean |
-| kairos-io/x | 0 | 0 | 0 | 0 | 0 | ⚠️ errors |
+| [kairos-io/kairos](https://github.com/kairos-io/kairos) | 1 | 0 | 0 | 0 | 1 | ok |
+| [kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk) | 0 | 0 | 0 | 0 | 0 | clean |
+| [kairos-io/x](https://github.com/kairos-io/x) | 0 | 0 | 0 | 0 | 0 | ⚠️ errors |
 
 ## ⚠️ 1 collection errors
 
-- `kairos-io/x` / prs: rate limited
+- [kairos-io/x](https://github.com/kairos-io/x) / prs: rate limited
 
 ## 📋 Open PRs
 
@@ -42,7 +44,7 @@ _None._
 
 | Repo | Bump | Kind | Source | State | PR |
 |---|---|---|---|---|---|
-| kairos-io/immucore | golang.org/x/net@0.33.0 | direct | ksec | open | [#412](https://github.com/kairos-io/immucore/pull/412) |
+| [kairos-io/immucore](https://github.com/kairos-io/immucore) | golang.org/x/net@0.33.0 | direct | ksec | open | [#412](https://github.com/kairos-io/immucore/pull/412) |
 
 ---
 [Run log](https://github.com/kairos-io/security/actions/runs/1)

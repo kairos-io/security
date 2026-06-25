@@ -55,9 +55,9 @@ func TestDashboardMarkdownGolden(t *testing.T) {
 // repo shows the "⚠️ errors" status.
 func TestDashboardMarkdownRepoStatus(t *testing.T) {
 	got := DashboardMarkdown(sampleInput())
-	assert.Contains(t, got, "| kairos-io/kairos-sdk | 0 | 0 | 0 | 0 | 0 | clean |")
-	assert.Contains(t, got, "| kairos-io/x | 0 | 0 | 0 | 0 | 0 | ⚠️ errors |")
-	assert.Contains(t, got, "| kairos-io/kairos | 1 | 0 | 0 | 0 | 1 | ok |")
+	assert.Contains(t, got, "| [kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk) | 0 | 0 | 0 | 0 | 0 | clean |")
+	assert.Contains(t, got, "| [kairos-io/x](https://github.com/kairos-io/x) | 0 | 0 | 0 | 0 | 0 | ⚠️ errors |")
+	assert.Contains(t, got, "| [kairos-io/kairos](https://github.com/kairos-io/kairos) | 1 | 0 | 0 | 0 | 1 | ok |")
 }
 
 func TestDashboardMarkdownCoordinationSummary(t *testing.T) {

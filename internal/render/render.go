@@ -85,6 +85,11 @@ func DashboardJSON(in Input) ([]byte, error) {
 	return append(b, '\n'), nil
 }
 
+// repoLink renders a repo slug as a markdown link to its GitHub page.
+func repoLink(repo string) string {
+	return fmt.Sprintf("[%s](https://github.com/%s)", repo, repo)
+}
+
 func DashboardMarkdown(in Input) string {
 	var b strings.Builder
 	b.WriteString("# Kairos Security Dashboard\n\n")
@@ -93,6 +98,7 @@ func DashboardMarkdown(in Input) string {
 		b.WriteString(" — ⚠️ AI unavailable this run")
 	}
 	b.WriteString("._\n\n")
+	b.WriteString("🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.\n\n")
 
 	// Deterministic run-activity summary, computed from committed state.
 	a := computeActivity(in)
@@ -151,7 +157,7 @@ func DashboardMarkdown(in Input) string {
 	b.WriteString("| Repo | Critical | High | Medium | Low | Total | Status |\n|---|---|---|---|---|---|---|\n")
 	for _, row := range perRepoRows(in.Repos, in.Correlated.Findings, in.CollectErrors) {
 		fmt.Fprintf(&b, "| %s | %d | %d | %d | %d | %d | %s |\n",
-			row.repo, row.crit, row.high, row.med, row.low, row.total, repoStatus(row))
+			repoLink(row.repo), row.crit, row.high, row.med, row.low, row.total, repoStatus(row))
 	}
 	b.WriteString("\n")
 
@@ -159,7 +165,7 @@ func DashboardMarkdown(in Input) string {
 	if len(in.CollectErrors) > 0 {
 		fmt.Fprintf(&b, "## ⚠️ %d collection errors\n\n", len(in.CollectErrors))
 		for _, e := range in.CollectErrors {
-			fmt.Fprintf(&b, "- `%s` / %s: %s\n", e.Repo, e.Collector, e.Message)
+			fmt.Fprintf(&b, "- %s / %s: %s\n", repoLink(e.Repo), e.Collector, e.Message)
 		}
 		b.WriteString("\n")
 	}
@@ -174,7 +180,7 @@ func DashboardMarkdown(in Input) string {
 		for _, pr := range in.OpenPRs {
 			if pr.Repo != repo {
 				repo = pr.Repo
-				fmt.Fprintf(&b, "**%s**\n\n", repo)
+				fmt.Fprintf(&b, "**%s**\n\n", repoLink(repo))
 			}
 			link := fmt.Sprintf("#%d %s", pr.Number, pr.Title)
 			if pr.URL != "" {
@@ -220,7 +226,7 @@ func DashboardMarkdown(in Input) string {
 			if e.Supersedes != "" {
 				bump += " ↳ supersedes " + e.Supersedes
 			}
-			fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s |\n", e.Repo, bump, kind, source, st, pr)
+			fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s |\n", repoLink(e.Repo), bump, kind, source, st, pr)
 		}
 		b.WriteString("\n")
 	}
@@ -241,7 +247,7 @@ func DashboardMarkdown(in Input) string {
 		for _, r := range in.Reviews {
 			if r.Repo != repo {
 				repo = r.Repo
-				fmt.Fprintf(&b, "**%s**\n\n", repo)
+				fmt.Fprintf(&b, "**%s**\n\n", repoLink(repo))
 			}
 			link := fmt.Sprintf("#%d", r.PR)
 			if r.URL != "" {
