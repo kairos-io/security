@@ -3,21 +3,100 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 409,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/409",
-    "headSHA": "64a224d432a3ad8b15480b6223f12e3b7618978e",
-    "verdict": "good",
-    "reasoning": "This pull request appears to be a standard automated dependency update, primarily updating a dependency digest for github.com/foxboron/sbctl. Dependency updates are routine maintenance and generally safe, provided the updated versions do not introduce known critical vulnerabilities.",
-    "changesSummary": "This PR updates the digest for github.com/foxboron/sbctl to a specific commit hash, and also updates several other dependencies like github.com/fatih/color, golang.org/x/sys, and adds/updates packages such as github.com/go-piv/piv-go/v2 and kernel.org/pub/linux/libs/security/libcap/psx.",
-    "reviewedRun": "2026-06-24"
+    "headSHA": "565be28b3276e594ad63e3705fc8e2a54a47ab70",
+    "verdict": "needs_human_verification",
+    "reasoning": "The PR includes a dependency update, which is generally positive. However, it also introduces a substantial amount of new code, including a complete key management backend system for File, TPM, and Yubikey. Due to the extensive refactoring and the introduction of new security-sensitive logic, a manual review is required to ensure the new key hierarchy implementation is correct and secure before merging.",
+    "changesSummary": "This PR updates the digest for the `github.com/foxboron/sbctl` dependency. Additionally, it introduces a comprehensive new backend package to support key hierarchies (PK, KEK, Db) with implementations for File, TPM, and Yubikey key storage and signing. This involves significant refactoring across the codebase, build scripts, and dependency versions.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes",
+      "github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes",
+      "context: 58420 bytes"
+    ]
   },
   {
     "repo": "kairos-io/AuroraBoot",
     "pr": 566,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/566",
-    "headSHA": "a2a6310b6760e8728ec68783181d65c56d8eaa03",
+    "headSHA": "ff1b0759fce61933d871b109ae8640aa232d98a3",
     "verdict": "good",
-    "reasoning": "This is a routine dependency update for a well-known icon library (`lucide-react`). Since this change is driven by a bot and involves updating a dependency to a newer version, it is generally safe to auto-approve.",
-    "changesSummary": "This PR updates the dependency `lucide-react` from version ^0.468.0 to ^0.577.0. This is a standard dependency maintenance update, likely performed by a bot, to pull in the latest version of the library.",
-    "reviewedRun": "2026-06-24"
+    "reasoning": "This is a standard dependency update for an icon library, performed by a bot. The version bump is minor and the changelog indicates feature additions and fixes rather than breaking changes. Therefore, this change is safe to auto-approve.",
+    "changesSummary": "This pull request updates the `lucide-react` dependency from version ^0.468.0 to ^0.577.0. This update incorporates recent fixes, new icons, and dependency bumps within the Lucide library.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "no go.mod dependency bumps parsed from the PR diff",
+      "context: 59675 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 586,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/586",
+    "headSHA": "eb42a481ef1ed8f6f86a268b5f29e63e33732b54",
+    "verdict": "good",
+    "reasoning": "The PR updates a core dependency, `github.com/kairos-io/go-ukify`, to version v0.5.0, which includes fixes for CVEs and other dependency updates. The accompanying code changes refactor the `PCRSigner` to use the `crypto.Signer` interface and add PKCS#11 support, which is a positive architectural improvement.",
+    "changesSummary": "This PR updates the `go-ukify` dependency to v0.5.0, incorporating security fixes and other dependency updates. It also refactors the `PCRSigner` implementation to use the `crypto.Signer` interface and adds support for PKCS#11 key loading.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "github.com/kairos-io/go-ukify 0.4.0→0.5.0: compare v0.4.0...v0.5.0 ✓ 18239 bytes",
+      "context: 24176 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 587,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/587",
+    "headSHA": "d10a859d1bbb88886b15d4df417db57f884110ce",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update to a newer major version of a commonly used action. The changelog indicates that this update is documented and involves dependency adjustments, which is expected for a major version bump. There are no immediate security red flags apparent from the context provided.",
+    "changesSummary": "This PR updates the `cypress-io/github-action` dependency from version v6 to v7.4.0. This major update includes changes related to Node.js version handling, specifically removing support for Node.js 25.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "no go.mod dependency bumps parsed from the PR diff",
+      "context: 8476 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 588,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/588",
+    "headSHA": "b76d1dcf4e848c9f32d0ad5f74956044510ae8fc",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update generated by an automated tool (Mend Renovate) to update a Docker tag. Since this is a version bump for a base image, it is generally safe to auto-approve as long as the new version does not introduce critical, unmitigated security issues.",
+    "changesSummary": "This PR updates the version of the `debian` dependency from v12 to v13 within the project's configuration. This change is likely updating a Docker base image tag used by the project.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "no go.mod dependency bumps parsed from the PR diff",
+      "context: 1712 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 590,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/590",
+    "headSHA": "ca43974bf8bf7119c24d6113598030edb5a75c47",
+    "verdict": "needs_human_verification",
+    "reasoning": "Although this is a dependency update, the changelog for `globals` explicitly mentions breaking changes between versions. Therefore, a human review is necessary to verify that the project's existing code remains compatible with the new version before merging.",
+    "changesSummary": "This PR updates the `globals` dependency from version 15.14.0 to 17.0.0. This update includes new features and environment changes, some of which are noted as breaking changes in the dependency's release notes.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "no go.mod dependency bumps parsed from the PR diff",
+      "context: 9688 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 591,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/591",
+    "headSHA": "a1ebf4bb468b3b98f59fdf53a9f2f7d93d8b1d7b",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency update to a newer major version of TypeScript, which is a routine maintenance task. The change is clearly documented by the bot and involves only updating package versions, posing no immediate security risk.",
+    "changesSummary": "This PR updates the TypeScript dependency from version ~5.9.0 to ~6.0.0 (specifically installing v6.0.3). This is a routine dependency update to a newer major version of the package.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "no go.mod dependency bumps parsed from the PR diff",
+      "context: 5053 bytes"
+    ]
   },
   {
     "repo": "kairos-io/cluster-api-provider-kairos",
@@ -242,6 +321,20 @@
     "reviewedRun": "2026-06-24"
   },
   {
+    "repo": "kairos-io/go-ukify",
+    "pr": 57,
+    "url": "https://github.com/kairos-io/go-ukify/pull/57",
+    "headSHA": "c91e0f5dd65495a9334e3cbd2a17776acf0d7d85",
+    "verdict": "good",
+    "reasoning": "This is a dependency update to a major version of a well-known action. The changelog indicates that the v7 release includes various features, fixes, and dependency bumps, suggesting this is a beneficial upgrade. Since this is an automated dependency update, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the usage of the `goreleaser/goreleaser-action` dependency from version v6 to v7 in the release workflow. This upgrade incorporates recent features, dependency updates, and improvements from the v7 release.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "no go.mod dependency bumps parsed from the PR diff",
+      "context: 9348 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/kairos",
     "pr": 4104,
     "url": "https://github.com/kairos-io/kairos/pull/4104",
@@ -250,6 +343,20 @@
     "reasoning": "The PR title suggests an automation task related to dependency upgrades. While automation can be beneficial, security review requires inspecting the actual code changes to ensure no unintended side effects or vulnerabilities were introduced during the pipeline wiring.",
     "changesSummary": "The PR aims to automate the process of fetching the latest release and running validation tests within the upgrade pipeline.",
     "reviewedRun": "2026-06-24"
+  },
+  {
+    "repo": "kairos-io/kairos",
+    "pr": 4193,
+    "url": "https://github.com/kairos-io/kairos/pull/4193",
+    "headSHA": "cae7cf3630f6de14662f4e0100b35d93bfb9b057",
+    "verdict": "good",
+    "reasoning": "This change is a minor version bump for a widely used GitHub Action. Updating standard tooling dependencies is generally safe and necessary for maintenance. There are no immediate security concerns indicated by this change.",
+    "changesSummary": "This PR updates the version of the `actions/setup-go` action from v6.4.0 to v6.5.0 across multiple workflow files. This is a standard dependency update for the Go setup action.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "no go.mod dependency bumps parsed from the PR diff",
+      "context: 2903 bytes"
+    ]
   },
   {
     "repo": "kairos-io/kairos-operator",
@@ -505,6 +612,167 @@
       "golang.org/x/net 0.0.0-20210410081132-afb366fc7cd1→0.23.0: compare afb366fc7cd1...v0.23.0 ✓ 40000 bytes",
       "golang.org/x/sys 0.0.0-20210330210617-4fbd30eecc44→0.18.0: compare 4fbd30eecc44...v0.18.0 ✓ 40000 bytes",
       "context: 85299 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/tpm-helpers",
+    "pr": 6,
+    "url": "https://github.com/kairos-io/tpm-helpers/pull/6",
+    "headSHA": "0db448f2328aaae8e9079b766fcd2220a4c0a41f",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "golang.org/x/crypto 0.0.0-20220722155217-630584e8d5aa→0.17.0: compare 630584e8d5aa...v0.17.0 ✓ 40000 bytes",
+      "golang.org/x/net 0.0.0-20220722155237-a158d28d115b→0.10.0: compare a158d28d115b...v0.10.0 ✓ 40000 bytes",
+      "context: 90128 bytes"
+    ]
+  },
+  {
+    "repo": "mauromorales/xpasswd",
+    "pr": 47,
+    "url": "https://github.com/mauromorales/xpasswd/pull/47",
+    "headSHA": "672d3353aa92b0425c91ad3e595ecabebde8c394",
+    "verdict": "good",
+    "reasoning": "The pull request is a routine dependency update to a newer version of Ginkgo. The changes documented in the changelog point to new features and documentation improvements, which are beneficial for the project. There are no apparent security risks introduced by this version bump. Therefore, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.28.3 to v2.32.0. The changes include new features like RSpec-style documentation output, updates to the plugin marketplace, and significant refactoring and documentation improvements within the Ginkgo project itself. This is a standard dependency upgrade.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "github.com/onsi/ginkgo/v2 2.28.3→2.32.0: compare v2.28.3...v2.32.0 ✓ 40000 bytes",
+      "context: 44543 bytes"
+    ]
+  },
+  {
+    "repo": "mauromorales/xpasswd",
+    "pr": 48,
+    "url": "https://github.com/mauromorales/xpasswd/pull/48",
+    "headSHA": "e9a4ded5d703596a07bc8f3d8daccf9b7c775348",
+    "verdict": "good",
+    "reasoning": "This is a dependency update to a well-known testing library, Gomega. The changes involve adding new matchers and internal code refactoring for better debugging, which are generally positive for maintainability. There are no obvious security vulnerabilities introduced by this update.",
+    "changesSummary": "This PR updates the dependency `github.com/onsi/gomega` from v1.40.0 to v1.42.1. It introduces new matchers (`BeASlice`, `BeAnArray`) and significantly refactors the internal formatting functions to handle cyclic references for improved debugging output. The plugin version is also updated to match the new library version.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "github.com/onsi/gomega 1.40.0→1.42.1: compare v1.40.0...v1.42.1 ✓ 40000 bytes",
+      "golang.org/x/mod 0.35.0→0.36.0: compare v0.35.0...v0.36.0 ✓ 16991 bytes",
+      "golang.org/x/net 0.53.0→0.56.0: compare v0.53.0...v0.56.0 ✓ 40000 bytes",
+      "context: 105286 bytes"
+    ]
+  },
+  {
+    "repo": "mauromorales/xpasswd",
+    "pr": 49,
+    "url": "https://github.com/mauromorales/xpasswd/pull/49",
+    "headSHA": "b995a4a5bc56bf0fb5d307facc6be3a1be57db78",
+    "verdict": "good",
+    "reasoning": "This change is a minor patch update to the Go toolchain, moving from 1.26.3 to 1.26.4. Toolchain updates are generally low-risk maintenance tasks. Therefore, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the Go toolchain directive in go.mod from version 1.26.3 to 1.26.4. This is a routine patch update to the Go toolchain.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "no go.mod dependency bumps parsed from the PR diff",
+      "context: 1472 bytes"
+    ]
+  },
+  {
+    "repo": "mauromorales/xpasswd",
+    "pr": 50,
+    "url": "https://github.com/mauromorales/xpasswd/pull/50",
+    "headSHA": "7ba4b02f2e90f4c290f8bbebffa8c0f6cb4aaf5c",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency update for a widely used GitHub Action. The upgrade is to a newer major version (v7), which typically includes security patches and improvements. Since this is an automated dependency update, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the version of the `actions/checkout` dependency from v6 to v7 across the workflow files. This upgrade incorporates updates from the official release notes, which include dependency bumps and updates to related actions like `actions/core`.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "no go.mod dependency bumps parsed from the PR diff",
+      "context: 5388 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1006,
+    "url": "https://github.com/mudler/edgevpn/pull/1006",
+    "headSHA": "b50bebf89b57268a3d68d4845596ec01b160c5a8",
+    "verdict": "good",
+    "reasoning": "The upgrade is to a newer minor version (4.15.1) which includes security enhancements, such as the new CSRF middleware features detailed in the release notes. There are no immediate red flags or known critical vulnerabilities associated with this specific version jump. Therefore, this change is safe to auto-approve.",
+    "changesSummary": "This pull request updates the dependency `github.com/labstack/echo/v4` from version 4.13.3 to 4.15.1. This upgrade incorporates several enhancements, including improved CSRF protection features and minor internal fixes related to time comparison logic.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "github.com/labstack/echo/v4 4.13.3→4.15.1: compare v4.13.3...v4.15.1 ✓ 40000 bytes",
+      "github.com/mattn/go-colorable 0.1.13→0.1.14: compare v0.1.13...v0.1.14 ✓ 6350 bytes",
+      "golang.org/x/time 0.12.0→0.14.0: compare v0.12.0...v0.14.0 ✓ 606 bytes",
+      "context: 76092 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1009,
+    "url": "https://github.com/mudler/edgevpn/pull/1009",
+    "headSHA": "1ef9bf457db2031cfa75915c143658041b5e5f4d",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update for a documentation library. The change is a simple commit hash update, which is typical for dependency management. Without further context on the specific changes in the new version, this appears safe to auto-approve.",
+    "changesSummary": "This pull request updates the dependency `docs/themes/docsy` from commit `bbf68d4` to `01c827e`. This change reflects a standard version bump for the documentation library, likely preparing for a release.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "no go.mod dependency bumps parsed from the PR diff",
+      "context: 4207 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1041,
+    "url": "https://github.com/mudler/edgevpn/pull/1041",
+    "headSHA": "8eef830beee45ffd16c27b6ea4198085f7c421e5",
+    "verdict": "good",
+    "reasoning": "This is a dependency upgrade to a newer version of a library, which is generally beneficial. Crucially, this update incorporates a security fix that mitigates a path traversal/ACL bypass vulnerability related to URL-encoded separators in static file serving. Therefore, this change is safe to auto-approve.",
+    "changesSummary": "The PR updates the `github.com/labstack/echo/v4` dependency to `v5.2.1`. This upgrade includes a security fix that changes the default behavior of static file serving to prevent encoded path separators from bypassing route-level access controls.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes",
+      "github.com/mattn/go-colorable 0.1.14→0.1.15: compare v0.1.14...v0.1.15 ✓ 5234 bytes",
+      "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
+      "context: 108729 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1042,
+    "url": "https://github.com/mudler/edgevpn/pull/1042",
+    "headSHA": "15cb345ac326566bebea2557da79b8abebbd7e44",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update to a newer version of Ginkgo. The changelog indicates new features and improvements, including better debugging capabilities and new AI integration features. There are no immediate red flags suggesting a security vulnerability or a major breaking change that would prevent an automated merge.",
+    "changesSummary": "This PR updates the dependency `github.com/onsi/ginkgo/v2` from version v2.29.0 to v2.32.0. This update introduces new features like RSpec-style documentation output (`-fd`), improved suite orchestration via `globals.Reset()`, and a new plugin for integrating Claude Code skills.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "github.com/onsi/ginkgo/v2 2.29.0→2.32.0: compare v2.29.0...v2.32.0 ✓ 40000 bytes",
+      "context: 44311 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1044,
+    "url": "https://github.com/mudler/edgevpn/pull/1044",
+    "headSHA": "afd236733902ccdf25748de7a5c4e09243fea70a",
+    "verdict": "good",
+    "reasoning": "This is a minor version bump for a widely used testing library. The changes primarily involve adding a new feature (a Claude plugin) and updating documentation, which are generally low-risk. Since the changes are well-documented in the PR, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the dependency `github.com/onsi/gomega` from v1.41.0 to v1.42.1. The update introduces a new Claude skill plugin, updates the changelog, and adds extensive documentation to explain the new features. This is a feature-focused dependency upgrade.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "github.com/onsi/gomega 1.41.0→1.42.1: compare v1.41.0...v1.42.1 ✓ 40000 bytes",
+      "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
+      "context: 90352 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1045,
+    "url": "https://github.com/mudler/edgevpn/pull/1045",
+    "headSHA": "c4d973c4ba1bd6844d0292ec41dd0f9fc6eafca1",
+    "verdict": "good",
+    "reasoning": "This is a dependency upgrade to a newer major version of a library. The changelog for v3.10.0 indicates feature additions and fixes, suggesting this is a standard and intended upgrade path. No immediate security red flags are apparent from the context.",
+    "changesSummary": "This PR updates the dependency github.com/urfave/cli from version v2.27.7 to v3.10.0. This upgrade incorporates new features, fixes, and documentation updates present in the v3 series.",
+    "reviewedRun": "2026-06-25",
+    "trace": [
+      "no go.mod dependency bumps parsed from the PR diff",
+      "context: 42380 bytes"
     ]
   }
 ]
