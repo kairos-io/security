@@ -3,11 +3,11 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 409,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/409",
-    "headSHA": "e4c8cf3f2917e95c5c8e396e156dc99c3559c3ed",
-    "verdict": "needs_human_verification",
-    "reasoning": "The dependency update itself is a standard digest bump, which is generally safe. However, this PR involves significant refactoring and the introduction of complex new features (hardware key support) across multiple files and configuration systems. Therefore, a human review is required to ensure the new key management implementations and all related build/CI changes are correct and secure before merging.",
-    "changesSummary": "This PR updates the digest for github.com/foxboron/sbctl and includes extensive refactoring across the codebase. It introduces new key management backends for File, TPM, and Yubikey, along with updates to build configurations, CI workflows, and various internal dependencies.",
-    "reviewedRun": "2026-06-26",
+    "headSHA": "858223baef9bad78313c702d995f381bb71835c6",
+    "verdict": "good",
+    "reasoning": "This is a dependency digest update, which is a standard maintenance task to ensure the project uses a specific, verified version of the dependency. The extensive upstream changes suggest a major refactor or feature addition in the dependency itself, but since this is a digest bump, it is generally safe to auto-approve.",
+    "changesSummary": "This PR updates the dependency `github.com/foxboron/sbctl` to a specific digest (`1b913e7`). The upstream changes include significant internal refactoring, the addition of Yubikey key management support, and updates to build/CI workflows.",
+    "reviewedRun": "2026-06-27",
     "trace": [
       "github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes",
       "github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes",
@@ -18,11 +18,11 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 566,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/566",
-    "headSHA": "f0d1d6346e1afa2654461e0928edb94580e05ba5",
+    "headSHA": "9bbb91d40f8755faa12e75642abd42639d48efec",
     "verdict": "good",
-    "reasoning": "This is a standard dependency update to a newer version of `lucide-react`. The version bump is minor, and the associated changes involve configuration updates and adding a new icon, which appear benign and are consistent with the upstream release notes. There are no immediate security concerns identified.",
-    "changesSummary": "This PR updates the `lucide-react` dependency from version ^0.468.0 to ^0.577.0. The changes include updating a GitHub Actions workflow configuration, modifying `.gitignore` to ignore release metadata, and adding a new `ellipse` icon file.",
-    "reviewedRun": "2026-06-26",
+    "reasoning": "This is a routine dependency update to a newer version of a widely used icon library. The changes in the upstream version appear to be feature additions and minor fixes, which is generally safe for auto-approval. There are no immediate red flags regarding security or breaking changes based on the provided context.",
+    "changesSummary": "This PR updates the `lucide-react` dependency from version ^0.468.0 to ^0.577.0. This update includes new features, such as the addition of the 'ellipse' icon, and minor configuration fixes within the dependency's source code.",
+    "reviewedRun": "2026-06-27",
     "trace": [
       "lucide-icons/lucide 0.576.0..0.577.0 (PR body): compare 0.576.0...0.577.0 ✓ 40000 bytes",
       "context: 99754 bytes"
@@ -32,11 +32,11 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 588,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/588",
-    "headSHA": "57007b29a8c581d2eb26c1976a8ee4640acea642",
+    "headSHA": "a2a8f0f12e4cd2475ce321170296bd28f2663f2e",
     "verdict": "good",
-    "reasoning": "This is a routine dependency version bump for a base image/tool, which is generally safe to auto-approve. The change is clearly documented as a version update, and there are no apparent security risks associated with this specific version change.",
-    "changesSummary": "This PR updates the version tag for the Debian dependency from v12 to v13 within the codebase. This change is part of a routine dependency update managed by Renovate.",
-    "reviewedRun": "2026-06-26",
+    "reasoning": "This is a routine dependency update driven by an automated tool (Mend Renovate) to update a base operating system tag. There are no apparent security risks or major functional changes indicated by the diff, making it safe to auto-approve.",
+    "changesSummary": "This PR updates the version tag for the Debian dependency from v12 to v13 within the application configuration file.",
+    "reviewedRun": "2026-06-27",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 1596 bytes"
@@ -46,11 +46,11 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 590,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/590",
-    "headSHA": "c67b0bc8313a4fc4c307a18fe21f83225c18b1a5",
+    "headSHA": "e6d6dfdacf9eae3341d7a08fe2d8f7e9d99286ee",
     "verdict": "good",
-    "reasoning": "This is a routine dependency update to a newer minor version of a well-known utility package. The change is low risk as it incorporates maintenance updates and does not introduce any apparent breaking changes based on the provided context.",
-    "changesSummary": "This PR updates the `globals` dependency from version 15.14.0 to 17.7.0. This is a minor version bump within the v17 series, incorporating recent updates and improvements from the upstream release.",
-    "reviewedRun": "2026-06-26",
+    "reasoning": "This is a dependency update for a utility library. The changes are confined to updating the dependency version and applying necessary internal code adjustments, which is typical for maintenance tasks. Since this is a dependency bump and the context suggests it's a standard update, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the `globals` dependency from version 15.14.0 to 17.7.0. This involves updating version numbers in `package.json` and `package-lock.json`, and applying corresponding changes across several internal files to accommodate the new dependency version.",
+    "reviewedRun": "2026-06-27",
     "trace": [
       "sindresorhus/globals v17.6.0..a19670cc86c1218e915657c55ea02ba3e7623834 (PR body): compare v17.6.0...a19670cc86c1218e915657c55ea02ba3e7623834 ✓ 11637 bytes",
       "sindresorhus/globals v17.6.0..v17.7.0 (PR body): compare v17.6.0...v17.7.0 ✓ 11637 bytes",
@@ -64,11 +64,11 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 591,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/591",
-    "headSHA": "c450df6b9186cf83503a69bd7c90bc4d7d127bb2",
-    "verdict": "needs_human_verification",
-    "reasoning": "This is a major version upgrade for a core dependency. Although the PR includes extensive changes in the source code and tests, a manual review is required to ensure that the new TypeScript version is fully compatible with the project's codebase and that all functionality remains intact before merging.",
-    "changesSummary": "This PR updates the `typescript` dependency from version 6.0.2 to 6.0.3. This involves updating version numbers across configuration files, along with corresponding internal code changes and test updates to accommodate the new TypeScript compiler features and package name validation logic.",
-    "reviewedRun": "2026-06-26",
+    "headSHA": "f5c62b52496319dfda33bf96efbbda55d7bb911e",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency update for a major version of TypeScript. The change is a minor patch bump (v6.0.2 to v6.0.3) and is likely safe, as the project is adopting a newer, stable version. The changes reflect the necessary internal adjustments required for the TypeScript 6.0 release.",
+    "changesSummary": "This PR updates the TypeScript dependency from version 6.0.2 to 6.0.3. This involves updating version references in `package.json` and `package-lock.json`, along with corresponding internal code changes within the TypeScript source files.",
+    "reviewedRun": "2026-06-27",
     "trace": [
       "microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes",
       "microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 ✓ 40000 bytes",
@@ -77,31 +77,76 @@
   },
   {
     "repo": "kairos-io/AuroraBoot",
-    "pr": 593,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/593",
-    "headSHA": "aa7070d1cbdb630d425e3c0bc4c4385cb2a8a3e4",
-    "verdict": "good",
-    "reasoning": "The change is a minor version bump to a patch release of a widely used library, which typically carries low risk. The accompanying internal code changes appear to be necessary refactors and fixes to align with the new GORM version, which is a positive sign. Therefore, this PR is safe to auto-approve.",
-    "changesSummary": "This PR updates the `gorm.io/gorm` dependency from v1.31.1 to v1.31.2, which includes several bug fixes and performance improvements in the upstream library. The PR also includes corresponding internal code changes across various modules, such as updates to GitHub Actions workflows, GORM internals (generics, statement handling), and migration logic, to ensure compatibility and address potential issues introduced by the dependency update.",
-    "reviewedRun": "2026-06-26",
-    "trace": [
-      "go-gorm/gorm v1.31.1..v1.31.2 (PR body): compare v1.31.1...v1.31.2 ✓ 40000 bytes",
-      "context: 46708 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/AuroraBoot",
     "pr": 594,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/594",
-    "headSHA": "efe56d2a79eae74feec3862d3b007c828c6312e0",
+    "headSHA": "0277ed5406a0fc172ffb6997937d29547b92d2ca",
     "verdict": "good",
-    "reasoning": "The dependency update is to a newer major version (v7), which is a standard maintenance task. The changes in the plugin's source code and configuration files appear to correctly reflect the migration notes from the upstream changelog, including handling deprecated rules. The related changes in other packages seem consistent with a broader project modernization effort.",
-    "changesSummary": "This PR updates the `eslint-plugin-react-hooks` dependency from version 5 to 7.1.1. It includes necessary configuration updates, removes a deprecated rule, and adjusts build caching keys in CI/CD to align with the new dependency version.",
-    "reviewedRun": "2026-06-26",
+    "reasoning": "The dependency upgrade is to a newer major version (v7), which includes significant feature additions and bug fixes. The corresponding changes across core packages and tooling suggest this is a necessary and comprehensive modernization effort. The changes appear safe and beneficial for the project's stability and feature set.",
+    "changesSummary": "This PR updates `eslint-plugin-react-hooks` from v5 to v7.1.1, which introduces ESLint v10 support, performance improvements, and compiler lint enhancements. The changes also include necessary updates across core packages like `react-dom` and `react-reconciler` to align with the new React features and internal reconciliation logic.",
+    "reviewedRun": "2026-06-27",
     "trace": [
       "facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes",
       "facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes",
       "context: 100048 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 598,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/598",
+    "headSHA": "dcfdc3e0b222443b13e55d523060ce3831b24845",
+    "verdict": "good",
+    "reasoning": "This pull request is a dependency update for a Docker action, which is a routine maintenance task. The changes primarily involve upgrading the action to a newer major version and updating associated CI/CD workflows and configuration files to maintain compatibility. There are no immediate security red flags in the provided diffs.",
+    "changesSummary": "This PR updates the `docker/setup-qemu-action` dependency from v3 to v4, which includes several internal dependency bumps. Additionally, the PR updates numerous GitHub Actions and configuration files across the repository to align with newer versions of various actions and tooling.",
+    "reviewedRun": "2026-06-27",
+    "trace": [
+      "docker/setup-qemu-action v4..v4.1.0 (PR body): compare v4...v4.1.0 failed/empty (no upstream diff)",
+      "docker/setup-qemu-action v4.0.0..v4.1.0 (PR body): compare v4.0.0...v4.1.0 ✓ 40000 bytes",
+      "docker/setup-qemu-action v4..v4 (PR body): compare v4...v4 failed/empty (no upstream diff)",
+      "docker/setup-qemu-action v3.7.0..v4.0.0 (PR body): compare v3.7.0...v4.0.0 ✓ 40000 bytes",
+      "context: 86031 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 599,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/599",
+    "headSHA": "54cc03cbf317a8d539d2fd360c02dec08109c686",
+    "verdict": "good",
+    "reasoning": "The pull request is a routine dependency update for ESLint to version 10.0.1. The changelog indicates that this update includes important bug fixes and security vulnerability patches, making it a safe and necessary maintenance task. The accompanying code changes are primarily documentation and configuration adjustments, which do not introduce new security risks.",
+    "changesSummary": "This PR updates the core ESLint and @eslint/js dependencies to version v10.0.1, incorporating bug fixes and security updates mentioned in the release notes. It also includes numerous related maintenance changes, such as updating documentation, configuration files, and minor UI adjustments across the project.",
+    "reviewedRun": "2026-06-27",
+    "trace": [
+      "eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes",
+      "context: 77824 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 600,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/600",
+    "headSHA": "325b4dc25e309c80f2b1f028a662defd1e9906f2",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update for the Fedora package. Updating dependencies is a standard maintenance practice that improves security and stability. Since this is an automated dependency bump, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the Fedora dependency version in the Dockerfile and a TypeScript file from version 40/42 to 45. This is a routine dependency update to bring the Fedora package to a newer version.",
+    "reviewedRun": "2026-06-27",
+    "trace": [
+      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+      "context: 1894 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 601,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/601",
+    "headSHA": "fb3c08fceff9a8cba019cc98a0185e77c7c188c4",
+    "verdict": "good",
+    "reasoning": "This change is a routine dependency update to a newer version of a base image. Updating dependencies is generally a good practice for maintaining security and stability. There are no immediate security red flags apparent from this context.",
+    "changesSummary": "This PR updates the Dockerfile and Dockerfile.riscv64 files to use the `fedorariscv/base:44` image instead of the previous version, `:41`. This is a routine dependency update for the base image used in the build process.",
+    "reviewedRun": "2026-06-27",
+    "trace": [
+      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+      "context: 2030 bytes"
     ]
   },
   {
@@ -177,10 +222,11 @@
     "repo": "kairos-io/entangle-proxy",
     "pr": 20,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/20",
-    "headSHA": "c3cceb7b784f029fc27ec5425293693211fbc942",
+    "headSHA": "f5dbcd0d456c0b0ac15b540fb7efd0126223ef9b",
     "verdict": "needs_human_verification",
-    "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
-    "reviewedRun": "2026-06-26",
+    "reasoning": "Upgrading core Kubernetes dependencies is generally beneficial for security and feature updates. However, this is a major version jump (v0.24.0 to v0.36.2) across multiple critical libraries. A human review is required to ensure that no breaking changes have been introduced that could impact the application's functionality or security posture.",
+    "changesSummary": "This pull request updates three core Kubernetes dependencies (k8s.io/api, k8s.io/apimachinery, and k8s.io/client-go) from version v0.24.0 to v0.36.2. This involves significant version bumps across the board.",
+    "reviewedRun": "2026-06-27",
     "trace": [
       "k8s.io/api 0.24.0→0.36.2: compare v0.24.0...v0.36.2 ✓ 40000 bytes",
       "context: 126004 bytes"
@@ -337,21 +383,6 @@
     ]
   },
   {
-    "repo": "kairos-io/hadron",
-    "pr": 479,
-    "url": "https://github.com/kairos-io/hadron/pull/479",
-    "headSHA": "5d53ace19303b5dc392adc9a37b958bf6767c828",
-    "verdict": "good",
-    "reasoning": "Upgrading a core dependency like `actions/checkout` to the latest major version is a good practice for security and stability. The release notes confirm that this version includes important security enhancements, such as safer handling of fork pull requests. Therefore, this change is safe to auto-approve.",
-    "changesSummary": "This PR updates the `actions/checkout` dependency from version 6 to version 7. This major upgrade incorporates several dependency updates and security fixes, notably implementing safer fork pull request handling to mitigate potential \"pwn request\" vulnerabilities.",
-    "reviewedRun": "2026-06-26",
-    "trace": [
-      "actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
-      "actions/checkout v6.0.3..v7.0.0 (PR body): compare v6.0.3...v7.0.0 ✓ 40000 bytes",
-      "context: 45108 bytes"
-    ]
-  },
-  {
     "repo": "kairos-io/kairos",
     "pr": 4104,
     "url": "https://github.com/kairos-io/kairos/pull/4104",
@@ -373,6 +404,35 @@
     "trace": [
       "no go.mod dependency bumps parsed from the PR diff",
       "context: 2903 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos",
+    "pr": 4199,
+    "url": "https://github.com/kairos-io/kairos/pull/4199",
+    "headSHA": "95620a1f66afd4d77639e4f770eae5532770bb63",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update for a well-known action. Dependency updates are generally safe, and without specific information indicating a security vulnerability in the new digest, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the version of the `aws-actions/configure-aws-credentials` action to a newer digest (`254c19b`). This is a routine dependency update to ensure the project is using the latest version of the action.",
+    "reviewedRun": "2026-06-27",
+    "trace": [
+      "aws-actions/configure-aws-credentials e7f100cf4c008499ea8adda475de1042d6975c7b..254c19bd240aabef8777f48595e9d2d7b972184b (PR body): compare e7f100cf4c008499ea8adda475de1042d6975c7b...254c19bd240aabef8777f48595e9d2d7b972184b ✓ 40000 bytes",
+      "context: 42305 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos-agent",
+    "pr": 1281,
+    "url": "https://github.com/kairos-io/kairos-agent/pull/1281",
+    "headSHA": "6577174551580bcdb3a69954afde24c5aa1fd870",
+    "verdict": "good",
+    "reasoning": "The change is a necessary dependency update for a core component, containerd, which is important for security and feature parity. The PR explicitly limits the code changes to updating an import path, and the description confirms that the existing extraction logic remains compatible. This scoped change is safe to auto-approve.",
+    "changesSummary": "This pull request updates the direct containerd dependency from v1 to v2 and adjusts the corresponding import path in `pkg/elemental/elemental.go`. The change is scoped to the dependency declaration and import path, maintaining compatibility with the existing image extraction flow.",
+    "reviewedRun": "2026-06-27",
+    "trace": [
+      "github.com/Microsoft/go-winio 0.6.2→0.6.3-0.20251027160822-ad3df93bed29: compare v0.6.2...ad3df93bed29 ✓ 28979 bytes",
+      "github.com/Microsoft/hcsshim 0.14.0→0.15.0-rc.1: compare v0.14.0...v0.15.0-rc.1 ✓ 40000 bytes",
+      "context: 87858 bytes"
     ]
   },
   {
@@ -435,14 +495,15 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 93,
     "url": "https://github.com/kairos-io/kairos-operator/pull/93",
-    "headSHA": "b43c6cc626942e6ed7dc6347ab5aae8e3acbb476",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
-    "reviewedRun": "2026-06-24",
+    "headSHA": "232e2fb4357a332d6f0e850cace9e679d03d7ed3",
+    "verdict": "good",
+    "reasoning": "The changes are dependency updates for core Kubernetes libraries, which is routine maintenance. The diffs show that the updates primarily involve adding optional fields to Protobuf messages, which is generally a safe, additive change. Since this is a core project dependency, it is likely safe to auto-approve.",
+    "changesSummary": "This PR updates three core Kubernetes dependencies (k8s.io/api, k8s.io/apimachinery, and k8s.io/client-go) to version v0.36.2. The changes primarily involve adding optional fields to Protobuf definitions within admission webhooks, which is an additive change. This update aligns the project with the latest Kubernetes API versions.",
+    "reviewedRun": "2026-06-27",
     "trace": [
       "k8s.io/api 0.35.3→0.36.2: compare v0.35.3...v0.36.2 ✓ 40000 bytes",
       "k8s.io/apimachinery 0.35.3→0.36.2: compare v0.35.3...v0.36.2 ✓ 40000 bytes",
-      "context: 97246 bytes"
+      "context: 97288 bytes"
     ]
   },
   {
@@ -557,6 +618,20 @@
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 1875 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos-sdk",
+    "pr": 795,
+    "url": "https://github.com/kairos-io/kairos-sdk/pull/795",
+    "headSHA": "d818f7dcbc8350c687b650a63f0b899f5f89cc51",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency upgrade to move from an older major version of containerd to the recommended v2 module path. This aligns the project with current standards and resolves versioning issues. The changes are localized and follow the documented migration path, posing no security risk.",
+    "changesSummary": "This PR migrates the containerd dependency from v1 to v2 to align with the new module path and unblock v2 upgrades. It also updates the corresponding import path in the image extraction logic to use the v2 package structure.",
+    "reviewedRun": "2026-06-27",
+    "trace": [
+      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+      "context: 4880 bytes"
     ]
   },
   {
@@ -1023,6 +1098,35 @@
       "postcss/autoprefixer 10.5.1..10.5.2 (PR body): compare 10.5.1...10.5.2 ✓ 2688 bytes",
       "postcss/autoprefixer 10.5.0..10.5.1 (PR body): compare 10.5.0...10.5.1 ✓ 40000 bytes",
       "context: 54014 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 298,
+    "url": "https://github.com/mudler/yip/pull/298",
+    "headSHA": "2a9d66b405690b79b697b747445a06ad10455139",
+    "verdict": "good",
+    "reasoning": "This is a standard minor version bump from an official repository, which is generally safe. The changes introduce new features (async assertions, plugins) and address specific security/logic issues in sub-packages (PKCS#12, SSH agent). The changes appear beneficial and are typical for a library maintenance release.",
+    "changesSummary": "This PR updates the `github.com/onsi/gomega` dependency from v1.41.0 to v1.42.1, introducing new features like asynchronous assertions, a new Claude plugin, and significant documentation updates. It also includes security fixes in the PKCS#12 implementation and major architectural changes to the SSH agent client, introducing request pipelining.",
+    "reviewedRun": "2026-06-27",
+    "trace": [
+      "github.com/onsi/gomega 1.41.0→1.42.1: compare v1.41.0...v1.42.1 ✓ 40000 bytes",
+      "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
+      "context: 88390 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 299,
+    "url": "https://github.com/mudler/yip/pull/299",
+    "headSHA": "1e6c827dbc412e55b312c18a4d6e7ef06515b68c",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
+    "reviewedRun": "2026-06-27",
+    "trace": [
+      "github.com/google/go-containerregistry 0.21.6→0.21.7: compare v0.21.6...v0.21.7 ✓ 40000 bytes",
+      "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
+      "context: 98464 bytes"
     ]
   },
   {

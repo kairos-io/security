@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-06-26._
+_Updated 2026-06-27._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -69,41 +69,56 @@ _None._
 
 **[kairos-io/AuroraBoot](https://github.com/kairos-io/AuroraBoot)**
 
-- [#409](https://github.com/kairos-io/AuroraBoot/pull/409) — ⚠️ **needs_human_verification** — The dependency update itself is a standard digest bump, which is generally safe. However, this PR involves significant refactoring and the introduction of complex new features (hardware key support) across multiple files and configuration systems. Therefore, a human review is required to ensure the new key management implementations and all related build/CI changes are correct and secure before merging.
-  ↳ This PR updates the digest for github.com/foxboron/sbctl and includes extensive refactoring across the codebase. It introduces new key management backends for File, TPM, and Yubikey, along with updates to build configurations, CI workflows, and various internal dependencies.
+- [#409](https://github.com/kairos-io/AuroraBoot/pull/409) — ✅ **good** — This is a dependency digest update, which is a standard maintenance task to ensure the project uses a specific, verified version of the dependency. The extensive upstream changes suggest a major refactor or feature addition in the dependency itself, but since this is a digest bump, it is generally safe to auto-approve.
+  ↳ This PR updates the dependency `github.com/foxboron/sbctl` to a specific digest (`1b913e7`). The upstream changes include significant internal refactoring, the addition of Yubikey key management support, and updates to build/CI workflows.
     - github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes
     - github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes
     - context: 58356 bytes
-- [#566](https://github.com/kairos-io/AuroraBoot/pull/566) — ✅ **good** — This is a standard dependency update to a newer version of `lucide-react`. The version bump is minor, and the associated changes involve configuration updates and adding a new icon, which appear benign and are consistent with the upstream release notes. There are no immediate security concerns identified.
-  ↳ This PR updates the `lucide-react` dependency from version ^0.468.0 to ^0.577.0. The changes include updating a GitHub Actions workflow configuration, modifying `.gitignore` to ignore release metadata, and adding a new `ellipse` icon file.
+- [#566](https://github.com/kairos-io/AuroraBoot/pull/566) — ✅ **good** — This is a routine dependency update to a newer version of a widely used icon library. The changes in the upstream version appear to be feature additions and minor fixes, which is generally safe for auto-approval. There are no immediate red flags regarding security or breaking changes based on the provided context.
+  ↳ This PR updates the `lucide-react` dependency from version ^0.468.0 to ^0.577.0. This update includes new features, such as the addition of the 'ellipse' icon, and minor configuration fixes within the dependency's source code.
     - lucide-icons/lucide 0.576.0..0.577.0 (PR body): compare 0.576.0...0.577.0 ✓ 40000 bytes
     - context: 99754 bytes
-- [#588](https://github.com/kairos-io/AuroraBoot/pull/588) — ✅ **good** — This is a routine dependency version bump for a base image/tool, which is generally safe to auto-approve. The change is clearly documented as a version update, and there are no apparent security risks associated with this specific version change.
-  ↳ This PR updates the version tag for the Debian dependency from v12 to v13 within the codebase. This change is part of a routine dependency update managed by Renovate.
+- [#588](https://github.com/kairos-io/AuroraBoot/pull/588) — ✅ **good** — This is a routine dependency update driven by an automated tool (Mend Renovate) to update a base operating system tag. There are no apparent security risks or major functional changes indicated by the diff, making it safe to auto-approve.
+  ↳ This PR updates the version tag for the Debian dependency from v12 to v13 within the application configuration file.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1596 bytes
-- [#590](https://github.com/kairos-io/AuroraBoot/pull/590) — ✅ **good** — This is a routine dependency update to a newer minor version of a well-known utility package. The change is low risk as it incorporates maintenance updates and does not introduce any apparent breaking changes based on the provided context.
-  ↳ This PR updates the `globals` dependency from version 15.14.0 to 17.7.0. This is a minor version bump within the v17 series, incorporating recent updates and improvements from the upstream release.
+- [#590](https://github.com/kairos-io/AuroraBoot/pull/590) — ✅ **good** — This is a dependency update for a utility library. The changes are confined to updating the dependency version and applying necessary internal code adjustments, which is typical for maintenance tasks. Since this is a dependency bump and the context suggests it's a standard update, it is safe to auto-approve.
+  ↳ This PR updates the `globals` dependency from version 15.14.0 to 17.7.0. This involves updating version numbers in `package.json` and `package-lock.json`, and applying corresponding changes across several internal files to accommodate the new dependency version.
     - sindresorhus/globals v17.6.0..a19670cc86c1218e915657c55ea02ba3e7623834 (PR body): compare v17.6.0...a19670cc86c1218e915657c55ea02ba3e7623834 ✓ 11637 bytes
     - sindresorhus/globals v17.6.0..v17.7.0 (PR body): compare v17.6.0...v17.7.0 ✓ 11637 bytes
     - sindresorhus/globals v17.5.0..v17.6.0 (PR body): compare v17.5.0...v17.6.0 ✓ 3099 bytes
     - sindresorhus/globals v17.4.0..v17.5.0 (PR body): compare v17.4.0...v17.5.0 ✓ 5103 bytes
     - sindresorhus/globals v17.3.0..v17.4.0 (PR body): compare v17.3.0...v17.4.0 ✓ 4284 bytes
     - context: 45798 bytes
-- [#591](https://github.com/kairos-io/AuroraBoot/pull/591) — ⚠️ **needs_human_verification** — This is a major version upgrade for a core dependency. Although the PR includes extensive changes in the source code and tests, a manual review is required to ensure that the new TypeScript version is fully compatible with the project's codebase and that all functionality remains intact before merging.
-  ↳ This PR updates the `typescript` dependency from version 6.0.2 to 6.0.3. This involves updating version numbers across configuration files, along with corresponding internal code changes and test updates to accommodate the new TypeScript compiler features and package name validation logic.
+- [#591](https://github.com/kairos-io/AuroraBoot/pull/591) — ✅ **good** — This is a standard dependency update for a major version of TypeScript. The change is a minor patch bump (v6.0.2 to v6.0.3) and is likely safe, as the project is adopting a newer, stable version. The changes reflect the necessary internal adjustments required for the TypeScript 6.0 release.
+  ↳ This PR updates the TypeScript dependency from version 6.0.2 to 6.0.3. This involves updating version references in `package.json` and `package-lock.json`, along with corresponding internal code changes within the TypeScript source files.
     - microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes
     - microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 ✓ 40000 bytes
     - context: 85089 bytes
-- [#593](https://github.com/kairos-io/AuroraBoot/pull/593) — ✅ **good** — The change is a minor version bump to a patch release of a widely used library, which typically carries low risk. The accompanying internal code changes appear to be necessary refactors and fixes to align with the new GORM version, which is a positive sign. Therefore, this PR is safe to auto-approve.
-  ↳ This PR updates the `gorm.io/gorm` dependency from v1.31.1 to v1.31.2, which includes several bug fixes and performance improvements in the upstream library. The PR also includes corresponding internal code changes across various modules, such as updates to GitHub Actions workflows, GORM internals (generics, statement handling), and migration logic, to ensure compatibility and address potential issues introduced by the dependency update.
-    - go-gorm/gorm v1.31.1..v1.31.2 (PR body): compare v1.31.1...v1.31.2 ✓ 40000 bytes
-    - context: 46708 bytes
-- [#594](https://github.com/kairos-io/AuroraBoot/pull/594) — ✅ **good** — The dependency update is to a newer major version (v7), which is a standard maintenance task. The changes in the plugin's source code and configuration files appear to correctly reflect the migration notes from the upstream changelog, including handling deprecated rules. The related changes in other packages seem consistent with a broader project modernization effort.
-  ↳ This PR updates the `eslint-plugin-react-hooks` dependency from version 5 to 7.1.1. It includes necessary configuration updates, removes a deprecated rule, and adjusts build caching keys in CI/CD to align with the new dependency version.
+- [#594](https://github.com/kairos-io/AuroraBoot/pull/594) — ✅ **good** — The dependency upgrade is to a newer major version (v7), which includes significant feature additions and bug fixes. The corresponding changes across core packages and tooling suggest this is a necessary and comprehensive modernization effort. The changes appear safe and beneficial for the project's stability and feature set.
+  ↳ This PR updates `eslint-plugin-react-hooks` from v5 to v7.1.1, which introduces ESLint v10 support, performance improvements, and compiler lint enhancements. The changes also include necessary updates across core packages like `react-dom` and `react-reconciler` to align with the new React features and internal reconciliation logic.
     - facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes
     - facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes
     - context: 100048 bytes
+- [#598](https://github.com/kairos-io/AuroraBoot/pull/598) — ✅ **good** — This pull request is a dependency update for a Docker action, which is a routine maintenance task. The changes primarily involve upgrading the action to a newer major version and updating associated CI/CD workflows and configuration files to maintain compatibility. There are no immediate security red flags in the provided diffs.
+  ↳ This PR updates the `docker/setup-qemu-action` dependency from v3 to v4, which includes several internal dependency bumps. Additionally, the PR updates numerous GitHub Actions and configuration files across the repository to align with newer versions of various actions and tooling.
+    - docker/setup-qemu-action v4..v4.1.0 (PR body): compare v4...v4.1.0 failed/empty (no upstream diff)
+    - docker/setup-qemu-action v4.0.0..v4.1.0 (PR body): compare v4.0.0...v4.1.0 ✓ 40000 bytes
+    - docker/setup-qemu-action v4..v4 (PR body): compare v4...v4 failed/empty (no upstream diff)
+    - docker/setup-qemu-action v3.7.0..v4.0.0 (PR body): compare v3.7.0...v4.0.0 ✓ 40000 bytes
+    - context: 86031 bytes
+- [#599](https://github.com/kairos-io/AuroraBoot/pull/599) — ✅ **good** — The pull request is a routine dependency update for ESLint to version 10.0.1. The changelog indicates that this update includes important bug fixes and security vulnerability patches, making it a safe and necessary maintenance task. The accompanying code changes are primarily documentation and configuration adjustments, which do not introduce new security risks.
+  ↳ This PR updates the core ESLint and @eslint/js dependencies to version v10.0.1, incorporating bug fixes and security updates mentioned in the release notes. It also includes numerous related maintenance changes, such as updating documentation, configuration files, and minor UI adjustments across the project.
+    - eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes
+    - context: 77824 bytes
+- [#600](https://github.com/kairos-io/AuroraBoot/pull/600) — ✅ **good** — This is a routine dependency update for the Fedora package. Updating dependencies is a standard maintenance practice that improves security and stability. Since this is an automated dependency bump, it is safe to auto-approve.
+  ↳ This PR updates the Fedora dependency version in the Dockerfile and a TypeScript file from version 40/42 to 45. This is a routine dependency update to bring the Fedora package to a newer version.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 1894 bytes
+- [#601](https://github.com/kairos-io/AuroraBoot/pull/601) — ✅ **good** — This change is a routine dependency update to a newer version of a base image. Updating dependencies is generally a good practice for maintaining security and stability. There are no immediate security red flags apparent from this context.
+  ↳ This PR updates the Dockerfile and Dockerfile.riscv64 files to use the `fedorariscv/base:44` image instead of the previous version, `:41`. This is a routine dependency update for the base image used in the build process.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 2030 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -121,7 +136,8 @@ _None._
 - [#14](https://github.com/kairos-io/entangle-proxy/pull/14) — ✅ **good** — This pull request primarily updates several dependencies to newer versions, including core packages like `golang.org/x` and `google.golang.org/protobuf`. Updating dependencies is a crucial security practice to ensure that known vulnerabilities are patched. The changes appear to be dependency hygiene improvements and do not introduce any obvious security risks.
 - [#18](https://github.com/kairos-io/entangle-proxy/pull/18) — ✅ **good** — This pull request updates the version of the docker/build-push-action from v2 to v7. Updating dependencies to the latest stable version is a standard security and maintenance practice. This change is safe to auto-approve.
 - [#19](https://github.com/kairos-io/entangle-proxy/pull/19) — ✅ **good** — This pull request updates the docker/login-action dependency from v1 to v4. Updating dependencies is a standard maintenance practice that generally improves security and stability by incorporating bug fixes and security patches from the maintainers. This change is safe to auto-approve.
-- [#20](https://github.com/kairos-io/entangle-proxy/pull/20) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
+- [#20](https://github.com/kairos-io/entangle-proxy/pull/20) — ⚠️ **needs_human_verification** — Upgrading core Kubernetes dependencies is generally beneficial for security and feature updates. However, this is a major version jump (v0.24.0 to v0.36.2) across multiple critical libraries. A human review is required to ensure that no breaking changes have been introduced that could impact the application's functionality or security posture.
+  ↳ This pull request updates three core Kubernetes dependencies (k8s.io/api, k8s.io/apimachinery, and k8s.io/client-go) from version v0.24.0 to v0.36.2. This involves significant version bumps across the board.
     - k8s.io/api 0.24.0→0.36.2: compare v0.24.0...v0.36.2 ✓ 40000 bytes
     - context: 126004 bytes
 - [#23](https://github.com/kairos-io/entangle-proxy/pull/23) — ✅ **good** — This pull request updates the dependency for 'actions/checkout' from version v2 to v7 in two workflow files. This is a standard dependency update to a newer version, which is generally safe and beneficial for security and maintenance.
@@ -154,13 +170,6 @@ _None._
   ↳ This PR updates the usage of the `goreleaser/goreleaser-action` dependency from version v6 to v7 in the release workflow. This upgrade incorporates recent features, dependency updates, and improvements from the v7 release.
     - no go.mod dependency bumps parsed from the PR diff
     - context: 9348 bytes
-**[kairos-io/hadron](https://github.com/kairos-io/hadron)**
-
-- [#479](https://github.com/kairos-io/hadron/pull/479) — ✅ **good** — Upgrading a core dependency like `actions/checkout` to the latest major version is a good practice for security and stability. The release notes confirm that this version includes important security enhancements, such as safer handling of fork pull requests. Therefore, this change is safe to auto-approve.
-  ↳ This PR updates the `actions/checkout` dependency from version 6 to version 7. This major upgrade incorporates several dependency updates and security fixes, notably implementing safer fork pull request handling to mitigate potential "pwn request" vulnerabilities.
-    - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - actions/checkout v6.0.3..v7.0.0 (PR body): compare v6.0.3...v7.0.0 ✓ 40000 bytes
-    - context: 45108 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4104](https://github.com/kairos-io/kairos/pull/4104) — ⚠️ **needs_human_verification** — The PR title suggests an automation task related to dependency upgrades. While automation can be beneficial, security review requires inspecting the actual code changes to ensure no unintended side effects or vulnerabilities were introduced during the pipeline wiring.
@@ -169,6 +178,17 @@ _None._
   ↳ This PR updates the version of the `actions/setup-go` action from v6.4.0 to v6.5.0 across multiple workflow files. This is a standard dependency update for the Go setup action.
     - no go.mod dependency bumps parsed from the PR diff
     - context: 2903 bytes
+- [#4199](https://github.com/kairos-io/kairos/pull/4199) — ✅ **good** — This is a routine dependency update for a well-known action. Dependency updates are generally safe, and without specific information indicating a security vulnerability in the new digest, it is safe to auto-approve.
+  ↳ This PR updates the version of the `aws-actions/configure-aws-credentials` action to a newer digest (`254c19b`). This is a routine dependency update to ensure the project is using the latest version of the action.
+    - aws-actions/configure-aws-credentials e7f100cf4c008499ea8adda475de1042d6975c7b..254c19bd240aabef8777f48595e9d2d7b972184b (PR body): compare e7f100cf4c008499ea8adda475de1042d6975c7b...254c19bd240aabef8777f48595e9d2d7b972184b ✓ 40000 bytes
+    - context: 42305 bytes
+**[kairos-io/kairos-agent](https://github.com/kairos-io/kairos-agent)**
+
+- [#1281](https://github.com/kairos-io/kairos-agent/pull/1281) — ✅ **good** — The change is a necessary dependency update for a core component, containerd, which is important for security and feature parity. The PR explicitly limits the code changes to updating an import path, and the description confirms that the existing extraction logic remains compatible. This scoped change is safe to auto-approve.
+  ↳ This pull request updates the direct containerd dependency from v1 to v2 and adjusts the corresponding import path in `pkg/elemental/elemental.go`. The change is scoped to the dependency declaration and import path, maintaining compatibility with the existing image extraction flow.
+    - github.com/Microsoft/go-winio 0.6.2→0.6.3-0.20251027160822-ad3df93bed29: compare v0.6.2...ad3df93bed29 ✓ 28979 bytes
+    - github.com/Microsoft/hcsshim 0.14.0→0.15.0-rc.1: compare v0.14.0...v0.15.0-rc.1 ✓ 40000 bytes
+    - context: 87858 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#88](https://github.com/kairos-io/kairos-operator/pull/88) — ✅ **good** — This change is a routine version bump as described in the PR description, updating images from a previous beta tag to the next one. There are no immediate security concerns apparent from the diff itself, suggesting this is a safe maintenance update.
@@ -187,10 +207,11 @@ _None._
   ↳ This PR updates the base image for the Dockerfile from an older Alpine digest (`2510918`) to a newer one (`fd791d7`). This ensures the build uses the latest, verified image digest for Alpine 3.23.
     - no go.mod dependency bumps parsed from the PR diff
     - context: 1604 bytes
-- [#93](https://github.com/kairos-io/kairos-operator/pull/93) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
+- [#93](https://github.com/kairos-io/kairos-operator/pull/93) — ✅ **good** — The changes are dependency updates for core Kubernetes libraries, which is routine maintenance. The diffs show that the updates primarily involve adding optional fields to Protobuf messages, which is generally a safe, additive change. Since this is a core project dependency, it is likely safe to auto-approve.
+  ↳ This PR updates three core Kubernetes dependencies (k8s.io/api, k8s.io/apimachinery, and k8s.io/client-go) to version v0.36.2. The changes primarily involve adding optional fields to Protobuf definitions within admission webhooks, which is an additive change. This update aligns the project with the latest Kubernetes API versions.
     - k8s.io/api 0.35.3→0.36.2: compare v0.35.3...v0.36.2 ✓ 40000 bytes
     - k8s.io/apimachinery 0.35.3→0.36.2: compare v0.35.3...v0.36.2 ✓ 40000 bytes
-    - context: 97246 bytes
+    - context: 97288 bytes
 - [#96](https://github.com/kairos-io/kairos-operator/pull/96) — ✅ **good** — This pull request is a routine version bump for existing images as described in the changelog. Since this is a dependency update and no specific security vulnerabilities are indicated in the context, it is safe to auto-approve.
   ↳ This PR updates the Docker images for the Kairos operator and the operator-node-labeler to version v0.1.0-beta6.
     - no go.mod dependency bumps parsed from the PR diff
@@ -225,6 +246,12 @@ _None._
   ↳ This PR updates the Docker digest for the `docker.io/golang:1.26.4` base image from `8f4cb3b` to `32c0e6e` across relevant Dockerfiles. This change ensures the build process uses the latest, verified digest for the specified version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1875 bytes
+**[kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk)**
+
+- [#795](https://github.com/kairos-io/kairos-sdk/pull/795) — ✅ **good** — This is a standard dependency upgrade to move from an older major version of containerd to the recommended v2 module path. This aligns the project with current standards and resolves versioning issues. The changes are localized and follow the documented migration path, posing no security risk.
+  ↳ This PR migrates the containerd dependency from v1 to v2 to align with the new module path and unblock v2 upgrades. It also updates the corresponding import path in the image extraction logic to use the v2 package structure.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 4880 bytes
 **[kairos-io/kcrypt](https://github.com/kairos-io/kcrypt)**
 
 - [#505](https://github.com/kairos-io/kcrypt/pull/505) — ✅ **good** — The change is a dependency update to a newer version of the Kairos SDK, which is generally safe. The accompanying code changes focus on internal refactoring and adding complex features like multipath device handling, which appear to be well-tested in the provided diff. This is safe to auto-approve.
@@ -395,6 +422,15 @@ _None._
     - context: 54014 bytes
 **[mudler/yip](https://github.com/mudler/yip)**
 
+- [#298](https://github.com/mudler/yip/pull/298) — ✅ **good** — This is a standard minor version bump from an official repository, which is generally safe. The changes introduce new features (async assertions, plugins) and address specific security/logic issues in sub-packages (PKCS#12, SSH agent). The changes appear beneficial and are typical for a library maintenance release.
+  ↳ This PR updates the `github.com/onsi/gomega` dependency from v1.41.0 to v1.42.1, introducing new features like asynchronous assertions, a new Claude plugin, and significant documentation updates. It also includes security fixes in the PKCS#12 implementation and major architectural changes to the SSH agent client, introducing request pipelining.
+    - github.com/onsi/gomega 1.41.0→1.42.1: compare v1.41.0...v1.42.1 ✓ 40000 bytes
+    - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
+    - context: 88390 bytes
+- [#299](https://github.com/mudler/yip/pull/299) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
+    - github.com/google/go-containerregistry 0.21.6→0.21.7: compare v0.21.6...v0.21.7 ✓ 40000 bytes
+    - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
+    - context: 98464 bytes
 - [#300](https://github.com/mudler/yip/pull/300) — ✅ **good** — This is a necessary dependency update to a newer major version of a core action. The upstream changes explicitly mention security improvements, specifically regarding fork PR handling, which mitigates potential "pwn request" vulnerabilities. Therefore, this change is safe to auto-approve.
   ↳ This PR updates the `actions/checkout` dependency from v6 to v7. This major version upgrade includes important security fixes, such as safer handling of fork pull requests, and updates to several related actions and dependencies.
     - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
