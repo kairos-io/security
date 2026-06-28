@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-06-27._
+_Updated 2026-06-28._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -422,6 +422,30 @@ _None._
     - context: 54014 bytes
 **[mudler/yip](https://github.com/mudler/yip)**
 
+- [#270](https://github.com/mudler/yip/pull/270) — ✅ **good** — This is a routine maintenance update for a core GitHub Action. The changes reflect standard version bumps within the action's dependencies, which is typical for keeping the action secure and compatible. There are no immediate red flags indicating a critical security vulnerability introduced by this version change.
+  ↳ This PR updates the `actions/setup-go` action from version v5 to v6. This major version upgrade includes several internal dependency updates across the action's ecosystem, such as upgrading `actions/cache` to v5 and updating various underlying npm packages.
+    - actions/setup-go v6.4.0..v6.5.0 (PR body): compare v6.4.0...v6.5.0 ✓ 40000 bytes
+    - actions/setup-go v6.3.0..v6.4.0 (PR body): compare v6.3.0...v6.4.0 ✓ 40000 bytes
+    - context: 91927 bytes
+- [#294](https://github.com/mudler/yip/pull/294) — ✅ **good** — This is a minor patch update to a dependency, which typically addresses maintenance, performance, or minor bug fixes rather than introducing new security vulnerabilities. The changes described in the release notes focus on optimizing memory re-allocations, which is a positive change. Therefore, this update is safe to auto-approve.
+  ↳ This PR updates the dependency `gopkg.in/ini.v1` from version v1.67.2 to v1.67.3. The update includes internal code optimizations for string handling and the addition of a new benchmark test.
+    - go-ini/ini v1.67.2..v1.67.3 (PR body): compare v1.67.2...v1.67.3 ✓ 29840 bytes
+    - context: 33138 bytes
+- [#295](https://github.com/mudler/yip/pull/295) — ✅ **good** — The changes involve a dependency update and several significant code refactorings and security hardening measures. Specifically, the addition of iteration limits for PKCS#12 operations and checks for RSA key sizes are positive security enhancements that mitigate potential resource exhaustion risks. The implementation of request pipelining in the SSH agent client is a major architectural improvement for performance and stability. Given the thoroughness of the upstream changes and the inclusion of new tests, this PR is safe to auto-approve.
+  ↳ This PR updates golang.org/x/crypto to v0.53.0 and includes significant refactoring across the codebase. This includes adding input validation for PKCS#12 iteration counts and RSA key sizes for security hardening, implementing a new request pipelining mechanism in the SSH agent client, and adding platform-specific GPIO support definitions.
+    - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
+    - golang.org/x/sys 0.45.0→0.46.0: compare v0.45.0...v0.46.0 ✓ 9611 bytes
+    - golang.org/x/net 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 33554 bytes
+    - context: 90017 bytes
+- [#296](https://github.com/mudler/yip/pull/296) — ✅ **good** — This is a routine dependency update to a minor version of a standard library. The changes appear to be additions of new API constants and types, which is typical for library maintenance and does not suggest any security vulnerability or breaking API changes. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the dependency golang.org/x/sys from version v0.45.0 to v0.46.0. The update introduces new constants and types related to the GPIO API within the system package.
+    - golang.org/x/sys 0.45.0→0.46.0: compare v0.45.0...v0.46.0 ✓ 9611 bytes
+    - context: 12321 bytes
+- [#297](https://github.com/mudler/yip/pull/297) — ✅ **good** — This is a standard dependency bump to a newer version of a well-maintained library. The changes appear to be feature additions and internal refactors within the dependency itself, which is generally safe. No immediate security risks or breaking changes are apparent from the provided diffs.
+  ↳ Update the `github.com/onsi/ginkgo/v2` dependency from v2.29.0 to v2.32.0. This update introduces new features like RSpec-style documentation output (`-fd`), a debugging flag (`--sleep-on-failure`), and a new plugin marketplace for Claude Skills.
+    - github.com/onsi/ginkgo/v2 2.29.0→2.32.0: compare v2.29.0...v2.32.0 ✓ 40000 bytes
+    - onsi/ginkgo v2.31.0..v2.32.0 (PR body): compare v2.31.0...v2.32.0 ✓ 35617 bytes
+    - context: 79956 bytes
 - [#298](https://github.com/mudler/yip/pull/298) — ✅ **good** — This is a standard minor version bump from an official repository, which is generally safe. The changes introduce new features (async assertions, plugins) and address specific security/logic issues in sub-packages (PKCS#12, SSH agent). The changes appear beneficial and are typical for a library maintenance release.
   ↳ This PR updates the `github.com/onsi/gomega` dependency from v1.41.0 to v1.42.1, introducing new features like asynchronous assertions, a new Claude plugin, and significant documentation updates. It also includes security fixes in the PKCS#12 implementation and major architectural changes to the SSH agent client, introducing request pipelining.
     - github.com/onsi/gomega 1.41.0→1.42.1: compare v1.41.0...v1.42.1 ✓ 40000 bytes

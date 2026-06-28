@@ -4,7 +4,7 @@
     "waterfall": null
   },
   "triage": {
-    "generatedAt": "2026-06-27",
+    "generatedAt": "2026-06-28",
     "model": "gemma-4-e2b-it",
     "aiAvailable": true,
     "focus": null,
@@ -1371,6 +1371,80 @@
         "postcss/autoprefixer 10.5.1..10.5.2 (PR body): compare 10.5.1...10.5.2 ✓ 2688 bytes",
         "postcss/autoprefixer 10.5.0..10.5.1 (PR body): compare 10.5.0...10.5.1 ✓ 40000 bytes",
         "context: 54014 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/yip",
+      "pr": 270,
+      "url": "https://github.com/mudler/yip/pull/270",
+      "headSHA": "7375b469889ff440153f0d588d069c3b37fc4431",
+      "verdict": "good",
+      "reasoning": "This is a routine maintenance update for a core GitHub Action. The changes reflect standard version bumps within the action's dependencies, which is typical for keeping the action secure and compatible. There are no immediate red flags indicating a critical security vulnerability introduced by this version change.",
+      "changesSummary": "This PR updates the `actions/setup-go` action from version v5 to v6. This major version upgrade includes several internal dependency updates across the action's ecosystem, such as upgrading `actions/cache` to v5 and updating various underlying npm packages.",
+      "reviewedRun": "2026-06-28",
+      "trace": [
+        "actions/setup-go v6.4.0..v6.5.0 (PR body): compare v6.4.0...v6.5.0 ✓ 40000 bytes",
+        "actions/setup-go v6.3.0..v6.4.0 (PR body): compare v6.3.0...v6.4.0 ✓ 40000 bytes",
+        "context: 91927 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/yip",
+      "pr": 294,
+      "url": "https://github.com/mudler/yip/pull/294",
+      "headSHA": "015fafae7980dca09e76842739b10152f35ded4e",
+      "verdict": "good",
+      "reasoning": "This is a minor patch update to a dependency, which typically addresses maintenance, performance, or minor bug fixes rather than introducing new security vulnerabilities. The changes described in the release notes focus on optimizing memory re-allocations, which is a positive change. Therefore, this update is safe to auto-approve.",
+      "changesSummary": "This PR updates the dependency `gopkg.in/ini.v1` from version v1.67.2 to v1.67.3. The update includes internal code optimizations for string handling and the addition of a new benchmark test.",
+      "reviewedRun": "2026-06-28",
+      "trace": [
+        "go-ini/ini v1.67.2..v1.67.3 (PR body): compare v1.67.2...v1.67.3 ✓ 29840 bytes",
+        "context: 33138 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/yip",
+      "pr": 295,
+      "url": "https://github.com/mudler/yip/pull/295",
+      "headSHA": "92bc95b1805e5ef2efdf3aa49d82727eec685e5a",
+      "verdict": "good",
+      "reasoning": "The changes involve a dependency update and several significant code refactorings and security hardening measures. Specifically, the addition of iteration limits for PKCS#12 operations and checks for RSA key sizes are positive security enhancements that mitigate potential resource exhaustion risks. The implementation of request pipelining in the SSH agent client is a major architectural improvement for performance and stability. Given the thoroughness of the upstream changes and the inclusion of new tests, this PR is safe to auto-approve.",
+      "changesSummary": "This PR updates golang.org/x/crypto to v0.53.0 and includes significant refactoring across the codebase. This includes adding input validation for PKCS#12 iteration counts and RSA key sizes for security hardening, implementing a new request pipelining mechanism in the SSH agent client, and adding platform-specific GPIO support definitions.",
+      "reviewedRun": "2026-06-28",
+      "trace": [
+        "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
+        "golang.org/x/sys 0.45.0→0.46.0: compare v0.45.0...v0.46.0 ✓ 9611 bytes",
+        "golang.org/x/net 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 33554 bytes",
+        "context: 90017 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/yip",
+      "pr": 296,
+      "url": "https://github.com/mudler/yip/pull/296",
+      "headSHA": "601af862800c3a07fbd07ef53e4bb8aa0af51071",
+      "verdict": "good",
+      "reasoning": "This is a routine dependency update to a minor version of a standard library. The changes appear to be additions of new API constants and types, which is typical for library maintenance and does not suggest any security vulnerability or breaking API changes. Therefore, it is safe to auto-approve.",
+      "changesSummary": "This PR updates the dependency golang.org/x/sys from version v0.45.0 to v0.46.0. The update introduces new constants and types related to the GPIO API within the system package.",
+      "reviewedRun": "2026-06-28",
+      "trace": [
+        "golang.org/x/sys 0.45.0→0.46.0: compare v0.45.0...v0.46.0 ✓ 9611 bytes",
+        "context: 12321 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/yip",
+      "pr": 297,
+      "url": "https://github.com/mudler/yip/pull/297",
+      "headSHA": "06cf258907cae1d2923761ef5a25c5fc598ad094",
+      "verdict": "good",
+      "reasoning": "This is a standard dependency bump to a newer version of a well-maintained library. The changes appear to be feature additions and internal refactors within the dependency itself, which is generally safe. No immediate security risks or breaking changes are apparent from the provided diffs.",
+      "changesSummary": "Update the `github.com/onsi/ginkgo/v2` dependency from v2.29.0 to v2.32.0. This update introduces new features like RSpec-style documentation output (`-fd`), a debugging flag (`--sleep-on-failure`), and a new plugin marketplace for Claude Skills.",
+      "reviewedRun": "2026-06-28",
+      "trace": [
+        "github.com/onsi/ginkgo/v2 2.29.0→2.32.0: compare v2.29.0...v2.32.0 ✓ 40000 bytes",
+        "onsi/ginkgo v2.31.0..v2.32.0 (PR body): compare v2.31.0...v2.32.0 ✓ 35617 bytes",
+        "context: 79956 bytes"
       ]
     },
     {
