@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-06-28._
+_Updated 2026-06-29._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -182,13 +182,6 @@ _None._
   ↳ This PR updates the version of the `aws-actions/configure-aws-credentials` action to a newer digest (`254c19b`). This is a routine dependency update to ensure the project is using the latest version of the action.
     - aws-actions/configure-aws-credentials e7f100cf4c008499ea8adda475de1042d6975c7b..254c19bd240aabef8777f48595e9d2d7b972184b (PR body): compare e7f100cf4c008499ea8adda475de1042d6975c7b...254c19bd240aabef8777f48595e9d2d7b972184b ✓ 40000 bytes
     - context: 42305 bytes
-**[kairos-io/kairos-agent](https://github.com/kairos-io/kairos-agent)**
-
-- [#1281](https://github.com/kairos-io/kairos-agent/pull/1281) — ✅ **good** — The change is a necessary dependency update for a core component, containerd, which is important for security and feature parity. The PR explicitly limits the code changes to updating an import path, and the description confirms that the existing extraction logic remains compatible. This scoped change is safe to auto-approve.
-  ↳ This pull request updates the direct containerd dependency from v1 to v2 and adjusts the corresponding import path in `pkg/elemental/elemental.go`. The change is scoped to the dependency declaration and import path, maintaining compatibility with the existing image extraction flow.
-    - github.com/Microsoft/go-winio 0.6.2→0.6.3-0.20251027160822-ad3df93bed29: compare v0.6.2...ad3df93bed29 ✓ 28979 bytes
-    - github.com/Microsoft/hcsshim 0.14.0→0.15.0-rc.1: compare v0.14.0...v0.15.0-rc.1 ✓ 40000 bytes
-    - context: 87858 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#88](https://github.com/kairos-io/kairos-operator/pull/88) — ✅ **good** — This change is a routine version bump as described in the PR description, updating images from a previous beta tag to the next one. There are no immediate security concerns apparent from the diff itself, suggesting this is a safe maintenance update.
@@ -246,12 +239,6 @@ _None._
   ↳ This PR updates the Docker digest for the `docker.io/golang:1.26.4` base image from `8f4cb3b` to `32c0e6e` across relevant Dockerfiles. This change ensures the build process uses the latest, verified digest for the specified version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1875 bytes
-**[kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk)**
-
-- [#795](https://github.com/kairos-io/kairos-sdk/pull/795) — ✅ **good** — This is a standard dependency upgrade to move from an older major version of containerd to the recommended v2 module path. This aligns the project with current standards and resolves versioning issues. The changes are localized and follow the documented migration path, posing no security risk.
-  ↳ This PR migrates the containerd dependency from v1 to v2 to align with the new module path and unblock v2 upgrades. It also updates the corresponding import path in the image extraction logic to use the v2 package structure.
-    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 4880 bytes
 **[kairos-io/kcrypt](https://github.com/kairos-io/kcrypt)**
 
 - [#505](https://github.com/kairos-io/kcrypt/pull/505) — ✅ **good** — The change is a dependency update to a newer version of the Kairos SDK, which is generally safe. The accompanying code changes focus on internal refactoring and adding complex features like multipath device handling, which appear to be well-tested in the provided diff. This is safe to auto-approve.
@@ -411,10 +398,11 @@ _None._
     - github.com/onsi/ginkgo/v2 2.29.0→2.32.0: compare v2.29.0...v2.32.0 ✓ 40000 bytes
     - onsi/ginkgo v2.31.0..v2.32.0 (PR body): compare v2.31.0...v2.32.0 ✓ 35617 bytes
     - context: 80006 bytes
-- [#1045](https://github.com/mudler/edgevpn/pull/1045) — ✅ **good** — This is a dependency upgrade to a newer major version of a library. The changelog for v3.10.0 indicates feature additions and fixes, suggesting this is a standard and intended upgrade path. No immediate security red flags are apparent from the context.
-  ↳ This PR updates the dependency github.com/urfave/cli from version v2.27.7 to v3.10.0. This upgrade incorporates new features, fixes, and documentation updates present in the v3 series.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 42380 bytes
+- [#1045](https://github.com/mudler/edgevpn/pull/1045) — ⚠️ **needs_human_verification** — Upgrading to a major version introduces potential breaking changes that require thorough testing to ensure the project remains functional and secure. A human review is necessary to validate that all functionality is preserved after this substantial refactoring.
+  ↳ This PR updates the dependency `github.com/urfave/cli/v2` from version v2.27.7 to v3.10.1. This major version upgrade includes significant refactoring across command parsing, flag handling, completion logic, and documentation.
+    - github.com/urfave/cli/v3 3.10.0→3.10.1: compare v3.10.0...v3.10.1 ✓ 17319 bytes
+    - urfave/cli v3.9.1..v3.10.0 (PR body): compare v3.9.1...v3.10.0 ✓ 40000 bytes
+    - context: 100044 bytes
 - [#1046](https://github.com/mudler/edgevpn/pull/1046) — ✅ **good** — This is a routine dependency update to a newer version of Autoprefixer. The changes primarily address compatibility fixes and minor logic adjustments, which are generally safe and beneficial for the project. There are no apparent security risks introduced by this version bump.
   ↳ The PR updates the `autoprefixer` dependency from v10.5.0 to v10.5.2. This update includes fixes for Firefox compatibility related to `-webkit-fill-available` and related adjustments in source code and test files.
     - postcss/autoprefixer 10.5.1..10.5.2 (PR body): compare 10.5.1...10.5.2 ✓ 2688 bytes

@@ -421,21 +421,6 @@
     ]
   },
   {
-    "repo": "kairos-io/kairos-agent",
-    "pr": 1281,
-    "url": "https://github.com/kairos-io/kairos-agent/pull/1281",
-    "headSHA": "6577174551580bcdb3a69954afde24c5aa1fd870",
-    "verdict": "good",
-    "reasoning": "The change is a necessary dependency update for a core component, containerd, which is important for security and feature parity. The PR explicitly limits the code changes to updating an import path, and the description confirms that the existing extraction logic remains compatible. This scoped change is safe to auto-approve.",
-    "changesSummary": "This pull request updates the direct containerd dependency from v1 to v2 and adjusts the corresponding import path in `pkg/elemental/elemental.go`. The change is scoped to the dependency declaration and import path, maintaining compatibility with the existing image extraction flow.",
-    "reviewedRun": "2026-06-27",
-    "trace": [
-      "github.com/Microsoft/go-winio 0.6.2→0.6.3-0.20251027160822-ad3df93bed29: compare v0.6.2...ad3df93bed29 ✓ 28979 bytes",
-      "github.com/Microsoft/hcsshim 0.14.0→0.15.0-rc.1: compare v0.14.0...v0.15.0-rc.1 ✓ 40000 bytes",
-      "context: 87858 bytes"
-    ]
-  },
-  {
     "repo": "kairos-io/kairos-operator",
     "pr": 88,
     "url": "https://github.com/kairos-io/kairos-operator/pull/88",
@@ -618,20 +603,6 @@
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 1875 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/kairos-sdk",
-    "pr": 795,
-    "url": "https://github.com/kairos-io/kairos-sdk/pull/795",
-    "headSHA": "d818f7dcbc8350c687b650a63f0b899f5f89cc51",
-    "verdict": "good",
-    "reasoning": "This is a standard dependency upgrade to move from an older major version of containerd to the recommended v2 module path. This aligns the project with current standards and resolves versioning issues. The changes are localized and follow the documented migration path, posing no security risk.",
-    "changesSummary": "This PR migrates the containerd dependency from v1 to v2 to align with the new module path and unblock v2 upgrades. It also updates the corresponding import path in the image extraction logic to use the v2 package structure.",
-    "reviewedRun": "2026-06-27",
-    "trace": [
-      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 4880 bytes"
     ]
   },
   {
@@ -1075,14 +1046,15 @@
     "repo": "mudler/edgevpn",
     "pr": 1045,
     "url": "https://github.com/mudler/edgevpn/pull/1045",
-    "headSHA": "c4d973c4ba1bd6844d0292ec41dd0f9fc6eafca1",
-    "verdict": "good",
-    "reasoning": "This is a dependency upgrade to a newer major version of a library. The changelog for v3.10.0 indicates feature additions and fixes, suggesting this is a standard and intended upgrade path. No immediate security red flags are apparent from the context.",
-    "changesSummary": "This PR updates the dependency github.com/urfave/cli from version v2.27.7 to v3.10.0. This upgrade incorporates new features, fixes, and documentation updates present in the v3 series.",
-    "reviewedRun": "2026-06-25",
+    "headSHA": "3cc6929dbb27d29eeea8af52075dd239ef6036ac",
+    "verdict": "needs_human_verification",
+    "reasoning": "Upgrading to a major version introduces potential breaking changes that require thorough testing to ensure the project remains functional and secure. A human review is necessary to validate that all functionality is preserved after this substantial refactoring.",
+    "changesSummary": "This PR updates the dependency `github.com/urfave/cli/v2` from version v2.27.7 to v3.10.1. This major version upgrade includes significant refactoring across command parsing, flag handling, completion logic, and documentation.",
+    "reviewedRun": "2026-06-29",
     "trace": [
-      "no go.mod dependency bumps parsed from the PR diff",
-      "context: 42380 bytes"
+      "github.com/urfave/cli/v3 3.10.0→3.10.1: compare v3.10.0...v3.10.1 ✓ 17319 bytes",
+      "urfave/cli v3.9.1..v3.10.0 (PR body): compare v3.9.1...v3.10.0 ✓ 40000 bytes",
+      "context: 100044 bytes"
     ]
   },
   {
