@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-06-29._
+_Updated 2026-06-30._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -147,41 +147,53 @@ _None._
     - context: 94069 bytes
 **[kairos-io/go-nodepair](https://github.com/kairos-io/go-nodepair)**
 
-- [#11](https://github.com/kairos-io/go-nodepair/pull/11) — ✅ **good** — This is a standard dependency update to a newer version of a well-known project. The changelog indicates that the upgrade includes fixes and new features, suggesting it is a safe and beneficial update. No immediate security risks are apparent from the provided context.
-  ↳ This PR updates the dependency `github.com/ipfs/go-log` from version v1.0.5 to v2.9.2. This upgrade incorporates fixes and new features, including support for `slog.Group` in the zap bridge.
 - [#27](https://github.com/kairos-io/go-nodepair/pull/27) — ✅ **good** — The changes involve updating several core dependencies across the project. The changelogs indicate that these updates include important security patches, such as restricting RSA key sizes in go-libp2p and fixing memory exhaustion attacks in quic-go. This is standard maintenance and security hygiene.
   ↳ This pull request updates several core dependencies, including go-libp2p, quic-go, golang.org/x/crypto, golang.org/x/image, golang.org/x/net, and google.golang.org/protobuf. The updates include critical security fixes, such as mitigating a DoS attack in go-libp2p and addressing memory exhaustion issues in quic-go.
-- [#37](https://github.com/kairos-io/go-nodepair/pull/37) — ✅ **good** — This appears to be a routine dependency update. Since this is a digest bump for a known dependency, and no specific security issues are indicated in the context, the change is considered safe for auto-approval.
-  ↳ This PR updates the dependency github.com/kbinani/screenshot from digest b87d318 to 089614a. This is a standard dependency update managed by Mend Renovate.
-- [#44](https://github.com/kairos-io/go-nodepair/pull/44) — ✅ **good** — This is a minor version update for a dependency that appears to be a security scanning tool. Minor version bumps are typically safe and address maintenance or minor bug fixes without introducing significant breaking changes or new security risks.
-  ↳ This PR updates the dependency `google/osv-scanner-action` from version v1.8.4 to v1.9.2 in the workflow configuration. This change ensures the project uses the latest version of the OSV scanner action.
-- [#46](https://github.com/kairos-io/go-nodepair/pull/46) — ⚠️ **needs_human_verification** — This is a dependency update to a major version bump within the library. While dependency updates are generally safe, the new version introduces significant new features and internal API changes, such as the `--sleep-on-failure` mechanism and changes to suite control logic. A human review is recommended to ensure these changes do not introduce any unexpected breaking behavior in the application code.
-  ↳ This PR updates the `github.com/onsi/ginkgo/v2` dependency from v2.29.0 to v2.32.0. This version introduces new features like RSpec-style documentation output (`-fd`) and a debugging aid called `--sleep-on-failure`. It also includes internal refactoring related to suite management and plugin support.
-- [#47](https://github.com/kairos-io/go-nodepair/pull/47) — ✅ **good** — This pull request updates the version of the `github.com/onsi/gomega` dependency to v1.42.1 and also updates several related transitive dependencies (e.g., `golang.org/x/crypto`, `golang.org/x/mod`, etc.) to newer versions. This is a routine dependency maintenance task that improves security and stability. No immediate security concerns are identified from the diff.
-- [#53](https://github.com/kairos-io/go-nodepair/pull/53) — ✅ **good** — This pull request updates a dependency, specifically the `google/osv-scanner-action`, to a newer version (v2.3.8). Updating dependencies is a standard maintenance practice and generally improves security and stability. There are no suspicious changes in the diff itself.
-- [#55](https://github.com/kairos-io/go-nodepair/pull/55) — ✅ **good** — This pull request updates a dependency, github.com/lucasb-eyer/go-colorful, to version v1.4.0. This is a standard dependency update, and without further context indicating known vulnerabilities or breaking changes, it is considered safe to auto-approve.
+- [#37](https://github.com/kairos-io/go-nodepair/pull/37) — ✅ **good** — This appears to be a standard dependency update initiated by Renovate. The changes involve updating the dependency digest and corresponding internal code refactoring, which is typical when upgrading a library. Since this is an automated PR, we trust the upstream maintainer, and the changes do not immediately suggest a critical security risk.
+  ↳ This PR updates the dependency github.com/kbinani/screenshot to a new digest, which includes significant internal refactoring within the package to support new platform abstractions like Wayland and D-Bus. This involves renaming files, removing internal utility functions, and introducing new platform-specific capture logic.
+    - github.com/kbinani/screenshot 0.0.0-20230812210009-b87d31814237→0.0.0-20250624051815-089614a94018: compare b87d31814237...089614a94018 ✓ 23617 bytes
+    - github.com/gen2brain/shm 0.0.0-20230802011745-f2460f5984f7→0.1.0: compare f2460f5984f7...v0.1.0 ✓ 1878 bytes
+    - github.com/jezek/xgb 1.1.0→1.1.1: compare v1.1.0...v1.1.1 ✓ 431 bytes
+    - context: 32368 bytes
+- [#46](https://github.com/kairos-io/go-nodepair/pull/46) — ⚠️ **needs_human_verification** — This is a major version bump for a core testing framework, which involves significant internal refactoring and new features. While the changes appear to be feature additions and internal improvements, a human review is necessary to ensure compatibility with the Kairos project's existing code, verify that the new features do not introduce regressions, and confirm that no security vulnerabilities were inadvertently introduced in the updated library.
+  ↳ This PR updates the dependency github.com/onsi/ginkgo/v2 from v2.29.0 to v2.32.0. The update introduces new features like the `--sleep-on-failure` debugging flag, enhancements to suite management via `globals.Reset()`, and integration for Claude Code skills. It also includes significant internal refactoring across the library's core logic and documentation.
+    - github.com/onsi/ginkgo/v2 2.29.0→2.32.0: compare v2.29.0...v2.32.0 ✓ 40000 bytes
+    - onsi/ginkgo v2.31.0..v2.32.0 (PR body): compare v2.31.0...v2.32.0 ✓ 35617 bytes
+    - context: 80051 bytes
 - [#57](https://github.com/kairos-io/go-nodepair/pull/57) — ✅ **good** — This pull request only updates the version of the 'actions/setup-go' action from v5 to v6. This is a routine maintenance update for a standard dependency and does not introduce any new security risks or significant functional changes that require manual review.
-- [#58](https://github.com/kairos-io/go-nodepair/pull/58) — ✅ **good** — This pull request updates the version of the github/codeql-action/upload-sarif action from v3 to v4. Updating dependencies, especially for security scanning tools, is a standard maintenance practice to ensure the latest features, bug fixes, and security patches are included. This change is safe to auto-approve.
 - [#59](https://github.com/kairos-io/go-nodepair/pull/59) — ✅ **good** — This pull request only modifies the configuration file for the Renovate bot. The changes involve migrating to a recommended configuration and adjusting package matching rules. This is a standard configuration update and poses no security risk.
-- [#62](https://github.com/kairos-io/go-nodepair/pull/62) — ✅ **good** — This pull request only updates the version of the 'actions/checkout' dependency from v4/v2 to v7 in two workflow files. This is a routine dependency update and does not introduce any new security concerns.
-**[kairos-io/go-ukify](https://github.com/kairos-io/go-ukify)**
+- [#63](https://github.com/kairos-io/go-nodepair/pull/63) — ✅ **good** — The changes introduce significant new features, specifically robust integration with the standard Go `log/slog` package and fine-grained, per-subsystem log level control. The extensive test coverage provided in `setup_test.go` suggests the new logic is sound and safe. This is a necessary and beneficial update for the project's logging infrastructure.
+  ↳ This PR updates `github.com/ipfs/go-log` to v2.9.2, introducing comprehensive support for Go's `log/slog` package. Key changes include implementing a `slog` bridge to route logs through Zap, adding subsystem-aware level control via atomic levels, and improving handling for `slog.Group` attributes.
+    - ipfs/go-log v2.9.1..v2.9.2 (PR body): compare v2.9.1...v2.9.2 ✓ 12110 bytes
+    - ipfs/go-log v2.9.0..v2.9.1 (PR body): compare v2.9.0...v2.9.1 ✓ 2149 bytes
+    - ipfs/go-log v2.8.2..v2.9.0 (PR body): compare v2.8.2...v2.9.0 ✓ 40000 bytes
+    - context: 70615 bytes
+**[kairos-io/immucore](https://github.com/kairos-io/immucore)**
 
-- [#57](https://github.com/kairos-io/go-ukify/pull/57) — ✅ **good** — This is a dependency update to a major version of a well-known action. The changelog indicates that the v7 release includes various features, fixes, and dependency bumps, suggesting this is a beneficial upgrade. Since this is an automated dependency update, it is safe to auto-approve.
-  ↳ This PR updates the usage of the `goreleaser/goreleaser-action` dependency from version v6 to v7 in the release workflow. This upgrade incorporates recent features, dependency updates, and improvements from the v7 release.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 9348 bytes
+- [#585](https://github.com/kairos-io/immucore/pull/585) — ✅ **good** — This is a routine dependency update for a linting tool. Since it is a minor version bump, it is generally safe to auto-approve, assuming no critical security advisories were introduced in v9.3.0.
+  ↳ The PR updates the `golangci/golangci-lint-action` dependency from version v9.2.1 to v9.3.0 in the CI workflow configuration. This is a minor version update for the linting action.
+    - golangci/golangci-lint-action v9.2.1..v9.3.0 (PR body): compare v9.2.1...v9.3.0 ✓ 40000 bytes
+    - context: 42002 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4104](https://github.com/kairos-io/kairos/pull/4104) — ⚠️ **needs_human_verification** — The PR title suggests an automation task related to dependency upgrades. While automation can be beneficial, security review requires inspecting the actual code changes to ensure no unintended side effects or vulnerabilities were introduced during the pipeline wiring.
   ↳ The PR aims to automate the process of fetching the latest release and running validation tests within the upgrade pipeline.
-- [#4193](https://github.com/kairos-io/kairos/pull/4193) — ✅ **good** — This change is a minor version bump for a widely used GitHub Action. Updating standard tooling dependencies is generally safe and necessary for maintenance. There are no immediate security concerns indicated by this change.
-  ↳ This PR updates the version of the `actions/setup-go` action from v6.4.0 to v6.5.0 across multiple workflow files. This is a standard dependency update for the Go setup action.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 2903 bytes
 - [#4199](https://github.com/kairos-io/kairos/pull/4199) — ✅ **good** — This is a routine dependency update for a well-known action. Dependency updates are generally safe, and without specific information indicating a security vulnerability in the new digest, it is safe to auto-approve.
   ↳ This PR updates the version of the `aws-actions/configure-aws-credentials` action to a newer digest (`254c19b`). This is a routine dependency update to ensure the project is using the latest version of the action.
     - aws-actions/configure-aws-credentials e7f100cf4c008499ea8adda475de1042d6975c7b..254c19bd240aabef8777f48595e9d2d7b972184b (PR body): compare e7f100cf4c008499ea8adda475de1042d6975c7b...254c19bd240aabef8777f48595e9d2d7b972184b ✓ 40000 bytes
     - context: 42305 bytes
+**[kairos-io/kairos-agent](https://github.com/kairos-io/kairos-agent)**
+
+- [#1282](https://github.com/kairos-io/kairos-agent/pull/1282) — ✅ **good** — The change is a refactoring of the initialization logic to improve configuration flexibility by allowing users to specify provider paths dynamically. The implementation includes error handling to gracefully fall back to default paths if the configuration parsing fails, which enhances robustness. This change does not introduce any obvious security vulnerabilities.
+  ↳ This PR refactors the initialization sequence to allow provider directories to be dynamically configured via a `providers.paths` setting in the collector configuration. It introduces YAML parsing to read these paths and uses them to initialize the bus manager, falling back to default paths if parsing fails.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 5365 bytes
+**[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
+
+- [#387](https://github.com/kairos-io/kairos-init/pull/387) — ✅ **good** — This is a minor version bump for a dependency, and the changes are clearly documented in the release notes. The code modification appears to be a safe change related to file opening modes, and there are no apparent security risks.
+  ↳ This PR updates the `github.com/kairos-io/kairos-sdk` dependency from v0.23.0 to v0.23.1. This update includes a fix for `github.com/onsi/gomega` and introduces an open-source read-only mode for ISO file extraction.
+    - github.com/kairos-io/kairos-sdk 0.23.0→0.23.1: compare v0.23.0...v0.23.1 ✓ 2577 bytes
+    - context: 6358 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#88](https://github.com/kairos-io/kairos-operator/pull/88) — ✅ **good** — This change is a routine version bump as described in the PR description, updating images from a previous beta tag to the next one. There are no immediate security concerns apparent from the diff itself, suggesting this is a safe maintenance update.
@@ -235,8 +247,8 @@ _None._
   ↳ This PR updates the digest of the `docker/login-action` dependency from `4907a6d` to `650006c`. This ensures the project is using the latest version of the action.
     - no go.mod dependency bumps parsed from the PR diff
     - context: 3058 bytes
-- [#119](https://github.com/kairos-io/kairos-operator/pull/119) — ✅ **good** — This is a routine dependency digest update for an existing base image. It does not introduce any new code, functional changes, or security vulnerabilities that would warrant manual review. The change is purely for maintenance and ensures the build uses the specified image digest.
-  ↳ This PR updates the Docker digest for the `docker.io/golang:1.26.4` base image from `8f4cb3b` to `32c0e6e` across relevant Dockerfiles. This change ensures the build process uses the latest, verified digest for the specified version.
+- [#119](https://github.com/kairos-io/kairos-operator/pull/119) — ✅ **good** — This change is a simple update of a Docker image digest for an existing, specified version of golang. This is a standard maintenance task to ensure the build uses the latest artifact for that tag, which poses a very low security risk.
+  ↳ This PR updates the specific Docker digest used for the `docker.io/golang:1.26.4` base image in the `Dockerfile` and `Dockerfile.node-labeler`. This is a routine update to ensure the build uses the latest, verified artifact for that version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1875 bytes
 **[kairos-io/kcrypt](https://github.com/kairos-io/kcrypt)**
@@ -260,6 +272,10 @@ _None._
     - k8s.io/apimachinery 0.27.4→0.27.2: compare v0.27.4...v0.27.2 failed: <nil> (no upstream diff)
     - github.com/emicklei/go-restful/v3 3.10.1→3.13.0: compare v3.10.1...v3.13.0 ✓ 40000 bytes
     - context: 131955 bytes
+- [#239](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/239) — ✅ **good** — This pull request is a standard dependency update to a patch version, which is generally safe. The changes involve updating a library and a minor code modification to enforce read-only access to an ISO file, which is a positive security practice.
+  ↳ This PR updates the dependency `github.com/kairos-io/kairos-sdk` from v0.23.0 to v0.23.1, which includes a minor fix for `github.com/onsi/gomega`. Additionally, it modifies the `ExtractFileFromIso` function to explicitly open the ISO file in read-only mode.
+    - github.com/kairos-io/kairos-sdk 0.23.0→0.23.1: compare v0.23.0...v0.23.1 ✓ 2577 bytes
+    - context: 6459 bytes
 **[kairos-io/simple-mdns-server](https://github.com/kairos-io/simple-mdns-server)**
 
 - [#4](https://github.com/kairos-io/simple-mdns-server/pull/4) — ✅ **good** — This is a standard dependency maintenance update performed by Dependabot. The changes involve updating core packages like `x/net` and `x/sys`, which are necessary for project health. Since this is an automated bump and no immediate security risks are apparent from the diffs, it is safe to auto-approve.
@@ -303,11 +319,6 @@ _None._
     - c-robinson/iplib v2.0.1..v2.0.2 (PR body): compare v2.0.1...v2.0.2 ✓ 15662 bytes
     - c-robinson/iplib v2.0.0..v2.0.1 (PR body): compare v2.0.0...v2.0.1 ✓ 1844 bytes
     - context: 44540 bytes
-- [#805](https://github.com/mudler/edgevpn/pull/805) — ✅ **good** — This is a standard dependency upgrade to a newer major version of a library, which is generally a positive security and maintenance action. The changes appear to be a complete migration from v2 to v3, which the bot has handled by updating imports and configuration files. Since this is an automated bot PR, and the change is a version bump, it is safe to auto-approve.
-  ↳ This pull request updates the dependency gopkg.in/yaml.v2 from version v2.4.0 to v3.0.1. This migration involves significant code changes in the dependency itself, including updates to license files, import paths, and core parsing logic.
-    - go-yaml/yaml v3.0.0..v3.0.1 (PR body): compare v3.0.0...v3.0.1 ✓ 2202 bytes
-    - go-yaml/yaml v2.4.0..v3.0.0 (PR body): compare v2.4.0...v3.0.0 ✓ 40000 bytes
-    - context: 44433 bytes
 - [#808](https://github.com/mudler/edgevpn/pull/808) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
     - FortAwesome/Font-Awesome 6.7.1..6.7.2 (PR body): compare 6.7.1...6.7.2 ✓ 40000 bytes
     - FortAwesome/Font-Awesome 6.7.0..6.7.1 (PR body): compare 6.7.0...6.7.1 ✓ 40000 bytes
@@ -323,14 +334,6 @@ _None._
     - github.com/mattn/go-colorable 0.1.14→0.1.15: compare v0.1.14...v0.1.15 ✓ 5234 bytes
     - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
     - context: 90621 bytes
-- [#921](https://github.com/mudler/edgevpn/pull/921) — ✅ **good** — This is a dependency update to a newer version of a trusted library. The changes appear to be internal refactoring and API adjustments within the dependency itself, which is standard maintenance. There are no obvious security vulnerabilities introduced by this upgrade.
-  ↳ This PR updates the dependency `github.com/creachadair/otp` from v0.5.0 to v0.5.4. The update includes internal refactoring in the library to use a `WithKey` method for configuration initialization and updates the Base32 encoding logic in `otpauth/otpauth.go`.
-    - github.com/creachadair/otp 0.5.0→0.5.4: compare v0.5.0...v0.5.4 ✓ 19443 bytes
-    - creachadair/otp v0.5.3..v0.5.4 (PR body): compare v0.5.3...v0.5.4 ✓ 5883 bytes
-    - creachadair/otp v0.5.2..v0.5.3 (PR body): compare v0.5.2...v0.5.3 ✓ 9482 bytes
-    - creachadair/otp v0.5.1..v0.5.2 (PR body): compare v0.5.1...v0.5.2 ✓ 6039 bytes
-    - creachadair/otp v0.5.0..v0.5.1 (PR body): compare v0.5.0...v0.5.1 ✓ 6271 bytes
-    - context: 50945 bytes
 - [#923](https://github.com/mudler/edgevpn/pull/923) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
     - github.com/miekg/dns 1.1.66→1.1.68: compare v1.1.66...v1.1.68 ✓ 40000 bytes
     - miekg/dns v1.1.64..v1.1.68 (PR body): compare v1.1.64...v1.1.68 ✓ 40000 bytes
@@ -393,11 +396,6 @@ _None._
     - github.com/mattn/go-colorable 0.1.14→0.1.15: compare v0.1.14...v0.1.15 ✓ 5234 bytes
     - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
     - context: 108729 bytes
-- [#1042](https://github.com/mudler/edgevpn/pull/1042) — ✅ **good** — This is a standard dependency update to a newer minor/patch version. The changelog indicates new features and debugging tools, suggesting this is a safe upgrade. However, a human review should verify that the new features do not introduce any unexpected regressions in the project's test suite.
-  ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.29.0 to v2.32.0. This update introduces new features such as RSpec-style documentation output (`-fd`) and a `--sleep-on-failure` debugging flag.
-    - github.com/onsi/ginkgo/v2 2.29.0→2.32.0: compare v2.29.0...v2.32.0 ✓ 40000 bytes
-    - onsi/ginkgo v2.31.0..v2.32.0 (PR body): compare v2.31.0...v2.32.0 ✓ 35617 bytes
-    - context: 80006 bytes
 - [#1045](https://github.com/mudler/edgevpn/pull/1045) — ⚠️ **needs_human_verification** — Upgrading to a major version introduces potential breaking changes that require thorough testing to ensure the project remains functional and secure. A human review is necessary to validate that all functionality is preserved after this substantial refactoring.
   ↳ This PR updates the dependency `github.com/urfave/cli/v2` from version v2.27.7 to v3.10.1. This major version upgrade includes significant refactoring across command parsing, flag handling, completion logic, and documentation.
     - github.com/urfave/cli/v3 3.10.0→3.10.1: compare v3.10.0...v3.10.1 ✓ 17319 bytes
@@ -408,6 +406,23 @@ _None._
     - postcss/autoprefixer 10.5.1..10.5.2 (PR body): compare 10.5.1...10.5.2 ✓ 2688 bytes
     - postcss/autoprefixer 10.5.0..10.5.1 (PR body): compare 10.5.0...10.5.1 ✓ 40000 bytes
     - context: 54014 bytes
+- [#1047](https://github.com/mudler/edgevpn/pull/1047) — ✅ **good** — This is a routine dependency update to a patch version. Patch updates typically contain bug fixes and do not introduce breaking changes, making this change safe to auto-approve.
+  ↳ This PR updates the dependency github.com/urfave/cli/v3 from version v3.10.0 to v3.10.1. This is a minor patch update to the library.
+    - github.com/urfave/cli/v3 3.10.0→3.10.1: compare v3.10.0...v3.10.1 ✓ 17319 bytes
+    - context: 20263 bytes
+- [#1048](https://github.com/mudler/edgevpn/pull/1048) — ✅ **good** — The change is a necessary major version upgrade for a core action. The changelog explicitly mentions security improvements, such as safer fork pull request handling, and dependency updates, indicating this is a beneficial change. The PR correctly applies this update across all affected workflow files.
+  ↳ This PR updates the `actions/checkout` dependency from version v6 to v7, which includes significant dependency updates and security enhancements. The changes apply the v7 action across numerous workflow files throughout the repository.
+    - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
+    - actions/checkout v6.0.3..v7.0.0 (PR body): compare v6.0.3...v7.0.0 ✓ 40000 bytes
+    - context: 48431 bytes
+- [#1049](https://github.com/mudler/edgevpn/pull/1049) — ✅ **good** — This is a standard dependency update to a newer major version of a widely used library. The changes appear to be a necessary migration to the new API structure, which is reflected in the updated error handling and documentation. Since this is a dependency bump and the changes align with a major version upgrade, it is safe to auto-approve.
+  ↳ This pull request updates the dependency `github.com/cenkalti/backoff` from version v4 to v6.0.1. This upgrade introduces significant changes to the API, including new error types like `RetryError`, `ErrPermanent`, and updated usage patterns for the `Retry` function. The changes reflect a modernization of the library's error handling and documentation.
+    - cenkalti/backoff v6.0.0..v6.0.1 (PR body): compare v6.0.0...v6.0.1 ✓ 2512 bytes
+    - cenkalti/backoff v5.0.3..v6.0.0 (PR body): compare v5.0.3...v6.0.0 ✓ 25480 bytes
+    - cenkalti/backoff v5.0.2..v5.0.3 (PR body): compare v5.0.2...v5.0.3 ✓ 3314 bytes
+    - cenkalti/backoff v5.0.1..v5.0.2 (PR body): compare v5.0.1...v5.0.2 ✓ 2019 bytes
+    - cenkalti/backoff v5.0.0..v5.0.1 (PR body): compare v5.0.0...v5.0.1 ✓ 1564 bytes
+    - context: 39067 bytes
 **[mudler/yip](https://github.com/mudler/yip)**
 
 - [#270](https://github.com/mudler/yip/pull/270) — ✅ **good** — This is a routine maintenance update for a core GitHub Action. The changes reflect standard version bumps within the action's dependencies, which is typical for keeping the action secure and compatible. There are no immediate red flags indicating a critical security vulnerability introduced by this version change.
@@ -415,41 +430,27 @@ _None._
     - actions/setup-go v6.4.0..v6.5.0 (PR body): compare v6.4.0...v6.5.0 ✓ 40000 bytes
     - actions/setup-go v6.3.0..v6.4.0 (PR body): compare v6.3.0...v6.4.0 ✓ 40000 bytes
     - context: 91927 bytes
-- [#294](https://github.com/mudler/yip/pull/294) — ✅ **good** — This is a minor patch update to a dependency, which typically addresses maintenance, performance, or minor bug fixes rather than introducing new security vulnerabilities. The changes described in the release notes focus on optimizing memory re-allocations, which is a positive change. Therefore, this update is safe to auto-approve.
-  ↳ This PR updates the dependency `gopkg.in/ini.v1` from version v1.67.2 to v1.67.3. The update includes internal code optimizations for string handling and the addition of a new benchmark test.
+- [#294](https://github.com/mudler/yip/pull/294) — ✅ **good** — This is a minor version bump for a dependency. The associated changes appear to be performance optimizations and new tests, which do not introduce any apparent security risks. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the dependency gopkg.in/ini.v1 from v1.67.2 to v1.67.3. The update includes an optimization for string handling in the `Key.Strings` method and the addition of a new benchmark test for large arrays.
     - go-ini/ini v1.67.2..v1.67.3 (PR body): compare v1.67.2...v1.67.3 ✓ 29840 bytes
     - context: 33138 bytes
-- [#295](https://github.com/mudler/yip/pull/295) — ✅ **good** — The changes involve a dependency update and several significant code refactorings and security hardening measures. Specifically, the addition of iteration limits for PKCS#12 operations and checks for RSA key sizes are positive security enhancements that mitigate potential resource exhaustion risks. The implementation of request pipelining in the SSH agent client is a major architectural improvement for performance and stability. Given the thoroughness of the upstream changes and the inclusion of new tests, this PR is safe to auto-approve.
-  ↳ This PR updates golang.org/x/crypto to v0.53.0 and includes significant refactoring across the codebase. This includes adding input validation for PKCS#12 iteration counts and RSA key sizes for security hardening, implementing a new request pipelining mechanism in the SSH agent client, and adding platform-specific GPIO support definitions.
-    - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
-    - golang.org/x/sys 0.45.0→0.46.0: compare v0.45.0...v0.46.0 ✓ 9611 bytes
-    - golang.org/x/net 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 33554 bytes
-    - context: 90017 bytes
-- [#296](https://github.com/mudler/yip/pull/296) — ✅ **good** — This is a routine dependency update to a minor version of a standard library. The changes appear to be additions of new API constants and types, which is typical for library maintenance and does not suggest any security vulnerability or breaking API changes. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the dependency golang.org/x/sys from version v0.45.0 to v0.46.0. The update introduces new constants and types related to the GPIO API within the system package.
-    - golang.org/x/sys 0.45.0→0.46.0: compare v0.45.0...v0.46.0 ✓ 9611 bytes
-    - context: 12321 bytes
-- [#297](https://github.com/mudler/yip/pull/297) — ✅ **good** — This is a standard dependency bump to a newer version of a well-maintained library. The changes appear to be feature additions and internal refactors within the dependency itself, which is generally safe. No immediate security risks or breaking changes are apparent from the provided diffs.
-  ↳ Update the `github.com/onsi/ginkgo/v2` dependency from v2.29.0 to v2.32.0. This update introduces new features like RSpec-style documentation output (`-fd`), a debugging flag (`--sleep-on-failure`), and a new plugin marketplace for Claude Skills.
-    - github.com/onsi/ginkgo/v2 2.29.0→2.32.0: compare v2.29.0...v2.32.0 ✓ 40000 bytes
-    - onsi/ginkgo v2.31.0..v2.32.0 (PR body): compare v2.31.0...v2.32.0 ✓ 35617 bytes
-    - context: 79956 bytes
-- [#298](https://github.com/mudler/yip/pull/298) — ✅ **good** — This is a standard minor version bump from an official repository, which is generally safe. The changes introduce new features (async assertions, plugins) and address specific security/logic issues in sub-packages (PKCS#12, SSH agent). The changes appear beneficial and are typical for a library maintenance release.
-  ↳ This PR updates the `github.com/onsi/gomega` dependency from v1.41.0 to v1.42.1, introducing new features like asynchronous assertions, a new Claude plugin, and significant documentation updates. It also includes security fixes in the PKCS#12 implementation and major architectural changes to the SSH agent client, introducing request pipelining.
+- [#298](https://github.com/mudler/yip/pull/298) — ✅ **good** — This pull request is a dependency update for a well-known library, `gomega`. The changes are confined to version bumps and the addition of new documentation and plugin files, which represent feature enhancements to the library itself. There are no apparent security vulnerabilities introduced by this version bump, making it safe to auto-approve.
+  ↳ This PR updates the dependency `github.com/onsi/gomega` from v1.41.0 to v1.42.1. The changes include updating the version constant, updating plugin metadata, and adding new documentation files detailing asynchronous assertions, composing matchers, and custom matchers for the Gomega library.
     - github.com/onsi/gomega 1.41.0→1.42.1: compare v1.41.0...v1.42.1 ✓ 40000 bytes
-    - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
-    - context: 88390 bytes
+    - golang.org/x/net 0.55.0→0.56.0: compare v0.55.0...v0.56.0 ✓ 40000 bytes
+    - context: 84517 bytes
 - [#299](https://github.com/mudler/yip/pull/299) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
     - github.com/google/go-containerregistry 0.21.6→0.21.7: compare v0.21.6...v0.21.7 ✓ 40000 bytes
-    - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
-    - context: 98464 bytes
+    - github.com/docker/cli 29.4.3+incompatible→29.5.3+incompatible: compare v29.4.3+incompatible...v29.5.3+incompatible failed/empty (no upstream diff)
+    - golang.org/x/mod 0.36.0→0.37.0: compare v0.36.0...v0.37.0 ✓ 15670 bytes
+    - context: 70397 bytes
 - [#300](https://github.com/mudler/yip/pull/300) — ✅ **good** — This is a necessary dependency update to a newer major version of a core action. The upstream changes explicitly mention security improvements, specifically regarding fork PR handling, which mitigates potential "pwn request" vulnerabilities. Therefore, this change is safe to auto-approve.
   ↳ This PR updates the `actions/checkout` dependency from v6 to v7. This major version upgrade includes important security fixes, such as safer handling of fork pull requests, and updates to several related actions and dependencies.
     - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
     - actions/checkout v6.0.3..v7.0.0 (PR body): compare v6.0.3...v7.0.0 ✓ 40000 bytes
     - context: 46073 bytes
-- [#303](https://github.com/mudler/yip/pull/303) — ✅ **good** — This pull request addresses two high-severity security vulnerabilities (CVSS 6.9 and 8.7) in containerd by updating the dependency to a patched version and implementing necessary code fixes. The changes directly mitigate the risks of DoS and arbitrary command execution. Therefore, this change is safe to auto-approve.
-  ↳ This PR updates the `github.com/containerd/containerd` dependency from v1.7.32 to v1.7.33, which includes critical security patches for CVE-2026-47262 and CVE-2026-53488. Additionally, the PR introduces code changes to prevent the propagation of reserved labels from untrusted image configurations and implements bounded file reading for user databases to mitigate related risks.
-    - github.com/containerd/containerd 1.7.32→1.7.33: compare v1.7.32...v1.7.33 ✓ 39844 bytes
-    - context: 51330 bytes
+- [#304](https://github.com/mudler/yip/pull/304) — ✅ **good** — The dependency update is to a major version (v1 to v2) and the release notes explicitly mention multiple security updates (CVEs). This type of dependency bump, especially when driven by security fixes, is generally safe to auto-approve.
+  ↳ This PR updates the `github.com/containerd/containerd` dependency from v1.7.33 to v2.3.2. This upgrade includes several security patches for containerd, addressing multiple CVEs listed in the release notes.
+    - github.com/Microsoft/go-winio 0.6.2→0.6.3-0.20251027160822-ad3df93bed29: compare v0.6.2...ad3df93bed29 ✓ 28979 bytes
+    - context: 100866 bytes
 
