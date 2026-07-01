@@ -100,6 +100,7 @@ repos:
     criticality: high
     artifacts:
       - {type: image, ref: ghcr.io/kairos-io/hadron:main}
+      - {type: component-manifest, ref: https://hadron-linux.io/components/main.json}
 
   # --- external dependencies ---
   - repo: mudler/edgevpn

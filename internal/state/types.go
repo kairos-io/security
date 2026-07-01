@@ -12,7 +12,7 @@ const (
 )
 
 type Artifact struct {
-	Type    string `json:"type"`              // "image" | "go"
+	Type    string `json:"type"`              // "image" | "go" | "component-manifest"
 	Ref     string `json:"ref,omitempty"`     // image reference, when Type=="image"
 	ModPath string `json:"modpath,omitempty"` // module path within repo, when Type=="go"
 }
