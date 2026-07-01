@@ -107,6 +107,32 @@ func TestComponentManifestCollectFiltersNonVulnerableNVDMatch(t *testing.T) {
 	assert.Empty(t, fs)
 }
 
+// TestComponentManifestCollectQualifiesAlpineEcosystemForOSV pins the fix for
+// the Task 9 defect: OSV.dev requires Alpine ecosystem strings to be
+// release-qualified (e.g. "Alpine:v3.22"), not the bare "Alpine" family name.
+// The bare value returns zero results for every package, silently breaking the
+// OSV-first matching strategy. Collect must rewrite the per-entry "Alpine"
+// ecosystem to the qualified branch before handing it to QueryOSV, without
+// touching any Finding field.
+func TestComponentManifestCollectQualifiesAlpineEcosystemForOSV(t *testing.T) {
+	manifest := []byte(`{"ref":"main","commit":"abc","groups":{"Other":{"openssl":"3.6.3"}}}`)
+	var gotEcosystem string
+	c := ComponentManifest{
+		FetchManifest: func() ([]byte, error) { return manifest, nil },
+		Components: map[string]config.HadronComponentEntry{
+			"openssl": {OSV: &config.HadronOSVSource{Ecosystem: "Alpine", Package: "openssl"}},
+		},
+		QueryOSV: func(ecosystem, pkg, version string) ([]byte, error) {
+			gotEcosystem = ecosystem
+			return []byte(`{"vulns":[]}`), nil
+		},
+	}
+	repo := state.Repo{Repo: "kairos-io/hadron", Artifacts: []state.Artifact{{Type: "component-manifest"}}}
+	_, err := c.Collect(repo)
+	require.NoError(t, err)
+	assert.Equal(t, "Alpine:v3.22", gotEcosystem)
+}
+
 func TestComponentManifestCollectSkipsMarkedPackages(t *testing.T) {
 	manifest := []byte(`{"ref":"main","commit":"abc","groups":{"Other":{"mussel":"deadbeef"}}}`)
 	c := ComponentManifest{

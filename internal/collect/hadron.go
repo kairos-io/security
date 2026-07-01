@@ -9,6 +9,12 @@ import (
 	"github.com/kairos-io/security/internal/state"
 )
 
+// osvAlpineBranch is the OSV.dev Alpine release branch ksec queries for
+// component CVE matching. OSV.dev requires Alpine ecosystem strings to be
+// release-qualified (e.g. "Alpine:v3.22"), not the bare "Alpine" family name —
+// bump this periodically as Alpine branches age out of OSV's tracked set.
+const osvAlpineBranch = "Alpine:v3.22"
+
 // ComponentManifest collects CVEs for kairos-io/hadron's published
 // component manifest: OSV.dev (Alpine ecosystem) first, falling back to an
 // NVD CPE-match query for packages OSV has no advisory for.
@@ -54,7 +60,11 @@ func (c ComponentManifest) Collect(repo state.Repo) ([]state.Finding, error) {
 
 		var hits []hit
 		if entry.OSV != nil && c.QueryOSV != nil {
-			results, err := QueryOSV(c.QueryOSV, entry.OSV.Ecosystem, entry.OSV.Package, comp.Version)
+			ecosystem := entry.OSV.Ecosystem
+			if ecosystem == "Alpine" {
+				ecosystem = osvAlpineBranch
+			}
+			results, err := QueryOSV(c.QueryOSV, ecosystem, entry.OSV.Package, comp.Version)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "componentManifest: OSV query failed for %s@%s: %v\n", comp.Package, comp.Version, err)
 			} else {
