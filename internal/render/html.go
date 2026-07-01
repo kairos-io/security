@@ -87,10 +87,10 @@ type htmlFocus struct {
 
 // htmlRepoRow exposes per-repo counts to the template (exported fields).
 type htmlRepoRow struct {
-	Repo                        string
-	Crit, High, Med, Low, Total int
-	Status                      string
-	StatusClass                 string
+	Repo                   string
+	Crit, High, Med, Total int
+	Status                 string
+	StatusClass            string
 }
 
 // dashboardHTMLTmpl renders a self-contained page. All dynamic values are
@@ -266,12 +266,12 @@ footer{ border-top: 1px solid var(--line); padding: 1.5rem 0 3rem; color: var(--
 <section id="findings">
 <h2>&#128230; Per-repo findings <span class="count">{{len .Repos}} repos</span></h2>
 <div class="tbl"><table>
-<thead><tr><th>Repo</th><th>Crit</th><th>High</th><th>Med</th><th>Low</th><th>Total</th><th>Status</th></tr></thead>
+<thead><tr><th>Repo</th><th>Crit</th><th>High</th><th>Med</th><th>Total</th><th>Status</th></tr></thead>
 <tbody>
 {{range .Repos}}<tr><td><a href="{{repoURL .Repo}}" target="_blank" rel="noopener">{{.Repo}}</a></td>
-<td class="num{{if not .Crit}} zero{{end}}">{{.Crit}}</td><td class="num{{if not .High}} zero{{end}}">{{.High}}</td><td class="num{{if not .Med}} zero{{end}}">{{.Med}}</td><td class="num{{if not .Low}} zero{{end}}">{{.Low}}</td><td class="num{{if not .Total}} zero{{end}}">{{.Total}}</td>
+<td class="num{{if not .Crit}} zero{{end}}">{{.Crit}}</td><td class="num{{if not .High}} zero{{end}}">{{.High}}</td><td class="num{{if not .Med}} zero{{end}}">{{.Med}}</td><td class="num{{if not .Total}} zero{{end}}">{{.Total}}</td>
 <td class="{{.StatusClass}}">{{.Status}}</td></tr>
-{{else}}<tr><td colspan="7" class="empty">No repos tracked.</td></tr>
+{{else}}<tr><td colspan="6" class="empty">No repos tracked.</td></tr>
 {{end}}</tbody>
 </table></div>
 </section>
@@ -389,7 +389,7 @@ func DashboardHTML(in Input) string {
 	repos := make([]htmlRepoRow, 0, len(rows))
 	for _, r := range rows {
 		repos = append(repos, htmlRepoRow{
-			Repo: r.repo, Crit: r.crit, High: r.high, Med: r.med, Low: r.low, Total: r.total,
+			Repo: r.repo, Crit: r.crit, High: r.high, Med: r.med, Total: r.total,
 			Status: repoStatus(r), StatusClass: repoStatusClass(r),
 		})
 	}

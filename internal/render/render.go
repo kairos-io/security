@@ -154,10 +154,10 @@ func DashboardMarkdown(in Input) string {
 
 	// Per-repo table
 	b.WriteString("## 📦 Per-repo findings\n\n")
-	b.WriteString("| Repo | Critical | High | Medium | Low | Total | Status |\n|---|---|---|---|---|---|---|\n")
+	b.WriteString("| Repo | Critical | High | Medium | Total | Status |\n|---|---|---|---|---|---|\n")
 	for _, row := range perRepoRows(in.Repos, in.Correlated.Findings, in.CollectErrors) {
-		fmt.Fprintf(&b, "| %s | %d | %d | %d | %d | %d | %s |\n",
-			repoLink(row.repo), row.crit, row.high, row.med, row.low, row.total, repoStatus(row))
+		fmt.Fprintf(&b, "| %s | %d | %d | %d | %d | %s |\n",
+			repoLink(row.repo), row.crit, row.high, row.med, row.total, repoStatus(row))
 	}
 	b.WriteString("\n")
 
@@ -271,10 +271,10 @@ func DashboardMarkdown(in Input) string {
 }
 
 type repoRow struct {
-	repo                        string
-	crit, high, med, low, total int
-	errored                     bool
-	skipped                     bool // source scanning opted out for this repo
+	repo                   string
+	crit, high, med, total int
+	errored                bool
+	skipped                bool // source scanning opted out for this repo
 }
 
 // perRepoRows enumerates the union of every tracked repo, every repo that
@@ -296,16 +296,16 @@ func perRepoRows(repos []state.Repo, findings []state.Finding, errs []state.Coll
 	}
 	for _, f := range findings {
 		r := get(f.Repo)
-		r.total++
 		switch f.Severity {
 		case "critical":
 			r.crit++
+			r.total++
 		case "high":
 			r.high++
+			r.total++
 		case "medium":
 			r.med++
-		case "low":
-			r.low++
+			r.total++
 		}
 	}
 	for _, e := range errs {
@@ -381,7 +381,9 @@ func needsHumanRows(entries []state.LedgerEntry) []string {
 
 // repoStatus classifies a per-repo row for display: errored repos take
 // precedence, then source-scan opt-outs with no findings are "skipped: not
-// source-scannable", then repos with no findings are "clean", otherwise "ok".
+// source-scannable", then repos with no critical/high/medium findings are
+// "clean (no crit/high/med)" — note low-severity findings may still exist for
+// that repo; they're just not counted in this table. Otherwise "ok".
 func repoStatus(r repoRow) string {
 	switch {
 	case r.errored:
@@ -389,7 +391,7 @@ func repoStatus(r repoRow) string {
 	case r.total == 0 && r.skipped:
 		return "skipped: not source-scannable"
 	case r.total == 0:
-		return "clean"
+		return "clean (no crit/high/med)"
 	default:
 		return "ok"
 	}
