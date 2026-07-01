@@ -34,7 +34,7 @@ type osvQueryResponse struct {
 // OSVResult is one CVE hit from an OSV.dev query, normalized to ksec's finding shape.
 type OSVResult struct {
 	CVEID        string
-	Severity     string // critical|high|medium|low|unknown, via severityFromOSV
+	Severity     string // critical|high|medium|low, via severityFromOSV
 	FixedVersion string
 	Title        string
 	URL          string

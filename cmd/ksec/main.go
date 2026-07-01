@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/kairos-io/security/internal/collect"
 	"github.com/kairos-io/security/internal/config"
@@ -141,9 +142,14 @@ func trivyRunner(ref string) ([]byte, error) {
 	return out, err
 }
 
+// httpClient is shared by the hadron-manifest/OSV/NVD network calls in this file. A
+// timeout is required because ksec runs unattended on a schedule — an endpoint that
+// accepts a connection but never responds must not hang the whole collect phase.
+var httpClient = &http.Client{Timeout: 30 * time.Second}
+
 // hadronManifestFetcher fetches hadron's published component manifest.
 func hadronManifestFetcher() ([]byte, error) {
-	resp, err := http.Get("https://hadron-linux.io/components/main.json")
+	resp, err := httpClient.Get("https://hadron-linux.io/components/main.json")
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +169,7 @@ func osvHTTPQuery(ecosystem, pkg, version string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := http.Post("https://api.osv.dev/v1/query", "application/json", bytes.NewReader(body))
+	resp, err := httpClient.Post("https://api.osv.dev/v1/query", "application/json", bytes.NewReader(body))
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +188,7 @@ func nvdHTTPQuery(vendor, product, version string) ([]byte, error) {
 	if key := os.Getenv("NVD_API_KEY"); key != "" {
 		req.Header.Set("apiKey", key)
 	}
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -212,11 +218,11 @@ func govulncheckRunner(r state.Repo) ([]byte, error) {
 
 	// Clone the default branch (no --branch): repos differ between main/master.
 	// Authenticate with the token so private repos and rate limits work.
-	url := "https://github.com/" + r.Repo + ".git"
+	cloneURL := "https://github.com/" + r.Repo + ".git"
 	if token := os.Getenv("GH_TOKEN"); token != "" {
-		url = "https://x-access-token:" + token + "@github.com/" + r.Repo + ".git"
+		cloneURL = "https://x-access-token:" + token + "@github.com/" + r.Repo + ".git"
 	}
-	clone := exec.Command("git", "clone", "--depth", "1", url, dir)
+	clone := exec.Command("git", "clone", "--depth", "1", cloneURL, dir)
 	if out, err := clone.CombinedOutput(); err != nil {
 		return nil, fmt.Errorf("clone: %v: %s", err, out)
 	}

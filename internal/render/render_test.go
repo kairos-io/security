@@ -51,8 +51,8 @@ func TestDashboardMarkdownGolden(t *testing.T) {
 }
 
 // TestDashboardMarkdownRepoStatus confirms the per-repo table lists tracked
-// repos beyond those with findings: a clean repo shows "clean" and an errored
-// repo shows the "⚠️ errors" status.
+// repos beyond those with findings: a clean repo shows "clean (no crit/high/med)"
+// and an errored repo shows the "⚠️ errors" status.
 func TestDashboardMarkdownRepoStatus(t *testing.T) {
 	got := DashboardMarkdown(sampleInput())
 	assert.Contains(t, got, "| [kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |")
