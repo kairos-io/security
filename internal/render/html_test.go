@@ -90,3 +90,13 @@ func TestDashboardHTMLSections(t *testing.T) {
 		assert.True(t, strings.Contains(got, want), "expected output to contain %q", want)
 	}
 }
+
+func TestDashboardHTMLHadronComponentSection(t *testing.T) {
+	in := Input{Correlated: state.Correlated{Findings: []state.Finding{
+		{ID: "h1", Repo: "kairos-io/hadron", Type: "componentCVE", Package: "openssl", CVEID: "CVE-2025-1", CurrentVersion: "3.6.3", FixedVersion: "3.6.4", Severity: "high"},
+	}}}
+	got := DashboardHTML(in)
+	assert.Contains(t, got, "Hadron component CVEs")
+	assert.Contains(t, got, "<td>openssl</td>")
+	assert.Contains(t, got, "<td>3.6.4</td>")
+}

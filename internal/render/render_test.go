@@ -155,3 +155,19 @@ func TestDashboardMarksSkippedRepo(t *testing.T) {
 	md := DashboardMarkdown(in)
 	assert.Contains(t, md, "skipped: not source-scannable")
 }
+
+func TestHadronComponentCVESection(t *testing.T) {
+	in := Input{Correlated: state.Correlated{Findings: []state.Finding{
+		{ID: "h1", Repo: "kairos-io/hadron", Type: "componentCVE", Package: "openssl", CVEID: "CVE-2025-1", CurrentVersion: "3.6.3", FixedVersion: "3.6.4", Severity: "high", Source: "osv", URL: "https://osv.dev/vulnerability/CVE-2025-1"},
+		{ID: "h2", Repo: "kairos-io/hadron", Type: "componentCVE", Package: "busybox", CVEID: "CVE-2025-2", CurrentVersion: "1.37.0", Severity: "medium", Source: "nvd"},
+	}}}
+	md := DashboardMarkdown(in)
+	assert.Contains(t, md, "🧩 Hadron component CVEs")
+	assert.Contains(t, md, "| openssl | 3.6.3 | 3.6.4 | high |")
+	assert.Contains(t, md, "| busybox | 1.37.0 | — | medium |") // no fixed version yet -> em dash, not blank
+}
+
+func TestHadronComponentCVESectionOmittedWhenEmpty(t *testing.T) {
+	md := DashboardMarkdown(Input{})
+	assert.NotContains(t, md, "Hadron component CVEs")
+}
