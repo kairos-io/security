@@ -1,1 +1,10 @@
-null
+[
+  {
+    "repo": "kairos-io/hadron",
+    "number": 492,
+    "title": "Automatic version bumps for acl, attr, expat, jsonc",
+    "author": "ci-robbot",
+    "url": "https://github.com/kairos-io/hadron/pull/492",
+    "source": "human"
+  }
+]

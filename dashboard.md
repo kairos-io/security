@@ -1,22 +1,25 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-01._
+_Updated 2026-07-02._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
 ## 📋 This run
 
 - **Scanned:** 28 repos (1 skipped)
-- **Findings:** 0 (0 critical / 0 high / 0 medium / 0 low / 0 unknown)
-- **CVE-related PRs:** 0
+- **Findings:** 67 (0 critical / 67 high / 0 medium / 0 low / 0 unknown)
+- **CVE-related PRs:** 1 (1 human)
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
-- **Why:** No CVEs found across 28 repos — nothing to remediate.
+- **Why:** 67 finding(s); 0 PR(s) open.
 
-> No security findings to triage this run.
+> This triage focuses on high-severity vulnerabilities affecting the openssl-fips package within the kairos-io/hadron repository. These issues span multiple CVEs across 2024, 2025, and 2026, indicating a critical need for immediate patching.
 
 ## 🔥 Focus now
 
-_Nothing flagged._
+- [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-66199) — High severity vulnerability in openssl-fips (ALPINE-CVE-2025-66199).
+- [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-28389) — High severity vulnerability in openssl-fips (ALPINE-CVE-2026-28389).
+- [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2024-6119) — High severity vulnerability in openssl-fips (ALPINE-CVE-2024-6119).
+- [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-28387) — High severity vulnerability in openssl-fips (ALPINE-CVE-2026-28387).
 
 ## 🌊 Waterfall fronts
 
@@ -24,40 +27,114 @@ _None._
 
 ## 📦 Per-repo findings
 
-| Repo | Critical | High | Medium | Low | Total | Status |
-|---|---|---|---|---|---|---|
-| [kairos-io/AuroraBoot](https://github.com/kairos-io/AuroraBoot) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/entangle](https://github.com/kairos-io/entangle) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/entangle-proxy](https://github.com/kairos-io/entangle-proxy) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/go-nodepair](https://github.com/kairos-io/go-nodepair) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/go-ukify](https://github.com/kairos-io/go-ukify) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/hadron](https://github.com/kairos-io/hadron) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/immucore](https://github.com/kairos-io/immucore) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/kairos](https://github.com/kairos-io/kairos) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/kairos-agent](https://github.com/kairos-io/kairos-agent) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/kairos-init](https://github.com/kairos-io/kairos-init) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/kairos-lab](https://github.com/kairos-io/kairos-lab) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/kairos-must-burn](https://github.com/kairos-io/kairos-must-burn) | 0 | 0 | 0 | 0 | 0 | skipped: not source-scannable |
-| [kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/kcrypt](https://github.com/kairos-io/kcrypt) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/kcrypt-discovery-challenger](https://github.com/kairos-io/kcrypt-discovery-challenger) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/netboot](https://github.com/kairos-io/netboot) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/provider-kairos](https://github.com/kairos-io/provider-kairos) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/provider-kubernetes](https://github.com/kairos-io/provider-kubernetes) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/simple-mdns-server](https://github.com/kairos-io/simple-mdns-server) | 0 | 0 | 0 | 0 | 0 | clean |
-| [kairos-io/tpm-helpers](https://github.com/kairos-io/tpm-helpers) | 0 | 0 | 0 | 0 | 0 | clean |
-| [mauromorales/xpasswd](https://github.com/mauromorales/xpasswd) | 0 | 0 | 0 | 0 | 0 | clean |
-| [mudler/edgevpn](https://github.com/mudler/edgevpn) | 0 | 0 | 0 | 0 | 0 | clean |
-| [mudler/entities](https://github.com/mudler/entities) | 0 | 0 | 0 | 0 | 0 | clean |
-| [mudler/go-pluggable](https://github.com/mudler/go-pluggable) | 0 | 0 | 0 | 0 | 0 | clean |
-| [mudler/yip](https://github.com/mudler/yip) | 0 | 0 | 0 | 0 | 0 | clean |
+| Repo | Critical | High | Medium | Total | Status |
+|---|---|---|---|---|---|
+| [kairos-io/hadron](https://github.com/kairos-io/hadron) | 0 | 67 | 0 | 67 | ok |
+| [kairos-io/AuroraBoot](https://github.com/kairos-io/AuroraBoot) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/entangle](https://github.com/kairos-io/entangle) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/entangle-proxy](https://github.com/kairos-io/entangle-proxy) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/go-nodepair](https://github.com/kairos-io/go-nodepair) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/go-ukify](https://github.com/kairos-io/go-ukify) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/immucore](https://github.com/kairos-io/immucore) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/kairos](https://github.com/kairos-io/kairos) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/kairos-agent](https://github.com/kairos-io/kairos-agent) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/kairos-init](https://github.com/kairos-io/kairos-init) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/kairos-lab](https://github.com/kairos-io/kairos-lab) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/kairos-must-burn](https://github.com/kairos-io/kairos-must-burn) | 0 | 0 | 0 | 0 | skipped: not source-scannable |
+| [kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/kcrypt](https://github.com/kairos-io/kcrypt) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/kcrypt-discovery-challenger](https://github.com/kairos-io/kcrypt-discovery-challenger) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/netboot](https://github.com/kairos-io/netboot) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/provider-kairos](https://github.com/kairos-io/provider-kairos) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/provider-kubernetes](https://github.com/kairos-io/provider-kubernetes) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/simple-mdns-server](https://github.com/kairos-io/simple-mdns-server) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [kairos-io/tpm-helpers](https://github.com/kairos-io/tpm-helpers) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [mauromorales/xpasswd](https://github.com/mauromorales/xpasswd) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [mudler/edgevpn](https://github.com/mudler/edgevpn) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [mudler/entities](https://github.com/mudler/entities) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [mudler/go-pluggable](https://github.com/mudler/go-pluggable) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+| [mudler/yip](https://github.com/mudler/yip) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+
+## 🧩 Hadron component CVEs
+
+| Package | Current | Fixed | Severity | CVE |
+|---|---|---|---|---|
+| busybox | 1.37.0 | 1.37.0 | high | [busybox](https://osv.dev/vulnerability/ALPINE-CVE-2024-58251) |
+| busybox | 1.37.0 | 1.37.0 | high | [busybox](https://osv.dev/vulnerability/ALPINE-CVE-2025-46394) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56405) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-50219) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56409) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56410) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56408) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56403) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56131) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56132) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56404) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56407) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56412) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56406) |
+| expat | 2.8.1 | 2.8.2 | high | [expat](https://osv.dev/vulnerability/ALPINE-CVE-2026-56411) |
+| gcc | 15.3.0 | 13.2.1_git20231014 | high | [gcc](https://osv.dev/vulnerability/ALPINE-CVE-2023-4039) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-68160) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-34180) |
+| openssl-fips | 3.1.2 | 3.1.4 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2023-6129) |
+| openssl-fips | 3.1.2 | 3.3.3 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2024-12797) |
+| openssl-fips | 3.1.2 | 3.3.2 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2024-9143) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-69418) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-42768) |
+| openssl-fips | 3.1.2 | 3.3.1 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2024-5535) |
+| openssl-fips | 3.1.2 | 3.5.4 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-9231) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-69421) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-11187) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-22795) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-45447) |
+| openssl-fips | 3.1.2 | 3.3.0 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2024-4603) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-69419) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-42769) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-66199) |
+| openssl-fips | 3.1.2 | 3.1.4 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2024-0727) |
+| openssl-fips | 3.1.2 | 3.5.6 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-28388) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-42767) |
+| openssl-fips | 3.1.2 | 3.5.4 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-9230) |
+| openssl-fips | 3.1.2 | 3.5.6 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-31789) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-7383) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-45446) |
+| openssl-fips | 3.1.2 | 3.5.4 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-9232) |
+| openssl-fips | 3.1.2 | 3.2.1 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2024-2511) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-42770) |
+| openssl-fips | 3.1.2 | 3.1.4 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2023-5363) |
+| openssl-fips | 3.1.2 | 3.5.1 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-4575) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-42764) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-15468) |
+| openssl-fips | 3.1.2 | 3.3.2 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2024-13176) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-34183) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-45445) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-15469) |
+| openssl-fips | 3.1.2 | 3.5.6 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-31790) |
+| openssl-fips | 3.1.2 | 3.1.4 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2023-5678) |
+| openssl-fips | 3.1.2 | 3.5.6 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-28390) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-42766) |
+| openssl-fips | 3.1.2 | 3.3.0 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2024-4741) |
+| openssl-fips | 3.1.2 | 3.5.6 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-28387) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-9076) |
+| openssl-fips | 3.1.2 | 3.1.4 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2023-6237) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-15467) |
+| openssl-fips | 3.1.2 | 3.3.2 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2024-6119) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-34181) |
+| openssl-fips | 3.1.2 | 3.5.6 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-28389) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-22796) |
+| openssl-fips | 3.1.2 | 3.5.5 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2025-69420) |
+| openssl-fips | 3.1.2 | 3.5.7 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-34182) |
+| openssl-fips | 3.1.2 | 3.5.6 | high | [openssl-fips](https://osv.dev/vulnerability/ALPINE-CVE-2026-2673) |
 
 ## 📋 Open PRs
 
-_None._
+**[kairos-io/hadron](https://github.com/kairos-io/hadron)**
+
+- [#492 Automatic version bumps for acl, attr, expat, jsonc](https://github.com/kairos-io/hadron/pull/492) — human — tracked
 
 ## 🤖 Bot PR ledger
 
@@ -69,45 +146,44 @@ _None._
 
 **[kairos-io/AuroraBoot](https://github.com/kairos-io/AuroraBoot)**
 
-- [#409](https://github.com/kairos-io/AuroraBoot/pull/409) — ⚠️ **needs_human_verification** — While updating a dependency digest is a standard maintenance task, this PR involves significant internal code changes, including the introduction of new backend implementations for key management and numerous dependency upgrades. A human review is necessary to ensure the refactoring is correct, secure, and aligns with project standards before merging.
-  ↳ This PR updates the digest for the dependency `github.com/foxboron/sbctl` to a new version. Additionally, it includes extensive internal refactoring, such as adding new key backends (File, TPM, Yubikey), updating build/CI workflows, and upgrading several other dependencies.
+- [#409](https://github.com/kairos-io/AuroraBoot/pull/409) — ⚠️ **needs_human_verification** — Although the primary change is a dependency digest update, the PR contains extensive, non-trivial code modifications, including the introduction of complex key management backends (TPM, Yubikey) and major refactoring across the codebase. These changes require a thorough manual security and functional review before merging.
+  ↳ This PR updates the digest for github.com/foxboron/sbctl. However, the PR also introduces significant refactoring and new backend implementations for key management, including support for TPM and Yubikey, along with updates to build workflows and Go dependencies.
     - github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes
     - github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes
     - context: 58356 bytes
-- [#566](https://github.com/kairos-io/AuroraBoot/pull/566) — ✅ **good** — This is a standard dependency update managed by Renovate, moving to a newer version of a trusted library. The changes align with the upstream release notes, specifically adding a new icon. There are no obvious security vulnerabilities introduced by this version bump.
-  ↳ This PR updates the `lucide-react` dependency from version ^0.468.0 to ^0.577.0. This update includes a new icon, `ellipse`, and minor configuration adjustments in the CI workflow and `.gitignore` file.
+- [#566](https://github.com/kairos-io/AuroraBoot/pull/566) — ✅ **good** — This is a standard dependency update to a newer version of a well-known icon library, and the changes align with the upstream release notes, which include a new icon feature. There are no apparent security vulnerabilities or breaking changes indicated in the provided context.
+  ↳ This PR updates the `lucide-react` dependency from version ^0.468.0 to ^0.577.0, which includes a new `ellipse` icon. It also includes minor configuration updates to `.github/workflows/ci.yml` and `.gitignore`.
     - lucide-icons/lucide 0.576.0..0.577.0 (PR body): compare 0.576.0...0.577.0 ✓ 40000 bytes
     - context: 99754 bytes
-- [#588](https://github.com/kairos-io/AuroraBoot/pull/588) — ✅ **good** — This pull request is a routine dependency update generated by an automated tool (Mend Renovate) to bump the debian version from 12 to 13. This type of maintenance update is generally safe and necessary for keeping dependencies up-to-date.
-  ↳ This PR updates the version of the debian dependency tag from v12 to v13 in the configuration file. This is a routine maintenance update to keep the project using a newer base image version.
+- [#588](https://github.com/kairos-io/AuroraBoot/pull/588) — ✅ **good** — This pull request is a routine dependency update for the Debian package, bumping the version from 12 to 13. Since this is a dependency management change and is generated by an automated tool (Mend Renovate), it is considered safe to auto-approve.
+  ↳ This PR updates the version tag for the `debian` dependency from v12 to v13 within the configuration file. This is a routine dependency update managed by an automated tool.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1596 bytes
-- [#590](https://github.com/kairos-io/AuroraBoot/pull/590) — ✅ **good** — This is a routine dependency update for a utility package. The change is a version bump for `globals`, which is a common maintenance task. While the `globals` package has had breaking changes in version 17.0.0, this PR updates to a version within that series, which is generally safe for automated approval unless specific breaking changes are known to impact the project's functionality.
-  ↳ This PR updates the dependency `globals` from version 15.x.x to version 17.7.0. This change updates the package version in `package.json` and `package-lock.json` to align with the new major version.
+- [#590](https://github.com/kairos-io/AuroraBoot/pull/590) — ✅ **good** — This is a routine dependency update to a newer minor version of a well-known utility package. There are no immediate security red flags or obvious breaking changes indicated in the context that would warrant manual review. It is safe to auto-approve.
+  ↳ This PR updates the dependency `globals` from version 15.x.x to 17.7.0. This is a standard dependency update to pull in newer features and bug fixes from the package.
     - sindresorhus/globals v17.6.0..a19670cc86c1218e915657c55ea02ba3e7623834 (PR body): compare v17.6.0...a19670cc86c1218e915657c55ea02ba3e7623834 ✓ 11637 bytes
     - sindresorhus/globals v17.6.0..v17.7.0 (PR body): compare v17.6.0...v17.7.0 ✓ 11637 bytes
     - sindresorhus/globals v17.5.0..v17.6.0 (PR body): compare v17.5.0...v17.6.0 ✓ 3099 bytes
     - sindresorhus/globals v17.4.0..v17.5.0 (PR body): compare v17.4.0...v17.5.0 ✓ 5103 bytes
     - sindresorhus/globals v17.3.0..v17.4.0 (PR body): compare v17.3.0...v17.4.0 ✓ 4284 bytes
     - context: 45798 bytes
-- [#591](https://github.com/kairos-io/AuroraBoot/pull/591) — ✅ **good** — This is a standard dependency update to a newer patch version of a widely used library (TypeScript). The changes are confined to updating version numbers in lock files and internal source files. This is a routine maintenance task and poses no immediate security risk.
-  ↳ This PR updates the `typescript` dependency from version 6.0.2 to 6.0.3 in `package.json` and `package-lock.json`. It also includes corresponding internal updates within the TypeScript source files to align with the new version. This is a routine dependency maintenance update.
+- [#591](https://github.com/kairos-io/AuroraBoot/pull/591) — ✅ **good** — This is a standard dependency update to a minor patch release of TypeScript, which is necessary for project compatibility. The changes appear to be necessary migration steps to adopt the new TypeScript version and maintain project functionality.
+  ↳ This PR updates the TypeScript dependency from version ~5.9.0 to ~6.0.0, including necessary internal code adjustments to support the new compiler API and package name validation rules introduced in TypeScript 6.0.3.
     - microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes
     - microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 ✓ 40000 bytes
     - context: 85089 bytes
-- [#594](https://github.com/kairos-io/AuroraBoot/pull/594) — ✅ **good** — This is a routine dependency update to a major version of a well-known package. The changes primarily involve version bumping, updating documentation, and implementing deprecation handling for a removed rule, which is standard maintenance. The changes appear safe and necessary for project health.
-  ↳ This PR updates the `eslint-plugin-react-hooks` dependency from v5 to v7.1.1, incorporating fixes and handling the deprecation of the `component-hook-factories` rule. It also includes related updates to test files and build cache keys to align with the new major version.
+- [#594](https://github.com/kairos-io/AuroraBoot/pull/594) — ✅ **good** — This is a standard dependency update to a newer major version of `eslint-plugin-react-hooks`. The changes align with the upstream release notes, specifically addressing backward compatibility and new ESLint features. The accompanying internal code modifications appear to be necessary migrations to ensure compatibility with the new dependency version.
+  ↳ This PR updates `eslint-plugin-react-hooks` to version 7.1.1, which includes fixes for deprecated rules and support for ESLint v10. It also includes necessary internal code adjustments across `react-reconciler`, `react-dom`, and `react-refresh` to accommodate the new version's features and behavior.
     - facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes
     - facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes
     - context: 100048 bytes
-- [#599](https://github.com/kairos-io/AuroraBoot/pull/599) — ✅ **good** — This is a dependency update to a newer major version of ESLint. The release notes confirm that this version includes important bug fixes and security vulnerability patches, making this change safe to auto-approve.
-  ↳ This PR updates the ESLint and related packages to version 10.0.1. This upgrade includes several bug fixes and security updates, such as updating `minimatch` to address known vulnerabilities. It also includes necessary configuration and documentation updates for the new version.
+- [#599](https://github.com/kairos-io/AuroraBoot/pull/599) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
     - eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes
     - context: 77824 bytes
-- [#606](https://github.com/kairos-io/AuroraBoot/pull/606) — ✅ **good** — This is a routine dependency update to a patch version of a widely used library. The change is low-risk as it is a minor version bump and addresses a specific bug fix documented in the release notes. It is safe to auto-approve.
-  ↳ This PR updates the `react-router-dom` dependency from version 7.18.0 to 7.18.1. This is a patch release that includes a fix for CSRF check logic.
-    - remix-run/react-router react-router-dom@7.18.0..react-router-dom@7.18.1 (PR body): compare react-router-dom@7.18.0...react-router-dom@7.18.1 ✓ 40000 bytes
-    - context: 43533 bytes
+- [#611](https://github.com/kairos-io/AuroraBoot/pull/611) — ✅ **good** — This is a standard dependency version bump performed by an automated tool, which is generally safe. The change only updates the version number of an existing dependency and includes a minor, non-security-related code adjustment. There are no immediate security concerns indicated by this change.
+  ↳ This PR updates the dependency github.com/kairos-io/kairos-sdk from version v0.23.0 to v0.23.1. It also includes a minor code adjustment in `iso/extract.go` to explicitly open the ISO file in read-only mode.
+    - github.com/kairos-io/kairos-sdk 0.23.0→0.23.1: compare v0.23.0...v0.23.1 ✓ 2577 bytes
+    - context: 6382 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -123,7 +199,10 @@ _None._
     - context: 88194 bytes
 - [#6](https://github.com/kairos-io/entangle-proxy/pull/6) — ✅ **good** — This pull request updates the dependency sigs.k8s.io/controller-runtime to version v0.24.1. This is a routine dependency update to a newer version, which is generally safe and necessary for maintaining security and compatibility.
 - [#14](https://github.com/kairos-io/entangle-proxy/pull/14) — ✅ **good** — This pull request primarily updates several dependencies to newer versions, including core packages like `golang.org/x` and `google.golang.org/protobuf`. Updating dependencies is a crucial security practice to ensure that known vulnerabilities are patched. The changes appear to be dependency hygiene improvements and do not introduce any obvious security risks.
-- [#18](https://github.com/kairos-io/entangle-proxy/pull/18) — ✅ **good** — This pull request updates the version of the docker/build-push-action from v2 to v7. Updating dependencies to the latest stable version is a standard security and maintenance practice. This change is safe to auto-approve.
+- [#18](https://github.com/kairos-io/entangle-proxy/pull/18) — ✅ **good** — This is a standard dependency upgrade to a major version of a widely used action. The changes primarily involve updating the action itself and migrating related workflow files to newer versions of underlying actions. Since this is a bot PR focused on dependency maintenance, it is considered safe to auto-approve.
+  ↳ This PR updates the `docker/build-push-action` dependency from v2 to v7. This major upgrade includes numerous internal dependency bumps and updates to the project's GitHub Actions workflow files to use newer versions of related actions like `actions/checkout` and `docker/setup-buildx-action`.
+    - docker/build-push-action v7.2.0..v7.3.0 (PR body): compare v7.2.0...v7.3.0 ✓ 40000 bytes
+    - context: 83719 bytes
 - [#19](https://github.com/kairos-io/entangle-proxy/pull/19) — ✅ **good** — This pull request updates the docker/login-action dependency from v1 to v4. Updating dependencies is a standard maintenance practice that generally improves security and stability by incorporating bug fixes and security patches from the maintainers. This change is safe to auto-approve.
 - [#20](https://github.com/kairos-io/entangle-proxy/pull/20) — ⚠️ **needs_human_verification** — Upgrading core Kubernetes dependencies is generally beneficial for security and feature updates. However, this is a major version jump (v0.24.0 to v0.36.2) across multiple critical libraries. A human review is required to ensure that no breaking changes have been introduced that could impact the application's functionality or security posture.
   ↳ This pull request updates three core Kubernetes dependencies (k8s.io/api, k8s.io/apimachinery, and k8s.io/client-go) from version v0.24.0 to v0.36.2. This involves significant version bumps across the board.
@@ -157,73 +236,47 @@ _None._
     - ipfs/go-log v2.9.0..v2.9.1 (PR body): compare v2.9.0...v2.9.1 ✓ 2149 bytes
     - ipfs/go-log v2.8.2..v2.9.0 (PR body): compare v2.8.2...v2.9.0 ✓ 40000 bytes
     - context: 70615 bytes
+**[kairos-io/go-ukify](https://github.com/kairos-io/go-ukify)**
+
+- [#58](https://github.com/kairos-io/go-ukify/pull/58) — ✅ **good** — The dependency update is a minor version bump, and the changelog explicitly details the compatibility measures taken, specifically adjusting the Go version directive. This change appears safe and necessary for keeping the project updated with the dependency.
+  ↳ This PR updates the dependency `github.com/ThalesGroup/crypto11` from version v1.6.1 to v1.6.2. The release notes indicate that this update adjusts the minimum required Go version and adds a recommended toolchain directive to maintain compatibility for consumers.
+    - github.com/ThalesGroup/crypto11 1.6.1→1.6.2: compare v1.6.1...v1.6.2 ✓ 1201 bytes
+    - thales-transfer/crypto11 v1.6.0..v1.6.2 (PR body): compare v1.6.0...v1.6.2 ✓ 2393 bytes
+    - context: 6940 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4104](https://github.com/kairos-io/kairos/pull/4104) — ⚠️ **needs_human_verification** — The PR title suggests an automation task related to dependency upgrades. While automation can be beneficial, security review requires inspecting the actual code changes to ensure no unintended side effects or vulnerabilities were introduced during the pipeline wiring.
   ↳ The PR aims to automate the process of fetching the latest release and running validation tests within the upgrade pipeline.
+- [#4209](https://github.com/kairos-io/kairos/pull/4209) — ✅ **good** — This is a minor version update for a standard, widely used action. Since this PR was generated by an automated tool (Mend Renovate) and only involves a minor version bump, it is considered safe to auto-approve.
+  ↳ This PR updates the `docker/build-push-action` dependency from v7.2.0 to v7.3.0 across multiple GitHub Actions workflows. This is a standard minor version bump for a widely used action.
+    - docker/build-push-action v7.2.0..v7.3.0 (PR body): compare v7.2.0...v7.3.0 ✓ 40000 bytes
+    - context: 42761 bytes
 **[kairos-io/kairos-agent](https://github.com/kairos-io/kairos-agent)**
 
 - [#1282](https://github.com/kairos-io/kairos-agent/pull/1282) — ✅ **good** — The change is a refactoring of the initialization logic to improve configuration flexibility by allowing users to specify provider paths dynamically. The implementation includes error handling to gracefully fall back to default paths if the configuration parsing fails, which enhances robustness. This change does not introduce any obvious security vulnerabilities.
   ↳ This PR refactors the initialization sequence to allow provider directories to be dynamically configured via a `providers.paths` setting in the collector configuration. It introduces YAML parsing to read these paths and uses them to initialize the bus manager, falling back to default paths if parsing fails.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 5365 bytes
+**[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
+
+- [#390](https://github.com/kairos-io/kairos-init/pull/390) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
+    - github.com/mudler/yip 1.24.0→1.24.1: compare v1.24.0...v1.24.1 ✓ 40000 bytes
+    - github.com/Microsoft/go-winio 0.6.2→0.6.3-0.20251027160822-ad3df93bed29: compare v0.6.2...ad3df93bed29 ✓ 28979 bytes
+    - context: 84019 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#88](https://github.com/kairos-io/kairos-operator/pull/88) — ✅ **good** — This change is a routine version bump as described in the PR description, updating images from a previous beta tag to the next one. There are no immediate security concerns apparent from the diff itself, suggesting this is a safe maintenance update.
   ↳ This PR updates the container images for the Kairos operator and node-labeler to version v0.1.0-beta5.
     - no go.mod dependency bumps parsed from the PR diff
     - context: 886 bytes
-- [#89](https://github.com/kairos-io/kairos-operator/pull/89) — ✅ **good** — This change is a routine dependency digest update for a widely used Docker action. Updating to a newer digest is standard maintenance and does not introduce any immediate security risks or obvious breaking changes. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the digest of the `docker/build-push-action` dependency across multiple workflow files from an older version to a newer one. This is a routine maintenance update for a standard Docker action.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 2152 bytes
-- [#91](https://github.com/kairos-io/kairos-operator/pull/91) — ✅ **good** — This is a routine dependency digest update for an external tool. There are no apparent security risks introduced by updating a package digest, and this change is necessary for maintenance.
-  ↳ This PR updates the digest for the `azure/setup-kubectl` dependency from an older version to a newer one. This change is applied in the workflow file to ensure the build environment uses the latest specified version of the tool.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 1690 bytes
-- [#92](https://github.com/kairos-io/kairos-operator/pull/92) — ✅ **good** — This is a routine dependency digest update for a base image. Updating base image digests is standard practice for security hygiene and ensuring the use of the latest available image, which is safe to auto-approve.
-  ↳ This PR updates the base image for the Dockerfile from an older Alpine digest (`2510918`) to a newer one (`fd791d7`). This ensures the build uses the latest, verified image digest for Alpine 3.23.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 1604 bytes
-- [#93](https://github.com/kairos-io/kairos-operator/pull/93) — ✅ **good** — The changes are dependency updates for core Kubernetes libraries, which is routine maintenance. The diffs show that the updates primarily involve adding optional fields to Protobuf messages, which is generally a safe, additive change. Since this is a core project dependency, it is likely safe to auto-approve.
-  ↳ This PR updates three core Kubernetes dependencies (k8s.io/api, k8s.io/apimachinery, and k8s.io/client-go) to version v0.36.2. The changes primarily involve adding optional fields to Protobuf definitions within admission webhooks, which is an additive change. This update aligns the project with the latest Kubernetes API versions.
+- [#93](https://github.com/kairos-io/kairos-operator/pull/93) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
     - k8s.io/api 0.35.3→0.36.2: compare v0.35.3...v0.36.2 ✓ 40000 bytes
     - k8s.io/apimachinery 0.35.3→0.36.2: compare v0.35.3...v0.36.2 ✓ 40000 bytes
-    - context: 97288 bytes
-- [#96](https://github.com/kairos-io/kairos-operator/pull/96) — ✅ **good** — This pull request is a routine version bump for existing images as described in the changelog. Since this is a dependency update and no specific security vulnerabilities are indicated in the context, it is safe to auto-approve.
-  ↳ This PR updates the Docker images for the Kairos operator and the operator-node-labeler to version v0.1.0-beta6.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 886 bytes
-- [#98](https://github.com/kairos-io/kairos-operator/pull/98) — ✅ **good** — This is a minor version bump for a widely used testing framework. The changes primarily introduce new features, documentation, and minor dependency updates. There are no obvious security vulnerabilities introduced by this update, making it safe to auto-approve.
-  ↳ This PR updates the `github.com/onsi/ginkgo/v2` dependency to version v2.32.0. The changes introduce new features such as a Claude plugin, new devcontainer configurations, and updates to documentation and internal code structure. It also includes minor dependency updates in the Gemfile.lock.
-    - github.com/onsi/ginkgo/v2 2.28.1→2.32.0: compare v2.28.1...v2.32.0 ✓ 40000 bytes
-    - github.com/onsi/gomega 1.39.1→1.40.0: compare v1.39.1...v1.40.0 ✓ 40000 bytes
-    - context: 87633 bytes
-- [#100](https://github.com/kairos-io/kairos-operator/pull/100) — ✅ **good** — This is a dependency update to a minor version, which is generally safe. The changes appear to be feature additions (Claude plugin, devcontainer setup) and internal code cleanup/refactoring, which are positive for the project. The release notes suggest a strategy to minimize dependency bloat, indicating thoughtful maintenance.
-  ↳ This PR updates the dependency `github.com/onsi/gomega` from v1.39.1 to v1.42.1, introducing new features like a Claude plugin and updated development container configurations. It also includes significant internal refactoring in the `format` package and updates to documentation across the repository.
-    - github.com/onsi/gomega 1.39.1→1.42.1: compare v1.39.1...v1.42.1 ✓ 40000 bytes
-    - golang.org/x/mod 0.35.0→0.36.0: compare v0.35.0...v0.36.0 ✓ 16991 bytes
-    - context: 65356 bytes
-- [#102](https://github.com/kairos-io/kairos-operator/pull/102) — ✅ **good** — This change is a simple update of the digest for a base image. Updating the digest is a standard practice for ensuring the use of a specific, verified version of an image, which is a routine maintenance task and does not introduce new security risks.
-  ↳ This PR updates the digest of the `gcr.io/distroless/static:nonroot` Docker base image to a new, specified digest. This is a routine maintenance update for a base image dependency.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 1727 bytes
+    - context: 97282 bytes
 - [#112](https://github.com/kairos-io/kairos-operator/pull/112) — ✅ **good** — This is a routine dependency update bumping the image version within the beta track. Since this is a version bump and not a major architectural change, it is safe to auto-approve.
   ↳ This PR updates the image tags for the Kairos operator and node-labeler from v0.1.0-beta4 to v0.1.0-beta7 within the Kustomize configuration.
     - no go.mod dependency bumps parsed from the PR diff
     - context: 886 bytes
-- [#117](https://github.com/kairos-io/kairos-operator/pull/117) — ✅ **good** — This is a routine dependency update for a standard GitHub action. Since this change is driven by an automated tool (Mend Renovate) and involves updating a common setup utility, it is generally safe to auto-approve.
-  ↳ This PR updates the digest for the `actions/setup-go` action across multiple workflow files from an older version to a newer one.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 3067 bytes
-- [#118](https://github.com/kairos-io/kairos-operator/pull/118) — ✅ **good** — This pull request is a routine dependency digest update for the `docker/login-action`. It does not introduce any new code or apparent security vulnerabilities, making it safe to auto-approve.
-  ↳ This PR updates the digest of the `docker/login-action` dependency from `4907a6d` to `650006c`. This ensures the project is using the latest version of the action.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 3058 bytes
-- [#119](https://github.com/kairos-io/kairos-operator/pull/119) — ✅ **good** — This change is a simple update of a Docker image digest for an existing, specified version of golang. This is a standard maintenance task to ensure the build uses the latest artifact for that tag, which poses a very low security risk.
-  ↳ This PR updates the specific Docker digest used for the `docker.io/golang:1.26.4` base image in the `Dockerfile` and `Dockerfile.node-labeler`. This is a routine update to ensure the build uses the latest, verified artifact for that version.
-    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 1875 bytes
 **[kairos-io/kcrypt](https://github.com/kairos-io/kcrypt)**
 
 - [#505](https://github.com/kairos-io/kcrypt/pull/505) — ✅ **good** — The change is a dependency update to a newer version of the Kairos SDK, which is generally safe. The accompanying code changes focus on internal refactoring and adding complex features like multipath device handling, which appear to be well-tested in the provided diff. This is safe to auto-approve.
@@ -380,8 +433,13 @@ _None._
     - postcss/autoprefixer 10.5.1..10.5.2 (PR body): compare 10.5.1...10.5.2 ✓ 2688 bytes
     - postcss/autoprefixer 10.5.0..10.5.1 (PR body): compare 10.5.0...10.5.1 ✓ 40000 bytes
     - context: 54014 bytes
-- [#1050](https://github.com/mudler/edgevpn/pull/1050) — ✅ **good** — This is a dependency update to a newer major version of a widely used library. The changes reflect a necessary migration to the v7 API, which appears to be handled correctly by the bot, including updates to documentation and test cases. Since this is a dependency bump, it is safe to auto-approve.
-  ↳ This PR updates the dependency `github.com/cenkalti/backoff` from version v4 to v7. This migration involves significant API changes, including updates to error handling, the `Retry` function signature, and documentation across the library.
+- [#1051](https://github.com/mudler/edgevpn/pull/1051) — ✅ **good** — This is a dependency update for a core library. The changes detailed in the changelog and diffs appear to be internal maintenance, bug fixes, and refactoring rather than introducing new features or obvious security vulnerabilities. The update is necessary to keep the project on a supported version.
+  ↳ This PR updates the `github.com/libp2p/go-libp2p-kad-dht` dependency to v0.41.0. The changes primarily consist of internal refactoring and bug fixes within the DHT logic and the keystore implementation, including improvements to region calculation and key counting mechanisms.
+    - github.com/libp2p/go-libp2p-kad-dht 0.40.0→0.41.0: compare v0.40.0...v0.41.0 ✓ 40000 bytes
+    - github.com/quic-go/quic-go 0.59.0→0.59.1: compare v0.59.0...v0.59.1 ✓ 7704 bytes
+    - context: 53854 bytes
+- [#1052](https://github.com/mudler/edgevpn/pull/1052) — ✅ **good** — This is a standard dependency update to a newer major version of a utility library. The changes observed in the upstream diffs are internal refactoring, API adjustments, and test improvements, which are typical for a library upgrade. There are no immediate security concerns or obvious breaking changes that would prevent safe auto-approval.
+  ↳ This PR updates the dependency `github.com/cenkalti/backoff` from v4 to v7. The changes primarily involve updating the module definition, updating `go.sum`, and incorporating significant internal refactoring, API updates (like `RetryAfter`), and new test coverage from the v7 release.
     - cenkalti/backoff v6.0.1..v7.0.0 (PR body): compare v6.0.1...v7.0.0 ✓ 21611 bytes
     - cenkalti/backoff v6.0.0..v6.0.1 (PR body): compare v6.0.0...v6.0.1 ✓ 2512 bytes
     - cenkalti/backoff v5.0.3..v6.0.0 (PR body): compare v5.0.3...v6.0.0 ✓ 25480 bytes
@@ -390,32 +448,8 @@ _None._
     - context: 59288 bytes
 **[mudler/yip](https://github.com/mudler/yip)**
 
-- [#270](https://github.com/mudler/yip/pull/270) — ✅ **good** — This is a routine maintenance update for a core GitHub Action. The changes reflect standard version bumps within the action's dependencies, which is typical for keeping the action secure and compatible. There are no immediate red flags indicating a critical security vulnerability introduced by this version change.
-  ↳ This PR updates the `actions/setup-go` action from version v5 to v6. This major version upgrade includes several internal dependency updates across the action's ecosystem, such as upgrading `actions/cache` to v5 and updating various underlying npm packages.
-    - actions/setup-go v6.4.0..v6.5.0 (PR body): compare v6.4.0...v6.5.0 ✓ 40000 bytes
-    - actions/setup-go v6.3.0..v6.4.0 (PR body): compare v6.3.0...v6.4.0 ✓ 40000 bytes
-    - context: 91927 bytes
-- [#294](https://github.com/mudler/yip/pull/294) — ✅ **good** — This is a minor version bump for a dependency. The associated changes appear to be performance optimizations and new tests, which do not introduce any apparent security risks. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the dependency gopkg.in/ini.v1 from v1.67.2 to v1.67.3. The update includes an optimization for string handling in the `Key.Strings` method and the addition of a new benchmark test for large arrays.
-    - go-ini/ini v1.67.2..v1.67.3 (PR body): compare v1.67.2...v1.67.3 ✓ 29840 bytes
-    - context: 33138 bytes
-- [#299](https://github.com/mudler/yip/pull/299) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
-    - github.com/google/go-containerregistry 0.21.6→0.21.7: compare v0.21.6...v0.21.7 ✓ 40000 bytes
-    - github.com/docker/cli 29.4.3+incompatible→29.5.3+incompatible: compare v29.4.3+incompatible...v29.5.3+incompatible failed/empty (no upstream diff)
-    - golang.org/x/mod 0.36.0→0.37.0: compare v0.36.0...v0.37.0 ✓ 15670 bytes
-    - context: 70397 bytes
-- [#300](https://github.com/mudler/yip/pull/300) — ✅ **good** — This is a necessary dependency update to a newer major version of a core action. The upstream changes explicitly mention security improvements, specifically regarding fork PR handling, which mitigates potential "pwn request" vulnerabilities. Therefore, this change is safe to auto-approve.
-  ↳ This PR updates the `actions/checkout` dependency from v6 to v7. This major version upgrade includes important security fixes, such as safer handling of fork pull requests, and updates to several related actions and dependencies.
-    - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - actions/checkout v6.0.3..v7.0.0 (PR body): compare v6.0.3...v7.0.0 ✓ 40000 bytes
-    - context: 46073 bytes
-- [#304](https://github.com/mudler/yip/pull/304) — ✅ **good** — The dependency update is to a major version (v1 to v2) and the release notes explicitly mention multiple security updates (CVEs). This type of dependency bump, especially when driven by security fixes, is generally safe to auto-approve.
-  ↳ This PR updates the `github.com/containerd/containerd` dependency from v1.7.33 to v2.3.2. This upgrade includes several security patches for containerd, addressing multiple CVEs listed in the release notes.
+- [#306](https://github.com/mudler/yip/pull/306) — ✅ **good** — The dependency update moves containerd to a newer major version (v2.3.2), which includes multiple security patches (CVEs) as detailed in the release notes. This is a standard and beneficial dependency upgrade. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the dependency `github.com/containerd/containerd` from v1.7.33 to v2.3.2. This upgrade includes several security patches for CVEs and various fixes related to runtime operations and image distribution.
     - github.com/Microsoft/go-winio 0.6.2→0.6.3-0.20251027160822-ad3df93bed29: compare v0.6.2...ad3df93bed29 ✓ 28979 bytes
     - context: 100866 bytes
-- [#305](https://github.com/mudler/yip/pull/305) — ✅ **good** — This is a routine dependency update to a minor version of a widely used library (`gomega`) and several related Go packages. The changes do not introduce any obvious security risks or breaking API changes that would require manual review.
-  ↳ Update the `github.com/onsi/gomega` dependency to v1.42.1 and update several other Go modules (`golang.org/x/net`, `golang.org/x/text`, `gopkg.in/check.v1`) to their latest versions. This PR also adds new documentation and plugin files for the updated Gomega version.
-    - github.com/onsi/gomega 1.41.0→1.42.1: compare v1.41.0...v1.42.1 ✓ 40000 bytes
-    - golang.org/x/net 0.55.0→0.56.0: compare v0.55.0...v0.56.0 ✓ 40000 bytes
-    - context: 84517 bytes
 
