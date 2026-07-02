@@ -2,11 +2,16 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/kairos-io/security/internal/collect"
 	"github.com/kairos-io/security/internal/config"
@@ -93,11 +98,22 @@ func newCollectCmd(gf *globalFlags) *cobra.Command {
 			var prev state.Findings
 			_ = state.Load(gf.stateDir, state.FindingsFile, &prev) // best-effort for aging
 
+			hadronComponents, err := config.LoadHadronComponents("hadron-components.yaml")
+			if err != nil {
+				return err
+			}
+
 			gh := ghclient.NewCLI()
 			collectors := []collect.Collector{
 				collect.GHAlerts{GH: gh},
 				collect.ImageCVE{Runner: trivyRunner},
 				collect.SourceCVE{Runner: govulncheckRunner},
+				collect.ComponentManifest{
+					FetchManifest: hadronManifestFetcher,
+					Components:    hadronComponents.Components,
+					QueryOSV:      osvHTTPQuery,
+					QueryNVD:      nvdHTTPQuery,
+				},
 			}
 			out := collect.Run(repos, collectors, prev)
 			if err := state.Save(gf.stateDir, state.FindingsFile, out); err != nil {
@@ -126,6 +142,60 @@ func trivyRunner(ref string) ([]byte, error) {
 	return out, err
 }
 
+// httpClient is shared by the hadron-manifest/OSV/NVD network calls in this file. A
+// timeout is required because ksec runs unattended on a schedule — an endpoint that
+// accepts a connection but never responds must not hang the whole collect phase.
+var httpClient = &http.Client{Timeout: 30 * time.Second}
+
+// hadronManifestFetcher fetches hadron's published component manifest.
+func hadronManifestFetcher() ([]byte, error) {
+	resp, err := httpClient.Get("https://hadron-linux.io/components/main.json")
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("hadron manifest: unexpected status %d", resp.StatusCode)
+	}
+	return io.ReadAll(resp.Body)
+}
+
+// osvHTTPQuery queries OSV.dev for a single package/version. No API key required.
+func osvHTTPQuery(ecosystem, pkg, version string) ([]byte, error) {
+	body, err := json.Marshal(map[string]any{
+		"package": map[string]string{"name": pkg, "ecosystem": ecosystem},
+		"version": version,
+	})
+	if err != nil {
+		return nil, err
+	}
+	resp, err := httpClient.Post("https://api.osv.dev/v1/query", "application/json", bytes.NewReader(body))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	return io.ReadAll(resp.Body)
+}
+
+// nvdHTTPQuery queries the NVD CPE-match API for a single vendor/product/version.
+// NVD_API_KEY is optional but raises the rate limit from 5 to 50 requests/30s.
+func nvdHTTPQuery(vendor, product, version string) ([]byte, error) {
+	cpe := fmt.Sprintf("cpe:2.3:a:%s:%s:%s:*:*:*:*:*:*:*", vendor, product, version)
+	req, err := http.NewRequest("GET", "https://services.nvd.nist.gov/rest/json/cves/2.0?cpeName="+url.QueryEscape(cpe), nil)
+	if err != nil {
+		return nil, err
+	}
+	if key := os.Getenv("NVD_API_KEY"); key != "" {
+		req.Header.Set("apiKey", key)
+	}
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	return io.ReadAll(resp.Body)
+}
+
 // govulncheckRunner shallow-clones the repo to a temp dir and runs govulncheck.
 // Non-Go repos (no root go.mod) are skipped without error so they neither
 // produce a finding nor a collection error.
@@ -148,11 +218,11 @@ func govulncheckRunner(r state.Repo) ([]byte, error) {
 
 	// Clone the default branch (no --branch): repos differ between main/master.
 	// Authenticate with the token so private repos and rate limits work.
-	url := "https://github.com/" + r.Repo + ".git"
+	cloneURL := "https://github.com/" + r.Repo + ".git"
 	if token := os.Getenv("GH_TOKEN"); token != "" {
-		url = "https://x-access-token:" + token + "@github.com/" + r.Repo + ".git"
+		cloneURL = "https://x-access-token:" + token + "@github.com/" + r.Repo + ".git"
 	}
-	clone := exec.Command("git", "clone", "--depth", "1", url, dir)
+	clone := exec.Command("git", "clone", "--depth", "1", cloneURL, dir)
 	if out, err := clone.CombinedOutput(); err != nil {
 		return nil, fmt.Errorf("clone: %v: %s", err, out)
 	}

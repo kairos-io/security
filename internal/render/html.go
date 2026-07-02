@@ -17,6 +17,7 @@ type htmlData struct {
 	Focus               []htmlFocus
 	Waterfall           []state.WaterfallGroup
 	Repos               []htmlRepoRow
+	Components          []htmlComponentRow
 	CollectErrors       []state.CollectionError
 	OpenPRs             []htmlOpenPRGroup
 	Ledger              []htmlLedgerEntry
@@ -87,10 +88,15 @@ type htmlFocus struct {
 
 // htmlRepoRow exposes per-repo counts to the template (exported fields).
 type htmlRepoRow struct {
-	Repo                        string
-	Crit, High, Med, Low, Total int
-	Status                      string
-	StatusClass                 string
+	Repo                   string
+	Crit, High, Med, Total int
+	Status                 string
+	StatusClass            string
+}
+
+// htmlComponentRow exposes a hadron component-manifest CVE to the template.
+type htmlComponentRow struct {
+	Package, Current, Fixed, Severity, Title, URL string
 }
 
 // dashboardHTMLTmpl renders a self-contained page. All dynamic values are
@@ -266,17 +272,28 @@ footer{ border-top: 1px solid var(--line); padding: 1.5rem 0 3rem; color: var(--
 <section id="findings">
 <h2>&#128230; Per-repo findings <span class="count">{{len .Repos}} repos</span></h2>
 <div class="tbl"><table>
-<thead><tr><th>Repo</th><th>Crit</th><th>High</th><th>Med</th><th>Low</th><th>Total</th><th>Status</th></tr></thead>
+<thead><tr><th>Repo</th><th>Crit</th><th>High</th><th>Med</th><th>Total</th><th>Status</th></tr></thead>
 <tbody>
 {{range .Repos}}<tr><td><a href="{{repoURL .Repo}}" target="_blank" rel="noopener">{{.Repo}}</a></td>
-<td class="num{{if not .Crit}} zero{{end}}">{{.Crit}}</td><td class="num{{if not .High}} zero{{end}}">{{.High}}</td><td class="num{{if not .Med}} zero{{end}}">{{.Med}}</td><td class="num{{if not .Low}} zero{{end}}">{{.Low}}</td><td class="num{{if not .Total}} zero{{end}}">{{.Total}}</td>
+<td class="num{{if not .Crit}} zero{{end}}">{{.Crit}}</td><td class="num{{if not .High}} zero{{end}}">{{.High}}</td><td class="num{{if not .Med}} zero{{end}}">{{.Med}}</td><td class="num{{if not .Total}} zero{{end}}">{{.Total}}</td>
 <td class="{{.StatusClass}}">{{.Status}}</td></tr>
-{{else}}<tr><td colspan="7" class="empty">No repos tracked.</td></tr>
+{{else}}<tr><td colspan="6" class="empty">No repos tracked.</td></tr>
 {{end}}</tbody>
 </table></div>
 </section>
 
-<section id="prs">
+{{if .Components}}<section id="hadron-components">
+<h2>&#129513; Hadron component CVEs <span class="count">{{len .Components}}</span></h2>
+<div class="tbl"><table>
+<thead><tr><th>Package</th><th>Current</th><th>Fixed</th><th>Severity</th><th>CVE</th></tr></thead>
+<tbody>
+{{range .Components}}<tr><td>{{.Package}}</td><td>{{.Current}}</td><td>{{.Fixed}}</td><td class="{{sevClass .Severity}}">{{.Severity}}</td>
+<td>{{if .URL}}<a href="{{.URL}}" target="_blank" rel="noopener">{{.Title}}</a>{{else}}{{.Title}}{{end}}</td></tr>
+{{end}}</tbody>
+</table></div>
+</section>
+
+{{end}}<section id="prs">
 <h2>&#128203; Open PRs <span class="count">CVE-related</span></h2>
 {{if .OpenPRs}}{{range .OpenPRs}}<h3 class="repo"><a href="{{repoURL .Repo}}" target="_blank" rel="noopener">{{.Repo}}</a></h3>
 <ul class="flat">
@@ -389,8 +406,20 @@ func DashboardHTML(in Input) string {
 	repos := make([]htmlRepoRow, 0, len(rows))
 	for _, r := range rows {
 		repos = append(repos, htmlRepoRow{
-			Repo: r.repo, Crit: r.crit, High: r.high, Med: r.med, Low: r.low, Total: r.total,
+			Repo: r.repo, Crit: r.crit, High: r.high, Med: r.med, Total: r.total,
 			Status: repoStatus(r), StatusClass: repoStatusClass(r),
+		})
+	}
+	var components []htmlComponentRow
+	for _, f := range hadronComponentRows(in.Correlated.Findings) {
+		fixed := f.FixedVersion
+		if fixed == "" {
+			fixed = "—"
+		}
+		title, url := focusTitleURL(f)
+		components = append(components, htmlComponentRow{
+			Package: f.Package, Current: f.CurrentVersion, Fixed: fixed,
+			Severity: f.Severity, Title: title, URL: url,
 		})
 	}
 	ledger := make([]htmlLedgerEntry, 0, len(in.Ledger.Entries))
@@ -463,6 +492,7 @@ func DashboardHTML(in Input) string {
 		Focus:               focus,
 		Waterfall:           in.Correlated.Waterfall,
 		Repos:               repos,
+		Components:          components,
 		CollectErrors:       in.CollectErrors,
 		OpenPRs:             openPRs,
 		Ledger:              ledger,

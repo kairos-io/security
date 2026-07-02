@@ -154,12 +154,26 @@ func DashboardMarkdown(in Input) string {
 
 	// Per-repo table
 	b.WriteString("## 📦 Per-repo findings\n\n")
-	b.WriteString("| Repo | Critical | High | Medium | Low | Total | Status |\n|---|---|---|---|---|---|---|\n")
+	b.WriteString("| Repo | Critical | High | Medium | Total | Status |\n|---|---|---|---|---|---|\n")
 	for _, row := range perRepoRows(in.Repos, in.Correlated.Findings, in.CollectErrors) {
-		fmt.Fprintf(&b, "| %s | %d | %d | %d | %d | %d | %s |\n",
-			repoLink(row.repo), row.crit, row.high, row.med, row.low, row.total, repoStatus(row))
+		fmt.Fprintf(&b, "| %s | %d | %d | %d | %d | %s |\n",
+			repoLink(row.repo), row.crit, row.high, row.med, row.total, repoStatus(row))
 	}
 	b.WriteString("\n")
+
+	// Hadron component CVEs
+	if rows := hadronComponentRows(in.Correlated.Findings); len(rows) > 0 {
+		b.WriteString("## 🧩 Hadron component CVEs\n\n")
+		b.WriteString("| Package | Current | Fixed | Severity | CVE |\n|---|---|---|---|---|\n")
+		for _, f := range rows {
+			fixed := f.FixedVersion
+			if fixed == "" {
+				fixed = "—"
+			}
+			fmt.Fprintf(&b, "| %s | %s | %s | %s | %s |\n", f.Package, f.CurrentVersion, fixed, f.Severity, findingLink(f))
+		}
+		b.WriteString("\n")
+	}
 
 	// Collection errors
 	if len(in.CollectErrors) > 0 {
@@ -271,10 +285,10 @@ func DashboardMarkdown(in Input) string {
 }
 
 type repoRow struct {
-	repo                        string
-	crit, high, med, low, total int
-	errored                     bool
-	skipped                     bool // source scanning opted out for this repo
+	repo                   string
+	crit, high, med, total int
+	errored                bool
+	skipped                bool // source scanning opted out for this repo
 }
 
 // perRepoRows enumerates the union of every tracked repo, every repo that
@@ -296,16 +310,16 @@ func perRepoRows(repos []state.Repo, findings []state.Finding, errs []state.Coll
 	}
 	for _, f := range findings {
 		r := get(f.Repo)
-		r.total++
 		switch f.Severity {
 		case "critical":
 			r.crit++
+			r.total++
 		case "high":
 			r.high++
+			r.total++
 		case "medium":
 			r.med++
-		case "low":
-			r.low++
+			r.total++
 		}
 	}
 	for _, e := range errs {
@@ -328,6 +342,40 @@ func perRepoRows(repos []state.Repo, findings []state.Finding, errs []state.Coll
 		return rows[i].repo < rows[j].repo
 	})
 	return rows
+}
+
+// hadronComponentRows returns componentCVE findings sorted by severity
+// (critical first) then package name.
+func hadronComponentRows(findings []state.Finding) []state.Finding {
+	var rows []state.Finding
+	for _, f := range findings {
+		if f.Type == "componentCVE" {
+			rows = append(rows, f)
+		}
+	}
+	sort.Slice(rows, func(i, j int) bool {
+		si, sj := severityRank(rows[i].Severity), severityRank(rows[j].Severity)
+		if si != sj {
+			return si > sj
+		}
+		return rows[i].Package < rows[j].Package
+	})
+	return rows
+}
+
+func severityRank(s string) int {
+	switch s {
+	case "critical":
+		return 4
+	case "high":
+		return 3
+	case "medium":
+		return 2
+	case "low":
+		return 1
+	default:
+		return 0
+	}
 }
 
 // correlateOpenPRs builds two lookup maps from the ledger in a single pass:
@@ -381,7 +429,9 @@ func needsHumanRows(entries []state.LedgerEntry) []string {
 
 // repoStatus classifies a per-repo row for display: errored repos take
 // precedence, then source-scan opt-outs with no findings are "skipped: not
-// source-scannable", then repos with no findings are "clean", otherwise "ok".
+// source-scannable", then repos with no critical/high/medium findings are
+// "clean (no crit/high/med)" — note low-severity findings may still exist for
+// that repo; they're just not counted in this table. Otherwise "ok".
 func repoStatus(r repoRow) string {
 	switch {
 	case r.errored:
@@ -389,7 +439,7 @@ func repoStatus(r repoRow) string {
 	case r.total == 0 && r.skipped:
 		return "skipped: not source-scannable"
 	case r.total == 0:
-		return "clean"
+		return "clean (no crit/high/med)"
 	default:
 		return "ok"
 	}

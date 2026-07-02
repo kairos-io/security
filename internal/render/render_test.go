@@ -51,13 +51,13 @@ func TestDashboardMarkdownGolden(t *testing.T) {
 }
 
 // TestDashboardMarkdownRepoStatus confirms the per-repo table lists tracked
-// repos beyond those with findings: a clean repo shows "clean" and an errored
-// repo shows the "⚠️ errors" status.
+// repos beyond those with findings: a clean repo shows "clean (no crit/high/med)"
+// and an errored repo shows the "⚠️ errors" status.
 func TestDashboardMarkdownRepoStatus(t *testing.T) {
 	got := DashboardMarkdown(sampleInput())
-	assert.Contains(t, got, "| [kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk) | 0 | 0 | 0 | 0 | 0 | clean |")
-	assert.Contains(t, got, "| [kairos-io/x](https://github.com/kairos-io/x) | 0 | 0 | 0 | 0 | 0 | ⚠️ errors |")
-	assert.Contains(t, got, "| [kairos-io/kairos](https://github.com/kairos-io/kairos) | 1 | 0 | 0 | 0 | 1 | ok |")
+	assert.Contains(t, got, "| [kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |")
+	assert.Contains(t, got, "| [kairos-io/x](https://github.com/kairos-io/x) | 0 | 0 | 0 | 0 | ⚠️ errors |")
+	assert.Contains(t, got, "| [kairos-io/kairos](https://github.com/kairos-io/kairos) | 1 | 0 | 0 | 1 | ok |")
 }
 
 func TestDashboardMarkdownCoordinationSummary(t *testing.T) {
@@ -154,4 +154,20 @@ func TestDashboardMarksSkippedRepo(t *testing.T) {
 	in := Input{Repos: []state.Repo{{Repo: "o/r", Scan: state.ScanConfig{Source: &f}}}}
 	md := DashboardMarkdown(in)
 	assert.Contains(t, md, "skipped: not source-scannable")
+}
+
+func TestHadronComponentCVESection(t *testing.T) {
+	in := Input{Correlated: state.Correlated{Findings: []state.Finding{
+		{ID: "h1", Repo: "kairos-io/hadron", Type: "componentCVE", Package: "openssl", CVEID: "CVE-2025-1", CurrentVersion: "3.6.3", FixedVersion: "3.6.4", Severity: "high", Source: "osv", URL: "https://osv.dev/vulnerability/CVE-2025-1"},
+		{ID: "h2", Repo: "kairos-io/hadron", Type: "componentCVE", Package: "busybox", CVEID: "CVE-2025-2", CurrentVersion: "1.37.0", Severity: "medium", Source: "nvd"},
+	}}}
+	md := DashboardMarkdown(in)
+	assert.Contains(t, md, "🧩 Hadron component CVEs")
+	assert.Contains(t, md, "| openssl | 3.6.3 | 3.6.4 | high |")
+	assert.Contains(t, md, "| busybox | 1.37.0 | — | medium |") // no fixed version yet -> em dash, not blank
+}
+
+func TestHadronComponentCVESectionOmittedWhenEmpty(t *testing.T) {
+	md := DashboardMarkdown(Input{})
+	assert.NotContains(t, md, "Hadron component CVEs")
 }

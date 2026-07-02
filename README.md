@@ -16,7 +16,7 @@ auditable in git history.
 
 ```
 discover  → build the tracked-repo list (kairos-io org + kairos-init deps + repos.yaml)
-collect   → per repo: open security PRs, image CVEs (trivy), source CVEs (govulncheck), GitHub alerts
+collect   → per repo: open security PRs, image CVEs (trivy), source CVEs (govulncheck), GitHub alerts, hadron component-manifest CVEs (OSV.dev + NVD)
 correlate → dedupe findings + build the "waterfall" graph (one Go CVE → the set of affected repos)
 triage    → prioritize + write the "focus now" summary (self-hosted LocalAI via nib; deterministic fallback)
 render    → dashboard.md + dashboard.json (committed), site/index.html (GitHub Pages), tracking issue in kairos-io/kairos
@@ -54,6 +54,11 @@ in isolation against committed state.
 - **`ai.yaml`** — LocalAI + `nib` handles: which small model to run/preload, how
   `nib` points at the LocalAI endpoint, and the pinned tool versions. Overridable
   via `LOCALAI_URL`, `LOCALAI_MODEL`, `LOCALAI_VERSION`, `NIB_VERSION`.
+- **`hadron-components.yaml`** — maps `kairos-io/hadron`'s published component
+  manifest packages to how they're checked for CVEs (OSV.dev ecosystem/package,
+  optional NVD CPE fallback). NVD lookups are optionally authenticated via
+  `NVD_API_KEY` (raises the rate limit from 5 to 50 requests/30s; unset works,
+  just slower).
 
 ## Pipeline
 

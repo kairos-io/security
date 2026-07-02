@@ -1,0 +1,140 @@
+# Maps each package in hadron's published component manifest
+# (https://hadron-linux.io/components/main.json) to how ksec checks it for
+# CVEs. `osv` names the OSV.dev ecosystem+package (Alpine aports package
+# names match these upstream project names in the large majority of cases —
+# mechanically seeded here, high confidence). `cpe` is the NVD fallback
+# vendor/product pair — intentionally left UNSET for every entry in this
+# first cut: guessing ~100 CPE identifiers without verifying each against
+# NVD risks silently wrong matches, worse than no match. Curate `cpe:`
+# incrementally as a follow-up (see the Plan 5 design doc's open items);
+# entries without one simply get OSV-only coverage until then.
+# `skip: true` marks a manifest entry that isn't real, versioned, CVE-bearing
+# upstream software (a build-tool commit pin, a cert bundle, a revocation
+# counter, or hadron's own build-recipe metadata).
+components:
+  # --- Build Tools ---
+  autoconf: {osv: {ecosystem: Alpine, package: autoconf}}
+  automake: {osv: {ecosystem: Alpine, package: automake}}
+  binutils: {osv: {ecosystem: Alpine, package: binutils}}
+  bison: {osv: {ecosystem: Alpine, package: bison}}
+  cmake: {osv: {ecosystem: Alpine, package: cmake}}
+  flex: {osv: {ecosystem: Alpine, package: flex}}
+  gawk: {osv: {ecosystem: Alpine, package: gawk}}
+  libtool: {osv: {ecosystem: Alpine, package: libtool}}
+  m4: {osv: {ecosystem: Alpine, package: m4}}
+  make: {osv: {ecosystem: Alpine, package: make}}
+  pkgconfig: {osv: {ecosystem: Alpine, package: pkgconf}} # Alpine renamed pkgconfig -> pkgconf
+
+  # --- Compiler Tools ---
+  gcc: {osv: {ecosystem: Alpine, package: gcc}}
+  gmp: {osv: {ecosystem: Alpine, package: gmp}}
+  mpc: {osv: {ecosystem: Alpine, package: mpc1}}
+  mpfr: {osv: {ecosystem: Alpine, package: mpfr4}}
+  perl: {osv: {ecosystem: Alpine, package: perl}}
+
+  # --- Compression Tools ---
+  curl: {osv: {ecosystem: Alpine, package: curl}}
+  gzip: {osv: {ecosystem: Alpine, package: gzip}}
+  lz4: {osv: {ecosystem: Alpine, package: lz4}}
+  rsync: {osv: {ecosystem: Alpine, package: rsync}}
+  xxhash: {osv: {ecosystem: Alpine, package: xxhash}}
+  xzutils: {osv: {ecosystem: Alpine, package: xz}} # Alpine package is "xz"
+  zlib: {osv: {ecosystem: Alpine, package: zlib}}
+  zstd: {osv: {ecosystem: Alpine, package: zstd}}
+
+  # --- Core System ---
+  bash: {osv: {ecosystem: Alpine, package: bash}}
+  busybox: {osv: {ecosystem: Alpine, package: busybox}}
+  coreutils: {osv: {ecosystem: Alpine, package: coreutils}}
+  diffutils: {osv: {ecosystem: Alpine, package: diffutils}}
+  findutils: {osv: {ecosystem: Alpine, package: findutils}}
+  gperf: {osv: {ecosystem: Alpine, package: gperf}}
+  grep: {osv: {ecosystem: Alpine, package: grep}}
+  musl: {osv: {ecosystem: Alpine, package: musl}}
+  readline: {osv: {ecosystem: Alpine, package: readline}}
+  systemd: {osv: {ecosystem: Alpine, package: systemd}}
+  util-linux: {osv: {ecosystem: Alpine, package: util-linux}}
+
+  # --- Kernel And Boot ---
+  dracut: {osv: {ecosystem: Alpine, package: dracut}}
+  grub: {osv: {ecosystem: Alpine, package: grub}}
+  kbd: {osv: {ecosystem: Alpine, package: kbd}}
+  kernel: {osv: {ecosystem: Alpine, package: linux-lts}} # closest Alpine tracks upstream mainline advisories
+  kmod: {osv: {ecosystem: Alpine, package: kmod}}
+
+  # --- Misc Tools ---
+  aports: {skip: true} # Alpine's own package-recipe repo, not versioned upstream software
+  bc: {osv: {ecosystem: Alpine, package: bc}}
+  ca-certificates: {skip: true} # certificate bundle, not code; no CVE-bearing "version"
+  gdb: {osv: {ecosystem: Alpine, package: gdb}}
+  libucontext: {osv: {ecosystem: Alpine, package: libucontext}}
+  patch: {osv: {ecosystem: Alpine, package: patch}}
+  pax-utils: {osv: {ecosystem: Alpine, package: pax-utils}}
+  python: {osv: {ecosystem: Alpine, package: python3}}
+  sqlite3: {osv: {ecosystem: Alpine, package: sqlite}}
+  tpm2-tss: {osv: {ecosystem: Alpine, package: tpm2-tss}}
+
+  # --- Network Tools ---
+  iptables: {osv: {ecosystem: Alpine, package: iptables}}
+  keyutils: {osv: {ecosystem: Alpine, package: keyutils}}
+  libevent: {osv: {ecosystem: Alpine, package: libevent}}
+  libnl: {osv: {ecosystem: Alpine, package: libnl3}}
+  open-scsi: {skip: true} # ambiguous upstream name; needs manual research before enabling
+  strace: {osv: {ecosystem: Alpine, package: strace}}
+
+  # --- Other ---
+  conntrack-tools: {osv: {ecosystem: Alpine, package: conntrack-tools}}
+  libnetfilter-conntrack: {osv: {ecosystem: Alpine, package: libnetfilter_conntrack}}
+  libnetfilter-cthelper: {osv: {ecosystem: Alpine, package: libnetfilter_cthelper}}
+  libnetfilter-cttimeout: {osv: {ecosystem: Alpine, package: libnetfilter_cttimeout}}
+  libnetfilter-queue: {osv: {ecosystem: Alpine, package: libnetfilter_queue}}
+  libnfnetlink: {osv: {ecosystem: Alpine, package: libnfnetlink}}
+  mussel: {skip: true} # hadron's own build-orchestration tool, pinned by git commit
+  openssl-fips: {osv: {ecosystem: Alpine, package: openssl}} # same upstream codebase/CVEs as openssl
+  procps-ng: {osv: {ecosystem: Alpine, package: procps-ng}}
+  sbat-distro: {skip: true} # a revocation-counter integer, not a software version
+  shim: {osv: {ecosystem: Alpine, package: shim}}
+
+  # --- Security Tools ---
+  cryptsetup: {osv: {ecosystem: Alpine, package: cryptsetup}}
+  openssh: {osv: {ecosystem: Alpine, package: openssh}}
+  openssl: {osv: {ecosystem: Alpine, package: openssl}}
+  pam: {osv: {ecosystem: Alpine, package: linux-pam}}
+  shadow: {osv: {ecosystem: Alpine, package: shadow}}
+  sudo: {osv: {ecosystem: Alpine, package: sudo}}
+
+  # --- Storage Tools ---
+  dosfstools: {osv: {ecosystem: Alpine, package: dosfstools}}
+  e2fsprogs: {osv: {ecosystem: Alpine, package: e2fsprogs}}
+  libtirpc: {osv: {ecosystem: Alpine, package: libtirpc}}
+  lvm2: {osv: {ecosystem: Alpine, package: lvm2}}
+  multipath-tools: {osv: {ecosystem: Alpine, package: multipath-tools}}
+  nfs-utils: {osv: {ecosystem: Alpine, package: nfs-utils}}
+  parted: {osv: {ecosystem: Alpine, package: parted}}
+  urcu: {osv: {ecosystem: Alpine, package: liburcu}}
+
+  # --- System Libraries ---
+  acl: {osv: {ecosystem: Alpine, package: acl}}
+  attr: {osv: {ecosystem: Alpine, package: attr}}
+  dbus: {osv: {ecosystem: Alpine, package: dbus}}
+  expat: {osv: {ecosystem: Alpine, package: expat}}
+  fts: {skip: true} # obscure BSD-compat shim; no tracked upstream CVE history
+  iconv: {osv: {ecosystem: Alpine, package: gnu-libiconv}}
+  jsonc: {osv: {ecosystem: Alpine, package: json-c}}
+  libaio: {osv: {ecosystem: Alpine, package: libaio}}
+  libcap: {osv: {ecosystem: Alpine, package: libcap}}
+  libelf: {osv: {ecosystem: Alpine, package: elfutils}}
+  libffi: {osv: {ecosystem: Alpine, package: libffi}}
+  libkcapi: {osv: {ecosystem: Alpine, package: libkcapi}}
+  libmnl: {osv: {ecosystem: Alpine, package: libmnl}}
+  libnftnl: {osv: {ecosystem: Alpine, package: libnftnl}}
+  libxml2: {osv: {ecosystem: Alpine, package: libxml2}}
+  pcre2: {osv: {ecosystem: Alpine, package: pcre2}}
+  popt: {osv: {ecosystem: Alpine, package: popt}}
+  seccomp: {osv: {ecosystem: Alpine, package: libseccomp}}
+
+  # --- Vm Tools ---
+  glib: {osv: {ecosystem: Alpine, package: glib}}
+  mspack: {osv: {ecosystem: Alpine, package: libmspack}}
+  openvm-tools: {osv: {ecosystem: Alpine, package: open-vm-tools}}
+  qemu-agent: {osv: {ecosystem: Alpine, package: qemu-guest-agent}}
