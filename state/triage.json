@@ -5,14 +5,14 @@
   "focus": [
     "04d2480c68e4df4dbfb84ce5a1af39b9532e948cb97d6be5a505a28968c764a3",
     "0b9d637b9172764ae73a8fdfb7e3a876a0f72947048954bde09bb8c59563d19d",
-    "0c5bc7830f46c3dcee51b94480c47d0729da538938c03f05ca1ced83039bc324",
-    "0d4beb1d1cd0e1958bcddd05caee850f5e91793acb6c84fc8f9638386a767348"
+    "11ae27bb08df301d3e763fb43953e9019018e98ef322afead4693ad43eee5a77",
+    "77bca99f43581b3c803653ca89402ec0f4d04134ff2d57b57fa59c9ef841ffd9"
   ],
   "summaries": {
     "04d2480c68e4df4dbfb84ce5a1af39b9532e948cb97d6be5a505a28968c764a3": "High severity vulnerability in openssl-fips (ALPINE-CVE-2025-66199).",
     "0b9d637b9172764ae73a8fdfb7e3a876a0f72947048954bde09bb8c59563d19d": "High severity vulnerability in openssl-fips (ALPINE-CVE-2026-28389).",
-    "0c5bc7830f46c3dcee51b94480c47d0729da538938c03f05ca1ced83039bc324": "High severity vulnerability in openssl-fips (ALPINE-CVE-2024-6119).",
-    "0d4beb1d1cd0e1958bcddd05caee850f5e91793acb6c84fc8f9638386a767348": "High severity vulnerability in openssl-fips (ALPINE-CVE-2026-28387)."
+    "11ae27bb08df301d3e763fb43953e9019018e98ef322afead4693ad43eee5a77": "High severity vulnerability in expat (ALPINE-CVE-2026-56408).",
+    "77bca99f43581b3c803653ca89402ec0f4d04134ff2d57b57fa59c9ef841ffd9": "High severity vulnerability in openssl-fips (ALPINE-CVE-2026-45446)."
   },
-  "narrative": "This triage focuses on high-severity vulnerabilities affecting the openssl-fips package within the kairos-io/hadron repository. These issues span multiple CVEs across 2024, 2025, and 2026, indicating a critical need for immediate patching."
+  "narrative": "The analysis reveals multiple high-severity vulnerabilities across the kairos-io/hadron repository, primarily affecting openssl-fips and expat packages. Immediate attention is required to address these critical CVEs to mitigate potential security risks."
 }
