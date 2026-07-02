@@ -18,6 +18,10 @@ type osvVuln struct {
 	DatabaseSpecific struct {
 		Severity string `json:"severity"`
 	} `json:"database_specific"`
+	Severity []struct {
+		Type  string `json:"type"`
+		Score string `json:"score"`
+	} `json:"severity"`
 	Affected []struct {
 		Ranges []struct {
 			Events []struct {
@@ -34,7 +38,7 @@ type osvQueryResponse struct {
 // OSVResult is one CVE hit from an OSV.dev query, normalized to ksec's finding shape.
 type OSVResult struct {
 	CVEID        string
-	Severity     string // critical|high|medium|low, via severityFromOSV
+	Severity     string // critical|high|medium|low|unknown, via osvSeverity
 	FixedVersion string
 	Title        string
 	URL          string
@@ -73,13 +77,44 @@ func QueryOSV(query OSVQueryFunc, ecosystem, pkg, version string) ([]OSVResult, 
 		}
 		out = append(out, OSVResult{
 			CVEID:        cve,
-			Severity:     severityFromOSV(v.DatabaseSpecific.Severity),
+			Severity:     osvSeverity(v),
 			FixedVersion: fixed,
 			Title:        v.Summary,
 			URL:          "https://osv.dev/vulnerability/" + v.ID,
 		})
 	}
 	return out, nil
+}
+
+// osvSeverity derives a Finding's severity from an OSV vuln record, in
+// precedence order:
+//  1. An explicit database_specific.severity label (CRITICAL/HIGH/MODERATE/
+//     MEDIUM/LOW) is trusted directly — it's a human/tooling-assigned rating.
+//  2. Otherwise the first parseable CVSS_V3 entry in the top-level severity
+//     array is computed into a base score and mapped to a band.
+//  3. Otherwise "unknown" — being honest about missing data beats guessing.
+func osvSeverity(v osvVuln) string {
+	switch strings.ToUpper(strings.TrimSpace(v.DatabaseSpecific.Severity)) {
+	case "CRITICAL":
+		return "critical"
+	case "HIGH":
+		return "high"
+	case "MODERATE", "MEDIUM":
+		return "medium"
+	case "LOW":
+		return "low"
+	}
+	for _, s := range v.Severity {
+		if s.Type != "CVSS_V3" {
+			continue
+		}
+		score, err := cvssV31BaseScore(s.Score)
+		if err != nil {
+			continue // try any remaining entries
+		}
+		return cvssSeverityLabel(score)
+	}
+	return "unknown"
 }
 
 // stripAlpineRevisionSuffix strips a trailing "-rN" Alpine package-revision
