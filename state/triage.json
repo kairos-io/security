@@ -1,18 +1,16 @@
 {
-  "generatedAt": "2026-07-02",
+  "generatedAt": "2026-07-03",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
   "focus": [
-    "04d2480c68e4df4dbfb84ce5a1af39b9532e948cb97d6be5a505a28968c764a3",
-    "0b9d637b9172764ae73a8fdfb7e3a876a0f72947048954bde09bb8c59563d19d",
-    "11ae27bb08df301d3e763fb43953e9019018e98ef322afead4693ad43eee5a77",
-    "77bca99f43581b3c803653ca89402ec0f4d04134ff2d57b57fa59c9ef841ffd9"
+    "02a6ba6130f153efe9eee50cc18c14ea5c25821be870c44cae32faedec50627e",
+    "05e3b11fffb03ea97ecde34cc92f77426e3f1086802f260f2e738e8df87127d2",
+    "7c3624d8960c380a68e1ce988187bc16ce4b18820dbf40b9a43e3e92ff94472d"
   ],
   "summaries": {
-    "04d2480c68e4df4dbfb84ce5a1af39b9532e948cb97d6be5a505a28968c764a3": "High severity vulnerability in openssl-fips (ALPINE-CVE-2025-66199).",
-    "0b9d637b9172764ae73a8fdfb7e3a876a0f72947048954bde09bb8c59563d19d": "High severity vulnerability in openssl-fips (ALPINE-CVE-2026-28389).",
-    "11ae27bb08df301d3e763fb43953e9019018e98ef322afead4693ad43eee5a77": "High severity vulnerability in expat (ALPINE-CVE-2026-56408).",
-    "77bca99f43581b3c803653ca89402ec0f4d04134ff2d57b57fa59c9ef841ffd9": "High severity vulnerability in openssl-fips (ALPINE-CVE-2026-45446)."
+    "02a6ba6130f153efe9eee50cc18c14ea5c25821be870c44cae32faedec50627e": "Critical vulnerability CVE-2026-31789 in openssl-fips.",
+    "05e3b11fffb03ea97ecde34cc92f77426e3f1086802f260f2e738e8df87127d2": "Critical vulnerability CVE-2024-5535 in openssl-fips.",
+    "7c3624d8960c380a68e1ce988187bc16ce4b18820dbf40b9a43e3e92ff94472d": "Critical vulnerability CVE-2026-34182 in openssl-fips."
   },
-  "narrative": "The analysis reveals multiple high-severity vulnerabilities across the kairos-io/hadron repository, primarily affecting openssl-fips and expat packages. Immediate attention is required to address these critical CVEs to mitigate potential security risks."
+  "narrative": "The triage is focused on critical severity vulnerabilities found in the openssl-fips package within the kairos-io/hadron repository. Immediate attention is required to mitigate these critical risks before they can be exploited."
 }
