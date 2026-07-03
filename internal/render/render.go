@@ -69,6 +69,12 @@ func focusTitleURL(f state.Finding) (title, url string) {
 	}
 	title = f.Title
 	if title == "" {
+		title = f.CVEID
+	}
+	if title == "" {
+		title = f.GHSA
+	}
+	if title == "" {
 		title = f.Package
 	}
 	if title == "" {

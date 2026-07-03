@@ -14,6 +14,7 @@ type OSVQueryFunc func(ecosystem, pkg, version string) ([]byte, error)
 type osvVuln struct {
 	ID               string   `json:"id"`
 	Aliases          []string `json:"aliases"`
+	Upstream         []string `json:"upstream"`
 	Summary          string   `json:"summary"`
 	DatabaseSpecific struct {
 		Severity string `json:"severity"`
@@ -63,6 +64,14 @@ func QueryOSV(query OSVQueryFunc, ecosystem, pkg, version string) ([]OSVResult, 
 		for _, alias := range v.Aliases {
 			if strings.HasPrefix(alias, "CVE-") {
 				cve = alias
+			}
+		}
+		// Alpine OSV-converted advisories carry the real CVE id in "upstream"
+		// (and never populate "aliases"); honor it with the same last-match-wins
+		// semantics as the alias loop above.
+		for _, up := range v.Upstream {
+			if strings.HasPrefix(up, "CVE-") {
+				cve = up
 			}
 		}
 		fixed := ""
