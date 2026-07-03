@@ -96,6 +96,29 @@ func TestFocusSourceCVEWithCVEIDNoURL(t *testing.T) {
 	assert.NotContains(t, md, "pkg.go.dev/vuln/CVE-")
 }
 
+// TestFindingLinkFallsBackToCVEIDNotPackage guards the title-fallback chain: a
+// finding with no Title but a CVEID must render its CVE id as the link text, not
+// the bare package name — otherwise many distinct CVEs on the same package all
+// render identically (the "looks duplicated" bug).
+func TestFindingLinkFallsBackToCVEIDNotPackage(t *testing.T) {
+	in := Input{Correlated: state.Correlated{Findings: []state.Finding{
+		{ID: "h1", Repo: "kairos-io/hadron", Type: "componentCVE", Package: "expat", CVEID: "CVE-2026-56408", CurrentVersion: "2.8.1", FixedVersion: "2.8.2", Severity: "high"},
+	}}}
+	md := DashboardMarkdown(in)
+	assert.Contains(t, md, "CVE-2026-56408")
+	assert.NotContains(t, md, "| expat | 2.8.1 | 2.8.2 | high | expat |") // NOT the bare package name as link text
+}
+
+// TestFindingLinkFallsBackToGHSAWhenNoCVEID: with Title and CVEID both empty but
+// a GHSA present, the GHSA id is the link text (still better than bare package).
+func TestFindingLinkFallsBackToGHSAWhenNoCVEID(t *testing.T) {
+	in := Input{Correlated: state.Correlated{Findings: []state.Finding{
+		{ID: "h1", Repo: "kairos-io/hadron", Type: "componentCVE", Package: "expat", GHSA: "GHSA-abcd-1234-wxyz", CurrentVersion: "2.8.1", FixedVersion: "2.8.2", Severity: "high"},
+	}}}
+	md := DashboardMarkdown(in)
+	assert.Contains(t, md, "GHSA-abcd-1234-wxyz")
+}
+
 func TestOpenPRsSection(t *testing.T) {
 	in := Input{OpenPRs: []state.TrackedPR{
 		{Repo: "o/r", Number: 7, Title: "bump foo", URL: "https://github.com/o/r/pull/7", Source: "dependabot"},

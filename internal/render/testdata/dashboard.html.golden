@@ -154,7 +154,7 @@ footer{ border-top: 1px solid var(--line); padding: 1.5rem 0 3rem; color: var(--
 
 
 <h3 class="repo">&#128293; Focus now</h3>
-<ul class="flat"><li><strong>openssl</strong> &mdash; Critical openssl CVE in kairos image</li></ul>
+<ul class="flat"><li><strong>CVE-2025-9999</strong> &mdash; Critical openssl CVE in kairos image</li></ul>
 <h3 class="repo">&#9888;&#65039; 1 collection error</h3>
 <ul class="flat"><li><a href="https://github.com/kairos-io/x" target="_blank" rel="noopener">kairos-io/x</a> <span class="src">prs</span> &mdash; rate limited</li></ul>
 

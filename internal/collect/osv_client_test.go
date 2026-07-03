@@ -37,6 +37,36 @@ func TestQueryOSVParsesHitWithAlpineFixedSuffixStripped(t *testing.T) {
 	assert.Equal(t, "https://osv.dev/vulnerability/GHSA-xxxx-yyyy-zzzz", results[0].URL)
 }
 
+// Real-world shape of an Alpine OSV-converted advisory: the real CVE id lives in
+// "upstream" (not "aliases", which is absent), and the long free-text lives in
+// "details" (not "summary", which is absent). QueryOSV must surface the upstream
+// CVE id, not the Alpine-internal "ALPINE-CVE-…" id.
+const osvAlpineUpstreamJSON = `{
+  "vulns": [
+    {
+      "id": "ALPINE-CVE-2023-5363",
+      "upstream": ["CVE-2023-5363"],
+      "details": "A bug has been identified in the processing of key and initialisation vector (IV) lengths. This can lead to potential truncation or overruns during the initialisation of some symmetric ciphers. A truncation in the IV can result in non-uniqueness, which could result in loss of confidentiality for some cipher modes.",
+      "database_specific": {"severity": "HIGH"},
+      "affected": [
+        {"ranges": [{"type": "ECOSYSTEM", "events": [{"introduced": "0"}, {"fixed": "3.1.4-r0"}]}]}
+      ]
+    }
+  ]
+}`
+
+func TestQueryOSVUsesUpstreamCVEIDForAlpineRecords(t *testing.T) {
+	results, err := QueryOSV(func(string, string, string) ([]byte, error) {
+		return []byte(osvAlpineUpstreamJSON), nil
+	}, "Alpine", "openssl", "3.1.3")
+	require.NoError(t, err)
+	require.Len(t, results, 1)
+	// The real CVE id from "upstream", not the Alpine-internal "ALPINE-CVE-…" id.
+	assert.Equal(t, "CVE-2023-5363", results[0].CVEID)
+	assert.Equal(t, "high", results[0].Severity)
+	assert.Equal(t, "3.1.4", results[0].FixedVersion)
+}
+
 func TestQueryOSVNoHits(t *testing.T) {
 	results, err := QueryOSV(func(string, string, string) ([]byte, error) {
 		return []byte(`{"vulns": []}`), nil
