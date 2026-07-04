@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-03._
+_Updated 2026-07-04._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -12,7 +12,7 @@ _Updated 2026-07-03._
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 54 finding(s); 0 PR(s) open.
 
-> The triage is focused on critical severity vulnerabilities found in the openssl-fips package within the kairos-io/hadron repository. Immediate attention is required to mitigate these critical risks before they can be exploited.
+> The most urgent security focus is on critical vulnerabilities affecting the openssl-fips package within the kairos-io/hadron repository. Immediate attention is required to mitigate these severe risks.
 
 ## 🔥 Focus now
 
@@ -256,6 +256,12 @@ _None._
   ↳ This PR updates the digest for the `docker/setup-buildx-action` dependency across multiple GitHub Actions workflows from an older version to a newer one.
     - docker/setup-buildx-action d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5..bb05f3f5519dd87d3ba754cc423b652a5edd6d2c (PR body): compare d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5...bb05f3f5519dd87d3ba754cc423b652a5edd6d2c ✓ 40000 bytes
     - context: 43864 bytes
+**[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
+
+- [#135](https://github.com/kairos-io/kairos-operator/pull/135) — ✅ **good** — This is a routine dependency update to a newer digest and related actions. Updating dependencies is crucial for maintaining security and stability. Since this is a standard dependency bump from a trusted source, it is safe to auto-approve.
+  ↳ This PR updates the digest for `docker/login-action` and upgrades several related Docker actions (`docker/bake-action`, `docker/bake-action/subaction/matrix`) to version v7.3.0 across multiple workflow files. This ensures the project uses the latest versions of these components.
+    - docker/login-action c99871dec2022cc055c062a10cc1a1310835ceb4..af1e73f918a031802d376d3c8bbc3fe56130a9b0 (PR body): compare c99871dec2022cc055c062a10cc1a1310835ceb4...af1e73f918a031802d376d3c8bbc3fe56130a9b0 ✓ 40000 bytes
+    - context: 43269 bytes
 **[kairos-io/kcrypt](https://github.com/kairos-io/kcrypt)**
 
 - [#505](https://github.com/kairos-io/kcrypt/pull/505) — ✅ **good** — The change is a dependency update to a newer version of the Kairos SDK, which is generally safe. The accompanying code changes focus on internal refactoring and adding complex features like multipath device handling, which appear to be well-tested in the provided diff. This is safe to auto-approve.
@@ -282,6 +288,11 @@ _None._
     - github.com/kairos-io/tpm-helpers 0.0.0-20260608091616-8a4ccb53d8f7→0.0.0-20260702080541-9b3e057e2f32: compare 8a4ccb53d8f7...9b3e057e2f32 ✓ 11771 bytes
     - github.com/google/go-tpm-tools 0.4.4→0.4.7: compare v0.4.4...v0.4.7 ✓ 40000 bytes
     - context: 97184 bytes
+- [#241](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/241) — ✅ **good** — The dependency updates are beneficial as they address an End-of-Life component (`containerd`) and explicitly resolve security findings identified by OSV scanners for `go-attestation`. These changes improve the overall security and stability of the project.
+  ↳ This PR updates several dependencies, including migrating `containerd` to v2 and updating `go-attestation` to v0.6.1. These updates address End-of-Life concerns and resolve outstanding OSV scanner findings, which improves the security posture of the project. It also includes minor internal refactoring in the agent run logic.
+    - github.com/google/go-attestation 0.5.1→0.6.1: compare v0.5.1...v0.6.1 ✓ 40000 bytes
+    - github.com/kairos-io/kairos-sdk 0.23.1→0.23.2: compare v0.23.1...v0.23.2 ✓ 26235 bytes
+    - context: 77897 bytes
 **[kairos-io/simple-mdns-server](https://github.com/kairos-io/simple-mdns-server)**
 
 - [#4](https://github.com/kairos-io/simple-mdns-server/pull/4) — ✅ **good** — This is a standard dependency maintenance update performed by Dependabot. The changes involve updating core packages like `x/net` and `x/sys`, which are necessary for project health. Since this is an automated bump and no immediate security risks are apparent from the diffs, it is safe to auto-approve.
@@ -295,26 +306,6 @@ _None._
     - golang.org/x/crypto 0.0.0-20220722155217-630584e8d5aa→0.17.0: compare 630584e8d5aa...v0.17.0 ✓ 40000 bytes
     - golang.org/x/net 0.0.0-20220722155237-a158d28d115b→0.10.0: compare a158d28d115b...v0.10.0 ✓ 40000 bytes
     - context: 90128 bytes
-**[mauromorales/xpasswd](https://github.com/mauromorales/xpasswd)**
-
-- [#47](https://github.com/mauromorales/xpasswd/pull/47) — ✅ **good** — The pull request is a routine dependency update to a newer version of Ginkgo. The changes documented in the changelog point to new features and documentation improvements, which are beneficial for the project. There are no apparent security risks introduced by this version bump. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.28.3 to v2.32.0. The changes include new features like RSpec-style documentation output, updates to the plugin marketplace, and significant refactoring and documentation improvements within the Ginkgo project itself. This is a standard dependency upgrade.
-    - github.com/onsi/ginkgo/v2 2.28.3→2.32.0: compare v2.28.3...v2.32.0 ✓ 40000 bytes
-    - context: 44543 bytes
-- [#48](https://github.com/mauromorales/xpasswd/pull/48) — ✅ **good** — This is a dependency update to a well-known testing library, Gomega. The changes involve adding new matchers and internal code refactoring for better debugging, which are generally positive for maintainability. There are no obvious security vulnerabilities introduced by this update.
-  ↳ This PR updates the dependency `github.com/onsi/gomega` from v1.40.0 to v1.42.1. It introduces new matchers (`BeASlice`, `BeAnArray`) and significantly refactors the internal formatting functions to handle cyclic references for improved debugging output. The plugin version is also updated to match the new library version.
-    - github.com/onsi/gomega 1.40.0→1.42.1: compare v1.40.0...v1.42.1 ✓ 40000 bytes
-    - golang.org/x/mod 0.35.0→0.36.0: compare v0.35.0...v0.36.0 ✓ 16991 bytes
-    - golang.org/x/net 0.53.0→0.56.0: compare v0.53.0...v0.56.0 ✓ 40000 bytes
-    - context: 105286 bytes
-- [#49](https://github.com/mauromorales/xpasswd/pull/49) — ✅ **good** — This change is a minor patch update to the Go toolchain, moving from 1.26.3 to 1.26.4. Toolchain updates are generally low-risk maintenance tasks. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the Go toolchain directive in go.mod from version 1.26.3 to 1.26.4. This is a routine patch update to the Go toolchain.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 1472 bytes
-- [#50](https://github.com/mauromorales/xpasswd/pull/50) — ✅ **good** — This is a standard dependency update for a widely used GitHub Action. The upgrade is to a newer major version (v7), which typically includes security patches and improvements. Since this is an automated dependency update, it is safe to auto-approve.
-  ↳ This PR updates the version of the `actions/checkout` dependency from v6 to v7 across the workflow files. This upgrade incorporates updates from the official release notes, which include dependency bumps and updates to related actions like `actions/core`.
-    - no go.mod dependency bumps parsed from the PR diff
-    - context: 5388 bytes
 **[mudler/edgevpn](https://github.com/mudler/edgevpn)**
 
 - [#804](https://github.com/mudler/edgevpn/pull/804) — ✅ **good** — This pull request appears to be a necessary and comprehensive migration to upgrade the `iplib` library to version 2.0.5. The changes reflect the breaking changes detailed in the v2 release notes, specifically the transition to `uint128` for IPv6 handling. The diffs suggest all necessary package imports and internal logic have been updated to accommodate this major version change.
@@ -430,4 +421,10 @@ _None._
     - cenkalti/backoff v5.0.2..v5.0.3 (PR body): compare v5.0.2...v5.0.3 ✓ 3314 bytes
     - cenkalti/backoff v5.0.1..v5.0.2 (PR body): compare v5.0.1...v5.0.2 ✓ 2019 bytes
     - context: 59288 bytes
+**[mudler/yip](https://github.com/mudler/yip)**
+
+- [#309](https://github.com/mudler/yip/pull/309) — ✅ **good** — This is a minor patch update to a dependency. The upstream changelog indicates standard maintenance activities, including updates to other related dependencies and toolchain directives. There are no obvious security risks associated with this version bump.
+  ↳ This PR updates the dependency github.com/mauromorales/xpasswd from v0.4.7 to v0.4.8. The upstream release includes several related dependency updates, such as bumps to golang.org/x/net, gomega, and ginkgo/v2.
+    - github.com/mauromorales/xpasswd 0.4.7→0.4.8: compare v0.4.7...v0.4.8 ✓ 15519 bytes
+    - context: 19676 bytes
 

@@ -14,7 +14,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-31789",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "056095b2e0951e4f56fa2eef7c0b19dbe124eb99666e3c4bba67c6442871c00c",
@@ -29,7 +29,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-46394",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "05e3b11fffb03ea97ecde34cc92f77426e3f1086802f260f2e738e8df87127d2",
@@ -44,7 +44,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2024-5535",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "07eaed2c045638c36a2ba4fbca021f3811580d86bf3bdfd19fe9836e64577e7a",
@@ -59,7 +59,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-9076",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "097e75f7ed73d6b3e0227132d789811164858094b067ef0d24b6b4aacab00066",
@@ -74,7 +74,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-9231",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "0d3744afd4c8823083bc924d1752afbd14623c75e72695ab10d1adba759f882b",
@@ -89,7 +89,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-69418",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "126255553acdf14f6ea1cdcd9d349815d7f605c132bc2297a96a8c8150eee9d4",
@@ -104,7 +104,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-4575",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "12fe5d69a3c944dc570d448a63026ce50df015725226a1aeebfe630b2dad4245",
@@ -119,7 +119,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2024-12797",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "18eb50cedfb2dacc007651bf3ab2eb90530f5851baf5005e01eb8967716abc8e",
@@ -134,7 +134,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-45447",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "1924b50348e307da856a1d47a619aeec4760480c5de18ca4249d500083ad6ac3",
@@ -149,7 +149,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-45446",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "216b04af1209ddb8c7daea86f418dd87f8290a98c97f96be40e5ec7998358a50",
@@ -164,7 +164,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-9230",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "307518fcb4e28450ef6821d9540836e10e7cca27c5cdf914754281779b14cf03",
@@ -179,7 +179,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-34181",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "34aec9a16b43c6a212a43eff4661024f1280111a1c6ac2f2c1da74b6c111433e",
@@ -194,7 +194,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2024-4603",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "3c42f16600287664f7513628bca34a8db893f66b7bbd73964fc0f6abf7ba4d2a",
@@ -209,7 +209,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-7383",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "3ffdcd46966c7262f651180bacc26e610d58de9b6b6ad5f46c1fbec4d6662aee",
@@ -224,7 +224,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-42768",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "46a4c8162540a55a9858677c32f86e3579d87de3fce2255b608b2d59fed207a8",
@@ -239,7 +239,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2024-0727",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "4907cc89ea2d0310306e7f0a90f3f6b863b533bc904a4215b0f62823e8e94f36",
@@ -254,7 +254,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2023-5678",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "4a68e6769937bafcaee06e5c1c2cb7b4f92f4e1449832d6dba590f505f59b146",
@@ -269,7 +269,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-9232",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "526fbcfc77e3391b6a1e51a252795461ad3a50de1f9ec64d94444d5fe5712136",
@@ -284,7 +284,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-15469",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "5b0254cb1a20bc496303704ebfeebc46ddc2fb8cf6e626d2c3c5a3b9e3d89c54",
@@ -299,7 +299,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-69420",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "5f4c5a09ef36b2acfb6866a4a01b8e821d8dff05da5100bd3c99a0239c779d9f",
@@ -314,7 +314,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2023-6129",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "60770c560d5d0bee4b33cf60483b78f25d46c6729691df6c6bcfc3bed56b5d8e",
@@ -329,7 +329,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2023-6237",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "68d1c90b508dfd17f24a8ececa36b3363692bcab84018643023216932f198f09",
@@ -344,7 +344,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-42766",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "6d8c6a6a417001c5a1b0e178f9e9087a9d3ae63c8f5f435a301ebf42ff875927",
@@ -359,7 +359,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-42764",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "71ca18721f80953750d94f5456b5721d27e4e2c1dcace6a2b5dbea54baf4947b",
@@ -374,7 +374,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-42770",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "74b9661c4f5ad8a45170b4d71dc96aaddfa740421a3aa0bf3a8dbf55d175b097",
@@ -389,7 +389,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2023-5363",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "74f8e87260f9767755e13719472a4fde4009bf26aeb1d770ec1ac1a8baefd9a7",
@@ -404,7 +404,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2024-6119",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "7c3624d8960c380a68e1ce988187bc16ce4b18820dbf40b9a43e3e92ff94472d",
@@ -419,7 +419,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-34182",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "7d35a32df94c3b0565ddd9a647fead23899f7c10e9a7df4d93adf0369d0a1767",
@@ -434,7 +434,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-28387",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "80126192d2ba1e9945aa04549d71e9e20f351081f535764224c15a530bfa60c3",
@@ -449,7 +449,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-15467",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "861b19f2300f1014d87d20ade8cedf512599716ae1c4c4e2056db4a3b049fe6d",
@@ -464,7 +464,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-28388",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "8b2e76dedc8c69504d86324ad080052367717f9682c28f371ef4e9d5524a03dc",
@@ -479,7 +479,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-28389",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "8c78e7731621d7bb916f9a87fe3b5c3e1900753e6228f50e40e9fb2677b778db",
@@ -494,7 +494,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-2673",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "8cae1267c1a78eba70885b8e677a3670925cbae1b29a3619df0b707fa6be98da",
@@ -509,7 +509,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-15468",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "8d79dee3f049514c7b81c523e23a4d8d81a49be07e5665e8cd6c83ca690e382d",
@@ -524,7 +524,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-68160",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "8f92738e1fa05e6a685c63abf8e5f7bcf301bf5030ac270fd8f76d044bdc7bf2",
@@ -539,7 +539,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2024-9143",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "9769bda63e93421264db1eff2e10f6788e13910498125f795f284860e8caaf54",
@@ -554,7 +554,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-28390",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "9918adde32281d120f7aa1a4b0c86977ecad919b9c0382417be246e86d4269a7",
@@ -569,7 +569,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-11187",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "9ae5e6f05199e00bf070bb868aa2bf1e62a4ea3091687ddd42d952b67aa7f5ae",
@@ -584,7 +584,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-42769",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "9cd387048b9bf81b32146e8e21a25dddbe49f7355f24300448a68619cef52b26",
@@ -599,7 +599,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-22796",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "abe24348243cd28e5e4650577faef95895520eb83e963d3c139228a44a8f0d71",
@@ -614,7 +614,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-34180",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "bdc00f80de4115d78fcfccbf12716f705012d5326445ed122f7f1f74b31b7671",
@@ -629,7 +629,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-69421",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "c2205ab2cdf3de270fa36651231f42dcac8ebfd43dad1028f9826eb034454b61",
@@ -644,7 +644,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2024-58251",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "c59a02a2ce51ecfa60b8911a460c21da5d99106c06fd4f53260dcef9059ea2e7",
@@ -659,7 +659,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-69419",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "cfbbaa52f026cab3e3943174fefcaa0f8aa9e6bec6bf6523a940bd9483b9628a",
@@ -674,7 +674,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2024-2511",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "d0f70aa9a6f993a4833a86814a017bf95917fefb906d9beee1c00a060a0310e7",
@@ -689,7 +689,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-22795",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "d8ae9c502972332c5595b274258b4e0bfad149c84df049a17bbe2730ddafc9de",
@@ -704,7 +704,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-31790",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "dc97b946b016cdbad5d007dccfce104eafa4ca3db6dcaa313a94809a1bc0668f",
@@ -719,7 +719,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-34183",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "dce65d8c6e0f7249a85d14a87f379d93ecadbd33b1cef9be2ffe1e0b90aba0ed",
@@ -734,7 +734,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-45445",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "dda541ed42f920f3c18aed095bd858021f746cdb1c4034aba34a26d2759b9d3b",
@@ -749,7 +749,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2024-13176",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "ec9530c4516e645e06305fe41abc34df433e0bdbe31dfa34bda2c645124f35d8",
@@ -764,7 +764,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2025-66199",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "f0eaab8855086580c2d3ef698f2b18c80c2dd1e01f1a8fa0299b404a58ee8602",
@@ -779,7 +779,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2026-42767",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "f1eaf72af72ec3c6e289e220a08737ec23efa01680e636b93d69748882bf4361",
@@ -794,7 +794,7 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2024-4741",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       },
       {
         "id": "f34045dfeff4a5de088645bd2f438f9adf32d2481d6331c68717b4e80b68b0cb",
@@ -809,13 +809,13 @@
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2023-4039",
         "firstSeen": "2026-07-03",
-        "lastSeen": "2026-07-03"
+        "lastSeen": "2026-07-04"
       }
     ],
     "waterfall": null
   },
   "triage": {
-    "generatedAt": "2026-07-03",
+    "generatedAt": "2026-07-04",
     "model": "gemma-4-e2b-it",
     "aiAvailable": true,
     "focus": [
@@ -828,7 +828,7 @@
       "05e3b11fffb03ea97ecde34cc92f77426e3f1086802f260f2e738e8df87127d2": "Critical vulnerability CVE-2024-5535 in openssl-fips.",
       "7c3624d8960c380a68e1ce988187bc16ce4b18820dbf40b9a43e3e92ff94472d": "Critical vulnerability CVE-2026-34182 in openssl-fips."
     },
-    "narrative": "The triage is focused on critical severity vulnerabilities found in the openssl-fips package within the kairos-io/hadron repository. Immediate attention is required to mitigate these critical risks before they can be exploited."
+    "narrative": "The most urgent security focus is on critical vulnerabilities affecting the openssl-fips package within the kairos-io/hadron repository. Immediate attention is required to mitigate these severe risks."
   },
   "repos": [
     {
@@ -1502,6 +1502,20 @@
       ]
     },
     {
+      "repo": "kairos-io/kairos-operator",
+      "pr": 135,
+      "url": "https://github.com/kairos-io/kairos-operator/pull/135",
+      "headSHA": "310e89dd8d886e65592a2479bd7fdddee61d0eb7",
+      "verdict": "good",
+      "reasoning": "This is a routine dependency update to a newer digest and related actions. Updating dependencies is crucial for maintaining security and stability. Since this is a standard dependency bump from a trusted source, it is safe to auto-approve.",
+      "changesSummary": "This PR updates the digest for `docker/login-action` and upgrades several related Docker actions (`docker/bake-action`, `docker/bake-action/subaction/matrix`) to version v7.3.0 across multiple workflow files. This ensures the project uses the latest versions of these components.",
+      "reviewedRun": "2026-07-04",
+      "trace": [
+        "docker/login-action c99871dec2022cc055c062a10cc1a1310835ceb4..af1e73f918a031802d376d3c8bbc3fe56130a9b0 (PR body): compare c99871dec2022cc055c062a10cc1a1310835ceb4...af1e73f918a031802d376d3c8bbc3fe56130a9b0 ✓ 40000 bytes",
+        "context: 43269 bytes"
+      ]
+    },
+    {
       "repo": "kairos-io/kcrypt",
       "pr": 505,
       "url": "https://github.com/kairos-io/kcrypt/pull/505",
@@ -1574,6 +1588,21 @@
       ]
     },
     {
+      "repo": "kairos-io/kcrypt-discovery-challenger",
+      "pr": 241,
+      "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/241",
+      "headSHA": "7ad5deb3e8d29b986578236aac10b9a30a38a208",
+      "verdict": "good",
+      "reasoning": "The dependency updates are beneficial as they address an End-of-Life component (`containerd`) and explicitly resolve security findings identified by OSV scanners for `go-attestation`. These changes improve the overall security and stability of the project.",
+      "changesSummary": "This PR updates several dependencies, including migrating `containerd` to v2 and updating `go-attestation` to v0.6.1. These updates address End-of-Life concerns and resolve outstanding OSV scanner findings, which improves the security posture of the project. It also includes minor internal refactoring in the agent run logic.",
+      "reviewedRun": "2026-07-04",
+      "trace": [
+        "github.com/google/go-attestation 0.5.1→0.6.1: compare v0.5.1...v0.6.1 ✓ 40000 bytes",
+        "github.com/kairos-io/kairos-sdk 0.23.1→0.23.2: compare v0.23.1...v0.23.2 ✓ 26235 bytes",
+        "context: 77897 bytes"
+      ]
+    },
+    {
       "repo": "kairos-io/simple-mdns-server",
       "pr": 4,
       "url": "https://github.com/kairos-io/simple-mdns-server/pull/4",
@@ -1600,64 +1629,6 @@
         "golang.org/x/crypto 0.0.0-20220722155217-630584e8d5aa→0.17.0: compare 630584e8d5aa...v0.17.0 ✓ 40000 bytes",
         "golang.org/x/net 0.0.0-20220722155237-a158d28d115b→0.10.0: compare a158d28d115b...v0.10.0 ✓ 40000 bytes",
         "context: 90128 bytes"
-      ]
-    },
-    {
-      "repo": "mauromorales/xpasswd",
-      "pr": 47,
-      "url": "https://github.com/mauromorales/xpasswd/pull/47",
-      "headSHA": "672d3353aa92b0425c91ad3e595ecabebde8c394",
-      "verdict": "good",
-      "reasoning": "The pull request is a routine dependency update to a newer version of Ginkgo. The changes documented in the changelog point to new features and documentation improvements, which are beneficial for the project. There are no apparent security risks introduced by this version bump. Therefore, it is safe to auto-approve.",
-      "changesSummary": "This PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.28.3 to v2.32.0. The changes include new features like RSpec-style documentation output, updates to the plugin marketplace, and significant refactoring and documentation improvements within the Ginkgo project itself. This is a standard dependency upgrade.",
-      "reviewedRun": "2026-06-25",
-      "trace": [
-        "github.com/onsi/ginkgo/v2 2.28.3→2.32.0: compare v2.28.3...v2.32.0 ✓ 40000 bytes",
-        "context: 44543 bytes"
-      ]
-    },
-    {
-      "repo": "mauromorales/xpasswd",
-      "pr": 48,
-      "url": "https://github.com/mauromorales/xpasswd/pull/48",
-      "headSHA": "e9a4ded5d703596a07bc8f3d8daccf9b7c775348",
-      "verdict": "good",
-      "reasoning": "This is a dependency update to a well-known testing library, Gomega. The changes involve adding new matchers and internal code refactoring for better debugging, which are generally positive for maintainability. There are no obvious security vulnerabilities introduced by this update.",
-      "changesSummary": "This PR updates the dependency `github.com/onsi/gomega` from v1.40.0 to v1.42.1. It introduces new matchers (`BeASlice`, `BeAnArray`) and significantly refactors the internal formatting functions to handle cyclic references for improved debugging output. The plugin version is also updated to match the new library version.",
-      "reviewedRun": "2026-06-25",
-      "trace": [
-        "github.com/onsi/gomega 1.40.0→1.42.1: compare v1.40.0...v1.42.1 ✓ 40000 bytes",
-        "golang.org/x/mod 0.35.0→0.36.0: compare v0.35.0...v0.36.0 ✓ 16991 bytes",
-        "golang.org/x/net 0.53.0→0.56.0: compare v0.53.0...v0.56.0 ✓ 40000 bytes",
-        "context: 105286 bytes"
-      ]
-    },
-    {
-      "repo": "mauromorales/xpasswd",
-      "pr": 49,
-      "url": "https://github.com/mauromorales/xpasswd/pull/49",
-      "headSHA": "b995a4a5bc56bf0fb5d307facc6be3a1be57db78",
-      "verdict": "good",
-      "reasoning": "This change is a minor patch update to the Go toolchain, moving from 1.26.3 to 1.26.4. Toolchain updates are generally low-risk maintenance tasks. Therefore, it is safe to auto-approve.",
-      "changesSummary": "This PR updates the Go toolchain directive in go.mod from version 1.26.3 to 1.26.4. This is a routine patch update to the Go toolchain.",
-      "reviewedRun": "2026-06-25",
-      "trace": [
-        "no go.mod dependency bumps parsed from the PR diff",
-        "context: 1472 bytes"
-      ]
-    },
-    {
-      "repo": "mauromorales/xpasswd",
-      "pr": 50,
-      "url": "https://github.com/mauromorales/xpasswd/pull/50",
-      "headSHA": "7ba4b02f2e90f4c290f8bbebffa8c0f6cb4aaf5c",
-      "verdict": "good",
-      "reasoning": "This is a standard dependency update for a widely used GitHub Action. The upgrade is to a newer major version (v7), which typically includes security patches and improvements. Since this is an automated dependency update, it is safe to auto-approve.",
-      "changesSummary": "This PR updates the version of the `actions/checkout` dependency from v6 to v7 across the workflow files. This upgrade incorporates updates from the official release notes, which include dependency bumps and updates to related actions like `actions/core`.",
-      "reviewedRun": "2026-06-25",
-      "trace": [
-        "no go.mod dependency bumps parsed from the PR diff",
-        "context: 5388 bytes"
       ]
     },
     {
@@ -1981,6 +1952,20 @@
         "cenkalti/backoff v5.0.2..v5.0.3 (PR body): compare v5.0.2...v5.0.3 ✓ 3314 bytes",
         "cenkalti/backoff v5.0.1..v5.0.2 (PR body): compare v5.0.1...v5.0.2 ✓ 2019 bytes",
         "context: 59288 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/yip",
+      "pr": 309,
+      "url": "https://github.com/mudler/yip/pull/309",
+      "headSHA": "2d5c6c30d13e36f31a0746ad6718f233ef51b933",
+      "verdict": "good",
+      "reasoning": "This is a minor patch update to a dependency. The upstream changelog indicates standard maintenance activities, including updates to other related dependencies and toolchain directives. There are no obvious security risks associated with this version bump.",
+      "changesSummary": "This PR updates the dependency github.com/mauromorales/xpasswd from v0.4.7 to v0.4.8. The upstream release includes several related dependency updates, such as bumps to golang.org/x/net, gomega, and ginkgo/v2.",
+      "reviewedRun": "2026-07-04",
+      "trace": [
+        "github.com/mauromorales/xpasswd 0.4.7→0.4.8: compare v0.4.7...v0.4.8 ✓ 15519 bytes",
+        "context: 19676 bytes"
       ]
     }
   ]

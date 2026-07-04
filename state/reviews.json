@@ -406,6 +406,20 @@
     ]
   },
   {
+    "repo": "kairos-io/kairos-operator",
+    "pr": 135,
+    "url": "https://github.com/kairos-io/kairos-operator/pull/135",
+    "headSHA": "310e89dd8d886e65592a2479bd7fdddee61d0eb7",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update to a newer digest and related actions. Updating dependencies is crucial for maintaining security and stability. Since this is a standard dependency bump from a trusted source, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the digest for `docker/login-action` and upgrades several related Docker actions (`docker/bake-action`, `docker/bake-action/subaction/matrix`) to version v7.3.0 across multiple workflow files. This ensures the project uses the latest versions of these components.",
+    "reviewedRun": "2026-07-04",
+    "trace": [
+      "docker/login-action c99871dec2022cc055c062a10cc1a1310835ceb4..af1e73f918a031802d376d3c8bbc3fe56130a9b0 (PR body): compare c99871dec2022cc055c062a10cc1a1310835ceb4...af1e73f918a031802d376d3c8bbc3fe56130a9b0 ✓ 40000 bytes",
+      "context: 43269 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/kcrypt",
     "pr": 505,
     "url": "https://github.com/kairos-io/kcrypt/pull/505",
@@ -478,6 +492,21 @@
     ]
   },
   {
+    "repo": "kairos-io/kcrypt-discovery-challenger",
+    "pr": 241,
+    "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/241",
+    "headSHA": "7ad5deb3e8d29b986578236aac10b9a30a38a208",
+    "verdict": "good",
+    "reasoning": "The dependency updates are beneficial as they address an End-of-Life component (`containerd`) and explicitly resolve security findings identified by OSV scanners for `go-attestation`. These changes improve the overall security and stability of the project.",
+    "changesSummary": "This PR updates several dependencies, including migrating `containerd` to v2 and updating `go-attestation` to v0.6.1. These updates address End-of-Life concerns and resolve outstanding OSV scanner findings, which improves the security posture of the project. It also includes minor internal refactoring in the agent run logic.",
+    "reviewedRun": "2026-07-04",
+    "trace": [
+      "github.com/google/go-attestation 0.5.1→0.6.1: compare v0.5.1...v0.6.1 ✓ 40000 bytes",
+      "github.com/kairos-io/kairos-sdk 0.23.1→0.23.2: compare v0.23.1...v0.23.2 ✓ 26235 bytes",
+      "context: 77897 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/simple-mdns-server",
     "pr": 4,
     "url": "https://github.com/kairos-io/simple-mdns-server/pull/4",
@@ -504,64 +533,6 @@
       "golang.org/x/crypto 0.0.0-20220722155217-630584e8d5aa→0.17.0: compare 630584e8d5aa...v0.17.0 ✓ 40000 bytes",
       "golang.org/x/net 0.0.0-20220722155237-a158d28d115b→0.10.0: compare a158d28d115b...v0.10.0 ✓ 40000 bytes",
       "context: 90128 bytes"
-    ]
-  },
-  {
-    "repo": "mauromorales/xpasswd",
-    "pr": 47,
-    "url": "https://github.com/mauromorales/xpasswd/pull/47",
-    "headSHA": "672d3353aa92b0425c91ad3e595ecabebde8c394",
-    "verdict": "good",
-    "reasoning": "The pull request is a routine dependency update to a newer version of Ginkgo. The changes documented in the changelog point to new features and documentation improvements, which are beneficial for the project. There are no apparent security risks introduced by this version bump. Therefore, it is safe to auto-approve.",
-    "changesSummary": "This PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.28.3 to v2.32.0. The changes include new features like RSpec-style documentation output, updates to the plugin marketplace, and significant refactoring and documentation improvements within the Ginkgo project itself. This is a standard dependency upgrade.",
-    "reviewedRun": "2026-06-25",
-    "trace": [
-      "github.com/onsi/ginkgo/v2 2.28.3→2.32.0: compare v2.28.3...v2.32.0 ✓ 40000 bytes",
-      "context: 44543 bytes"
-    ]
-  },
-  {
-    "repo": "mauromorales/xpasswd",
-    "pr": 48,
-    "url": "https://github.com/mauromorales/xpasswd/pull/48",
-    "headSHA": "e9a4ded5d703596a07bc8f3d8daccf9b7c775348",
-    "verdict": "good",
-    "reasoning": "This is a dependency update to a well-known testing library, Gomega. The changes involve adding new matchers and internal code refactoring for better debugging, which are generally positive for maintainability. There are no obvious security vulnerabilities introduced by this update.",
-    "changesSummary": "This PR updates the dependency `github.com/onsi/gomega` from v1.40.0 to v1.42.1. It introduces new matchers (`BeASlice`, `BeAnArray`) and significantly refactors the internal formatting functions to handle cyclic references for improved debugging output. The plugin version is also updated to match the new library version.",
-    "reviewedRun": "2026-06-25",
-    "trace": [
-      "github.com/onsi/gomega 1.40.0→1.42.1: compare v1.40.0...v1.42.1 ✓ 40000 bytes",
-      "golang.org/x/mod 0.35.0→0.36.0: compare v0.35.0...v0.36.0 ✓ 16991 bytes",
-      "golang.org/x/net 0.53.0→0.56.0: compare v0.53.0...v0.56.0 ✓ 40000 bytes",
-      "context: 105286 bytes"
-    ]
-  },
-  {
-    "repo": "mauromorales/xpasswd",
-    "pr": 49,
-    "url": "https://github.com/mauromorales/xpasswd/pull/49",
-    "headSHA": "b995a4a5bc56bf0fb5d307facc6be3a1be57db78",
-    "verdict": "good",
-    "reasoning": "This change is a minor patch update to the Go toolchain, moving from 1.26.3 to 1.26.4. Toolchain updates are generally low-risk maintenance tasks. Therefore, it is safe to auto-approve.",
-    "changesSummary": "This PR updates the Go toolchain directive in go.mod from version 1.26.3 to 1.26.4. This is a routine patch update to the Go toolchain.",
-    "reviewedRun": "2026-06-25",
-    "trace": [
-      "no go.mod dependency bumps parsed from the PR diff",
-      "context: 1472 bytes"
-    ]
-  },
-  {
-    "repo": "mauromorales/xpasswd",
-    "pr": 50,
-    "url": "https://github.com/mauromorales/xpasswd/pull/50",
-    "headSHA": "7ba4b02f2e90f4c290f8bbebffa8c0f6cb4aaf5c",
-    "verdict": "good",
-    "reasoning": "This is a standard dependency update for a widely used GitHub Action. The upgrade is to a newer major version (v7), which typically includes security patches and improvements. Since this is an automated dependency update, it is safe to auto-approve.",
-    "changesSummary": "This PR updates the version of the `actions/checkout` dependency from v6 to v7 across the workflow files. This upgrade incorporates updates from the official release notes, which include dependency bumps and updates to related actions like `actions/core`.",
-    "reviewedRun": "2026-06-25",
-    "trace": [
-      "no go.mod dependency bumps parsed from the PR diff",
-      "context: 5388 bytes"
     ]
   },
   {
@@ -885,6 +856,20 @@
       "cenkalti/backoff v5.0.2..v5.0.3 (PR body): compare v5.0.2...v5.0.3 ✓ 3314 bytes",
       "cenkalti/backoff v5.0.1..v5.0.2 (PR body): compare v5.0.1...v5.0.2 ✓ 2019 bytes",
       "context: 59288 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 309,
+    "url": "https://github.com/mudler/yip/pull/309",
+    "headSHA": "2d5c6c30d13e36f31a0746ad6718f233ef51b933",
+    "verdict": "good",
+    "reasoning": "This is a minor patch update to a dependency. The upstream changelog indicates standard maintenance activities, including updates to other related dependencies and toolchain directives. There are no obvious security risks associated with this version bump.",
+    "changesSummary": "This PR updates the dependency github.com/mauromorales/xpasswd from v0.4.7 to v0.4.8. The upstream release includes several related dependency updates, such as bumps to golang.org/x/net, gomega, and ginkgo/v2.",
+    "reviewedRun": "2026-07-04",
+    "trace": [
+      "github.com/mauromorales/xpasswd 0.4.7→0.4.8: compare v0.4.7...v0.4.8 ✓ 15519 bytes",
+      "context: 19676 bytes"
     ]
   }
 ]
