@@ -354,6 +354,20 @@
     ]
   },
   {
+    "repo": "kairos-io/hadron",
+    "pr": 494,
+    "url": "https://github.com/kairos-io/hadron/pull/494",
+    "headSHA": "7e30a16c5ad63a3ad10cbfe0928896c88a89a4af",
+    "verdict": "good",
+    "reasoning": "This pull request is a minor version bump for a third-party action. The changes primarily involve updating dependencies, adding new features (file content embedding), and internal code refactoring. There are no obvious security vulnerabilities introduced by these changes, making it safe to auto-approve.",
+    "changesSummary": "This PR updates the `marocchino/sticky-pull-request-comment` action from v3.0.4 to v3.0.5. The changes include updating the `actions/checkout` action to v7, adding functionality to embed file content within PR comments, and performing internal refactoring of the WebSocket handling logic.",
+    "reviewedRun": "2026-07-05",
+    "trace": [
+      "marocchino/sticky-pull-request-comment v3.0.4..v3.0.5 (PR body): compare v3.0.4...v3.0.5 ✓ 40000 bytes",
+      "context: 42556 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/kairos",
     "pr": 4104,
     "url": "https://github.com/kairos-io/kairos/pull/4104",

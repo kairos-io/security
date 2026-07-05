@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-04._
+_Updated 2026-07-05._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -12,7 +12,7 @@ _Updated 2026-07-04._
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 54 finding(s); 0 PR(s) open.
 
-> The most urgent security focus is on critical vulnerabilities affecting the openssl-fips package within the kairos-io/hadron repository. Immediate attention is required to mitigate these severe risks.
+> This triage focuses on the critical severity vulnerabilities found in the openssl-fips package within the kairos-io/hadron repository. Immediate attention is required to mitigate these severe risks.
 
 ## 🔥 Focus now
 
@@ -240,6 +240,12 @@ _None._
     - github.com/ThalesGroup/crypto11 1.6.1→1.6.2: compare v1.6.1...v1.6.2 ✓ 1201 bytes
     - thales-transfer/crypto11 v1.6.0..v1.6.2 (PR body): compare v1.6.0...v1.6.2 ✓ 2393 bytes
     - context: 6940 bytes
+**[kairos-io/hadron](https://github.com/kairos-io/hadron)**
+
+- [#494](https://github.com/kairos-io/hadron/pull/494) — ✅ **good** — This pull request is a minor version bump for a third-party action. The changes primarily involve updating dependencies, adding new features (file content embedding), and internal code refactoring. There are no obvious security vulnerabilities introduced by these changes, making it safe to auto-approve.
+  ↳ This PR updates the `marocchino/sticky-pull-request-comment` action from v3.0.4 to v3.0.5. The changes include updating the `actions/checkout` action to v7, adding functionality to embed file content within PR comments, and performing internal refactoring of the WebSocket handling logic.
+    - marocchino/sticky-pull-request-comment v3.0.4..v3.0.5 (PR body): compare v3.0.4...v3.0.5 ✓ 40000 bytes
+    - context: 42556 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4104](https://github.com/kairos-io/kairos/pull/4104) — ⚠️ **needs_human_verification** — The PR title suggests an automation task related to dependency upgrades. While automation can be beneficial, security review requires inspecting the actual code changes to ensure no unintended side effects or vulnerabilities were introduced during the pipeline wiring.
