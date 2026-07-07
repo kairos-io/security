@@ -116,10 +116,10 @@ steps. (Decision made with the user.)
    > confirm it compiles and fix any errors caused by the updates.
 
    This is the validated prompt/flow.
-5. **Deterministic fallback** *(see Open decision)* — if LocalAI never loaded or
-   nib exited without producing a buildable change, run
-   `go get -u ./... && go mod tidy` directly so a PR still opens when the model
-   is unavailable. nib remains the primary path; this is a safety net.
+5. **Deterministic fallback** — if LocalAI never loaded or nib exited without
+   producing a buildable change, run `go get -u ./... && go mod tidy` directly so
+   a PR still opens when the model is unavailable. nib remains the primary path;
+   this is a safety net. (Decided: included.)
 6. **Verify gate** — `go build ./... && go vet ./...`. On failure, one nib
    repair retry ("fix the build after the dependency update"), then re-verify.
    Tests are **not** run here (kairos-installer/edgevpn suites are heavy/
@@ -198,13 +198,11 @@ Future cases (e.g. `node` → `npm update` / `npm run build`; `python` → uv/pi
 are added as new branches of that switch plus their toolchain setup. No such
 case is implemented in v1 (YAGNI).
 
-## Open decision (for reviewer)
+## Resolved decisions
 
-**Deterministic fallback (step 5): include or not?** This design includes it —
-if LocalAI/nib is unavailable, fall back to `go get -u ./... && go mod tidy` so a
-PR still opens. It is cheap and makes the action robust to a model outage, while
-nib stays the primary path. Recommendation: **include**. Alternative: drop it and
-have the action hard-fail when nib can't run (stricter "nib drives everything").
+- **Deterministic fallback (step 5): included.** If LocalAI/nib is unavailable,
+  the action falls back to `go get -u ./... && go mod tidy` so a PR still opens.
+  nib stays the primary path; this is a safety net against a model outage.
 
 ## Files
 
