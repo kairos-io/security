@@ -134,13 +134,24 @@ type toolArgs struct {
 }
 
 // briefFinding is a compact, token-light view of a finding for the prompt, so
-// a small model is not overwhelmed by the full finding records.
+// a small model is not overwhelmed by the full finding records. The id is a
+// short alias (F1, F2, …), never the 64-char fingerprint — see Summarize.
 type briefFinding struct {
 	ID       string `json:"id"`
 	Severity string `json:"severity"`
 	CVE      string `json:"cve,omitempty"`
 	Repo     string `json:"repo"`
 	Package  string `json:"package,omitempty"`
+}
+
+// briefWaterfall is the prompt-facing view of a waterfall group, keyed by a
+// short alias (W1, W2, …) for the same reason as briefFinding.
+type briefWaterfall struct {
+	ID            string `json:"id"`
+	Severity      string `json:"severity"`
+	RootCause     string `json:"rootCause,omitempty"`
+	Ecosystem     string `json:"ecosystem,omitempty"`
+	AffectedRepos int    `json:"affectedRepos,omitempty"`
 }
 
 // maxPromptFindings caps how many findings (highest severity first) are sent to
@@ -159,13 +170,29 @@ func (c *OpenAIClient) Summarize(cor state.Correlated) ([]string, map[string]str
 	if len(findings) > maxPromptFindings {
 		findings = findings[:maxPromptFindings]
 	}
+	// Give every finding/group a short alias (F1, W1, …). The model echoes these
+	// aliases in its tool call instead of the 64-char SHA-256 fingerprints; a
+	// small model forced to reproduce the fingerprints overran max_tokens and
+	// truncated the tool-call JSON mid-array. We translate aliases back to the
+	// real ids after parsing, dropping any the model hallucinates.
+	alias := make(map[string]string, len(findings)+len(cor.Waterfall))
 	brief := struct {
-		Findings  []briefFinding         `json:"findings"`
-		Waterfall []state.WaterfallGroup `json:"waterfall"`
-	}{Waterfall: cor.Waterfall}
-	for _, f := range findings {
+		Findings  []briefFinding   `json:"findings"`
+		Waterfall []briefWaterfall `json:"waterfall,omitempty"`
+	}{}
+	for i, f := range findings {
+		id := fmt.Sprintf("F%d", i+1)
+		alias[id] = f.ID
 		brief.Findings = append(brief.Findings, briefFinding{
-			ID: f.ID, Severity: f.Severity, CVE: f.CVEID, Repo: f.Repo, Package: f.Package,
+			ID: id, Severity: f.Severity, CVE: f.CVEID, Repo: f.Repo, Package: f.Package,
+		})
+	}
+	for i, g := range cor.Waterfall {
+		id := fmt.Sprintf("W%d", i+1)
+		alias[id] = g.ID
+		brief.Waterfall = append(brief.Waterfall, briefWaterfall{
+			ID: id, Severity: g.Severity, RootCause: g.RootCause,
+			Ecosystem: g.Ecosystem, AffectedRepos: len(g.AffectedRepos),
 		})
 	}
 	payload, err := json.Marshal(brief)
@@ -176,7 +203,7 @@ func (c *OpenAIClient) Summarize(cor state.Correlated) ([]string, map[string]str
 	prompt := "You are a security triage assistant for the Kairos project. " +
 		"Analyse these correlated security findings and call the " + triageToolName +
 		" function to report the most urgent items to focus on. " +
-		"Only use id values that appear in the input. Findings:\n" + string(payload)
+		"Only use the short id values (like F1 or W2) that appear in the input. Findings:\n" + string(payload)
 
 	reqBody, err := json.Marshal(chatRequest{
 		Model:       c.model,
@@ -251,11 +278,20 @@ func (c *OpenAIClient) Summarize(cor state.Correlated) ([]string, map[string]str
 		return nil, nil, "", fmt.Errorf("tool-call arguments were not valid JSON: %w (args: %q)", err, snippet([]byte(rawArgs)))
 	}
 
+	// Translate aliases back to real ids, dropping any the model invented.
+	focus := make([]string, 0, len(args.Focus))
+	for _, a := range args.Focus {
+		if real, ok := alias[a]; ok {
+			focus = append(focus, real)
+		}
+	}
 	summaries := make(map[string]string, len(args.Summaries))
 	for _, s := range args.Summaries {
-		summaries[s.ID] = s.Summary
+		if real, ok := alias[s.ID]; ok {
+			summaries[real] = s.Summary
+		}
 	}
-	return args.Focus, summaries, args.Narrative, nil
+	return focus, summaries, args.Narrative, nil
 }
 
 // extractJSON pulls the JSON object out of a model reply that may be wrapped in
