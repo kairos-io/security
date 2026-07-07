@@ -42,3 +42,7 @@ CI triggers, with no personal PAT:
 - No PR is opened when there is no dependency change; the action fails (no PR)
   when the build can't be made to pass.
 - An already-open PR on the same branch is force-updated instead of duplicated.
+- The branch is pushed using the provided `token`, so updates to a reused PR
+  trigger CI (git itself authenticates with the token, not just `gh`).
+- LocalAI's binary and model weights are downloaded under the runner temp dir,
+  never into the checkout, so they are never committed.

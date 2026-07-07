@@ -43,7 +43,7 @@ lang_dep_paths() {
   esac
 }
 
-# has_dep_changes LANG -> exit 0 if any manifest path differs from HEAD in CWD.
+# has_dep_changes LANG -> exit 0 if any manifest path has unstaged changes in CWD.
 has_dep_changes() {
   local lang="$1" path rc=1
   while IFS= read -r path; do

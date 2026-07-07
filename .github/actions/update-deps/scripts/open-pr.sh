@@ -27,9 +27,16 @@ git checkout -B "$BRANCH"
 git add -A
 git commit -m "$PR_TITLE" || { echo "nothing to commit"; exit 0; }
 
-# Push with the token-authenticated remote. --force-with-lease keeps a reused
-# branch in sync without clobbering unrelated pushes.
-run git push --force-with-lease origin "HEAD:$BRANCH"
+# Push with the token-authenticated remote. --force keeps an automation-owned
+# reused branch in sync; the branch is intentionally force-updated.
+if [ "$DRY_RUN" != "true" ]; then
+  # Authenticate git (not just gh) with the provided token so pushes to a
+  # reused PR branch trigger CI. Drop the checkout-persisted GITHUB_TOKEN
+  # auth header so the token in the remote URL is the one used.
+  git remote set-url origin "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY:?GITHUB_REPOSITORY is required}.git"
+  git config --local --unset-all "http.https://github.com/.extraheader" 2>/dev/null || true
+fi
+run git push --force origin "HEAD:$BRANCH"
 
 existing="$(open_pr_number "$BRANCH")"
 if [ -n "$existing" ]; then

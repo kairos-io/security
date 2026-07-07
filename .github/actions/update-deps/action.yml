@@ -21,7 +21,14 @@ runs:
       with: { go-version: "${{ inputs.go-version }}" }
     - name: Install nib
       shell: bash
-      run: go install github.com/mudler/nib@${{ inputs.nib-version }}
+      run: |
+        go install github.com/mudler/nib@${{ inputs.nib-version }}
+        echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+    - name: Cache LocalAI models
+      uses: actions/cache@v4
+      with:
+        path: ${{ runner.temp }}/update-deps/models
+        key: update-deps-localai-models-${{ inputs.model }}
     - name: Start LocalAI
       id: localai
       shell: bash
@@ -31,6 +38,9 @@ runs:
         LOCALAI_VERSION: ${{ inputs.localai-version }}
         STARTUP_TIMEOUT: ${{ inputs.startup-timeout }}
         GH_TOKEN: ${{ inputs.token }}
+        BIN_DIR: ${{ runner.temp }}/update-deps/bin
+        MODELS_PATH: ${{ runner.temp }}/update-deps/models
+        LOCALAI_LOG: ${{ runner.temp }}/update-deps/localai.log
       run: bash "${{ github.action_path }}/scripts/start-localai.sh"
     - name: Update dependencies
       id: update
