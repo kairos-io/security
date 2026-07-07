@@ -30,3 +30,14 @@ TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"; _report' EXIT
 assert_fail "no change -> has_dep_changes false" bash -c ". '$HERE/../scripts/lib.sh'; cd '$TMP'; has_dep_changes go"
 printf 'module x\n// bump\n' > "$TMP/go.mod"
 assert_ok   "modified go.mod -> has_dep_changes true" bash -c ". '$HERE/../scripts/lib.sh'; cd '$TMP'; has_dep_changes go"
+
+# localai_answers: mock curl to control the readyz HTTP code.
+MOCK="$(mktemp -d)"
+cat > "$MOCK/curl" <<'EOF'
+#!/usr/bin/env bash
+# emit the code requested via the sentinel env MOCK_CODE for -w '%{http_code}'
+printf '%s' "${MOCK_CODE:-000}"
+EOF
+chmod +x "$MOCK/curl"
+assert_ok   "localai_answers true on 200"  bash -c ". '$HERE/../scripts/lib.sh'; PATH=\"$MOCK:\$PATH\" MOCK_CODE=200 localai_answers http://x"
+assert_fail "localai_answers false on 000" bash -c ". '$HERE/../scripts/lib.sh'; PATH=\"$MOCK:\$PATH\" MOCK_CODE=000 localai_answers http://x"

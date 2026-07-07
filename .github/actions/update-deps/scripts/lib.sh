@@ -56,3 +56,10 @@ has_dep_changes() {
 open_pr_number() {
   gh pr list --head "$1" --state open --json number --jq '.[0].number // empty' 2>/dev/null
 }
+
+# localai_answers URL -> exit 0 if URL/readyz returns HTTP 200.
+localai_answers() {
+  local code
+  code="$(curl -s -m 5 -o /dev/null -w '%{http_code}' "${1%/}/readyz" 2>/dev/null)"
+  [ "$code" = "200" ]
+}
