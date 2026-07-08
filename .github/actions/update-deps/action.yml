@@ -1,0 +1,64 @@
+name: Update dependencies
+description: Have nib bump a repo's dependencies to latest and open a CI-triggering PR.
+inputs:
+  token:            { description: "CI-triggering token (GitHub App token recommended; PAT fallback).", required: true }
+  language:         { description: "Ecosystem. Only 'go' is implemented.", required: false, default: "go" }
+  model:            { description: "LocalAI model driving nib.", required: false, default: "gemma-4-e2b-it" }
+  localai-url:      { description: "If it already answers, startup is skipped.", required: false, default: "http://localhost:8080" }
+  localai-version:  { description: "LocalAI release to download.", required: false, default: "latest" }
+  nib-version:      { description: "nib version to install.", required: false, default: "latest" }
+  go-version:       { description: "Go toolchain.", required: false, default: "stable" }
+  startup-timeout:  { description: "Max seconds to wait for model load.", required: false, default: "1200" }
+  branch:           { description: "PR head branch.", required: false, default: "chore/update-deps" }
+  base:             { description: "PR target branch (default: repo default).", required: false, default: "" }
+  pr-title:         { description: "PR title / commit subject.", required: false, default: "chore(deps): update dependencies" }
+  pr-labels:        { description: "Comma-separated PR labels.", required: false, default: "dependencies" }
+  dry-run:          { description: "Do everything except push/open PR.", required: false, default: "false" }
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-go@v5
+      with: { go-version: "${{ inputs.go-version }}" }
+    - name: Install nib
+      shell: bash
+      run: |
+        go install github.com/mudler/nib@${{ inputs.nib-version }}
+        echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+    - name: Cache LocalAI models
+      uses: actions/cache@v4
+      with:
+        path: ${{ runner.temp }}/update-deps/models
+        key: update-deps-localai-models-${{ inputs.model }}
+    - name: Start LocalAI
+      id: localai
+      shell: bash
+      env:
+        LOCALAI_URL: ${{ inputs.localai-url }}
+        MODEL: ${{ inputs.model }}
+        LOCALAI_VERSION: ${{ inputs.localai-version }}
+        STARTUP_TIMEOUT: ${{ inputs.startup-timeout }}
+        GH_TOKEN: ${{ inputs.token }}
+        BIN_DIR: ${{ runner.temp }}/update-deps/bin
+        MODELS_PATH: ${{ runner.temp }}/update-deps/models
+        LOCALAI_LOG: ${{ runner.temp }}/update-deps/localai.log
+      run: bash "${{ github.action_path }}/scripts/start-localai.sh"
+    - name: Update dependencies
+      id: update
+      shell: bash
+      env:
+        LANGUAGE: ${{ inputs.language }}
+        MODEL: ${{ inputs.model }}
+        LOCALAI_URL: ${{ inputs.localai-url }}
+        NIB_AVAILABLE: ${{ steps.localai.outputs.nib_available }}
+      run: bash "${{ github.action_path }}/scripts/run-update.sh"
+    - name: Open pull request
+      if: ${{ steps.update.outputs.changed == 'true' }}
+      shell: bash
+      env:
+        TOKEN: ${{ inputs.token }}
+        BRANCH: ${{ inputs.branch }}
+        BASE: ${{ inputs.base }}
+        PR_TITLE: ${{ inputs.pr-title }}
+        PR_LABELS: ${{ inputs.pr-labels }}
+        DRY_RUN: ${{ inputs.dry-run }}
+      run: bash "${{ github.action_path }}/scripts/open-pr.sh"

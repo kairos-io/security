@@ -1,0 +1,23 @@
+name: Lint actions
+on:
+  pull_request:
+    paths: [".github/actions/update-deps/**", ".github/workflows/lint-actions.yml"]
+  workflow_dispatch:
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: shellcheck
+        run: shellcheck .github/actions/update-deps/scripts/*.sh .github/actions/update-deps/tests/*.sh
+      - name: actionlint
+        run: |
+          go install github.com/rhysd/actionlint/cmd/actionlint@latest
+          "$(go env GOPATH)/bin/actionlint" .github/actions/update-deps/examples/caller-workflow.yml .github/workflows/lint-actions.yml
+      - name: unit tests
+        run: |
+          bash .github/actions/update-deps/tests/lib_test.sh
+          bash .github/actions/update-deps/tests/open_pr_test.sh
