@@ -113,16 +113,6 @@
     "scan": {}
   },
   {
-    "repo": "kairos-io/kairos-must-burn",
-    "kind": "org",
-    "branch": "main",
-    "criticality": "low",
-    "artifacts": null,
-    "scan": {
-      "source": false
-    }
-  },
-  {
     "repo": "kairos-io/kairos-operator",
     "kind": "org",
     "branch": "main",
@@ -167,14 +157,6 @@
     "kind": "org",
     "branch": "main",
     "criticality": "medium",
-    "artifacts": null,
-    "scan": {}
-  },
-  {
-    "repo": "kairos-io/simple-mdns-server",
-    "kind": "org",
-    "branch": "main",
-    "criticality": "low",
     "artifacts": null,
     "scan": {}
   },

@@ -6,21 +6,19 @@ _Updated 2026-07-08._
 
 ## 📋 This run
 
-- **Scanned:** 27 repos (1 skipped)
+- **Scanned:** 25 repos
 - **Findings:** 61 (3 critical / 29 high / 24 medium / 3 low / 2 unknown)
 - **CVE-related PRs:** 0
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 61 finding(s); 0 PR(s) open.
 
-> The immediate focus must be on the three critical vulnerabilities found in the openssl-fips package (F1, F2, F3). Additionally, high-severity issues in the core OpenSSL package (F4) and related openssl-fips components (F5) require urgent remediation.
+> The most urgent findings are three critical vulnerabilities affecting the openssl-fips package in the kairos-io/hadron repository. These issues require immediate remediation to mitigate severe security risks.
 
 ## 🔥 Focus now
 
-- [CVE-2026-31789](https://osv.dev/vulnerability/ALPINE-CVE-2026-31789) — Critical vulnerability in openssl-fips.
-- [CVE-2024-5535](https://osv.dev/vulnerability/ALPINE-CVE-2024-5535) — Critical vulnerability in openssl-fips.
-- [CVE-2026-34182](https://osv.dev/vulnerability/ALPINE-CVE-2026-34182) — Critical vulnerability in openssl-fips.
-- [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) — High severity vulnerability in openssl.
-- [CVE-2026-9076](https://osv.dev/vulnerability/ALPINE-CVE-2026-9076) — High severity vulnerability in openssl-fips.
+- [CVE-2026-31789](https://osv.dev/vulnerability/ALPINE-CVE-2026-31789) — Critical vulnerability (CVE-2026-31789) in openssl-fips.
+- [CVE-2024-5535](https://osv.dev/vulnerability/ALPINE-CVE-2024-5535) — Critical vulnerability (CVE-2024-5535) in openssl-fips.
+- [CVE-2026-34182](https://osv.dev/vulnerability/ALPINE-CVE-2026-34182) — Critical vulnerability (CVE-2026-34182) in openssl-fips.
 
 ## 🌊 Waterfall fronts
 
@@ -43,14 +41,12 @@ _None._
 | [kairos-io/kairos-init](https://github.com/kairos-io/kairos-init) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos-lab](https://github.com/kairos-io/kairos-lab) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
-| [kairos-io/kairos-must-burn](https://github.com/kairos-io/kairos-must-burn) | 0 | 0 | 0 | 0 | skipped: not source-scannable |
 | [kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kcrypt-discovery-challenger](https://github.com/kairos-io/kcrypt-discovery-challenger) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/netboot](https://github.com/kairos-io/netboot) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/provider-kairos](https://github.com/kairos-io/provider-kairos) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/provider-kubernetes](https://github.com/kairos-io/provider-kubernetes) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
-| [kairos-io/simple-mdns-server](https://github.com/kairos-io/simple-mdns-server) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/tpm-helpers](https://github.com/kairos-io/tpm-helpers) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [mauromorales/xpasswd](https://github.com/mauromorales/xpasswd) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [mudler/edgevpn](https://github.com/mudler/edgevpn) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
