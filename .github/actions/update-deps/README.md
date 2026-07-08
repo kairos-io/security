@@ -16,13 +16,21 @@ Copy [`examples/caller-workflow.yml`](examples/caller-workflow.yml) to
 ## Inputs
 
 See [`action.yml`](action.yml). Key ones: `token` (required), `language`
-(only `go` today), `model` (default `gemma-4-e2b-it`), `branch`, `base`,
-`dry-run`, `nib-prompt`, and `context-size`.
+(only `go` today), `model` (the AI model, default `gemma-4-e2b-it`), `branch`,
+`base`, `dry-run`, `agent-prompt`, and `context-size`.
 
-`context-size` (optional): passed to LocalAI as `--context-size`. Raise it if
-nib's agentic loop overflows the model's default context (large `go get -u`
-output can exceed a small default and make tool-calls fail). Empty = LocalAI's
-default. Commits are made with `--signoff`.
+`agent-prompt` (optional): custom instructions for the update agent. When set,
+it **replaces** the default "update all dependencies to latest" task entirely
+(and the deterministic `go get -u` fallback is skipped, so a narrow request like
+"bump only X" isn't overridden). Multi-line values are flattened. Leave empty
+for the default behavior.
+
+`context-size` (optional): passed to the model as `--context-size`. Raise it if
+the agent's context overflows on large updates (a big `go get -u` output can
+exceed a small default and make the agent's tool-calls fail). Empty = the model
+default.
+
+Commits are made with `--signoff`.
 
 `nib-prompt` (optional): a custom task for nib. When set, it **replaces** the
 built-in "update all dependencies to latest" task entirely (and the deterministic

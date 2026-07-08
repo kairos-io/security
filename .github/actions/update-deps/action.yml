@@ -3,8 +3,8 @@ description: Have nib bump a repo's dependencies to latest and open a CI-trigger
 inputs:
   token:            { description: "CI-triggering token (GitHub App token recommended; PAT fallback).", required: true }
   language:         { description: "Ecosystem. Only 'go' is implemented.", required: false, default: "go" }
-  nib-prompt:       { description: "Custom nib task. When set, it REPLACES the built-in update task and the deterministic fallback is skipped.", required: false, default: "" }
-  model:            { description: "LocalAI model driving nib.", required: false, default: "gemma-4-e2b-it" }
+  agent-prompt:     { description: "Custom instructions for the update agent. When set, it REPLACES the default 'update all dependencies' task and the deterministic fallback is skipped.", required: false, default: "" }
+  model:            { description: "AI model used to update dependencies.", required: false, default: "gemma-4-e2b-it" }
   localai-url:      { description: "If it already answers, startup is skipped.", required: false, default: "http://localhost:8080" }
   localai-version:  { description: "LocalAI release to download.", required: false, default: "latest" }
   context-size:     { description: "Model context size (LocalAI --context-size). Empty = LocalAI/model default.", required: false, default: "" }
@@ -50,7 +50,7 @@ runs:
       shell: bash
       env:
         LANGUAGE: ${{ inputs.language }}
-        NIB_PROMPT: ${{ inputs.nib-prompt }}
+        NIB_PROMPT: ${{ inputs.agent-prompt }}
         MODEL: ${{ inputs.model }}
         LOCALAI_URL: ${{ inputs.localai-url }}
         NIB_AVAILABLE: ${{ steps.localai.outputs.nib_available }}

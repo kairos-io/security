@@ -5,14 +5,15 @@ on:
   workflow_dispatch:
     inputs:
       dry-run:      { description: "Preview without opening a PR", type: boolean, default: false }
-      prompt:       { description: "Custom nib task (replaces the default update task)", type: string, default: "" }
-      context-size: { description: "Model context size (LocalAI --context-size)", type: string, default: "" }
+      model:        { description: "AI model used to update dependencies", type: string, default: "gemma-4-e2b-it" }
+      agent-prompt: { description: "Custom instructions for the update agent (replaces the default update task)", type: string, default: "" }
+      context-size: { description: "Model context size", type: string, default: "" }
 concurrency:
   group: update-deps
   cancel-in-progress: false
 jobs:
   update:
-    runs-on: oracle-vm-16cpu-64gb-x86-64   # needs RAM for LocalAI + model
+    runs-on: oracle-vm-16cpu-64gb-x86-64   # needs RAM for the AI model
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
@@ -26,5 +27,6 @@ jobs:
           language: go
           token: ${{ steps.app-token.outputs.token }}
           dry-run: ${{ github.event.inputs.dry-run || 'false' }}
-          nib-prompt: ${{ github.event.inputs.prompt || '' }}
+          model: ${{ github.event.inputs.model || 'gemma-4-e2b-it' }}
+          agent-prompt: ${{ github.event.inputs.agent-prompt || '' }}
           context-size: ${{ github.event.inputs.context-size || '' }}
