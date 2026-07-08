@@ -2,15 +2,7 @@
   "generatedAt": "2026-07-08",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
-  "focus": [
-    "02a6ba6130f153efe9eee50cc18c14ea5c25821be870c44cae32faedec50627e",
-    "05e3b11fffb03ea97ecde34cc92f77426e3f1086802f260f2e738e8df87127d2",
-    "7c3624d8960c380a68e1ce988187bc16ce4b18820dbf40b9a43e3e92ff94472d"
-  ],
-  "summaries": {
-    "02a6ba6130f153efe9eee50cc18c14ea5c25821be870c44cae32faedec50627e": "Critical vulnerability (CVE-2026-31789) in openssl-fips.",
-    "05e3b11fffb03ea97ecde34cc92f77426e3f1086802f260f2e738e8df87127d2": "Critical vulnerability (CVE-2024-5535) in openssl-fips.",
-    "7c3624d8960c380a68e1ce988187bc16ce4b18820dbf40b9a43e3e92ff94472d": "Critical vulnerability (CVE-2026-34182) in openssl-fips."
-  },
-  "narrative": "The most urgent findings are three critical vulnerabilities affecting the openssl-fips package in the kairos-io/hadron repository. These issues require immediate remediation to mitigate severe security risks."
+  "focus": [],
+  "summaries": {},
+  "narrative": ""
 }
