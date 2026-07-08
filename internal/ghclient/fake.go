@@ -12,6 +12,7 @@ type FakeIssue struct {
 // Fake is an in-memory GitHub double for tests.
 type Fake struct {
 	OrgRepos map[string][]string
+	Archived map[string]bool   // key: repo -> archived state
 	Files    map[string][]byte // key: repo|path|ref
 	PRs      map[string][]PullRequest
 	Alerts   map[string][]Alert
@@ -38,6 +39,7 @@ type Fake struct {
 func NewFake() *Fake {
 	return &Fake{
 		OrgRepos:   map[string][]string{},
+		Archived:   map[string]bool{},
 		Files:      map[string][]byte{},
 		PRs:        map[string][]PullRequest{},
 		Alerts:     map[string][]Alert{},
@@ -96,6 +98,7 @@ func (f *Fake) UpsertPRComment(repo string, pr int, marker, body string) error {
 }
 
 func (f *Fake) ListOrgRepos(org string) ([]string, error) { return f.OrgRepos[org], nil }
+func (f *Fake) RepoArchived(repo string) (bool, error)    { return f.Archived[repo], nil }
 func (f *Fake) GetFile(repo, path, ref string) ([]byte, error) {
 	return f.Files[repo+"|"+path+"|"+ref], nil
 }

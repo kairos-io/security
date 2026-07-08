@@ -78,7 +78,14 @@ func newDiscoverCmd(gf *globalFlags) *cobra.Command {
 				return err
 			}
 			repos := discover.Normalize(cfg)
-			return state.Save(gf.stateDir, state.ReposFile, repos)
+			kept, dropped, failed := discover.FilterArchived(ghclient.NewCLI(), repos)
+			for _, d := range dropped {
+				fmt.Fprintf(cmd.ErrOrStderr(), "discover: skipping archived repo %s\n", d)
+			}
+			for _, f := range failed {
+				fmt.Fprintf(cmd.ErrOrStderr(), "discover: could not determine archived state for %s; keeping it\n", f)
+			}
+			return state.Save(gf.stateDir, state.ReposFile, kept)
 		},
 	}
 	cmd.Flags().StringVar(&seedFrom, "seed-from", "",

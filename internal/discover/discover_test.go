@@ -69,3 +69,45 @@ func TestSeedFromOrgEnumeratesOrgAndDeps(t *testing.T) {
 	// sorted output
 	assert.True(t, repos[0].Repo < repos[len(repos)-1].Repo)
 }
+
+func TestFilterArchivedDropsArchivedReposKeepsRest(t *testing.T) {
+	gh := ghclient.NewFake()
+	gh.Archived["kairos-io/discontinued"] = true
+	gh.Archived["kairos-io/kairos"] = false
+
+	repos := []state.Repo{
+		{Repo: "kairos-io/kairos"},
+		{Repo: "kairos-io/discontinued"},
+		{Repo: "mudler/edgevpn"}, // unset -> not archived
+	}
+
+	kept, dropped, failed := FilterArchived(gh, repos)
+
+	names := map[string]bool{}
+	for _, r := range kept {
+		names[r.Repo] = true
+	}
+	assert.True(t, names["kairos-io/kairos"])
+	assert.True(t, names["mudler/edgevpn"])
+	assert.False(t, names["kairos-io/discontinued"], "archived repo is dropped")
+	assert.Equal(t, []string{"kairos-io/discontinued"}, dropped)
+	assert.Empty(t, failed)
+}
+
+func TestFilterArchivedKeepsRepoOnLookupError(t *testing.T) {
+	gh := errArchivedGitHub{ghclient.NewFake()}
+
+	kept, dropped, failed := FilterArchived(gh, []state.Repo{{Repo: "kairos-io/kairos"}})
+
+	require.Len(t, kept, 1)
+	assert.Equal(t, "kairos-io/kairos", kept[0].Repo)
+	assert.Empty(t, dropped)
+	assert.Equal(t, []string{"kairos-io/kairos"}, failed, "lookup failure is surfaced but the repo is kept")
+}
+
+// errArchivedGitHub wraps a Fake but fails every archived lookup.
+type errArchivedGitHub struct{ *ghclient.Fake }
+
+func (errArchivedGitHub) RepoArchived(string) (bool, error) {
+	return false, assert.AnError
+}

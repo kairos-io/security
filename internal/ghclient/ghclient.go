@@ -46,6 +46,7 @@ type PRStatus struct {
 
 type GitHub interface {
 	ListOrgRepos(org string) ([]string, error)
+	RepoArchived(repo string) (bool, error)
 	GetFile(repo, path, ref string) ([]byte, error)
 	ListOpenPRs(repo string) ([]PullRequest, error)
 	ListDependabotAlerts(repo string) ([]Alert, error)
@@ -98,6 +99,17 @@ func (c *CLI) GetFile(repo, path, ref string) ([]byte, error) {
 	// gh api returns the raw content with the proper Accept header.
 	return c.run("api", fmt.Sprintf("repos/%s/contents/%s?ref=%s", repo, path, ref),
 		"-H", "Accept: application/vnd.github.raw+json")
+}
+
+// RepoArchived reports whether GitHub has the repo marked as archived. Archived
+// repos are read-only and no longer accept patches, so they should not be
+// tracked.
+func (c *CLI) RepoArchived(repo string) (bool, error) {
+	b, err := c.api("repos/"+repo, "-q", ".archived")
+	if err != nil {
+		return false, err
+	}
+	return strings.TrimSpace(string(b)) == "true", nil
 }
 
 func (c *CLI) ListOpenPRs(repo string) ([]PullRequest, error) {
