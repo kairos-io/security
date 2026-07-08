@@ -12,6 +12,7 @@ BASE="${BASE:-}"
 PR_TITLE="${PR_TITLE:-chore(deps): update dependencies}"
 PR_LABELS="${PR_LABELS:-dependencies}"
 DRY_RUN="${DRY_RUN:-false}"
+PR_BODY_FILE="${PR_BODY_FILE:-}"
 BOT_NAME="${BOT_NAME:-kairos-deps-bot}"
 BOT_EMAIL="${BOT_EMAIL:-bot@kairos.io}"
 TOKEN="${TOKEN:?TOKEN is required}"
@@ -41,16 +42,25 @@ if [ "$DRY_RUN" != "true" ]; then
 fi
 run git push --force origin "HEAD:$BRANCH"
 
+# PR body: use the generated summary file when present, else a static fallback.
+body_flag=(--body "Automated dependency update opened by the update-deps action.")
+if [ -n "$PR_BODY_FILE" ] && [ -s "$PR_BODY_FILE" ]; then
+  body_flag=(--body-file "$PR_BODY_FILE")
+fi
+
 existing="$(open_pr_number "$BRANCH")"
 if [ -n "$existing" ]; then
   echo "reusing open PR #$existing (branch force-updated)"
+  # Refresh the existing PR's description with the new summary (best-effort).
+  if [ "$DRY_RUN" != "true" ] && [ -n "$PR_BODY_FILE" ] && [ -s "$PR_BODY_FILE" ]; then
+    gh pr edit "$BRANCH" --body-file "$PR_BODY_FILE" >/dev/null 2>&1 || true
+  fi
   exit 0
 fi
 
 base_flag=()
 [ -n "$BASE" ] && base_flag=(--base "$BASE")
-run gh pr create --head "$BRANCH" "${base_flag[@]}" --title "$PR_TITLE" \
-  --body "Automated dependency update opened by the update-deps action (nib-driven)."
+run gh pr create --head "$BRANCH" "${base_flag[@]}" --title "$PR_TITLE" "${body_flag[@]}"
 
 # Labels are best-effort: a label that doesn't exist in the repo (or missing
 # Issues permission on the token) must not fail the run — the PR is what matters.

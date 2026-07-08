@@ -48,3 +48,18 @@ EOF
 chmod +x "$MOCK/curl"
 assert_ok   "localai_answers true on 200"  bash -c ". '$HERE/../scripts/lib.sh'; PATH=\"$MOCK:\$PATH\" MOCK_CODE=200 localai_answers http://x"
 assert_fail "localai_answers false on 000" bash -c ". '$HERE/../scripts/lib.sh'; PATH=\"$MOCK:\$PATH\" MOCK_CODE=000 localai_answers http://x"
+
+# summarize_go_mod_diff groups a go.mod diff into a markdown summary.
+SUMOUT="$TMP/summary.md"
+printf '%s\n' \
+'-	github.com/labstack/echo/v4 v4.15.2' \
+'+	github.com/labstack/echo/v4 v4.15.4' \
+'-	github.com/urfave/cli/v3 v3.10.1' \
+'+	github.com/newpkg/tool v1.0.0' \
+'-	github.com/klauspost/compress v1.18.6 // indirect' \
+'+	github.com/klauspost/compress v1.19.0 // indirect' \
+  | summarize_go_mod_diff > "$SUMOUT"
+assert_ok "summary: direct bump listed"   grep -qF 'echo/v4` v4.15.2 -> v4.15.4' "$SUMOUT"
+assert_ok "summary: direct add listed"    grep -qF 'newpkg/tool` v1.0.0' "$SUMOUT"
+assert_ok "summary: removed section"      grep -qF 'urfave/cli/v3' "$SUMOUT"
+assert_ok "summary: indirect counted"     grep -qF '1 indirect dependency also changed.' "$SUMOUT"

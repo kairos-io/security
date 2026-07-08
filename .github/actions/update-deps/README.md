@@ -30,6 +30,11 @@ the agent's context overflows on large updates (a big `go get -u` output can
 exceed a small default and make the agent's tool-calls fail). Empty = the model
 default.
 
+The PR description is generated automatically: a deterministic table of the
+dependency changes (updated/added/removed with from→to versions, plus a count of
+indirect bumps) parsed from the manifest diff, optionally preceded by a short
+natural-language summary from the model (best-effort — omitted if unavailable).
+
 Commits are made with `--signoff`.
 
 `nib-prompt` (optional): a custom task for nib. When set, it **replaces** the

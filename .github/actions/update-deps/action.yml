@@ -54,6 +54,7 @@ runs:
         MODEL: ${{ inputs.model }}
         LOCALAI_URL: ${{ inputs.localai-url }}
         NIB_AVAILABLE: ${{ steps.localai.outputs.nib_available }}
+        PR_BODY_FILE: ${{ runner.temp }}/update-deps/pr-body.md
       run: bash "${{ github.action_path }}/scripts/run-update.sh"
     - name: Open pull request
       if: ${{ steps.update.outputs.changed == 'true' }}
@@ -65,4 +66,5 @@ runs:
         PR_TITLE: ${{ inputs.pr-title }}
         PR_LABELS: ${{ inputs.pr-labels }}
         DRY_RUN: ${{ inputs.dry-run }}
+        PR_BODY_FILE: ${{ runner.temp }}/update-deps/pr-body.md
       run: bash "${{ github.action_path }}/scripts/open-pr.sh"

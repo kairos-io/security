@@ -56,6 +56,48 @@ lang_dep_paths() {
   esac
 }
 
+# summarize_go_mod_diff -> reads a `git diff` of go.mod on stdin and prints a
+# grouped markdown summary (direct deps updated/added/removed with from->to
+# versions, plus a count of indirect changes). Empty output if nothing parsed.
+summarize_go_mod_diff() {
+  local records bd ad rd ind
+  records="$(awk '
+    /^[-+]/ {
+      sign = substr($0, 1, 1); line = substr($0, 2)
+      sub(/^[ \t]+/, "", line); sub(/^require[ \t]+/, "", line)
+      if (split(line, f, /[ \t]+/) < 2) next
+      p = f[1]; v = f[2]
+      if (p !~ /\./) next                       # skip non-module lines (go directive, etc.)
+      ind = (line ~ /\/\/[ \t]*indirect/)
+      if (sign == "-") { o[p] = v; oi[p] = ind } else { nw[p] = v; ni[p] = ind }
+    }
+    END {
+      for (p in nw) {
+        if (p in o) { if (o[p] != nw[p]) print (ni[p] ? "BI" : "BD") "\t" p "\t" o[p] " -> " nw[p] }
+        else print (ni[p] ? "AI" : "AD") "\t" p "\t" nw[p]
+      }
+      for (p in o) if (!(p in nw)) print (oi[p] ? "RI" : "RD") "\t" p
+    }
+  ')"
+  [ -z "$records" ] && return 0
+  bd="$(printf '%s\n' "$records" | awk -F'\t' '$1=="BD"{printf "- `%s` %s\n",$2,$3}' | sort)"
+  ad="$(printf '%s\n' "$records" | awk -F'\t' '$1=="AD"{printf "- `%s` %s\n",$2,$3}' | sort)"
+  rd="$(printf '%s\n' "$records" | awk -F'\t' '$1=="RD"{printf "- `%s`\n",$2}'        | sort)"
+  ind="$(printf '%s\n' "$records" | grep -cE '^(BI|AI|RI)' || true)"
+
+  echo "## Dependency updates"
+  echo
+  [ -n "$bd" ] && { echo "**Updated:**"; echo "$bd"; echo; }
+  [ -n "$ad" ] && { echo "**Added:**";   echo "$ad"; echo; }
+  [ -n "$rd" ] && { echo "**Removed:**"; echo "$rd"; echo; }
+  if [ "${ind:-0}" -eq 1 ]; then
+    echo "_1 indirect dependency also changed._"
+  elif [ "${ind:-0}" -gt 1 ]; then
+    echo "_${ind} indirect dependencies also changed._"
+  fi
+  return 0
+}
+
 # has_dep_changes LANG -> exit 0 if any manifest path has unstaged changes in CWD.
 has_dep_changes() {
   local lang="$1" path rc=1
