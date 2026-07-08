@@ -10,9 +10,13 @@ import (
 
 var sevRank = map[string]int{"critical": 4, "high": 3, "medium": 2, "low": 1, "unknown": 0, "": 0}
 
-// actionable reports whether a finding can be auto-bumped.
+// actionable reports whether a finding can be auto-bumped. Informational
+// findings (accepted components / already-fixed) are separated: even though an
+// accepted or already-fixed go finding still carries a FixedVersion, we must
+// never open a bump PR for it.
 func actionable(f state.Finding) bool {
-	return (f.Type == "sourceCVE" || f.Type == "ghAlert") &&
+	return f.Class != "informational" &&
+		(f.Type == "sourceCVE" || f.Type == "ghAlert") &&
 		f.Ecosystem == "go" && f.Package != "" && f.Package != "stdlib" && f.FixedVersion != ""
 }
 
@@ -208,7 +212,7 @@ func Plan(c state.Correlated, ledger state.Ledger, prsByRepo map[string][]ghclie
 	type tc struct{ ver, sev string }
 	tcByRepo := map[string]*tc{}
 	for _, f := range c.Findings {
-		if f.Package != "stdlib" || f.Ecosystem != "go" || f.FixedVersion == "" {
+		if f.Class == "informational" || f.Package != "stdlib" || f.Ecosystem != "go" || f.FixedVersion == "" {
 			continue
 		}
 		ver := strings.TrimPrefix(f.FixedVersion, "go")

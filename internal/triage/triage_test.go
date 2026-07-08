@@ -57,6 +57,21 @@ func TestRunFallsBackOnAIError(t *testing.T) {
 	assert.NotEmpty(t, got.Summaries["crit1"])
 }
 
+func TestRunFallbackExcludesInformationalFindings(t *testing.T) {
+	// Informational findings (accepted/already-fixed) are separated and must
+	// never reach the "focus now" shortlist, even in the deterministic path.
+	c := state.Correlated{Findings: []state.Finding{
+		{ID: "act1", Severity: "high"},
+		{ID: "info1", Severity: "critical", Class: "informational"},
+	}}
+
+	got, err := Run(c, stubAI{err: errors.New("model down")}, "m")
+	assert.Error(t, err)
+	assert.False(t, got.AIAvailable)
+	assert.Equal(t, []string{"act1"}, got.Focus, "informational finding must not appear in focus")
+	assert.NotContains(t, got.Focus, "info1")
+}
+
 func TestRunFallbackCapsFocusAndSummarizesEveryFinding(t *testing.T) {
 	// A few high-severity findings plus many low ones: with FocusLimit==20,
 	// the high ones sort first and the remaining slots are filled by lows, so

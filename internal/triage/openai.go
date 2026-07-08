@@ -163,7 +163,15 @@ func (c *OpenAIClient) Summarize(cor state.Correlated) ([]string, map[string]str
 		return nil, nil, "", fmt.Errorf("no AI endpoint configured")
 	}
 
-	findings := append([]state.Finding(nil), cor.Findings...)
+	// Informational findings (accepted/already-fixed) are separated and must
+	// never be ranked into the focus shortlist, so we never send them to the model.
+	findings := make([]state.Finding, 0, len(cor.Findings))
+	for _, f := range cor.Findings {
+		if f.Class == "informational" {
+			continue
+		}
+		findings = append(findings, f)
+	}
 	sort.SliceStable(findings, func(i, j int) bool {
 		return sevRank[findings[i].Severity] > sevRank[findings[j].Severity]
 	})

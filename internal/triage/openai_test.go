@@ -109,6 +109,35 @@ func TestSummarizeUsesShortAliasesNotFingerprints(t *testing.T) {
 	assert.NotContains(t, summaries, "Z9")
 }
 
+// TestSummarizeExcludesInformational asserts informational findings are never
+// sent to the model, so they cannot be ranked into the focus shortlist.
+func TestSummarizeExcludesInformational(t *testing.T) {
+	cor := state.Correlated{
+		Findings: []state.Finding{
+			{ID: "act", Severity: "high", CVEID: "CVE-ACT", Repo: "kairos-io/x", Package: "p"},
+			{ID: "info", Severity: "critical", CVEID: "CVE-INFO", Repo: "kairos-io/x", Package: "q",
+				Class: "informational"},
+		},
+	}
+
+	var promptContent string
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var req chatRequest
+		body, _ := io.ReadAll(r.Body)
+		require.NoError(t, json.Unmarshal(body, &req))
+		promptContent = req.Messages[0].Content
+		w.Header().Set("Content-Type", "application/json")
+		io.WriteString(w, `{"choices":[{"message":{"tool_calls":[{"function":{"name":"report_triage",`+
+			`"arguments":"{\"focus\":[\"F1\"],\"summaries\":[{\"id\":\"F1\",\"summary\":\"a\"}],\"narrative\":\"n\"}"}}]}}]}`)
+	}))
+	defer ts.Close()
+
+	_, _, _, err := newTestClient(ts).Summarize(cor)
+	require.NoError(t, err)
+	assert.Contains(t, promptContent, "CVE-ACT")
+	assert.NotContains(t, promptContent, "CVE-INFO", "informational finding must not be sent to the model")
+}
+
 func TestSummarizeErrorsOnHTTPError(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "model not loaded", http.StatusServiceUnavailable)

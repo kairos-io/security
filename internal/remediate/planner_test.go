@@ -33,6 +33,26 @@ func TestPlanOpensNewActionableTargetsDedupedAndCapped(t *testing.T) {
 	assert.Equal(t, "critical", in.Severity)
 }
 
+func TestPlanSkipsInformationalFindings(t *testing.T) {
+	// An accepted-component / already-fixed finding is classed informational but
+	// still carries a go ecosystem + FixedVersion, so without a Class guard it
+	// would satisfy actionable() and get a bump PR. It must be skipped.
+	c := state.Correlated{Findings: []state.Finding{
+		// informational go finding with a fixed version -> no intent
+		{ID: "info", Repo: "kairos-io/kairos", Type: "sourceCVE", Ecosystem: "go",
+			Package: "golang.org/x/net", FixedVersion: "0.36.0", Severity: "critical",
+			Class: "informational"},
+		// informational stdlib finding -> no toolchain intent
+		{ID: "info-std", Repo: "kairos-io/kairos", Type: "sourceCVE", Ecosystem: "go",
+			Package: "stdlib", FixedVersion: "go1.22.0", Severity: "high",
+			Class: "informational"},
+	}}
+
+	intents, deferred := Plan(c, state.Ledger{}, nil, nil, 10)
+	assert.Empty(t, intents, "informational findings must not produce bump intents")
+	assert.Equal(t, 0, deferred)
+}
+
 func TestPlanReconcilesExistingLedgerEntries(t *testing.T) {
 	c := state.Correlated{}
 	led := state.Ledger{Entries: []state.LedgerEntry{

@@ -68,6 +68,9 @@ func deterministicFocus(c state.Correlated) []string {
 	}
 	var items []item
 	for _, f := range c.Findings {
+		if f.Class == "informational" {
+			continue // separated + uncounted; never in the focus shortlist
+		}
 		items = append(items, item{f.ID, f.Severity})
 	}
 	for _, g := range c.Waterfall {
