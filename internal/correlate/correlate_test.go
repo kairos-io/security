@@ -9,6 +9,29 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// fakeApplier lets tests assert what correlate hands to the classifier and
+// attach an AIApplicability verdict without hitting the network.
+type fakeApplier struct {
+	got  []state.Finding
+	mark map[string]string // finding.ID -> reason (attaches AIApplicability=not-applicable/high)
+}
+
+func (f *fakeApplier) Apply(in []state.Finding) []state.Finding {
+	f.got = append([]state.Finding(nil), in...)
+	out := make([]state.Finding, len(in))
+	copy(out, in)
+	for i := range out {
+		if reason, ok := f.mark[out[i].ID]; ok {
+			out[i].AIApplicability = &state.AIApplicability{
+				Applicable: false,
+				Confidence: "high",
+				Reasoning:  reason,
+			}
+		}
+	}
+	return out
+}
+
 func TestCorrelateDedupesAndBuildsWaterfall(t *testing.T) {
 	in := state.Findings{Findings: []state.Finding{
 		// same CVE in immucore seen by two sources → dedupe to 1, severity high wins
@@ -18,7 +41,7 @@ func TestCorrelateDedupesAndBuildsWaterfall(t *testing.T) {
 		{ID: "c", Repo: "kairos-io/kairos-agent", Type: "sourceCVE", CVEID: "CVE-2025-1", Package: "golang.org/x/net", Ecosystem: "go", Severity: "high", FixedVersion: "0.33.0"},
 	}}
 
-	out := Run(in, config.CVEPolicy{})
+	out := Run(in, config.CVEPolicy{}, nil)
 
 	// dedupe: immucore CVE-2025-1 collapses to one finding, severity "high"
 	count := 0
@@ -47,7 +70,7 @@ func TestRun_WaterfallSkipsInformational(t *testing.T) {
 		{ID: "1", Repo: "o/a", Ecosystem: "go", CVEID: "CVE-1", Package: "p", CurrentVersion: "2.0.0", FixedVersion: "1.0.0"},
 		{ID: "2", Repo: "o/b", Ecosystem: "go", CVEID: "CVE-1", Package: "p"},
 	}}
-	out := Run(in, config.CVEPolicy{})
+	out := Run(in, config.CVEPolicy{}, nil)
 	if len(out.Waterfall) != 0 {
 		t.Fatalf("informational finding must not count toward waterfall: %+v", out.Waterfall)
 	}
@@ -65,7 +88,7 @@ func TestRun_ClassifyAfterDedupeIsOrderIndependent(t *testing.T) {
 	b := state.Finding{ID: "x", Repo: "o/a", Ecosystem: "go", CVEID: "CVE-9", Package: "p", CurrentVersion: "1.5.0"}
 
 	classOf := func(in state.Findings) string {
-		out := Run(in, config.CVEPolicy{})
+		out := Run(in, config.CVEPolicy{}, nil)
 		require.Len(t, out.Findings, 1)
 		return out.Findings[0].Class
 	}
@@ -73,4 +96,54 @@ func TestRun_ClassifyAfterDedupeIsOrderIndependent(t *testing.T) {
 	rev := classOf(state.Findings{Findings: []state.Finding{b, a}})
 	assert.Equal(t, fwd, rev, "classification must be order-independent after dedupe")
 	assert.Equal(t, "", fwd, "merged finding (current<fixed) stays actionable")
+}
+
+// TestRun_ApplierRunsAfterClassify verifies (a) the applier is invoked on the
+// deduped, classified findings and (b) findings the applier flags with a
+// not-applicable verdict stay COUNTED and actionable — the verdict is advisory
+// metadata surfaced by renderers, not a hide-from-dashboard signal.
+func TestRun_ApplierRunsAfterClassify(t *testing.T) {
+	in := state.Findings{Findings: []state.Finding{
+		{ID: "1", Repo: "o/a", Ecosystem: "go", CVEID: "CVE-1", Package: "p", CurrentVersion: "1.0.0", FixedVersion: "2.0.0"},
+		{ID: "2", Repo: "o/b", Ecosystem: "go", CVEID: "CVE-1", Package: "p", CurrentVersion: "1.0.0", FixedVersion: "2.0.0"},
+	}}
+	fa := &fakeApplier{mark: map[string]string{"2": "does not affect linux"}}
+	out := Run(in, config.CVEPolicy{}, fa)
+
+	// applier saw the deduped, classified findings
+	require.Len(t, fa.got, 2)
+	for _, f := range fa.got {
+		assert.Equal(t, "", f.Class, "applier must receive still-actionable findings, not pre-classified ones")
+	}
+
+	// finding 2 gets AIApplicability metadata but stays actionable
+	byID := map[string]state.Finding{}
+	for _, f := range out.Findings {
+		byID[f.ID] = f
+	}
+	assert.Equal(t, "", byID["1"].Class)
+	assert.Nil(t, byID["1"].AIApplicability)
+	assert.Equal(t, "", byID["2"].Class, "AI-suspected findings must stay actionable")
+	require.NotNil(t, byID["2"].AIApplicability)
+	assert.False(t, byID["2"].AIApplicability.Applicable)
+	assert.Contains(t, byID["2"].AIApplicability.Reasoning, "does not affect linux")
+
+	// waterfall keeps counting both repos — AI suspicion does not silently
+	// remove a finding from the counts.
+	require.Len(t, out.Waterfall, 1, "AI-suspected findings must still count toward waterfall")
+	assert.ElementsMatch(t, []string{"o/a", "o/b"}, out.Waterfall[0].AffectedRepos)
+}
+
+// TestRun_ApplierDoesNotOverrideAlreadyInformational makes sure existing
+// classifications (accepted-component, already-fixed) are not touched by the
+// applier.
+func TestRun_ApplierDoesNotResurrect(t *testing.T) {
+	in := state.Findings{Findings: []state.Finding{
+		{ID: "1", Repo: "o/a", Ecosystem: "go", CVEID: "CVE-1", Package: "p", CurrentVersion: "2.0.0", FixedVersion: "1.0.0"},
+	}}
+	fa := &fakeApplier{}
+	out := Run(in, config.CVEPolicy{}, fa)
+	require.Len(t, out.Findings, 1)
+	assert.Equal(t, "informational", out.Findings[0].Class)
+	assert.Equal(t, "already-fixed", out.Findings[0].ClassReason)
 }

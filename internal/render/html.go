@@ -19,12 +19,21 @@ type htmlData struct {
 	Repos               []htmlRepoRow
 	Components          []htmlComponentRow
 	Informational       []htmlInfoRow
+	Applicability       []htmlApplicabilityRow
 	CollectErrors       []state.CollectionError
 	OpenPRs             []htmlOpenPRGroup
 	Ledger              []htmlLedgerEntry
 	NeedsHuman          []string
 	Reviews             []htmlReviewGroup
 	RunURL              string
+}
+
+// htmlApplicabilityRow exposes an AI-flagged possibly-not-applicable finding
+// (Finding.AIApplicability populated with Applicable=false) to the template.
+// The finding is still counted everywhere else — this row is advisory.
+type htmlApplicabilityRow struct {
+	Title, URL, Repo, Package, Current, Fixed, Severity string
+	CVEID, Confidence, Reasoning, Model, CheckedAt      string
 }
 
 // htmlReviewGroup exposes bot-PR reviews for a single repo to the template.
@@ -82,9 +91,11 @@ type htmlActivity struct {
 }
 
 type htmlFocus struct {
-	Title   string
-	URL     string
-	Summary string
+	Title             string
+	URL               string
+	Summary           string
+	AIWarnConfidence  string // populated → renders a ⚠️ badge with tooltip
+	AIWarnReasoning   string
 }
 
 // htmlRepoRow exposes per-repo counts to the template (exported fields).
@@ -97,7 +108,8 @@ type htmlRepoRow struct {
 
 // htmlComponentRow exposes a hadron component-manifest CVE to the template.
 type htmlComponentRow struct {
-	Package, Current, Fixed, Severity, Title, URL string
+	Package, Current, Fixed, Severity, Title, URL     string
+	AIWarnConfidence, AIWarnReasoning                 string // set → render ⚠️ badge with reason
 }
 
 // htmlInfoRow exposes an informational (separated + uncounted) finding to the
@@ -228,6 +240,37 @@ ul.flat > li:last-child{ border-bottom: 0; }
 .summary{ color: var(--muted); font-size: 0.85rem; margin: 0.15rem 0 0; }
 details.trace{ margin-top: 0.35rem; } details.trace summary{ cursor: pointer; color: var(--muted); font-size: 0.78rem; }
 details.trace ul{ margin: 0.3rem 0 0; padding-left: 1.1rem; } details.trace li{ color: var(--muted); font-size: 0.8rem; }
+
+/* AI applicability warning: badge + hover-tooltip popup */
+.ai-warn-badge{
+  display: inline-flex; align-items: center; gap: 0.2rem;
+  margin-left: 0.35rem; padding: 0.05rem 0.4rem;
+  border-radius: 999px; background: var(--warn-bg); color: var(--warn);
+  font-size: 0.72rem; font-weight: 600; cursor: help;
+  border: 1px solid color-mix(in oklch, var(--warn) 40%, transparent);
+  position: relative;
+}
+.ai-warn-badge:hover .ai-warn-tip,
+.ai-warn-badge:focus-within .ai-warn-tip{ display: block; }
+.ai-warn-tip{
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  z-index: 30; min-width: 260px; max-width: 460px;
+  padding: 0.6rem 0.75rem; border-radius: 8px;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  font-size: 0.82rem; font-weight: 400; line-height: 1.4;
+  white-space: normal;
+}
+.ai-warn-tip strong{ display: block; margin-bottom: 0.25rem; color: var(--warn); }
+.ai-warn-tip .meta{ margin-top: 0.35rem; color: var(--muted); font-size: 0.75rem; }
+details.ai-warn{ border: 1px solid color-mix(in oklch, var(--warn) 45%, var(--border));
+  background: var(--warn-bg); border-radius: 8px; padding: 0.55rem 0.85rem; margin: 0.5rem 0; }
+details.ai-warn > summary{ cursor: pointer; font-weight: 600; color: var(--warn); list-style: none; }
+details.ai-warn > summary::-webkit-details-marker{ display: none; }
+details.ai-warn[open]{ background: var(--surface-2); }
+details.ai-warn .reason{ margin: 0.5rem 0 0; }
+details.ai-warn .meta{ margin-top: 0.4rem; color: var(--muted); font-size: 0.78rem; }
 blockquote{ border-left: 3px solid var(--border); margin: 0; padding: 0.25rem 1rem; color: var(--muted); font-style: italic; }
 
 footer{ border-top: 1px solid var(--line); padding: 1.5rem 0 3rem; color: var(--muted); font-size: 0.85rem;
@@ -245,6 +288,7 @@ footer{ border-top: 1px solid var(--line); padding: 1.5rem 0 3rem; color: var(--
 <nav class="toc"><div class="wrap">
 <a href="#attention">Attention</a>
 <a href="#findings">Findings</a>
+{{if .Applicability}}<a href="#applicability">&#9888;&#65039; AI-flagged</a>{{end}}
 <a href="#prs">Open PRs</a>
 <a href="#reviews">PR reviews</a>
 <a href="#ledger">Ledger</a>
@@ -270,7 +314,7 @@ footer{ border-top: 1px solid var(--line); padding: 1.5rem 0 3rem; color: var(--
 {{if .NeedsHuman}}<div class="callout"><strong>{{len .NeedsHuman}} item{{if ne (len .NeedsHuman) 1}}s{{end}} need a human</strong>
 <ul>{{range .NeedsHuman}}<li>{{.}}</li>{{end}}</ul></div>{{end}}
 {{if .Focus}}<h3 class="repo">&#128293; Focus now</h3>
-<ul class="flat">{{range .Focus}}<li>{{if .URL}}<a href="{{.URL}}" target="_blank" rel="noopener">{{.Title}}</a>{{else}}<strong>{{.Title}}</strong>{{end}}{{if .Summary}} &mdash; {{.Summary}}{{end}}</li>{{end}}</ul>{{end}}
+<ul class="flat">{{range .Focus}}<li>{{if .URL}}<a href="{{.URL}}" target="_blank" rel="noopener">{{.Title}}</a>{{else}}<strong>{{.Title}}</strong>{{end}}{{if .AIWarnConfidence}}<span tabindex="0" class="ai-warn-badge" aria-label="AI suspects this may not affect us">&#9888;&#65039; AI: possibly N/A<span class="ai-warn-tip"><strong>AI suspects this CVE may not affect us</strong>{{.AIWarnReasoning}}<span class="meta">confidence: {{.AIWarnConfidence}}</span></span></span>{{end}}{{if .Summary}} &mdash; {{.Summary}}{{end}}</li>{{end}}</ul>{{end}}
 {{if .CollectErrors}}<h3 class="repo">&#9888;&#65039; {{len .CollectErrors}} collection error{{if ne (len .CollectErrors) 1}}s{{end}}</h3>
 <ul class="flat">{{range .CollectErrors}}<li><a href="{{repoURL .Repo}}" target="_blank" rel="noopener">{{.Repo}}</a> <span class="src">{{.Collector}}</span> &mdash; {{.Message}}</li>{{end}}</ul>{{end}}
 {{else}}<div class="callout ok">All clear &mdash; no findings need a human, no scan errors.</div>{{end}}
@@ -295,10 +339,20 @@ footer{ border-top: 1px solid var(--line); padding: 1.5rem 0 3rem; color: var(--
 <thead><tr><th>Package</th><th>Current</th><th>Fixed</th><th>Severity</th><th>CVE</th></tr></thead>
 <tbody>
 {{range .Components}}<tr><td>{{.Package}}</td><td>{{.Current}}</td><td>{{.Fixed}}</td><td class="{{sevClass .Severity}}">{{.Severity}}</td>
-<td>{{if .URL}}<a href="{{.URL}}" target="_blank" rel="noopener">{{.Title}}</a>{{else}}{{.Title}}{{end}}</td></tr>
+<td>{{if .URL}}<a href="{{.URL}}" target="_blank" rel="noopener">{{.Title}}</a>{{else}}{{.Title}}{{end}}{{if .AIWarnConfidence}}<span tabindex="0" class="ai-warn-badge" aria-label="AI suspects this may not affect us">&#9888;&#65039;<span class="ai-warn-tip"><strong>AI suspects this CVE may not affect us</strong>{{.AIWarnReasoning}}<span class="meta">confidence: {{.AIWarnConfidence}}</span></span></span>{{end}}</td></tr>
 {{end}}</tbody>
 </table></div>
 </section>
+
+{{end}}{{if .Applicability}}<section id="applicability">
+<h2>&#9888;&#65039; AI-flagged: possibly not applicable <span class="count">{{len .Applicability}}</span></h2>
+<p class="summary">These findings are <strong>still counted and listed above</strong>. The AI applicability check thinks they may not affect us — verify each reasoning below. If you agree, silence the finding by adding the package to <code>cve-policy.yaml</code> under <code>accepted-components</code>.</p>
+{{range .Applicability}}<details class="ai-warn">
+<summary>&#9888;&#65039; {{if .URL}}<a href="{{.URL}}" target="_blank" rel="noopener">{{.Title}}</a>{{else}}{{.Title}}{{end}} &mdash; <a href="{{repoURL .Repo}}" target="_blank" rel="noopener">{{.Repo}}</a> ({{.Package}}, confidence: {{.Confidence}})</summary>
+<p class="reason"><strong>Reason:</strong> {{.Reasoning}}</p>
+<p class="meta">{{if .CVEID}}CVE: <code>{{.CVEID}}</code> &middot; {{end}}Current: <code>{{.Current}}</code> &middot; Fixed: <code>{{.Fixed}}</code> &middot; Severity: <span class="pill {{sevClass .Severity}}">{{.Severity}}</span>{{if .Model}} &middot; Checked by: <code>{{.Model}}</code>{{if .CheckedAt}} on {{.CheckedAt}}{{end}}{{end}}</p>
+</details>
+{{end}}</section>
 
 {{end}}{{if .Informational}}<section id="informational">
 <h2>&#8505;&#65039; Informational &mdash; not counted <span class="count">{{len .Informational}}</span></h2>
@@ -414,6 +468,10 @@ func DashboardHTML(in Input) string {
 			if s := in.Triage.Summaries[id]; s != "" && !strings.HasPrefix(s, "Finding in ") {
 				hf.Summary = s
 			}
+			if suspectedNotApplicable(f) {
+				hf.AIWarnConfidence = f.AIApplicability.Confidence
+				hf.AIWarnReasoning = f.AIApplicability.Reasoning
+			}
 		} else if s, ok := in.Triage.Summaries[id]; ok {
 			hf.Title = s
 		} else {
@@ -436,9 +494,38 @@ func DashboardHTML(in Input) string {
 			fixed = "—"
 		}
 		title, url := focusTitleURL(f)
-		components = append(components, htmlComponentRow{
+		row := htmlComponentRow{
 			Package: f.Package, Current: f.CurrentVersion, Fixed: fixed,
 			Severity: f.Severity, Title: title, URL: url,
+		}
+		if suspectedNotApplicable(f) {
+			row.AIWarnConfidence = f.AIApplicability.Confidence
+			row.AIWarnReasoning = f.AIApplicability.Reasoning
+		}
+		components = append(components, row)
+	}
+	// Dedicated AI-flagged section. Same findings show up in per-repo / hadron
+	// tables (unchanged) — this section makes the reasoning legible.
+	var appl []htmlApplicabilityRow
+	for _, f := range applicabilityWarnings(in.Correlated.Findings) {
+		fixed := f.FixedVersion
+		if fixed == "" {
+			fixed = "—"
+		}
+		title, url := focusTitleURL(f)
+		appl = append(appl, htmlApplicabilityRow{
+			Title:      title,
+			URL:        url,
+			Repo:       f.Repo,
+			Package:    f.Package,
+			Current:    nonEmptyMD(f.CurrentVersion),
+			Fixed:      fixed,
+			Severity:   f.Severity,
+			CVEID:      f.CVEID,
+			Confidence: f.AIApplicability.Confidence,
+			Reasoning:  f.AIApplicability.Reasoning,
+			Model:      f.AIApplicability.Model,
+			CheckedAt:  f.AIApplicability.CheckedAt,
 		})
 	}
 	var informational []htmlInfoRow
@@ -525,6 +612,7 @@ func DashboardHTML(in Input) string {
 		Repos:               repos,
 		Components:          components,
 		Informational:       informational,
+		Applicability:       appl,
 		CollectErrors:       in.CollectErrors,
 		OpenPRs:             openPRs,
 		Ledger:              ledger,

@@ -49,6 +49,7 @@ func (c ComponentManifest) Collect(repo state.Repo) ([]state.Finding, error) {
 
 	type hit struct {
 		cveID, severity, fixed, title, url, source string
+		details, affected                          string
 	}
 
 	out := map[string]state.Finding{}
@@ -69,7 +70,7 @@ func (c ComponentManifest) Collect(repo state.Repo) ([]state.Finding, error) {
 				fmt.Fprintf(os.Stderr, "componentManifest: OSV query failed for %s@%s: %v\n", comp.Package, comp.Version, err)
 			} else {
 				for _, r := range results {
-					hits = append(hits, hit{r.CVEID, r.Severity, r.FixedVersion, r.Title, r.URL, "osv"})
+					hits = append(hits, hit{r.CVEID, r.Severity, r.FixedVersion, r.Title, r.URL, "osv", r.Details, r.AffectedRanges})
 				}
 			}
 		}
@@ -91,7 +92,7 @@ func (c ComponentManifest) Collect(repo state.Repo) ([]state.Finding, error) {
 						// than surface a false positive.
 						continue
 					}
-					hits = append(hits, hit{r.CVEID, r.Severity, r.VersionEndExcluding, r.Title, r.URL, "nvd"})
+					hits = append(hits, hit{r.CVEID, r.Severity, r.VersionEndExcluding, r.Title, r.URL, "nvd", r.Details, r.AffectedRanges})
 				}
 			}
 		}
@@ -112,6 +113,8 @@ func (c ComponentManifest) Collect(repo state.Repo) ([]state.Finding, error) {
 				URL:            h.url,
 				FirstSeen:      Today(),
 				LastSeen:       Today(),
+				Details:        h.details,
+				AffectedRanges: h.affected,
 			}
 			out[f.ID] = f
 		}

@@ -21,3 +21,15 @@ review:
   autoApprove: false           # when true, a "good" verdict runs `gh pr review --approve` (never merges)
   maxPerRun: 20                # cap NEW assessments/comments per run
   notify: []                   # @handles/teams cc'd in the verdict comment, e.g. ["@kairos-io/maintainers"]
+# AI applicability classifier: during correlate, feeds each actionable finding's
+# upstream CVE Details + affected ranges to the model and marks findings the
+# model confidently rules out as informational (ai-not-applicable). Fail-open:
+# any transport/model error or low-confidence verdict leaves the finding
+# actionable, so a flaky model can't silently hide real vulns.
+applicability:
+  enabled: false               # opt-in — set true to run the classifier
+  endpoint: ""                 # defaults to localai.endpoint
+  model: ""                    # defaults to localai.model.name
+  temperature: 0.1
+  maxTokens: 1024
+  confidenceThreshold: "high"  # "high" (default) | "medium"; verdict below this bar leaves the finding actionable

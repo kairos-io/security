@@ -199,3 +199,70 @@ func TestHadronComponentCVESectionOmittedWhenEmpty(t *testing.T) {
 	md := DashboardMarkdown(Input{})
 	assert.NotContains(t, md, "Hadron component CVEs")
 }
+
+// TestAIApplicabilityWarningRendersInMarkdown covers the fail-visible policy:
+// AI-suspected findings must still count in per-repo + hadron tables AND get
+// their own prominent details section with the model's reasoning.
+func TestAIApplicabilityWarningRendersInMarkdown(t *testing.T) {
+	in := Input{Correlated: state.Correlated{Findings: []state.Finding{
+		{ID: "susp", Repo: "kairos-io/hadron", Type: "componentCVE", Package: "openssl",
+			CVEID: "CVE-2099-0001", CurrentVersion: "3.6.3", FixedVersion: "3.6.4",
+			Severity: "high", Source: "osv",
+			Title: "TLS bug",
+			URL:   "https://osv.dev/vulnerability/CVE-2099-0001",
+			AIApplicability: &state.AIApplicability{
+				Applicable: false, Confidence: "high",
+				Reasoning: "queried version is on an FIPS-patched branch that predates the introduced boundary",
+				Model:     "gemma-4-e2b-it", CheckedAt: "2026-07-08",
+			}},
+	}}}
+	md := DashboardMarkdown(in)
+
+	// Still counted: hadron table lists it
+	assert.Contains(t, md, "🧩 Hadron component CVEs")
+	assert.Contains(t, md, "| openssl | 3.6.3 | 3.6.4 | high |")
+
+	// Inline warning mark on the finding link
+	assert.Contains(t, md, "⚠️", "finding link must carry the warning marker")
+
+	// Dedicated section with reasoning + expandable details
+	assert.Contains(t, md, "## ⚠️ 1 finding(s) possibly not applicable (AI)")
+	assert.Contains(t, md, "<details>")
+	assert.Contains(t, md, "queried version is on an FIPS-patched branch")
+	assert.Contains(t, md, "gemma-4-e2b-it")
+	assert.Contains(t, md, "2026-07-08")
+	assert.Contains(t, md, "confidence: high")
+
+	// Must NOT be misclassified as informational
+	assert.NotContains(t, md, "Informational — not counted")
+}
+
+func TestAIApplicabilityWarningRendersInHTML(t *testing.T) {
+	in := Input{
+		Correlated: state.Correlated{Findings: []state.Finding{
+			{ID: "susp", Repo: "kairos-io/hadron", Type: "componentCVE", Package: "openssl",
+				CVEID: "CVE-2099-0002", CurrentVersion: "3.6.3", FixedVersion: "3.6.4",
+				Severity: "critical", Source: "osv", Title: "another TLS bug",
+				URL: "https://example.test/cve",
+				AIApplicability: &state.AIApplicability{
+					Applicable: false, Confidence: "medium",
+					Reasoning: "affected only on Windows builds",
+					Model:     "test-model", CheckedAt: "2026-07-08",
+				}},
+		}},
+		Triage: state.Triage{GeneratedAt: "2026-07-08", AIAvailable: true, Focus: []string{"susp"}},
+	}
+	html := DashboardHTML(in)
+
+	// TOC link + dedicated section render
+	assert.Contains(t, html, `href="#applicability"`)
+	assert.Contains(t, html, `id="applicability"`)
+	assert.Contains(t, html, "AI-flagged: possibly not applicable")
+	assert.Contains(t, html, "affected only on Windows builds")
+	assert.Contains(t, html, "confidence: medium")
+	assert.Contains(t, html, "test-model")
+
+	// Focus item gets inline badge + tooltip
+	assert.Contains(t, html, "ai-warn-badge")
+	assert.Contains(t, html, "ai-warn-tip")
+}

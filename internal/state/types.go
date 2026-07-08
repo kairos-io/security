@@ -55,6 +55,36 @@ type Finding struct {
 	LastSeen       string `json:"lastSeen"`              // YYYY-MM-DD
 	Class          string `json:"class,omitempty"`       // "" == actionable; "informational" == separated + uncounted
 	ClassReason    string `json:"classReason,omitempty"` // why it's informational
+
+	// Details is the upstream CVE description (OSV `details`, NVD English
+	// description). Optional — collectors that don't have this data leave it
+	// empty. Used by the applicability classifier so a small model can reason
+	// about "does this actually affect us?" without a second HTTP fetch.
+	Details string `json:"details,omitempty"`
+	// AffectedRanges is a raw JSON blob of upstream affected-version data
+	// (OSV `affected[]`, NVD `configurations[]`). Same rationale as Details.
+	AffectedRanges string `json:"affectedRanges,omitempty"`
+
+	// AIApplicability, when non-nil, is the AI classifier's verdict on whether
+	// this CVE actually affects the queried version. IMPORTANT: this is
+	// advisory metadata only — Class is NOT set, so the finding stays counted
+	// and actionable. Renderers surface a warning banner + reasoning popup on
+	// findings where Applicable is false; operators still see and can act on
+	// them. Populated only when the classifier's confidence meets the
+	// configured threshold.
+	AIApplicability *AIApplicability `json:"aiApplicability,omitempty"`
+}
+
+// AIApplicability captures a classifier verdict about whether a CVE affects
+// the specific queried package version. It is attached to a Finding so the
+// dashboard can render a warning + reasoning; a false verdict never hides the
+// finding from counts (fail-visible — see Finding.AIApplicability doc).
+type AIApplicability struct {
+	Applicable bool   `json:"applicable"`
+	Confidence string `json:"confidence"` // low | medium | high
+	Reasoning  string `json:"reasoning,omitempty"`
+	Model      string `json:"model,omitempty"`
+	CheckedAt  string `json:"checkedAt,omitempty"` // YYYY-MM-DD
 }
 
 type TrackedPR struct {

@@ -52,6 +52,13 @@ type NVDResult struct {
 	VersionEndExcluding string
 	Title               string
 	URL                 string
+	// Details is the English description (same source as Title). Kept
+	// separate so the finding's Title can stay short while Details carries the
+	// full text for the applicability classifier.
+	Details string
+	// AffectedRanges is the CVE's `configurations[]` re-marshalled to a JSON
+	// string. Feeds the applicability classifier alongside Details.
+	AffectedRanges string
 }
 
 func QueryNVD(query NVDQueryFunc, vendor, product, version string) ([]NVDResult, error) {
@@ -86,12 +93,20 @@ func QueryNVD(query NVDQueryFunc, vendor, product, version string) ([]NVDResult,
 				}
 			}
 		}
+		affected := ""
+		if len(v.CVE.Configurations) > 0 {
+			if b, mErr := json.Marshal(v.CVE.Configurations); mErr == nil {
+				affected = string(b)
+			}
+		}
 		out = append(out, NVDResult{
 			CVEID:               v.CVE.ID,
 			Severity:            sev,
 			VersionEndExcluding: boundary,
 			Title:               title,
 			URL:                 "https://nvd.nist.gov/vuln/detail/" + v.CVE.ID,
+			Details:             title,
+			AffectedRanges:      affected,
 		})
 	}
 	return out, nil
