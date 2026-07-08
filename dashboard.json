@@ -28,14 +28,11 @@
         "ecosystem": "hadron",
         "package": "openssl",
         "currentVersion": "3.6.3",
-        "fixedVersion": "0",
         "severity": "high",
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2023-4807",
         "firstSeen": "2026-07-08",
         "lastSeen": "2026-07-08",
-        "class": "informational",
-        "classReason": "already-fixed",
         "details": "Issue summary: The POLY1305 MAC (message authentication code) implementation\ncontains a bug that might corrupt the internal state of applications on the\nWindows 64 platform when running on newer X86_64 processors supporting the\nAVX512-IFMA instructions.\n\nImpact summary: If in an application that uses the OpenSSL library an attacker\ncan influence whether the POLY1305 MAC algorithm is used, the application\nstate might be corrupted with various application dependent consequences.\n\nThe POLY1305 MAC (message authentication code) implementation in OpenSSL does\nnot save the contents of non-volatile XMM registers on Windows 64 platform\nwhen calculating the MAC of data larger than 64 bytes. Before returning to\nthe caller all the XMM registers are set to zero rather than restoring their\nprevious content. The vulnerable code is used only on newer x86_64 processors\nsupporting the AVX512-IFMA instructions.\n\nThe consequences of this kind of internal application state corruption can\nbe various - from no consequences, if the calling application does not\ndepend on the contents of non-volatile XMM registers at all, to the worst\nconsequences, where the attacker could get complete control of the application\nprocess. However given the contents of the registers are just zeroized so\nthe attacker cannot put arbitrary values inside, the most likely consequence,\nif any, would be an incorrect result of some application dependent\ncalculations or a crash leading to a denial of service.\n\nThe POLY1305 MAC algorithm is most frequently used as part of the\nCHACHA20-POLY1305 AEAD (authenticated encryption with associated data)\nalgorithm. The most common usage of this AEAD cipher is with TLS protocol\nversions 1.2 and 1.3 and a malicious client can influence whether this AEAD\ncipher is used by the server. This implies that server applications using\nOpenSSL can be potentially impacted. However we are currently not aware of\nany concrete application that would be affected by this issue therefore we\nconsider this a Low severity security issue.\n\nAs a workaround the AVX512-IFMA instructions support can be disabled at\nruntime by setting the environment variable OPENSSL_ia32cap:\n\n   OPENSSL_ia32cap=:~0x200000\n\nThe FIPS provider is not affected by this issue.",
         "affectedRanges": "[{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.1.1\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.1.1\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.17\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.1.1\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.18\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.1.1\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.19\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.1.1\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.20\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.1.1\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.21\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.1.1\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.22\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.1.1\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.23\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.1.1\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.24\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.1.1\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"openssl3\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"openssl3\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"0\"},{\"fixed\":\"0\"}]}]}]"
       },
@@ -294,16 +291,20 @@
         "ecosystem": "hadron",
         "package": "sqlite3",
         "currentVersion": "3.53.3",
-        "fixedVersion": "0",
         "severity": "high",
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2022-35737",
         "firstSeen": "2026-07-08",
         "lastSeen": "2026-07-08",
-        "class": "informational",
-        "classReason": "already-fixed",
         "details": "SQLite 1.0.12 through 3.39.x before 3.39.2 sometimes allows an array-bounds overflow if billions of bytes are used in a string argument to a C API.",
-        "affectedRanges": "[{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.17\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.18\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.19\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.20\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.21\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.22\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.23\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.24\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]}]"
+        "affectedRanges": "[{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.17\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.18\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.19\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.20\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.21\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.22\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.23\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.24\",\"name\":\"sqlite\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.12\"},{\"fixed\":\"0\"}]}]}]",
+        "aiApplicability": {
+          "applicable": false,
+          "confidence": "high",
+          "reasoning": "The vulnerability affects versions up to 3.39.x before 3.39.2, and the queried version 3.53.3 is newer.",
+          "model": "gemma-4-e2b-it",
+          "checkedAt": "2026-07-08"
+        }
       },
       {
         "id": "46a4c8162540a55a9858677c32f86e3579d87de3fce2255b608b2d59fed207a8",
@@ -370,7 +371,6 @@
         "ecosystem": "hadron",
         "package": "openssl-fips",
         "currentVersion": "3.1.2",
-        "fixedVersion": "0",
         "severity": "high",
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2023-4807",
@@ -446,16 +446,20 @@
         "ecosystem": "hadron",
         "package": "openssl",
         "currentVersion": "3.6.3",
-        "fixedVersion": "0",
         "severity": "high",
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2022-2068",
         "firstSeen": "2026-07-08",
         "lastSeen": "2026-07-08",
-        "class": "informational",
-        "classReason": "already-fixed",
         "details": "In addition to the c_rehash shell command injection identified in CVE-2022-1292, further circumstances where the c_rehash script does not properly sanitise shell metacharacters to prevent command injection were found by code review. When the CVE-2022-1292 was fixed it was not discovered that there are other places in the script where the file names of certificates being hashed were possibly passed to a command executed through the shell. This script is distributed by some operating systems in a manner where it is automatically executed. On such operating systems, an attacker could execute arbitrary commands with the privileges of the script. Use of the c_rehash script is considered obsolete and should be replaced by the OpenSSL rehash command line tool. Fixed in OpenSSL 3.0.4 (Affected 3.0.0,3.0.1,3.0.2,3.0.3). Fixed in OpenSSL 1.1.1p (Affected 1.1.1-1.1.1o). Fixed in OpenSSL 1.0.2zf (Affected 1.0.2-1.0.2ze).",
-        "affectedRanges": "[{\"package\":{\"ecosystem\":\"Alpine:v3.13\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.14\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.17\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.18\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.19\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.20\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.21\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.22\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.23\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.24\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"openssl3\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"openssl3\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"0\"},{\"fixed\":\"0\"}]}]}]"
+        "affectedRanges": "[{\"package\":{\"ecosystem\":\"Alpine:v3.13\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.14\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.17\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.18\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.19\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.20\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.21\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.22\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.23\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.24\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"openssl3\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"openssl3\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"0\"},{\"fixed\":\"0\"}]}]}]",
+        "aiApplicability": {
+          "applicable": false,
+          "confidence": "high",
+          "reasoning": "The queried version 3.6.3 is newer than the fixed versions mentioned for this CVE (e.g., OpenSSL 3.0.4).",
+          "model": "gemma-4-e2b-it",
+          "checkedAt": "2026-07-08"
+        }
       },
       {
         "id": "68d1c90b508dfd17f24a8ececa36b3363692bcab84018643023216932f198f09",
@@ -788,14 +792,11 @@
         "ecosystem": "hadron",
         "package": "busybox",
         "currentVersion": "1.37.0",
-        "fixedVersion": "0",
         "severity": "medium",
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2021-42376",
         "firstSeen": "2026-07-08",
         "lastSeen": "2026-07-08",
-        "class": "informational",
-        "classReason": "already-fixed",
         "details": "A NULL pointer dereference in Busybox's hush applet leads to denial of service when processing a crafted shell command, due to missing validation after a \\x03 delimiter character. This may be used for DoS under very rare conditions of filtered command input.",
         "affectedRanges": "[{\"package\":{\"ecosystem\":\"Alpine:v3.11\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.12\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.13\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.14\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.17\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.18\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.19\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.20\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.21\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.22\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.23\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.24\",\"name\":\"busybox\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.16.0\"},{\"fixed\":\"0\"}]}]}]"
       },
@@ -826,16 +827,20 @@
         "ecosystem": "hadron",
         "package": "openssl",
         "currentVersion": "3.6.3",
-        "fixedVersion": "0",
         "severity": "high",
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2022-1292",
         "firstSeen": "2026-07-08",
         "lastSeen": "2026-07-08",
-        "class": "informational",
-        "classReason": "already-fixed",
         "details": "The c_rehash script does not properly sanitise shell metacharacters to prevent command injection. This script is distributed by some operating systems in a manner where it is automatically executed. On such operating systems, an attacker could execute arbitrary commands with the privileges of the script. Use of the c_rehash script is considered obsolete and should be replaced by the OpenSSL rehash command line tool. Fixed in OpenSSL 3.0.3 (Affected 3.0.0,3.0.1,3.0.2). Fixed in OpenSSL 1.1.1o (Affected 1.1.1-1.1.1n). Fixed in OpenSSL 1.0.2ze (Affected 1.0.2-1.0.2zd).",
-        "affectedRanges": "[{\"package\":{\"ecosystem\":\"Alpine:v3.12\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.13\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.14\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.17\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.18\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.19\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.20\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.21\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.22\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.23\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.24\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"openssl3\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"openssl3\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"0\"},{\"fixed\":\"0\"}]}]}]"
+        "affectedRanges": "[{\"package\":{\"ecosystem\":\"Alpine:v3.12\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.13\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.14\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.17\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.18\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.19\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.20\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.21\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.22\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.23\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.24\",\"name\":\"openssl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"1.0.2\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"openssl3\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"openssl3\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"0\"},{\"fixed\":\"0\"}]}]}]",
+        "aiApplicability": {
+          "applicable": false,
+          "confidence": "high",
+          "reasoning": "The vulnerability was fixed in OpenSSL 3.0.3, and version 3.6.3 is newer than this fixed version.",
+          "model": "gemma-4-e2b-it",
+          "checkedAt": "2026-07-08"
+        }
       },
       {
         "id": "b1a5c666a6c24aa6859808dcdcbbe3bb05eb4ae8b40f9a0c6e7cd722137e358b",
@@ -864,7 +869,6 @@
         "ecosystem": "hadron",
         "package": "openssl-fips",
         "currentVersion": "3.1.2",
-        "fixedVersion": "0",
         "severity": "high",
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2022-1292",
@@ -883,7 +887,6 @@
         "ecosystem": "hadron",
         "package": "openssl-fips",
         "currentVersion": "3.1.2",
-        "fixedVersion": "0",
         "severity": "high",
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2022-2068",
@@ -959,16 +962,20 @@
         "ecosystem": "hadron",
         "package": "curl",
         "currentVersion": "8.21.0",
-        "fixedVersion": "0",
         "severity": "medium",
         "source": "osv",
         "url": "https://osv.dev/vulnerability/ALPINE-CVE-2021-22897",
         "firstSeen": "2026-07-08",
         "lastSeen": "2026-07-08",
-        "class": "informational",
-        "classReason": "already-fixed",
         "details": "curl 7.61.0 through 7.76.1 suffers from exposure of data element to wrong session due to a mistake in the code for CURLOPT_SSL_CIPHER_LIST when libcurl is built to use the Schannel TLS library. The selected cipher set was stored in a single \"static\" variable in the library, which has the surprising side-effect that if an application sets up multiple concurrent transfers, the last one that sets the ciphers will accidentally control the set used by all transfers. In a worst-case scenario, this weakens transport security significantly.",
-        "affectedRanges": "[{\"package\":{\"ecosystem\":\"Alpine:v3.11\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.12\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.13\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.14\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.17\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.18\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.19\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.20\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.21\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.22\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.23\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.24\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]}]"
+        "affectedRanges": "[{\"package\":{\"ecosystem\":\"Alpine:v3.11\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.12\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.13\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.14\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.15\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.16\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.17\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.18\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.19\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.20\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.21\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.22\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.23\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]},{\"package\":{\"ecosystem\":\"Alpine:v3.24\",\"name\":\"curl\"},\"ranges\":[{\"type\":\"ECOSYSTEM\",\"events\":[{\"introduced\":\"7.61.0\"},{\"fixed\":\"0\"}]}]}]",
+        "aiApplicability": {
+          "applicable": false,
+          "confidence": "high",
+          "reasoning": "The CVE only affects curl versions 7.61.0 through 7.76.1, and the queried version 8.21.0 is outside this range.",
+          "model": "gemma-4-e2b-it",
+          "checkedAt": "2026-07-08"
+        }
       },
       {
         "id": "cfbbaa52f026cab3e3943174fefcaa0f8aa9e6bec6bf6523a940bd9483b9628a",
@@ -1167,9 +1174,19 @@
     "generatedAt": "2026-07-08",
     "model": "gemma-4-e2b-it",
     "aiAvailable": true,
-    "focus": [],
-    "summaries": {},
-    "narrative": ""
+    "focus": [
+      "02c2a7c57e13d089160dd71430ae5b5bd758086b2167189c44c21d0f735a17bc",
+      "420dcc867379f3a6db096d5c0186049ef2473ef8b91c6375a8e24e11b5a08548",
+      "6389947b1ff1ca83f782d1157ccb95361608f96d2e10b00cae471c84336c44fb",
+      "acd193e8b09dfd980c34073c94e63ba6db4a75c25ea5dd374b42247964c19ac1"
+    ],
+    "summaries": {
+      "02c2a7c57e13d089160dd71430ae5b5bd758086b2167189c44c21d0f735a17bc": "High severity vulnerability in openssl (CVE-2023-4807).",
+      "420dcc867379f3a6db096d5c0186049ef2473ef8b91c6375a8e24e11b5a08548": "High severity vulnerability in sqlite3 (CVE-2022-35737).",
+      "6389947b1ff1ca83f782d1157ccb95361608f96d2e10b00cae471c84336c44fb": "High severity vulnerability in openssl (CVE-2022-2068).",
+      "acd193e8b09dfd980c34073c94e63ba6db4a75c25ea5dd374b42247964c19ac1": "High severity vulnerability in openssl (CVE-2022-1292)."
+    },
+    "narrative": "The analysis identified four high-severity vulnerabilities across the project's dependencies, primarily affecting the 'openssl' and 'sqlite3' packages. Immediate attention is required to address these critical risks."
   },
   "repos": [
     {
@@ -1417,20 +1434,6 @@
         "sindresorhus/globals v17.4.0..v17.5.0 (PR body): compare v17.4.0...v17.5.0 ✓ 5103 bytes",
         "sindresorhus/globals v17.3.0..v17.4.0 (PR body): compare v17.3.0...v17.4.0 ✓ 4284 bytes",
         "context: 45798 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/AuroraBoot",
-      "pr": 591,
-      "url": "https://github.com/kairos-io/AuroraBoot/pull/591",
-      "headSHA": "e0f3b11c8446149c2509ec1f71d5aeff7675d991",
-      "verdict": "needs_human_verification",
-      "reasoning": "review endpoint returned HTTP 500",
-      "reviewedRun": "2026-07-08",
-      "trace": [
-        "microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes",
-        "microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 ✓ 40000 bytes",
-        "context: 85089 bytes"
       ]
     },
     {

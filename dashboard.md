@@ -7,15 +7,20 @@ _Updated 2026-07-08._
 ## 📋 This run
 
 - **Scanned:** 25 repos
-- **Findings:** 0 (0 critical / 0 high / 0 medium / 0 low / 0 unknown)
-- **Informational (not counted):** 61
+- **Findings:** 6 (0 critical / 4 high / 2 medium / 0 low / 0 unknown)
+- **Informational (not counted):** 55
 - **CVE-related PRs:** 0
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
-- **Why:** No CVEs found across 25 repos — nothing to remediate.
+- **Why:** 6 finding(s); 0 PR(s) open.
+
+> The analysis identified four high-severity vulnerabilities across the project's dependencies, primarily affecting the 'openssl' and 'sqlite3' packages. Immediate attention is required to address these critical risks.
 
 ## 🔥 Focus now
 
-_Nothing flagged._
+- [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) — High severity vulnerability in openssl (CVE-2023-4807).
+- [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ — High severity vulnerability in sqlite3 (CVE-2022-35737).
+- [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) ⚠️ — High severity vulnerability in openssl (CVE-2022-2068).
+- [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) ⚠️ — High severity vulnerability in openssl (CVE-2022-1292).
 
 ## 🌊 Waterfall fronts
 
@@ -25,13 +30,13 @@ _None._
 
 | Repo | Critical | High | Medium | Total | Status |
 |---|---|---|---|---|---|
+| [kairos-io/hadron](https://github.com/kairos-io/hadron) | 0 | 4 | 2 | 6 | ok |
 | [kairos-io/AuroraBoot](https://github.com/kairos-io/AuroraBoot) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/entangle](https://github.com/kairos-io/entangle) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/entangle-proxy](https://github.com/kairos-io/entangle-proxy) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/go-nodepair](https://github.com/kairos-io/go-nodepair) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/go-ukify](https://github.com/kairos-io/go-ukify) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
-| [kairos-io/hadron](https://github.com/kairos-io/hadron) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/immucore](https://github.com/kairos-io/immucore) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos](https://github.com/kairos-io/kairos) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos-agent](https://github.com/kairos-io/kairos-agent) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
@@ -51,6 +56,69 @@ _None._
 | [mudler/go-pluggable](https://github.com/mudler/go-pluggable) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [mudler/yip](https://github.com/mudler/yip) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 
+## 🧩 Hadron component CVEs
+
+| Package | Current | Fixed | Severity | CVE |
+|---|---|---|---|---|
+| openssl | 3.6.3 | — | high | [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) |
+| openssl | 3.6.3 | — | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) ⚠️ |
+| openssl | 3.6.3 | — | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) ⚠️ |
+| sqlite3 | 3.53.3 | — | high | [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ |
+| busybox | 1.37.0 | — | medium | [CVE-2021-42376](https://osv.dev/vulnerability/ALPINE-CVE-2021-42376) |
+| curl | 8.21.0 | — | medium | [CVE-2021-22897](https://osv.dev/vulnerability/ALPINE-CVE-2021-22897) ⚠️ |
+
+## ⚠️ 4 finding(s) possibly not applicable (AI)
+
+> These findings are still counted and listed above. The AI applicability check thinks they may not affect us — verify the reasoning below and, if you agree, silence via `cve-policy.yaml`.
+
+<details>
+<summary>⚠️ [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (openssl / confidence: high)</summary>
+
+**Reason:** The queried version 3.6.3 is newer than the fixed versions mentioned for this CVE (e.g., OpenSSL 3.0.4).
+
+- CVE: `CVE-2022-2068`
+- Current: `3.6.3`
+- Fixed: `—`
+- Checked by: `gemma-4-e2b-it` on 2026-07-08
+
+</details>
+
+<details>
+<summary>⚠️ [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (openssl / confidence: high)</summary>
+
+**Reason:** The vulnerability was fixed in OpenSSL 3.0.3, and version 3.6.3 is newer than this fixed version.
+
+- CVE: `CVE-2022-1292`
+- Current: `3.6.3`
+- Fixed: `—`
+- Checked by: `gemma-4-e2b-it` on 2026-07-08
+
+</details>
+
+<details>
+<summary>⚠️ [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (sqlite3 / confidence: high)</summary>
+
+**Reason:** The vulnerability affects versions up to 3.39.x before 3.39.2, and the queried version 3.53.3 is newer.
+
+- CVE: `CVE-2022-35737`
+- Current: `3.53.3`
+- Fixed: `—`
+- Checked by: `gemma-4-e2b-it` on 2026-07-08
+
+</details>
+
+<details>
+<summary>⚠️ [CVE-2021-22897](https://osv.dev/vulnerability/ALPINE-CVE-2021-22897) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (curl / confidence: high)</summary>
+
+**Reason:** The CVE only affects curl versions 7.61.0 through 7.76.1, and the queried version 8.21.0 is outside this range.
+
+- CVE: `CVE-2021-22897`
+- Current: `8.21.0`
+- Fixed: `—`
+- Checked by: `gemma-4-e2b-it` on 2026-07-08
+
+</details>
+
 ## Informational — not counted
 
 These findings are separated from the counts above: CVEs we are already past, or components accepted as pinned risk.
@@ -58,7 +126,6 @@ These findings are separated from the counts above: CVEs we are already past, or
 | Package | Current | Fixed | Severity | CVE | Why |
 |---|---|---|---|---|---|
 | openssl-fips | 3.1.2 | 3.3.7 | critical | [CVE-2026-31789](https://osv.dev/vulnerability/ALPINE-CVE-2026-31789) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| openssl | 3.6.3 | 0 | high | [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) | already-fixed |
 | busybox | 1.37.0 | 1.37.0 | low | [CVE-2025-46394](https://osv.dev/vulnerability/ALPINE-CVE-2025-46394) | already-fixed |
 | openssl-fips | 3.1.2 | 3.1.6 | critical | [CVE-2024-5535](https://osv.dev/vulnerability/ALPINE-CVE-2024-5535) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | high | [CVE-2026-9076](https://osv.dev/vulnerability/ALPINE-CVE-2026-9076) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
@@ -72,15 +139,13 @@ These findings are separated from the counts above: CVEs we are already past, or
 | openssl-fips | 3.1.2 | 3.1.8 | high | [CVE-2025-9230](https://osv.dev/vulnerability/ALPINE-CVE-2025-9230) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.5 | medium | [CVE-2024-4603](https://osv.dev/vulnerability/ALPINE-CVE-2024-4603) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | high | [CVE-2026-7383](https://osv.dev/vulnerability/ALPINE-CVE-2026-7383) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| sqlite3 | 3.53.3 | 0 | high | [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) | already-fixed |
 | openssl-fips | 3.1.2 | 3.1.4 | medium | [CVE-2024-0727](https://osv.dev/vulnerability/ALPINE-CVE-2024-0727) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.4 | medium | [CVE-2023-5678](https://osv.dev/vulnerability/ALPINE-CVE-2023-5678) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.8 | medium | [CVE-2025-9232](https://osv.dev/vulnerability/ALPINE-CVE-2025-9232) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| openssl-fips | 3.1.2 | 0 | high | [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| openssl-fips | 3.1.2 | — | high | [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.6 | high | [CVE-2025-69420](https://osv.dev/vulnerability/ALPINE-CVE-2025-69420) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.4 | medium | [CVE-2023-6129](https://osv.dev/vulnerability/ALPINE-CVE-2023-6129) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.4 | medium | [CVE-2023-6237](https://osv.dev/vulnerability/ALPINE-CVE-2023-6237) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| openssl | 3.6.3 | 0 | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) | already-fixed |
 | openssl-fips | 3.1.2 | 3.5.7 | medium | [CVE-2026-42766](https://osv.dev/vulnerability/ALPINE-CVE-2026-42766) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | low | [CVE-2026-42770](https://osv.dev/vulnerability/ALPINE-CVE-2026-42770) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.4 | high | [CVE-2023-5363](https://osv.dev/vulnerability/ALPINE-CVE-2023-5363) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
@@ -98,16 +163,13 @@ These findings are separated from the counts above: CVEs we are already past, or
 | libxml2 | 2.15.3 | 2.13.8 | high | [CVE-2025-32415](https://osv.dev/vulnerability/ALPINE-CVE-2025-32415) | already-fixed |
 | openssl-fips | 3.1.2 | 3.3.7 | high | [CVE-2026-28390](https://osv.dev/vulnerability/ALPINE-CVE-2026-28390) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.6 | medium | [CVE-2026-22796](https://osv.dev/vulnerability/ALPINE-CVE-2026-22796) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| busybox | 1.37.0 | 0 | medium | [CVE-2021-42376](https://osv.dev/vulnerability/ALPINE-CVE-2021-42376) | already-fixed |
 | openssl-fips | 3.1.2 | 3.5.7 | high | [CVE-2026-34180](https://osv.dev/vulnerability/ALPINE-CVE-2026-34180) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| openssl | 3.6.3 | 0 | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) | already-fixed |
 | openssl-fips | 3.1.2 | 3.0.8 | medium | [CVE-2023-0466](https://osv.dev/vulnerability/ALPINE-CVE-2023-0466) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| openssl-fips | 3.1.2 | 0 | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| openssl-fips | 3.1.2 | 0 | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| openssl-fips | 3.1.2 | — | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| openssl-fips | 3.1.2 | — | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.6 | high | [CVE-2025-69421](https://osv.dev/vulnerability/ALPINE-CVE-2025-69421) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | busybox | 1.37.0 | 1.37.0 | low | [CVE-2024-58251](https://osv.dev/vulnerability/ALPINE-CVE-2024-58251) | already-fixed |
 | openssl-fips | 3.1.2 | 3.3.6 | high | [CVE-2025-69419](https://osv.dev/vulnerability/ALPINE-CVE-2025-69419) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| curl | 8.21.0 | 0 | medium | [CVE-2021-22897](https://osv.dev/vulnerability/ALPINE-CVE-2021-22897) | already-fixed |
 | openssl-fips | 3.1.2 | 3.1.4 | medium | [CVE-2024-2511](https://osv.dev/vulnerability/ALPINE-CVE-2024-2511) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.6 | medium | [CVE-2026-22795](https://osv.dev/vulnerability/ALPINE-CVE-2026-22795) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.7 | high | [CVE-2026-31790](https://osv.dev/vulnerability/ALPINE-CVE-2026-31790) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
@@ -142,10 +204,6 @@ _No bot PRs yet._
     - sindresorhus/globals v17.4.0..v17.5.0 (PR body): compare v17.4.0...v17.5.0 ✓ 5103 bytes
     - sindresorhus/globals v17.3.0..v17.4.0 (PR body): compare v17.3.0...v17.4.0 ✓ 4284 bytes
     - context: 45798 bytes
-- [#591](https://github.com/kairos-io/AuroraBoot/pull/591) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes
-    - microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 ✓ 40000 bytes
-    - context: 85089 bytes
 - [#594](https://github.com/kairos-io/AuroraBoot/pull/594) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes
     - facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes

@@ -32,20 +32,6 @@
   },
   {
     "repo": "kairos-io/AuroraBoot",
-    "pr": 591,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/591",
-    "headSHA": "e0f3b11c8446149c2509ec1f71d5aeff7675d991",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
-    "trace": [
-      "microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes",
-      "microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 ✓ 40000 bytes",
-      "context: 85089 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/AuroraBoot",
     "pr": 594,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/594",
     "headSHA": "ea8d2a2e3a0fe29d7c351ce9ab0d7646538913bd",
