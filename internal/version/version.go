@@ -9,10 +9,13 @@ import (
 	"strings"
 )
 
-// Compare returns -1 if a<b, 0 if equal, 1 if a>b. An empty string is the
-// lowest possible value. Each dot-separated segment is compared by its leading
-// integer; a segment whose leading token is not an integer sorts below one that
-// is. Missing trailing segments are treated as 0.
+// Compare returns -1 if a<b, 0 if equal, 1 if a>b. Versions are compared per
+// dot-separated segment; within a segment, maximal runs of digits compare
+// numerically and runs of non-digits compare bytewise ("natural order"), so
+// "1.1.1n" < "1.1.1t", "3.1.4-r5" < "3.1.4-r6", "3.1.4-r9" < "3.1.4-r10", and
+// "1.10" > "1.9". A missing trailing segment is treated as "0" (so "1.2" ==
+// "1.2.0"). An empty string is the lowest value. This is deliberately NOT full
+// SemVer — these are OS/upstream package versions.
 func Compare(a, b string) int {
 	as, bs := strings.Split(a, "."), strings.Split(b, ".")
 	n := len(as)
@@ -20,37 +23,66 @@ func Compare(a, b string) int {
 		n = len(bs)
 	}
 	for i := 0; i < n; i++ {
-		av, aok := segInt(as, i)
-		bv, bok := segInt(bs, i)
-		switch {
-		case aok && !bok:
-			return 1
-		case !aok && bok:
-			return -1
-		case av < bv:
-			return -1
-		case av > bv:
-			return 1
+		sa, sb := "0", "0" // a MISSING trailing segment is a numeric 0
+		if i < len(as) {
+			sa = as[i]
+		}
+		if i < len(bs) {
+			sb = bs[i]
+		}
+		if c := natCompare(sa, sb); c != 0 {
+			return c
 		}
 	}
 	return 0
 }
 
-// segInt returns the leading integer of segment i and whether that value is
-// "numeric-comparable". A missing trailing segment is a numeric 0. A present
-// but non-numeric segment is not numeric-comparable (sorts lowest).
-func segInt(seg []string, i int) (int, bool) {
-	if i >= len(seg) {
-		return 0, true // trailing missing == 0
-	}
-	s := seg[i]
-	j := 0
-	for j < len(s) && s[j] >= '0' && s[j] <= '9' {
+// natCompare compares two segment strings in natural order: aligned maximal
+// digit runs compare numerically, everything else bytewise. When one string is
+// a prefix of the other, the longer one is greater.
+func natCompare(a, b string) int {
+	i, j := 0, 0
+	for i < len(a) && j < len(b) {
+		if isDigit(a[i]) && isDigit(b[j]) {
+			ai, ni := takeDigits(a, i)
+			bj, nj := takeDigits(b, j)
+			if ai != bj {
+				if ai < bj {
+					return -1
+				}
+				return 1
+			}
+			i, j = ni, nj
+			continue
+		}
+		if a[i] != b[j] {
+			if a[i] < b[j] {
+				return -1
+			}
+			return 1
+		}
+		i++
 		j++
 	}
-	if j == 0 {
-		return 0, false
+	switch {
+	case i < len(a):
+		return 1 // a has leftover -> longer -> greater
+	case j < len(b):
+		return -1
+	default:
+		return 0
 	}
-	n, _ := strconv.Atoi(s[:j])
-	return n, true
+}
+
+func isDigit(c byte) bool { return c >= '0' && c <= '9' }
+
+// takeDigits parses the maximal digit run starting at i and returns its value
+// and the index just past it.
+func takeDigits(s string, i int) (int, int) {
+	j := i
+	for j < len(s) && isDigit(s[j]) {
+		j++
+	}
+	n, _ := strconv.Atoi(s[i:j])
+	return n, j
 }

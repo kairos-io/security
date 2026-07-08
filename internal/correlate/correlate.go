@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"sort"
 
+	"github.com/kairos-io/security/internal/classify"
+	"github.com/kairos-io/security/internal/config"
 	"github.com/kairos-io/security/internal/state"
 )
 
@@ -16,7 +18,7 @@ func worse(a, b string) string {
 	return b
 }
 
-func Run(in state.Findings) state.Correlated {
+func Run(in state.Findings, policy config.CVEPolicy) state.Correlated {
 	// 1) dedupe by (repo, cveID, package); PR findings (no CVE) pass through.
 	merged := map[string]state.Finding{}
 	var order []string
@@ -46,6 +48,10 @@ func Run(in state.Findings) state.Correlated {
 		findings = append(findings, merged[k])
 	}
 	sort.Slice(findings, func(i, j int) bool { return findings[i].ID < findings[j].ID })
+
+	// classify the merged findings once, so adjudication runs on the deduped
+	// FixedVersion and can't be hidden by input order (see Fix I2).
+	findings = classify.Apply(findings, policy)
 
 	// 2) waterfall: group go-ecosystem CVEs by (cveID, package) across repos.
 	type agg struct {

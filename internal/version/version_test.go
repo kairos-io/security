@@ -18,6 +18,13 @@ func TestCompare(t *testing.T) {
 		{"1.10.0", "1.9.0", 1}, // numeric, not lexical
 		{"", "0.0.1", -1},      // empty is lowest
 		{"1.0.0", "", 1},
+		// suffix-only differences must NOT collapse to equal (C1 regression)
+		{"1.1.1n", "1.1.1t", -1},
+		{"1.1.1t", "1.1.1n", 1},
+		{"3.1.4-r5", "3.1.4-r6", -1},
+		{"3.1.4-r9", "3.1.4-r10", -1},
+		{"3.1.4-r10", "3.1.4-r9", 1},
+		{"1.1.1w", "1.1.1w", 0},
 	}
 	for _, c := range cases {
 		if got := Compare(c.a, c.b); got != c.want {

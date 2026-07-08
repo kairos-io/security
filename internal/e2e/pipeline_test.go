@@ -3,6 +3,7 @@ package e2e
 import (
 	"testing"
 
+	"github.com/kairos-io/security/internal/config"
 	"github.com/kairos-io/security/internal/correlate"
 	"github.com/kairos-io/security/internal/render"
 	"github.com/kairos-io/security/internal/state"
@@ -24,7 +25,7 @@ func TestPipelineCorrelateTriageRenderProducesSurfaces(t *testing.T) {
 		{ID: "b", Repo: "kairos-io/kairos-agent", Type: "sourceCVE", CVEID: "CVE-2025-1", Package: "golang.org/x/net", Ecosystem: "go", Severity: "high", FixedVersion: "0.33.0", FirstSeen: "2026-06-10", LastSeen: "2026-06-19"},
 	}}
 
-	c := correlate.Run(findings)
+	c := correlate.Run(findings, config.CVEPolicy{})
 	require.Len(t, c.Waterfall, 1, "two repos sharing a go CVE form a waterfall front")
 
 	tr, aiErr := triage.Run(c, failingAI{}, "test-model")

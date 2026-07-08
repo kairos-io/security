@@ -13,7 +13,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kairos-io/security/internal/classify"
 	"github.com/kairos-io/security/internal/collect"
 	"github.com/kairos-io/security/internal/config"
 	"github.com/kairos-io/security/internal/correlate"
@@ -263,8 +262,7 @@ func newCorrelateCmd(gf *globalFlags) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			in.Findings = classify.Apply(in.Findings, policy)
-			return state.Save(gf.stateDir, state.CorrelatedFile, correlate.Run(in))
+			return state.Save(gf.stateDir, state.CorrelatedFile, correlate.Run(in, policy))
 		},
 	}
 }

@@ -99,6 +99,27 @@ func TestQueryOSV_RangeApplicability(t *testing.T) {
 	}
 }
 
+// TestQueryOSV_UnparseableVersionFailsOpen: a non-numeric queried version can't
+// be ordered against the range boundaries, so instead of silently dropping the
+// vuln (which would hide it), the matcher must fail OPEN and surface it.
+func TestQueryOSV_UnparseableVersionFailsOpen(t *testing.T) {
+	fixture := `{"vulns":[{"id":"CVE-z","affected":[{"ranges":[{"events":[
+	  {"introduced":"3.0"},{"fixed":"3.2"}]}]}]}]}`
+	q := func(_, _, _ string) ([]byte, error) { return []byte(fixture), nil }
+	// Both a word-leading ("unknown") and a punctuation-leading ("+incompatible")
+	// version are non-numeric; neither can be ordered against "3.0", so both must
+	// surface the vuln rather than being dropped below the introduced boundary.
+	for _, q0 := range []string{"unknown", "+incompatible"} {
+		got, err := QueryOSV(q, "Alpine:v3.22", "pkg", q0)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if len(got) != 1 {
+			t.Fatalf("unparseable version %q must fail open (vuln surfaced), got %+v", q0, got)
+		}
+	}
+}
+
 func TestQueryOSVNoHits(t *testing.T) {
 	results, err := QueryOSV(func(string, string, string) ([]byte, error) {
 		return []byte(`{"vulns": []}`), nil

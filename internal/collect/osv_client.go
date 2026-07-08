@@ -101,6 +101,7 @@ func QueryOSV(query OSVQueryFunc, ecosystem, pkg, version string) ([]OSVResult, 
 // below every introduced boundary, applicable=false and the vuln is dropped.
 func osvApplicableFix(v osvVuln, cmp func(string, string) int, queried string) (string, bool) {
 	q := stripAlpineRevisionSuffix(queried)
+	parseable := looksNumeric(q)
 	bestFix := ""
 	applicable := false
 	for _, a := range v.Affected {
@@ -115,7 +116,10 @@ func osvApplicableFix(v osvVuln, cmp func(string, string) int, queried string) (
 					fixed = stripAlpineRevisionSuffix(ev.Fixed)
 				}
 			}
-			if cmp(q, stripAlpineRevisionSuffix(introduced)) < 0 {
+			// Only trust the introduced-boundary drop when q is orderable. A
+			// non-numeric version can't be compared meaningfully, so we fail
+			// OPEN (keep the vuln visible) instead of dropping it below "0".
+			if parseable && cmp(q, stripAlpineRevisionSuffix(introduced)) < 0 {
 				continue // below this range's introduced boundary
 			}
 			applicable = true
@@ -133,6 +137,13 @@ func osvApplicableFix(v osvVuln, cmp func(string, string) int, queried string) (
 		}
 	}
 	return bestFix, applicable
+}
+
+// looksNumeric reports whether v begins with a digit (so version.Compare can
+// order it meaningfully). Non-numeric versions fail OPEN — we keep the vuln
+// visible rather than silently dropping it.
+func looksNumeric(v string) bool {
+	return v != "" && v[0] >= '0' && v[0] <= '9'
 }
 
 // osvSeverity derives a Finding's severity from an OSV vuln record, in
