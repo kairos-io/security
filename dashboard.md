@@ -200,12 +200,6 @@ _No bot PRs yet._
     - ipfs/go-log v2.9.0..v2.9.1 (PR body): compare v2.9.0...v2.9.1 ✓ 2149 bytes
     - ipfs/go-log v2.8.2..v2.9.0 (PR body): compare v2.8.2...v2.9.0 ✓ 40000 bytes
     - context: 70615 bytes
-**[kairos-io/hadron](https://github.com/kairos-io/hadron)**
-
-- [#502](https://github.com/kairos-io/hadron/pull/502) — ✅ **good** — The pull request addresses a specific build failure by correctly adding the necessary dependency (`libucontext`) to the build process. The library is built from a known source and injected into the build environment to satisfy the linker requirements, which is a standard and necessary fix.
-  ↳ This change introduces a dedicated build stage to download and compile `libucontext` from source. It then copies the resulting library into the main `fwupd` build stage, resolving a linker failure caused by `libsystemd.so`'s dependency on `libucontext.so.1`.
-    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 3336 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#136](https://github.com/kairos-io/kairos-operator/pull/136) — ✅ **good** — This is a patch update to a specific dependency. Updating dependencies to newer patch versions is a standard maintenance practice and is generally safe. There are no obvious security risks introduced by this minor version bump.
@@ -336,4 +330,7 @@ _No bot PRs yet._
     - github.com/urfave/cli/v3 3.10.0→3.10.1: compare v3.10.0...v3.10.1 ✓ 17319 bytes
     - urfave/cli v3.9.1..v3.10.0 (PR body): compare v3.9.1...v3.10.0 ✓ 40000 bytes
     - context: 101293 bytes
+- [#1055](https://github.com/mudler/edgevpn/pull/1055) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
+    - context: 36260 bytes
 

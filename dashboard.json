@@ -1498,20 +1498,6 @@
       ]
     },
     {
-      "repo": "kairos-io/hadron",
-      "pr": 502,
-      "url": "https://github.com/kairos-io/hadron/pull/502",
-      "headSHA": "674972c2c3347150749fb601e31e820c9e9cdad5",
-      "verdict": "good",
-      "reasoning": "The pull request addresses a specific build failure by correctly adding the necessary dependency (`libucontext`) to the build process. The library is built from a known source and injected into the build environment to satisfy the linker requirements, which is a standard and necessary fix.",
-      "changesSummary": "This change introduces a dedicated build stage to download and compile `libucontext` from source. It then copies the resulting library into the main `fwupd` build stage, resolving a linker failure caused by `libsystemd.so`'s dependency on `libucontext.so.1`.",
-      "reviewedRun": "2026-07-08",
-      "trace": [
-        "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-        "context: 3336 bytes"
-      ]
-    },
-    {
       "repo": "kairos-io/kairos-operator",
       "pr": 136,
       "url": "https://github.com/kairos-io/kairos-operator/pull/136",
@@ -1883,6 +1869,19 @@
         "github.com/urfave/cli/v3 3.10.0→3.10.1: compare v3.10.0...v3.10.1 ✓ 17319 bytes",
         "urfave/cli v3.9.1..v3.10.0 (PR body): compare v3.9.1...v3.10.0 ✓ 40000 bytes",
         "context: 101293 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 1055,
+      "url": "https://github.com/mudler/edgevpn/pull/1055",
+      "headSHA": "75a1d277310b65cfaf7a3b59534e39dd185094de",
+      "verdict": "needs_human_verification",
+      "reasoning": "review endpoint returned HTTP 500",
+      "reviewedRun": "2026-07-08",
+      "trace": [
+        "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
+        "context: 36260 bytes"
       ]
     }
   ]
