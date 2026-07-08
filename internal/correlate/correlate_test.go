@@ -37,3 +37,14 @@ func TestCorrelateDedupesAndBuildsWaterfall(t *testing.T) {
 	assert.Equal(t, "0.33.0", g.SuggestedBump.To)
 	assert.Equal(t, "high", g.Severity)
 }
+
+func TestRun_WaterfallSkipsInformational(t *testing.T) {
+	in := state.Findings{Findings: []state.Finding{
+		{ID: "1", Repo: "o/a", Ecosystem: "go", CVEID: "CVE-1", Package: "p", Class: "informational"},
+		{ID: "2", Repo: "o/b", Ecosystem: "go", CVEID: "CVE-1", Package: "p"},
+	}}
+	out := Run(in)
+	if len(out.Waterfall) != 0 {
+		t.Fatalf("informational finding must not count toward waterfall: %+v", out.Waterfall)
+	}
+}

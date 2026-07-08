@@ -55,7 +55,7 @@ func Run(in state.Findings) state.Correlated {
 	}
 	groups := map[string]*agg{}
 	for _, f := range findings {
-		if f.Ecosystem != "go" || f.CVEID == "" || f.Package == "" {
+		if f.Class == "informational" || f.Ecosystem != "go" || f.CVEID == "" || f.Package == "" {
 			continue
 		}
 		gk := f.CVEID + "|" + f.Package

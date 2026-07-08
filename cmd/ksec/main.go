@@ -13,6 +13,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/kairos-io/security/internal/classify"
 	"github.com/kairos-io/security/internal/collect"
 	"github.com/kairos-io/security/internal/config"
 	"github.com/kairos-io/security/internal/correlate"
@@ -31,6 +32,13 @@ import (
 type globalFlags struct {
 	stateDir string
 	dryRun   bool
+}
+
+// cvePolicyPath resolves the cve-policy.yaml location. It mirrors how the
+// hadron-components manifest path is resolved (a fixed relative path in the
+// working dir); a missing file yields an empty policy (see config.LoadCVEPolicy).
+func (gf *globalFlags) cvePolicyPath() string {
+	return "cve-policy.yaml"
 }
 
 func newRootCmd() *cobra.Command {
@@ -251,6 +259,11 @@ func newCorrelateCmd(gf *globalFlags) *cobra.Command {
 			if err := state.Load(gf.stateDir, state.FindingsFile, &in); err != nil {
 				return err
 			}
+			policy, err := config.LoadCVEPolicy(gf.cvePolicyPath())
+			if err != nil {
+				return err
+			}
+			in.Findings = classify.Apply(in.Findings, policy)
 			return state.Save(gf.stateDir, state.CorrelatedFile, correlate.Run(in))
 		},
 	}
