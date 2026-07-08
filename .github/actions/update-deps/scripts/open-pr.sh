@@ -24,7 +24,10 @@ run() { # echo + execute unless dry-run
 git config user.name  "$BOT_NAME"
 git config user.email "$BOT_EMAIL"
 git checkout -B "$BRANCH"
-git add -A
+# Stage only changes to TRACKED files (go.mod/go.sum + any files nib edited to
+# fix the build). Never `git add -A`: LocalAI downloads backends/ and data/ into
+# the checkout at runtime, and -A would commit that junk into the PR.
+git add -u
 git commit -m "$PR_TITLE" || { echo "nothing to commit"; exit 0; }
 
 # Push with the token-authenticated remote. --force keeps an automation-owned
@@ -47,4 +50,11 @@ fi
 base_flag=()
 [ -n "$BASE" ] && base_flag=(--base "$BASE")
 run gh pr create --head "$BRANCH" "${base_flag[@]}" --title "$PR_TITLE" \
-  --label "$PR_LABELS" --body "Automated dependency update opened by the update-deps action (nib-driven)."
+  --body "Automated dependency update opened by the update-deps action (nib-driven)."
+
+# Labels are best-effort: a label that doesn't exist in the repo (or missing
+# Issues permission on the token) must not fail the run — the PR is what matters.
+if [ "$DRY_RUN" != "true" ] && [ -n "$PR_LABELS" ]; then
+  gh pr edit "$BRANCH" --add-label "$PR_LABELS" >/dev/null 2>&1 \
+    || echo "note: could not apply labels '$PR_LABELS' (missing label or permission) — PR created without them"
+fi

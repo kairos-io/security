@@ -15,6 +15,10 @@ STARTUP_TIMEOUT="${STARTUP_TIMEOUT:-1200}"   # seconds
 BIN_DIR="${BIN_DIR:-$PWD/bin}"
 MODELS_PATH="${MODELS_PATH:-$PWD/models}"
 LOCALAI_LOG="${LOCALAI_LOG:-localai.log}"
+# LocalAI writes backends/ and data/ relative to its working directory; run it
+# from here (a scratch dir outside the checkout) so it never litters the repo
+# the action is updating. Defaults to the models dir's parent (runner temp).
+LOCALAI_WORKDIR="${LOCALAI_WORKDIR:-$(dirname "$MODELS_PATH")}"
 
 if localai_answers "$LOCALAI_URL"; then
   echo "LocalAI already answering at $LOCALAI_URL — skipping startup"
@@ -22,7 +26,7 @@ if localai_answers "$LOCALAI_URL"; then
   exit 0
 fi
 
-mkdir -p "$BIN_DIR" "$MODELS_PATH" "$(dirname "$LOCALAI_LOG")"
+mkdir -p "$BIN_DIR" "$MODELS_PATH" "$LOCALAI_WORKDIR" "$(dirname "$LOCALAI_LOG")"
 curl -sfL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o "$BIN_DIR/yq" && chmod +x "$BIN_DIR/yq"
 ver="$LOCALAI_VERSION"
 if [ "$ver" = "latest" ]; then
@@ -34,7 +38,7 @@ url="https://github.com/mudler/LocalAI/releases/download/${ver}/local-ai-${ver}-
 code=$(curl -sL -w '%{http_code}' "$url" -o "$BIN_DIR/local-ai")
 echo "download HTTP status: $code"
 chmod +x "$BIN_DIR/local-ai" 2>/dev/null
-"$BIN_DIR/local-ai" run "$MODEL" --address ":8080" --models-path "$MODELS_PATH" > "$LOCALAI_LOG" 2>&1 &
+( cd "$LOCALAI_WORKDIR" && exec "$BIN_DIR/local-ai" run "$MODEL" --address ":8080" --models-path "$MODELS_PATH" ) > "$LOCALAI_LOG" 2>&1 &
 LAI_PID=$!
 
 deadline=$(( SECONDS + STARTUP_TIMEOUT ))
