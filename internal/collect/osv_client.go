@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"strconv"
 	"strings"
+
+	ver "github.com/kairos-io/security/internal/version"
 )
 
 // OSVQueryFunc performs a single OSV.dev query and returns the raw JSON
@@ -26,7 +28,8 @@ type osvVuln struct {
 	Affected []struct {
 		Ranges []struct {
 			Events []struct {
-				Fixed string `json:"fixed"`
+				Introduced string `json:"introduced"`
+				Fixed      string `json:"fixed"`
 			} `json:"events"`
 		} `json:"ranges"`
 	} `json:"affected"`
@@ -74,15 +77,9 @@ func QueryOSV(query OSVQueryFunc, ecosystem, pkg, version string) ([]OSVResult, 
 				cve = up
 			}
 		}
-		fixed := ""
-		for _, a := range v.Affected {
-			for _, rg := range a.Ranges {
-				for _, ev := range rg.Events {
-					if ev.Fixed != "" {
-						fixed = stripAlpineRevisionSuffix(ev.Fixed)
-					}
-				}
-			}
+		fixed, applicable := osvApplicableFix(v, ver.Compare, version)
+		if !applicable {
+			continue // version is below every introduced boundary — not vulnerable
 		}
 		out = append(out, OSVResult{
 			CVEID:        cve,
@@ -93,6 +90,49 @@ func QueryOSV(query OSVQueryFunc, ecosystem, pkg, version string) ([]OSVResult, 
 		})
 	}
 	return out, nil
+}
+
+// osvApplicableFix picks the fix version for the range that applies to the
+// queried version v, and reports whether v is at/after some range's
+// "introduced" boundary (i.e. potentially vulnerable). Alpine revision suffixes
+// are stripped for comparison. When v sits inside a range (introduced <= v <
+// fixed) that range's fix is returned; when v is past a range's fix, the
+// largest such fix is returned (already-fixed, classified later). When v is
+// below every introduced boundary, applicable=false and the vuln is dropped.
+func osvApplicableFix(v osvVuln, cmp func(string, string) int, queried string) (string, bool) {
+	q := stripAlpineRevisionSuffix(queried)
+	bestFix := ""
+	applicable := false
+	for _, a := range v.Affected {
+		for _, rg := range a.Ranges {
+			introduced := "0"
+			fixed := ""
+			for _, ev := range rg.Events {
+				if ev.Introduced != "" {
+					introduced = ev.Introduced
+				}
+				if ev.Fixed != "" {
+					fixed = stripAlpineRevisionSuffix(ev.Fixed)
+				}
+			}
+			if cmp(q, stripAlpineRevisionSuffix(introduced)) < 0 {
+				continue // below this range's introduced boundary
+			}
+			applicable = true
+			if fixed == "" {
+				continue
+			}
+			// Inside the range (q < fixed): this is the fix we want.
+			if cmp(q, fixed) < 0 {
+				return fixed, true
+			}
+			// Past the fix: remember the largest fix seen (already-fixed).
+			if bestFix == "" || cmp(fixed, bestFix) > 0 {
+				bestFix = fixed
+			}
+		}
+	}
+	return bestFix, applicable
 }
 
 // osvSeverity derives a Finding's severity from an OSV vuln record, in

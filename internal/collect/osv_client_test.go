@@ -67,6 +67,38 @@ func TestQueryOSVUsesUpstreamCVEIDForAlpineRecords(t *testing.T) {
 	assert.Equal(t, "3.1.4", results[0].FixedVersion)
 }
 
+func TestQueryOSV_RangeApplicability(t *testing.T) {
+	// One vuln, two branch ranges: introduced 0 fixed 2.66.6, and introduced
+	// 2.80 fixed 2.86.0. Queried version 2.86.2 is past both fixes.
+	fixture := `{"vulns":[{"id":"CVE-x","affected":[{"ranges":[{"events":[
+	  {"introduced":"0"},{"fixed":"2.66.6"}]},{"events":[
+	  {"introduced":"2.80"},{"fixed":"2.86.0"}]}]}]}]}`
+	q := func(_, _, _ string) ([]byte, error) { return []byte(fixture), nil }
+
+	// 2.86.2 is >= the applicable fix (2.86.0) -> still returned, FixedVersion=2.86.0.
+	got, err := QueryOSV(q, "Alpine:v3.22", "glib", "2.86.2")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got) != 1 || got[0].FixedVersion != "2.86.0" {
+		t.Fatalf("want 1 result fixed 2.86.0, got %+v", got)
+	}
+
+	// A version below every introduced is not yet vulnerable -> omitted.
+	// (introduced values here are "0" so nothing is below; use a fixture with a
+	// higher introduced.)
+	fixture2 := `{"vulns":[{"id":"CVE-y","affected":[{"ranges":[{"events":[
+	  {"introduced":"3.0"},{"fixed":"3.2"}]}]}]}]}`
+	q2 := func(_, _, _ string) ([]byte, error) { return []byte(fixture2), nil }
+	got2, err := QueryOSV(q2, "Alpine:v3.22", "pkg", "2.9")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got2) != 0 {
+		t.Fatalf("version below introduced should be omitted, got %+v", got2)
+	}
+}
+
 func TestQueryOSVNoHits(t *testing.T) {
 	results, err := QueryOSV(func(string, string, string) ([]byte, error) {
 		return []byte(`{"vulns": []}`), nil
