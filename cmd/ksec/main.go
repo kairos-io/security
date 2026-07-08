@@ -265,9 +265,10 @@ func newCorrelateCmd(gf *globalFlags) *cobra.Command {
 				return err
 			}
 
-			// Applicability classifier is opt-in via ai.yaml and fail-open —
-			// a missing/unreachable endpoint means the correlate phase runs
-			// exactly as before, no findings hidden by an AI outage.
+			// Applicability classifier is on by default in ai.yaml and fail-
+			// visible: any transport/model error leaves findings unannotated
+			// rather than dropping them, and --no-ai-applicability turns it
+			// off per run.
 			var applier classify.Applier
 			if !noAIApplicability {
 				aiCfg, aiErr := config.LoadAI("ai.yaml")
