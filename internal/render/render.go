@@ -41,13 +41,58 @@ func verdictIcon(verdict string) string {
 // findingLink renders a finding as a markdown title→URL link. For sourceCVE
 // findings with no URL it synthesizes an advisory link from the CVE/GHSA id.
 // It never emits the raw finding id: the title (or package, or "<repo>
-// finding") is used as the link text.
+// finding") is used as the link text. When the AI applicability classifier
+// suspects the CVE does not affect us, a ⚠️ marker is appended (details are
+// listed in the dedicated "AI-flagged" section further down).
 func findingLink(f state.Finding) string {
 	title, url := focusTitleURL(f)
+	base := title
 	if url != "" {
-		return fmt.Sprintf("[%s](%s)", title, url)
+		base = fmt.Sprintf("[%s](%s)", title, url)
 	}
-	return title
+	if suspectedNotApplicable(f) {
+		base += " ⚠️"
+	}
+	return base
+}
+
+// nonEmptyMD returns v or "—" when v is blank, so table cells never render
+// as trailing whitespace.
+func nonEmptyMD(v string) string {
+	if strings.TrimSpace(v) == "" {
+		return "—"
+	}
+	return v
+}
+
+// suspectedNotApplicable reports whether the AI classifier attached a
+// non-applicable verdict to this finding. Renderers surface a warning + reason
+// on these but do NOT hide them (fail-visible — the verdict is advisory only).
+func suspectedNotApplicable(f state.Finding) bool {
+	return f.AIApplicability != nil && !f.AIApplicability.Applicable
+}
+
+// applicabilityWarnings returns the findings the AI classifier flagged as
+// possibly-not-applicable, sorted by severity then repo/package for stable
+// display.
+func applicabilityWarnings(findings []state.Finding) []state.Finding {
+	var out []state.Finding
+	for _, f := range findings {
+		if suspectedNotApplicable(f) {
+			out = append(out, f)
+		}
+	}
+	sort.SliceStable(out, func(i, j int) bool {
+		si, sj := severityRank(out[i].Severity), severityRank(out[j].Severity)
+		if si != sj {
+			return si > sj
+		}
+		if out[i].Repo != out[j].Repo {
+			return out[i].Repo < out[j].Repo
+		}
+		return out[i].Package < out[j].Package
+	})
+	return out
 }
 
 // focusTitleURL derives the human-facing title and (possibly synthesized)
@@ -179,6 +224,38 @@ func DashboardMarkdown(in Input) string {
 			fmt.Fprintf(&b, "| %s | %s | %s | %s | %s |\n", f.Package, f.CurrentVersion, fixed, f.Severity, findingLink(f))
 		}
 		b.WriteString("\n")
+	}
+
+	// AI-flagged possibly-not-applicable findings. Big prominent section: the
+	// finding is STILL counted and shown in every other table, this section
+	// exists so an operator can see the model's reasoning at a glance and
+	// override / silence it if they disagree.
+	if warns := applicabilityWarnings(in.Correlated.Findings); len(warns) > 0 {
+		fmt.Fprintf(&b, "## ⚠️ %d finding(s) possibly not applicable (AI)\n\n", len(warns))
+		b.WriteString("> These findings are still counted and listed above. The AI applicability check thinks they may not affect us — verify the reasoning below and, if you agree, silence via `cve-policy.yaml`.\n\n")
+		for _, f := range warns {
+			ai := f.AIApplicability
+			title, url := focusTitleURL(f)
+			label := title
+			if url != "" {
+				label = fmt.Sprintf("[%s](%s)", title, url)
+			}
+			fmt.Fprintf(&b, "<details>\n<summary>⚠️ %s — %s (%s / confidence: %s)</summary>\n\n", label, repoLink(f.Repo), f.Package, ai.Confidence)
+			fmt.Fprintf(&b, "**Reason:** %s\n\n", ai.Reasoning)
+			if f.CVEID != "" {
+				fmt.Fprintf(&b, "- CVE: `%s`\n", f.CVEID)
+			}
+			fmt.Fprintf(&b, "- Current: `%s`\n", nonEmptyMD(f.CurrentVersion))
+			fmt.Fprintf(&b, "- Fixed: `%s`\n", nonEmptyMD(f.FixedVersion))
+			if ai.Model != "" {
+				fmt.Fprintf(&b, "- Checked by: `%s`", ai.Model)
+				if ai.CheckedAt != "" {
+					fmt.Fprintf(&b, " on %s", ai.CheckedAt)
+				}
+				b.WriteString("\n")
+			}
+			b.WriteString("\n</details>\n\n")
+		}
 	}
 
 	// Informational — not counted

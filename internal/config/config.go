@@ -43,10 +43,23 @@ type ReviewCfg struct {
 	Notify      []string `yaml:"notify"`
 }
 
+// ApplicabilityCfg controls the AI applicability classifier that runs during
+// the correlate phase. Defaults derive from localai the same way NibCfg does,
+// so a caller only has to flip `enabled: true`.
+type ApplicabilityCfg struct {
+	Enabled             bool    `yaml:"enabled"`
+	Endpoint            string  `yaml:"endpoint"`
+	Model               string  `yaml:"model"`
+	Temperature         float64 `yaml:"temperature"`
+	MaxTokens           int     `yaml:"maxTokens"`
+	ConfidenceThreshold string  `yaml:"confidenceThreshold"` // "high" (default) | "medium"
+}
+
 type AIConfig struct {
-	LocalAI LocalAICfg `yaml:"localai"`
-	Nib     NibCfg     `yaml:"nib"`
-	Review  ReviewCfg  `yaml:"review"`
+	LocalAI       LocalAICfg       `yaml:"localai"`
+	Nib           NibCfg           `yaml:"nib"`
+	Review        ReviewCfg        `yaml:"review"`
+	Applicability ApplicabilityCfg `yaml:"applicability"`
 }
 
 func readYAML[T any](path string, v *T) error {
@@ -85,6 +98,21 @@ func LoadAI(path string) (AIConfig, error) {
 	}
 	if cfg.Review.MaxPerRun <= 0 {
 		cfg.Review.MaxPerRun = 20
+	}
+	// Applicability defaults follow the nib pattern: derive from localai
+	// unless explicitly overridden, so a bare `applicability: {enabled: true}`
+	// suffices.
+	if cfg.Applicability.Endpoint == "" {
+		cfg.Applicability.Endpoint = cfg.LocalAI.Endpoint
+	}
+	if cfg.Applicability.Model == "" {
+		cfg.Applicability.Model = cfg.LocalAI.Model.Name
+	}
+	if cfg.Applicability.MaxTokens <= 0 {
+		cfg.Applicability.MaxTokens = 1024
+	}
+	if cfg.Applicability.ConfidenceThreshold == "" {
+		cfg.Applicability.ConfidenceThreshold = "high"
 	}
 	return cfg, nil
 }

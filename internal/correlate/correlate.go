@@ -18,7 +18,11 @@ func worse(a, b string) string {
 	return b
 }
 
-func Run(in state.Findings, policy config.CVEPolicy) state.Correlated {
+// Run dedupes, classifies, and correlates findings. When applier is non-nil it
+// runs after the deterministic classify pass and can reclassify additional
+// findings as informational (ai-not-applicable). A nil applier is a no-op — the
+// caller passes nil when the AI endpoint is unreachable or disabled.
+func Run(in state.Findings, policy config.CVEPolicy, applier classify.Applier) state.Correlated {
 	// 1) dedupe by (repo, cveID, package); PR findings (no CVE) pass through.
 	merged := map[string]state.Finding{}
 	var order []string
@@ -52,6 +56,14 @@ func Run(in state.Findings, policy config.CVEPolicy) state.Correlated {
 	// classify the merged findings once, so adjudication runs on the deduped
 	// FixedVersion and can't be hidden by input order (see Fix I2).
 	findings = classify.Apply(findings, policy)
+
+	// AI applicability pass runs after deterministic classification: only
+	// findings still marked actionable are candidates, and the classifier is
+	// fail-open — any error or low-confidence verdict leaves the finding
+	// actionable so a flaky model can't silently hide real vulns.
+	if applier != nil {
+		findings = applier.Apply(findings)
+	}
 
 	// 2) waterfall: group go-ecosystem CVEs by (cveID, package) across repos.
 	type agg struct {

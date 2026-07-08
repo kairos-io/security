@@ -13,6 +13,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/kairos-io/security/internal/classify"
 	"github.com/kairos-io/security/internal/collect"
 	"github.com/kairos-io/security/internal/config"
 	"github.com/kairos-io/security/internal/correlate"
@@ -250,7 +251,8 @@ func govulncheckRunner(r state.Repo) ([]byte, error) {
 }
 
 func newCorrelateCmd(gf *globalFlags) *cobra.Command {
-	return &cobra.Command{
+	var noAIApplicability bool
+	cmd := &cobra.Command{
 		Use:   "correlate",
 		Short: "dedupe findings and build the waterfall graph",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -262,9 +264,32 @@ func newCorrelateCmd(gf *globalFlags) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			return state.Save(gf.stateDir, state.CorrelatedFile, correlate.Run(in, policy))
+
+			// Applicability classifier is on by default in ai.yaml and fail-
+			// visible: any transport/model error leaves findings unannotated
+			// rather than dropping them, and --no-ai-applicability turns it
+			// off per run.
+			var applier classify.Applier
+			if !noAIApplicability {
+				aiCfg, aiErr := config.LoadAI("ai.yaml")
+				if aiErr != nil {
+					fmt.Fprintf(cmd.ErrOrStderr(), "correlate: could not load ai.yaml (%v); skipping AI applicability\n", aiErr)
+				} else if aiCfg.Applicability.Enabled {
+					applier = classify.NewOpenAIApplier(
+						aiCfg.Applicability.Endpoint,
+						aiCfg.Applicability.Model,
+						aiCfg.Applicability.Temperature,
+						aiCfg.Applicability.MaxTokens,
+						aiCfg.Applicability.ConfidenceThreshold,
+					)
+				}
+			}
+			return state.Save(gf.stateDir, state.CorrelatedFile, correlate.Run(in, policy, applier))
 		},
 	}
+	cmd.Flags().BoolVar(&noAIApplicability, "no-ai-applicability", false,
+		"skip the AI applicability classifier even when ai.yaml enables it")
+	return cmd
 }
 
 func newTriageCmd(gf *globalFlags) *cobra.Command {

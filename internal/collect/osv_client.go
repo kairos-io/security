@@ -18,6 +18,7 @@ type osvVuln struct {
 	Aliases          []string `json:"aliases"`
 	Upstream         []string `json:"upstream"`
 	Summary          string   `json:"summary"`
+	Details          string   `json:"details"`
 	DatabaseSpecific struct {
 		Severity string `json:"severity"`
 	} `json:"database_specific"`
@@ -25,14 +26,25 @@ type osvVuln struct {
 		Type  string `json:"type"`
 		Score string `json:"score"`
 	} `json:"severity"`
-	Affected []struct {
-		Ranges []struct {
-			Events []struct {
-				Introduced string `json:"introduced"`
-				Fixed      string `json:"fixed"`
-			} `json:"events"`
-		} `json:"ranges"`
-	} `json:"affected"`
+	Affected []osvAffected `json:"affected"`
+}
+
+// osvAffected is the affected-package entry from an OSV record. Kept as a
+// named type so it can be re-marshalled into the Finding's AffectedRanges
+// field verbatim (feeds the applicability classifier).
+type osvAffected struct {
+	Package struct {
+		Ecosystem string `json:"ecosystem,omitempty"`
+		Name      string `json:"name,omitempty"`
+	} `json:"package,omitempty"`
+	Ranges []struct {
+		Type   string `json:"type,omitempty"`
+		Events []struct {
+			Introduced string `json:"introduced,omitempty"`
+			Fixed      string `json:"fixed,omitempty"`
+		} `json:"events"`
+	} `json:"ranges"`
+	Versions []string `json:"versions,omitempty"`
 }
 
 type osvQueryResponse struct {
@@ -46,6 +58,13 @@ type OSVResult struct {
 	FixedVersion string
 	Title        string
 	URL          string
+	// Details is the OSV `details` markdown (full CVE description).
+	Details string
+	// AffectedRanges is the OSV `affected[]` sub-object re-marshalled to a
+	// compact JSON string so downstream (the applicability classifier) can feed
+	// it to a model without a second fetch. Empty when marshalling fails or the
+	// record has no affected entries.
+	AffectedRanges string
 }
 
 // QueryOSV queries OSV.dev for (ecosystem, pkg, version) and normalizes every
@@ -81,12 +100,20 @@ func QueryOSV(query OSVQueryFunc, ecosystem, pkg, version string) ([]OSVResult, 
 		if !applicable {
 			continue // version is below every introduced boundary — not vulnerable
 		}
+		affected := ""
+		if len(v.Affected) > 0 {
+			if b, mErr := json.Marshal(v.Affected); mErr == nil {
+				affected = string(b)
+			}
+		}
 		out = append(out, OSVResult{
-			CVEID:        cve,
-			Severity:     osvSeverity(v),
-			FixedVersion: fixed,
-			Title:        v.Summary,
-			URL:          "https://osv.dev/vulnerability/" + v.ID,
+			CVEID:          cve,
+			Severity:       osvSeverity(v),
+			FixedVersion:   fixed,
+			Title:          v.Summary,
+			URL:            "https://osv.dev/vulnerability/" + v.ID,
+			Details:        v.Details,
+			AffectedRanges: affected,
 		})
 	}
 	return out, nil
