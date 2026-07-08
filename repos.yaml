@@ -71,14 +71,6 @@ repos:
   - repo: kairos-io/entangle-proxy
     kind: org
     criticality: medium
-  - repo: kairos-io/simple-mdns-server
-    kind: org
-    criticality: low
-  - repo: kairos-io/kairos-must-burn
-    kind: org
-    criticality: low
-    scan:
-      source: false
   - repo: kairos-io/kairos-lab
     kind: org
     criticality: low
