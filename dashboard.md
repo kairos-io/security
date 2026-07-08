@@ -6,24 +6,21 @@ _Updated 2026-07-08._
 
 ## 📋 This run
 
-- **Scanned:** 28 repos (1 skipped)
+- **Scanned:** 27 repos (1 skipped)
 - **Findings:** 61 (3 critical / 29 high / 24 medium / 3 low / 2 unknown)
 - **CVE-related PRs:** 0
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 61 finding(s); 0 PR(s) open.
 
-> The immediate focus should be on the three critical vulnerabilities found in the openssl-fips package (F1, F2, F3). Additionally, high-severity issues in the core openssl and glib libraries (F4, F6, F7, F8) require urgent attention to mitigate potential system compromise.
+> The immediate focus must be on the three critical vulnerabilities found in the openssl-fips package (F1, F2, F3). Additionally, high-severity issues in the core OpenSSL package (F4) and related openssl-fips components (F5) require urgent remediation.
 
 ## 🔥 Focus now
 
-- [CVE-2026-31789](https://osv.dev/vulnerability/ALPINE-CVE-2026-31789) — Critical vulnerability in openssl-fips via CVE-2026-31789.
-- [CVE-2024-5535](https://osv.dev/vulnerability/ALPINE-CVE-2024-5535) — Critical vulnerability in openssl-fips via CVE-2024-5535.
-- [CVE-2026-34182](https://osv.dev/vulnerability/ALPINE-CVE-2026-34182) — Critical vulnerability in openssl-fips via CVE-2026-34182.
-- [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) — High severity vulnerability in openssl via CVE-2023-4807.
-- [CVE-2026-9076](https://osv.dev/vulnerability/ALPINE-CVE-2026-9076) — High severity vulnerability in openssl-fips via CVE-2026-9076.
-- [CVE-2021-27219](https://osv.dev/vulnerability/ALPINE-CVE-2021-27219) — High severity vulnerability in glib via CVE-2021-27219.
-- [CVE-2026-45447](https://osv.dev/vulnerability/ALPINE-CVE-2026-45447) — High severity vulnerability in openssl-fips via CVE-2026-45447.
-- [CVE-2025-9230](https://osv.dev/vulnerability/ALPINE-CVE-2025-9230) — High severity vulnerability in openssl-fips via CVE-2025-9230.
+- [CVE-2026-31789](https://osv.dev/vulnerability/ALPINE-CVE-2026-31789) — Critical vulnerability in openssl-fips.
+- [CVE-2024-5535](https://osv.dev/vulnerability/ALPINE-CVE-2024-5535) — Critical vulnerability in openssl-fips.
+- [CVE-2026-34182](https://osv.dev/vulnerability/ALPINE-CVE-2026-34182) — Critical vulnerability in openssl-fips.
+- [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) — High severity vulnerability in openssl.
+- [CVE-2026-9076](https://osv.dev/vulnerability/ALPINE-CVE-2026-9076) — High severity vulnerability in openssl-fips.
 
 ## 🌊 Waterfall fronts
 
@@ -49,7 +46,6 @@ _None._
 | [kairos-io/kairos-must-burn](https://github.com/kairos-io/kairos-must-burn) | 0 | 0 | 0 | 0 | skipped: not source-scannable |
 | [kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
-| [kairos-io/kcrypt](https://github.com/kairos-io/kcrypt) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kcrypt-discovery-challenger](https://github.com/kairos-io/kcrypt-discovery-challenger) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/netboot](https://github.com/kairos-io/netboot) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/provider-kairos](https://github.com/kairos-io/provider-kairos) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
@@ -179,7 +175,11 @@ _None._
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
 **[kairos-io/entangle](https://github.com/kairos-io/entangle)**
 
-- [#10](https://github.com/kairos-io/entangle/pull/10) — ✅ **good** — This pull request only updates several indirect dependencies to newer versions. These types of dependency bumps are routine maintenance and do not introduce new security risks. The changes appear safe to merge automatically.
+- [#13](https://github.com/kairos-io/entangle/pull/13) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/emicklei/go-restful 2.9.5+incompatible→2.16.0+incompatible: compare v2.9.5+incompatible...v2.16.0+incompatible failed/empty (no upstream diff)
+    - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
+    - golang.org/x/net 0.55.0→0.56.0: compare v0.55.0...v0.56.0 ✓ 40000 bytes
+    - context: 97666 bytes
 **[kairos-io/entangle-proxy](https://github.com/kairos-io/entangle-proxy)**
 
 - [#5](https://github.com/kairos-io/entangle-proxy/pull/5) — ✅ **good** — The changes are primarily feature additions (new matchers, plugin system) and internal refactoring aimed at improving robustness (cycle detection, iteration limits). There are no obvious security vulnerabilities introduced by these changes. The dependency update is a standard version bump, and the architectural changes in the SSH client appear to be performance/concurrency improvements. Therefore, this PR is safe to auto-approve.
@@ -213,27 +213,12 @@ _None._
   ↳ The PR introduces a new build stage to download, compile, and install `libucontext`, which resolves a critical linker failure against `libsystemd.so` by making the required library available during the `fwupd` build.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 3403 bytes
-**[kairos-io/kairos-must-burn](https://github.com/kairos-io/kairos-must-burn)**
-
-- [#45](https://github.com/kairos-io/kairos-must-burn/pull/45) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - google/go-github v88.0.0..v89.0.0 (PR body): compare v88.0.0...v89.0.0 ✓ 40000 bytes
-    - context: 54668 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#136](https://github.com/kairos-io/kairos-operator/pull/136) — ✅ **good** — This is a patch update to a specific dependency. Updating dependencies to newer patch versions is a standard maintenance practice and is generally safe. There are no obvious security risks introduced by this minor version bump.
   ↳ This PR updates the Docker image tag for `docker.io/golang` from version `1.26.4` to `1.26.5` in the relevant Dockerfiles. This is a minor patch update to the dependency.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1872 bytes
-**[kairos-io/kcrypt](https://github.com/kairos-io/kcrypt)**
-
-- [#505](https://github.com/kairos-io/kcrypt/pull/505) — ✅ **good** — The change is a dependency update to a newer version of the Kairos SDK, which is generally safe. The accompanying code changes focus on internal refactoring and adding complex features like multipath device handling, which appear to be well-tested in the provided diff. This is safe to auto-approve.
-  ↳ This PR updates the `github.com/kairos-io/kairos-sdk` dependency from v0.9.4 to v0.11.0. It also includes significant internal refactoring within the `ghw` package to introduce robust support for multipath devices and update internal logging and provider management structures.
-    - github.com/kairos-io/kairos-sdk 0.9.4→0.11.0: compare v0.9.4...v0.11.0 ✓ 40000 bytes
-    - context: 48550 bytes
-- [#509](https://github.com/kairos-io/kcrypt/pull/509) — ✅ **good** — This is a necessary upgrade to a major dependency, which includes important security fixes mentioned in the release notes. Since the update is to a newer major version and addresses security concerns, it is safe to auto-approve.
-  ↳ This PR updates the dependency github.com/docker/docker from version 27.5.1+incompatible to 28.0.0+incompatible. This upgrade incorporates new features and critical security fixes released in the Docker 28.0.0 release.
-    - github.com/docker/docker 27.5.1+incompatible→28.0.0+incompatible: compare v27.5.1+incompatible...v28.0.0+incompatible failed: gh api: gh: Not Found (HTTP 404) (no upstream diff)
-    - context: 46086 bytes
 **[kairos-io/kcrypt-discovery-challenger](https://github.com/kairos-io/kcrypt-discovery-challenger)**
 
 - [#41](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/41) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -261,19 +246,6 @@ _None._
   ↳ This PR updates the base image for the build process in the Dockerfile and Dockerfile.kairos-image from `golang:1.26.4` to `golang:1.26.5` and its corresponding bookworm tags. This is a standard dependency bump for the Go language version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 2473 bytes
-**[kairos-io/simple-mdns-server](https://github.com/kairos-io/simple-mdns-server)**
-
-- [#4](https://github.com/kairos-io/simple-mdns-server/pull/4) — ✅ **good** — This is a standard dependency maintenance update performed by Dependabot. The changes involve updating core packages like `x/net` and `x/sys`, which are necessary for project health. Since this is an automated bump and no immediate security risks are apparent from the diffs, it is safe to auto-approve.
-  ↳ This pull request updates two dependencies: `golang.org/x/net` to version 0.23.0 and `golang.org/x/sys` to version 0.18.0. The updates include significant changes to networking code, context handling, and low-level CPU/system interaction logic.
-    - golang.org/x/net 0.0.0-20210410081132-afb366fc7cd1→0.23.0: compare afb366fc7cd1...v0.23.0 ✓ 40000 bytes
-    - golang.org/x/sys 0.0.0-20210330210617-4fbd30eecc44→0.18.0: compare 4fbd30eecc44...v0.18.0 ✓ 40000 bytes
-    - context: 85299 bytes
-**[kairos-io/tpm-helpers](https://github.com/kairos-io/tpm-helpers)**
-
-- [#6](https://github.com/kairos-io/tpm-helpers/pull/6) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
-    - golang.org/x/crypto 0.0.0-20220722155217-630584e8d5aa→0.17.0: compare 630584e8d5aa...v0.17.0 ✓ 40000 bytes
-    - golang.org/x/net 0.0.0-20220722155237-a158d28d115b→0.10.0: compare a158d28d115b...v0.10.0 ✓ 40000 bytes
-    - context: 90128 bytes
 **[mudler/edgevpn](https://github.com/mudler/edgevpn)**
 
 - [#804](https://github.com/mudler/edgevpn/pull/804) — ✅ **good** — This pull request appears to be a necessary and comprehensive migration to upgrade the `iplib` library to version 2.0.5. The changes reflect the breaking changes detailed in the v2 release notes, specifically the transition to `uint128` for IPv6 handling. The diffs suggest all necessary package imports and internal logic have been updated to accommodate this major version change.

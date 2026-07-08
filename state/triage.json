@@ -7,20 +7,14 @@
     "05e3b11fffb03ea97ecde34cc92f77426e3f1086802f260f2e738e8df87127d2",
     "7c3624d8960c380a68e1ce988187bc16ce4b18820dbf40b9a43e3e92ff94472d",
     "02c2a7c57e13d089160dd71430ae5b5bd758086b2167189c44c21d0f735a17bc",
-    "07eaed2c045638c36a2ba4fbca021f3811580d86bf3bdfd19fe9836e64577e7a",
-    "0c2bdc6ad90a60aa266c1bd35c7797c29be86e9f336a9a1b10626c7e0b70253a",
-    "18eb50cedfb2dacc007651bf3ab2eb90530f5851baf5005e01eb8967716abc8e",
-    "216b04af1209ddb8c7daea86f418dd87f8290a98c97f96be40e5ec7998358a50"
+    "07eaed2c045638c36a2ba4fbca021f3811580d86bf3bdfd19fe9836e64577e7a"
   ],
   "summaries": {
-    "02a6ba6130f153efe9eee50cc18c14ea5c25821be870c44cae32faedec50627e": "Critical vulnerability in openssl-fips via CVE-2026-31789.",
-    "02c2a7c57e13d089160dd71430ae5b5bd758086b2167189c44c21d0f735a17bc": "High severity vulnerability in openssl via CVE-2023-4807.",
-    "05e3b11fffb03ea97ecde34cc92f77426e3f1086802f260f2e738e8df87127d2": "Critical vulnerability in openssl-fips via CVE-2024-5535.",
-    "07eaed2c045638c36a2ba4fbca021f3811580d86bf3bdfd19fe9836e64577e7a": "High severity vulnerability in openssl-fips via CVE-2026-9076.",
-    "0c2bdc6ad90a60aa266c1bd35c7797c29be86e9f336a9a1b10626c7e0b70253a": "High severity vulnerability in glib via CVE-2021-27219.",
-    "18eb50cedfb2dacc007651bf3ab2eb90530f5851baf5005e01eb8967716abc8e": "High severity vulnerability in openssl-fips via CVE-2026-45447.",
-    "216b04af1209ddb8c7daea86f418dd87f8290a98c97f96be40e5ec7998358a50": "High severity vulnerability in openssl-fips via CVE-2025-9230.",
-    "7c3624d8960c380a68e1ce988187bc16ce4b18820dbf40b9a43e3e92ff94472d": "Critical vulnerability in openssl-fips via CVE-2026-34182."
+    "02a6ba6130f153efe9eee50cc18c14ea5c25821be870c44cae32faedec50627e": "Critical vulnerability in openssl-fips.",
+    "02c2a7c57e13d089160dd71430ae5b5bd758086b2167189c44c21d0f735a17bc": "High severity vulnerability in openssl.",
+    "05e3b11fffb03ea97ecde34cc92f77426e3f1086802f260f2e738e8df87127d2": "Critical vulnerability in openssl-fips.",
+    "07eaed2c045638c36a2ba4fbca021f3811580d86bf3bdfd19fe9836e64577e7a": "High severity vulnerability in openssl-fips.",
+    "7c3624d8960c380a68e1ce988187bc16ce4b18820dbf40b9a43e3e92ff94472d": "Critical vulnerability in openssl-fips."
   },
-  "narrative": "The immediate focus should be on the three critical vulnerabilities found in the openssl-fips package (F1, F2, F3). Additionally, high-severity issues in the core openssl and glib libraries (F4, F6, F7, F8) require urgent attention to mitigate potential system compromise."
+  "narrative": "The immediate focus must be on the three critical vulnerabilities found in the openssl-fips package (F1, F2, F3). Additionally, high-severity issues in the core OpenSSL package (F4) and related openssl-fips components (F5) require urgent remediation."
 }

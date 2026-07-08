@@ -139,14 +139,6 @@
     "scan": {}
   },
   {
-    "repo": "kairos-io/kcrypt",
-    "kind": "org",
-    "branch": "main",
-    "criticality": "high",
-    "artifacts": null,
-    "scan": {}
-  },
-  {
     "repo": "kairos-io/kcrypt-discovery-challenger",
     "kind": "org",
     "branch": "main",
