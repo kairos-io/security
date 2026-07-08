@@ -28,7 +28,7 @@ git checkout -B "$BRANCH"
 # fix the build). Never `git add -A`: LocalAI downloads backends/ and data/ into
 # the checkout at runtime, and -A would commit that junk into the PR.
 git add -u
-git commit -m "$PR_TITLE" || { echo "nothing to commit"; exit 0; }
+git commit --signoff -m "$PR_TITLE" || { echo "nothing to commit"; exit 0; }
 
 # Push with the token-authenticated remote. --force keeps an automation-owned
 # reused branch in sync; the branch is intentionally force-updated.

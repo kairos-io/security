@@ -17,7 +17,12 @@ Copy [`examples/caller-workflow.yml`](examples/caller-workflow.yml) to
 
 See [`action.yml`](action.yml). Key ones: `token` (required), `language`
 (only `go` today), `model` (default `gemma-4-e2b-it`), `branch`, `base`,
-`dry-run`, and `nib-prompt`.
+`dry-run`, `nib-prompt`, and `context-size`.
+
+`context-size` (optional): passed to LocalAI as `--context-size`. Raise it if
+nib's agentic loop overflows the model's default context (large `go get -u`
+output can exceed a small default and make tool-calls fail). Empty = LocalAI's
+default. Commits are made with `--signoff`.
 
 `nib-prompt` (optional): a custom task for nib. When set, it **replaces** the
 built-in "update all dependencies to latest" task entirely (and the deterministic

@@ -7,6 +7,7 @@ inputs:
   model:            { description: "LocalAI model driving nib.", required: false, default: "gemma-4-e2b-it" }
   localai-url:      { description: "If it already answers, startup is skipped.", required: false, default: "http://localhost:8080" }
   localai-version:  { description: "LocalAI release to download.", required: false, default: "latest" }
+  context-size:     { description: "Model context size (LocalAI --context-size). Empty = LocalAI/model default.", required: false, default: "" }
   nib-version:      { description: "nib version to install.", required: false, default: "latest" }
   go-version:       { description: "Go toolchain.", required: false, default: "stable" }
   startup-timeout:  { description: "Max seconds to wait for model load.", required: false, default: "1200" }
@@ -37,6 +38,7 @@ runs:
         LOCALAI_URL: ${{ inputs.localai-url }}
         MODEL: ${{ inputs.model }}
         LOCALAI_VERSION: ${{ inputs.localai-version }}
+        CONTEXT_SIZE: ${{ inputs.context-size }}
         STARTUP_TIMEOUT: ${{ inputs.startup-timeout }}
         GH_TOKEN: ${{ inputs.token }}
         BIN_DIR: ${{ runner.temp }}/update-deps/bin

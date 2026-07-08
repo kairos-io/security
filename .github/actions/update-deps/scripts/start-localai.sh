@@ -12,6 +12,7 @@ LOCALAI_URL="${LOCALAI_URL:-http://localhost:8080}"
 MODEL="${MODEL:?MODEL is required}"
 LOCALAI_VERSION="${LOCALAI_VERSION:-latest}"
 STARTUP_TIMEOUT="${STARTUP_TIMEOUT:-1200}"   # seconds
+CONTEXT_SIZE="${CONTEXT_SIZE:-}"             # optional: --context-size for the model
 BIN_DIR="${BIN_DIR:-$PWD/bin}"
 MODELS_PATH="${MODELS_PATH:-$PWD/models}"
 LOCALAI_LOG="${LOCALAI_LOG:-localai.log}"
@@ -38,7 +39,9 @@ url="https://github.com/mudler/LocalAI/releases/download/${ver}/local-ai-${ver}-
 code=$(curl -sL -w '%{http_code}' "$url" -o "$BIN_DIR/local-ai")
 echo "download HTTP status: $code"
 chmod +x "$BIN_DIR/local-ai" 2>/dev/null
-( cd "$LOCALAI_WORKDIR" && exec "$BIN_DIR/local-ai" run "$MODEL" --address ":8080" --models-path "$MODELS_PATH" ) > "$LOCALAI_LOG" 2>&1 &
+run_args=(run "$MODEL" --address ":8080" --models-path "$MODELS_PATH")
+[ -n "$CONTEXT_SIZE" ] && run_args+=(--context-size "$CONTEXT_SIZE")
+( cd "$LOCALAI_WORKDIR" && exec "$BIN_DIR/local-ai" "${run_args[@]}" ) > "$LOCALAI_LOG" 2>&1 &
 LAI_PID=$!
 
 deadline=$(( SECONDS + STARTUP_TIMEOUT ))
