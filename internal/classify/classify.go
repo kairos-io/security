@@ -23,7 +23,11 @@ func Apply(findings []state.Finding, policy config.CVEPolicy) []state.Finding {
 			f.ClassReason = "accepted-component: " + reason
 			continue
 		}
-		if f.CurrentVersion != "" && f.FixedVersion != "" &&
+		// "already-fixed" only when we have a real, orderable fixed version.
+		// OSV Alpine records sometimes carry "0" as a placeholder meaning
+		// "no known fix yet"; treating current >= "0" as fixed would hide
+		// unpatched vulns in the informational section.
+		if f.CurrentVersion != "" && f.FixedVersion != "" && f.FixedVersion != "0" &&
 			version.Compare(f.CurrentVersion, f.FixedVersion) >= 0 {
 			f.Class = "informational"
 			f.ClassReason = "already-fixed"

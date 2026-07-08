@@ -99,6 +99,29 @@ func TestQueryOSV_RangeApplicability(t *testing.T) {
 	}
 }
 
+// TestQueryOSV_ZeroFixedTreatedAsUnfixed: OSV Alpine records use "0" as a
+// placeholder meaning "no known fix yet". Returning that literally as
+// FixedVersion made the deterministic classifier compare `current >= "0"` and
+// mark every such finding as already-fixed, silently hiding unpatched vulns.
+// Must be treated the same as an empty fixed: applicable, no target version.
+func TestQueryOSV_ZeroFixedTreatedAsUnfixed(t *testing.T) {
+	// Alpine range with "fixed":"0" placeholder on a version we clearly have
+	// not fixed yet (introduced 1.1.1, current 3.6.3).
+	fixture := `{"vulns":[{"id":"CVE-zero","affected":[{"ranges":[{"events":[
+	  {"introduced":"1.1.1"},{"fixed":"0"}]}]}]}]}`
+	q := func(_, _, _ string) ([]byte, error) { return []byte(fixture), nil }
+	got, err := QueryOSV(q, "Alpine:v3.22", "openssl", "3.6.3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got) != 1 {
+		t.Fatalf("want 1 result surfaced, got %+v", got)
+	}
+	if got[0].FixedVersion != "" {
+		t.Fatalf(`fixed "0" must be treated as unfixed (empty FixedVersion), got %q`, got[0].FixedVersion)
+	}
+}
+
 // TestQueryOSV_UnparseableVersionFailsOpen: a non-numeric queried version can't
 // be ordered against the range boundaries, so instead of silently dropping the
 // vuln (which would hide it), the matcher must fail OPEN and surface it.
