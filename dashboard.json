@@ -931,23 +931,19 @@
       "07eaed2c045638c36a2ba4fbca021f3811580d86bf3bdfd19fe9836e64577e7a",
       "0c2bdc6ad90a60aa266c1bd35c7797c29be86e9f336a9a1b10626c7e0b70253a",
       "18eb50cedfb2dacc007651bf3ab2eb90530f5851baf5005e01eb8967716abc8e",
-      "216b04af1209ddb8c7daea86f418dd87f8290a98c97f96be40e5ec7998358a50",
-      "3c42f16600287664f7513628bca34a8db893f66b7bbd73964fc0f6abf7ba4d2a",
-      "420dcc867379f3a6db096d5c0186049ef2473ef8b91c6375a8e24e11b5a08548"
+      "216b04af1209ddb8c7daea86f418dd87f8290a98c97f96be40e5ec7998358a50"
     ],
     "summaries": {
-      "02a6ba6130f153efe9eee50cc18c14ea5c25821be870c44cae32faedec50627e": "Critical vulnerability in openssl-fips package (CVE-2026-31789).",
-      "02c2a7c57e13d089160dd71430ae5b5bd758086b2167189c44c21d0f735a17bc": "High severity vulnerability in openssl package (CVE-2023-4807).",
-      "05e3b11fffb03ea97ecde34cc92f77426e3f1086802f260f2e738e8df87127d2": "Critical vulnerability in openssl-fips package (CVE-2024-5535).",
-      "07eaed2c045638c36a2ba4fbca021f3811580d86bf3bdfd19fe9836e64577e7a": "High severity vulnerability in openssl-fips package (CVE-2026-9076).",
-      "0c2bdc6ad90a60aa266c1bd35c7797c29be86e9f336a9a1b10626c7e0b70253a": "High severity vulnerability in glib package (CVE-2021-27219).",
-      "18eb50cedfb2dacc007651bf3ab2eb90530f5851baf5005e01eb8967716abc8e": "High severity vulnerability in openssl-fips package (CVE-2026-45447).",
-      "216b04af1209ddb8c7daea86f418dd87f8290a98c97f96be40e5ec7998358a50": "High severity vulnerability in openssl-fips package (CVE-2025-9230).",
-      "3c42f16600287664f7513628bca34a8db893f66b7bbd73964fc0f6abf7ba4d2a": "High severity vulnerability in openssl-fips package (CVE-2026-7383).",
-      "420dcc867379f3a6db096d5c0186049ef2473ef8b91c6375a8e24e11b5a08548": "High severity vulnerability in sqlite3 package (CVE-2022-35737).",
-      "7c3624d8960c380a68e1ce988187bc16ce4b18820dbf40b9a43e3e92ff94472d": "Critical vulnerability in openssl-fips package (CVE-2026-34182)."
+      "02a6ba6130f153efe9eee50cc18c14ea5c25821be870c44cae32faedec50627e": "Critical vulnerability in openssl-fips via CVE-2026-31789.",
+      "02c2a7c57e13d089160dd71430ae5b5bd758086b2167189c44c21d0f735a17bc": "High severity vulnerability in openssl via CVE-2023-4807.",
+      "05e3b11fffb03ea97ecde34cc92f77426e3f1086802f260f2e738e8df87127d2": "Critical vulnerability in openssl-fips via CVE-2024-5535.",
+      "07eaed2c045638c36a2ba4fbca021f3811580d86bf3bdfd19fe9836e64577e7a": "High severity vulnerability in openssl-fips via CVE-2026-9076.",
+      "0c2bdc6ad90a60aa266c1bd35c7797c29be86e9f336a9a1b10626c7e0b70253a": "High severity vulnerability in glib via CVE-2021-27219.",
+      "18eb50cedfb2dacc007651bf3ab2eb90530f5851baf5005e01eb8967716abc8e": "High severity vulnerability in openssl-fips via CVE-2026-45447.",
+      "216b04af1209ddb8c7daea86f418dd87f8290a98c97f96be40e5ec7998358a50": "High severity vulnerability in openssl-fips via CVE-2025-9230.",
+      "7c3624d8960c380a68e1ce988187bc16ce4b18820dbf40b9a43e3e92ff94472d": "Critical vulnerability in openssl-fips via CVE-2026-34182."
     },
-    "narrative": "The triage focuses on the three critical vulnerabilities found in the openssl-fips package and the high-severity issues affecting core dependencies like openssl, glib, and sqlite3. Immediate action is required to patch these critical flaws to mitigate severe security risks."
+    "narrative": "The immediate focus should be on the three critical vulnerabilities found in the openssl-fips package (F1, F2, F3). Additionally, high-severity issues in the core openssl and glib libraries (F4, F6, F7, F8) require urgent attention to mitigate potential system compromise."
   },
   "repos": [
     {
@@ -1218,7 +1214,7 @@
       "repo": "kairos-io/AuroraBoot",
       "pr": 409,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/409",
-      "headSHA": "abb27c463ae2a9cf93ec43fe1a1b262d4bd1545e",
+      "headSHA": "2c52e79ea0e1e8dcbac2b9e55c8864fd704f497f",
       "verdict": "needs_human_verification",
       "reasoning": "review endpoint returned HTTP 500",
       "reviewedRun": "2026-07-08",
@@ -1230,22 +1226,9 @@
     },
     {
       "repo": "kairos-io/AuroraBoot",
-      "pr": 566,
-      "url": "https://github.com/kairos-io/AuroraBoot/pull/566",
-      "headSHA": "e6fb328bd62db11f1658684b7eee90aadd3fe9e3",
-      "verdict": "needs_human_verification",
-      "reasoning": "review endpoint returned HTTP 500",
-      "reviewedRun": "2026-07-08",
-      "trace": [
-        "lucide-icons/lucide 0.576.0..0.577.0 (PR body): compare 0.576.0...0.577.0 ✓ 40000 bytes",
-        "context: 99754 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/AuroraBoot",
       "pr": 590,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/590",
-      "headSHA": "8377818a5cbe51276522334cfa37872e31af22e7",
+      "headSHA": "554349fd98b273e611663b7acaae2938c652ded3",
       "verdict": "needs_human_verification",
       "reasoning": "review endpoint returned HTTP 500",
       "reviewedRun": "2026-07-08",
@@ -1262,7 +1245,7 @@
       "repo": "kairos-io/AuroraBoot",
       "pr": 591,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/591",
-      "headSHA": "5f3bf071f0a9cf82b128da76f8f2a57b97c780e9",
+      "headSHA": "e0f3b11c8446149c2509ec1f71d5aeff7675d991",
       "verdict": "needs_human_verification",
       "reasoning": "review endpoint returned HTTP 500",
       "reviewedRun": "2026-07-08",
@@ -1276,7 +1259,7 @@
       "repo": "kairos-io/AuroraBoot",
       "pr": 594,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/594",
-      "headSHA": "f3373f6787b05667a95d800aad1cf9e6c105d32c",
+      "headSHA": "ea8d2a2e3a0fe29d7c351ce9ab0d7646538913bd",
       "verdict": "needs_human_verification",
       "reasoning": "review endpoint returned HTTP 500",
       "reviewedRun": "2026-07-08",
@@ -1290,7 +1273,7 @@
       "repo": "kairos-io/AuroraBoot",
       "pr": 599,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/599",
-      "headSHA": "7564bdc478c5df19aacdb482b9dbccf4e910a084",
+      "headSHA": "69baf927dc1fb0446c5186e799a7f1f499aff158",
       "verdict": "needs_human_verification",
       "reasoning": "review endpoint returned HTTP 500",
       "reviewedRun": "2026-07-08",
@@ -1303,7 +1286,7 @@
       "repo": "kairos-io/AuroraBoot",
       "pr": 626,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/626",
-      "headSHA": "89415c4e3f6a83509fe7affa905e6634e971b68f",
+      "headSHA": "05d5e5389b40f02025033320d645dd7bebc37d8e",
       "verdict": "needs_human_verification",
       "reasoning": "review endpoint returned HTTP 500",
       "reviewedRun": "2026-07-08",
@@ -1316,7 +1299,7 @@
       "repo": "kairos-io/AuroraBoot",
       "pr": 627,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/627",
-      "headSHA": "b39c070dc35cda34ad240ec92e05953d1c510d01",
+      "headSHA": "39ee81bfbbb3a16f562348f5f8639cbeb630baa4",
       "verdict": "needs_human_verification",
       "reasoning": "review endpoint returned HTTP 500",
       "reviewedRun": "2026-07-08",
@@ -1328,22 +1311,9 @@
     },
     {
       "repo": "kairos-io/AuroraBoot",
-      "pr": 628,
-      "url": "https://github.com/kairos-io/AuroraBoot/pull/628",
-      "headSHA": "fbda2474015d7152ef2068b0dbf1f44619ee2054",
-      "verdict": "needs_human_verification",
-      "reasoning": "review endpoint returned HTTP 500",
-      "reviewedRun": "2026-07-08",
-      "trace": [
-        "kairos-io/hadron v0.4.0..v0.5.0 (PR body): compare v0.4.0...v0.5.0 ✓ 40000 bytes",
-        "context: 57516 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/AuroraBoot",
       "pr": 629,
       "url": "https://github.com/kairos-io/AuroraBoot/pull/629",
-      "headSHA": "ef879017890fa236121ea5a2dcac92bc3402413f",
+      "headSHA": "a6d3c88d72f583db3fd82d8597720178a0c08ea4",
       "verdict": "needs_human_verification",
       "reasoning": "review endpoint returned HTTP 500",
       "reviewedRun": "2026-07-08",
@@ -1466,208 +1436,44 @@
       ]
     },
     {
-      "repo": "kairos-io/go-ukify",
-      "pr": 58,
-      "url": "https://github.com/kairos-io/go-ukify/pull/58",
-      "headSHA": "29c3c0ba2e1ddd8407b7ce468a59e95e3113f13f",
-      "verdict": "good",
-      "reasoning": "This is a standard dependency update to a minor version, and the upstream release notes document the changes, including adjustments to the Go version policy. Since this is an automated bot PR, and the changes appear to be documented, it is safe to auto-approve.",
-      "changesSummary": "This PR updates the dependency `github.com/ThalesGroup/crypto11` from version v1.6.1 to v1.6.2. This update includes changes to the Go version directives in `go.mod` and updates a sub-dependency, `github.com/miekg/pkcs11`, to a newer version.",
-      "reviewedRun": "2026-07-02",
-      "trace": [
-        "github.com/ThalesGroup/crypto11 1.6.1→1.6.2: compare v1.6.1...v1.6.2 ✓ 1201 bytes",
-        "thales-transfer/crypto11 v1.6.0..v1.6.2 (PR body): compare v1.6.0...v1.6.2 ✓ 2393 bytes",
-        "context: 6940 bytes"
-      ]
-    },
-    {
       "repo": "kairos-io/hadron",
       "pr": 502,
       "url": "https://github.com/kairos-io/hadron/pull/502",
-      "headSHA": "29576615e3facaf01fe9c18bbeb156b576f98ff9",
+      "headSHA": "e2d8042689227c0fc695eb862ac0f5940553cd9f",
       "verdict": "good",
-      "reasoning": "This change is a targeted fix for a build-time dependency issue. It correctly implements the necessary steps (building and injecting the missing library) to ensure the build succeeds. This is a necessary maintenance change and does not introduce new security vulnerabilities.",
-      "changesSummary": "This PR introduces a dedicated build stage to compile and install `libucontext`, which is required to resolve a linker failure when building `fwupd` against `libsystemd.so`. The compiled library is then correctly injected into the main build stage.",
+      "reasoning": "This change is necessary to resolve a build-time dependency issue where `libsystemd.so` requires `libucontext.so.1`. The implementation correctly adds a build stage for `libucontext` and injects the resulting library into the main build process, ensuring the build can complete successfully.",
+      "changesSummary": "The PR introduces a new build stage to download, compile, and install `libucontext`, which resolves a critical linker failure against `libsystemd.so` by making the required library available during the `fwupd` build.",
       "reviewedRun": "2026-07-08",
       "trace": [
         "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-        "context: 2920 bytes"
+        "context: 3403 bytes"
       ]
     },
     {
-      "repo": "kairos-io/immucore",
-      "pr": 590,
-      "url": "https://github.com/kairos-io/immucore/pull/590",
-      "headSHA": "8471871f11052ce0f4bd23ecfff6495785e41377",
+      "repo": "kairos-io/kairos-must-burn",
+      "pr": 45,
+      "url": "https://github.com/kairos-io/kairos-must-burn/pull/45",
+      "headSHA": "bb1ec97495aedf9a7491f9f777d7ec1775e7239f",
       "verdict": "needs_human_verification",
       "reasoning": "review endpoint returned HTTP 500",
       "reviewedRun": "2026-07-08",
       "trace": [
-        "github.com/mudler/yip 1.24.2→1.25.0: compare v1.24.2...v1.25.0 ✓ 12349 bytes",
-        "github.com/mauromorales/xpasswd 0.4.7→0.4.8: compare v0.4.7...v0.4.8 ✓ 15519 bytes",
-        "context: 32827 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/kairos",
-      "pr": 4104,
-      "url": "https://github.com/kairos-io/kairos/pull/4104",
-      "headSHA": "e1273573082d8734e93f07a76584717ad713f154",
-      "verdict": "needs_human_verification",
-      "reasoning": "The PR title suggests an automation task related to dependency upgrades. While automation can be beneficial, security review requires inspecting the actual code changes to ensure no unintended side effects or vulnerabilities were introduced during the pipeline wiring.",
-      "changesSummary": "The PR aims to automate the process of fetching the latest release and running validation tests within the upgrade pipeline.",
-      "reviewedRun": "2026-06-24"
-    },
-    {
-      "repo": "kairos-io/kairos",
-      "pr": 4209,
-      "url": "https://github.com/kairos-io/kairos/pull/4209",
-      "headSHA": "c16456e69432752d27059997f2389f76ae920212",
-      "verdict": "good",
-      "reasoning": "This is a routine dependency update to a minor version of a well-maintained action. There are no apparent security risks introduced by this update, and it aligns with standard maintenance practices.",
-      "changesSummary": "This PR updates the `docker/build-push-action` dependency across multiple CI/CD workflows to version v7.3.0. This is a routine minor version bump for a widely used action.",
-      "reviewedRun": "2026-07-02",
-      "trace": [
-        "docker/build-push-action v7.2.0..v7.3.0 (PR body): compare v7.2.0...v7.3.0 ✓ 40000 bytes",
-        "context: 42761 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/kairos",
-      "pr": 4210,
-      "url": "https://github.com/kairos-io/kairos/pull/4210",
-      "headSHA": "95bd94c18dab2229c5571037c13cc609275fefb9",
-      "verdict": "good",
-      "reasoning": "This PR is a standard dependency update for a specific action, which is a routine maintenance task. Since it is a dependency bump and the changes involve updating to newer versions of related tools, it is considered safe to auto-approve.",
-      "changesSummary": "This pull request updates the digest for the `docker/login-action` dependency from `650006c` to `c99871d`. Additionally, it updates several other related GitHub Actions and Docker tooling dependencies to their latest versions.",
-      "reviewedRun": "2026-07-03",
-      "trace": [
-        "docker/login-action 650006c6eb7dba73a995cc03b0b2d7f5ca915bee..c99871dec2022cc055c062a10cc1a1310835ceb4 (PR body): compare 650006c6eb7dba73a995cc03b0b2d7f5ca915bee...c99871dec2022cc055c062a10cc1a1310835ceb4 ✓ 40000 bytes",
-        "context: 43062 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/kairos",
-      "pr": 4211,
-      "url": "https://github.com/kairos-io/kairos/pull/4211",
-      "headSHA": "5b18b4c144ae50df12e259beab8f240cb52237e2",
-      "verdict": "good",
-      "reasoning": "This is a routine dependency update to a newer digest, which typically includes security patches and bug fixes. The change is localized to updating the action reference in CI/CD workflows and poses no immediate security risk.",
-      "changesSummary": "This PR updates the digest for the `docker/setup-buildx-action` dependency across multiple GitHub Actions workflows from an older version to a newer one.",
-      "reviewedRun": "2026-07-03",
-      "trace": [
-        "docker/setup-buildx-action d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5..bb05f3f5519dd87d3ba754cc423b652a5edd6d2c (PR body): compare d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5...bb05f3f5519dd87d3ba754cc423b652a5edd6d2c ✓ 40000 bytes",
-        "context: 43864 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/kairos",
-      "pr": 4223,
-      "url": "https://github.com/kairos-io/kairos/pull/4223",
-      "headSHA": "f2d870146f57efcb43a1af96847cabc42d97a655",
-      "verdict": "needs_human_verification",
-      "reasoning": "review endpoint returned HTTP 500",
-      "reviewedRun": "2026-07-08",
-      "trace": [
-        "aws-actions/configure-aws-credentials 254c19bd240aabef8777f48595e9d2d7b972184b..517a711dbcd0e402f90c77e7e2f81e849156e31d (PR body): compare 254c19bd240aabef8777f48595e9d2d7b972184b...517a711dbcd0e402f90c77e7e2f81e849156e31d ✓ 40000 bytes",
-        "context: 42305 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/kairos",
-      "pr": 4224,
-      "url": "https://github.com/kairos-io/kairos/pull/4224",
-      "headSHA": "caa9895a7599ec78835bcf163656b77acb245651",
-      "verdict": "needs_human_verification",
-      "reasoning": "review endpoint returned HTTP 500",
-      "reviewedRun": "2026-07-08",
-      "trace": [
-        "github.com/mudler/edgevpn 0.35.2→0.35.3: compare v0.35.2...v0.35.3 ✓ 19626 bytes",
-        "github.com/creachadair/otp 0.5.0→0.5.4: compare v0.5.0...v0.5.4 ✓ 19443 bytes",
-        "github.com/libp2p/go-libp2p-kad-dht 0.40.0→0.41.0: compare v0.40.0...v0.41.0 ✓ 40000 bytes",
-        "context: 89169 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/kairos",
-      "pr": 4225,
-      "url": "https://github.com/kairos-io/kairos/pull/4225",
-      "headSHA": "da20b5f2674c797a47c0c05a0ad6f8ef379bb836",
-      "verdict": "good",
-      "reasoning": "This change is a minor patch update to a Docker image tag. Assuming the upstream patch (v0.25.2) is a standard maintenance release, this change poses a low security risk and is safe to auto-approve.",
-      "changesSummary": "This PR updates the Docker image tag for `quay.io/kairos/auroraboot` from `v0.25.1` to `v0.25.2` in multiple GitHub Actions workflows. This is a standard maintenance update to pull in a patch version of the dependency.",
-      "reviewedRun": "2026-07-08",
-      "trace": [
-        "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-        "context: 3453 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/kairos",
-      "pr": 4226,
-      "url": "https://github.com/kairos-io/kairos/pull/4226",
-      "headSHA": "c13045ca48963d8f59eb2cca50458b222faba3d8",
-      "verdict": "good",
-      "reasoning": "This pull request is a minor version bump for a specific tool dependency. There are no apparent security concerns associated with this version change, and it appears to be a routine maintenance update. Therefore, it is safe to auto-approve.",
-      "changesSummary": "This PR updates the Docker build argument for `kairos-init` from version v0.15.1 to v0.15.2. This is a routine patch update to the dependency version used in the Docker image build.",
-      "reviewedRun": "2026-07-08",
-      "trace": [
-        "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-        "context: 1342 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/kairos-init",
-      "pr": 390,
-      "url": "https://github.com/kairos-io/kairos-init/pull/390",
-      "headSHA": "ae84e0909b6db2ebcb1a59d454c9949cae6782aa",
-      "verdict": "needs_human_verification",
-      "reasoning": "review endpoint returned HTTP 500",
-      "reviewedRun": "2026-07-08",
-      "trace": [
-        "github.com/mudler/yip 1.24.2→1.25.0: compare v1.24.2...v1.25.0 ✓ 12349 bytes",
-        "github.com/mauromorales/xpasswd 0.4.7→0.4.8: compare v0.4.7...v0.4.8 ✓ 15519 bytes",
-        "context: 32750 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/kairos-init",
-      "pr": 393,
-      "url": "https://github.com/kairos-io/kairos-init/pull/393",
-      "headSHA": "ea7e6004f8c4d36cf549be03aacc1403d8ab36ce",
-      "verdict": "needs_human_verification",
-      "reasoning": "review endpoint returned HTTP 500",
-      "reviewedRun": "2026-07-08",
-      "trace": [
-        "mudler/edgevpn v0.35.2..v0.35.3 (PR body): compare v0.35.2...v0.35.3 ✓ 19626 bytes",
-        "context: 24356 bytes"
-      ]
-    },
-    {
-      "repo": "kairos-io/kairos-init",
-      "pr": 394,
-      "url": "https://github.com/kairos-io/kairos-init/pull/394",
-      "headSHA": "a43f2c32007908ebe16549a391ed7cb07d04636a",
-      "verdict": "needs_human_verification",
-      "reasoning": "review endpoint returned HTTP 500",
-      "reviewedRun": "2026-07-08",
-      "trace": [
-        "kairos-io/hadron v0.4.0..v0.5.0 (PR body): compare v0.4.0...v0.5.0 ✓ 40000 bytes",
-        "context: 57748 bytes"
+        "google/go-github v88.0.0..v89.0.0 (PR body): compare v88.0.0...v89.0.0 ✓ 40000 bytes",
+        "context: 54668 bytes"
       ]
     },
     {
       "repo": "kairos-io/kairos-operator",
-      "pr": 135,
-      "url": "https://github.com/kairos-io/kairos-operator/pull/135",
-      "headSHA": "310e89dd8d886e65592a2479bd7fdddee61d0eb7",
+      "pr": 136,
+      "url": "https://github.com/kairos-io/kairos-operator/pull/136",
+      "headSHA": "73c2e30df22f11922d54fced1f48412e5c515c0a",
       "verdict": "good",
-      "reasoning": "This is a routine dependency update to a newer digest and related actions. Updating dependencies is crucial for maintaining security and stability. Since this is a standard dependency bump from a trusted source, it is safe to auto-approve.",
-      "changesSummary": "This PR updates the digest for `docker/login-action` and upgrades several related Docker actions (`docker/bake-action`, `docker/bake-action/subaction/matrix`) to version v7.3.0 across multiple workflow files. This ensures the project uses the latest versions of these components.",
-      "reviewedRun": "2026-07-04",
+      "reasoning": "This is a patch update to a specific dependency. Updating dependencies to newer patch versions is a standard maintenance practice and is generally safe. There are no obvious security risks introduced by this minor version bump.",
+      "changesSummary": "This PR updates the Docker image tag for `docker.io/golang` from version `1.26.4` to `1.26.5` in the relevant Dockerfiles. This is a minor patch update to the dependency.",
+      "reviewedRun": "2026-07-08",
       "trace": [
-        "docker/login-action c99871dec2022cc055c062a10cc1a1310835ceb4..af1e73f918a031802d376d3c8bbc3fe56130a9b0 (PR body): compare c99871dec2022cc055c062a10cc1a1310835ceb4...af1e73f918a031802d376d3c8bbc3fe56130a9b0 ✓ 40000 bytes",
-        "context: 43269 bytes"
+        "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+        "context: 1872 bytes"
       ]
     },
     {
@@ -1702,14 +1508,13 @@
       "repo": "kairos-io/kcrypt-discovery-challenger",
       "pr": 41,
       "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/41",
-      "headSHA": "7d5735e3d588ee7f1958b7f5e8089cacde331d46",
-      "verdict": "good",
-      "reasoning": "This is a dependency update for a core Kubernetes controller library. The changelog indicates bug fixes and necessary dependency alignment across the Kubernetes ecosystem, which is standard maintenance practice. The changes appear safe and necessary for project health.",
-      "changesSummary": "This PR updates the `sigs.k8s.io/controller-runtime` dependency from v0.15.0 to v0.24.1. This update includes several bug fixes and dependency upgrades across the Kubernetes ecosystem, including major bumps in core `k8s.io` packages.",
-      "reviewedRun": "2026-07-01",
+      "headSHA": "068e78440c6d460e85c63cf31d76f5f5e10acb33",
+      "verdict": "needs_human_verification",
+      "reasoning": "review endpoint returned HTTP 500",
+      "reviewedRun": "2026-07-08",
       "trace": [
         "k8s.io/api 0.27.2→0.36.0: compare v0.27.2...v0.36.0 ✓ 40000 bytes",
-        "context: 123948 bytes"
+        "context: 123952 bytes"
       ]
     },
     {
@@ -1731,30 +1536,57 @@
       "repo": "kairos-io/kcrypt-discovery-challenger",
       "pr": 240,
       "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/240",
-      "headSHA": "bfbe077445d32a1313b0246292062f1a043d228e",
+      "headSHA": "f14a159bcb8833882d127f824a5f3f23382c5844",
       "verdict": "needs_human_verification",
-      "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
-      "reviewedRun": "2026-07-03",
+      "reasoning": "review endpoint returned HTTP 500",
+      "reviewedRun": "2026-07-08",
       "trace": [
         "github.com/google/go-attestation 0.5.1→0.6.1: compare v0.5.1...v0.6.1 ✓ 40000 bytes",
         "github.com/kairos-io/tpm-helpers 0.0.0-20260608091616-8a4ccb53d8f7→0.0.0-20260702080541-9b3e057e2f32: compare 8a4ccb53d8f7...9b3e057e2f32 ✓ 11771 bytes",
         "github.com/google/go-tpm-tools 0.4.4→0.4.7: compare v0.4.4...v0.4.7 ✓ 40000 bytes",
-        "context: 97184 bytes"
+        "context: 97188 bytes"
       ]
     },
     {
       "repo": "kairos-io/kcrypt-discovery-challenger",
       "pr": 241,
       "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/241",
-      "headSHA": "7ad5deb3e8d29b986578236aac10b9a30a38a208",
-      "verdict": "good",
-      "reasoning": "The dependency updates are beneficial as they address an End-of-Life component (`containerd`) and explicitly resolve security findings identified by OSV scanners for `go-attestation`. These changes improve the overall security and stability of the project.",
-      "changesSummary": "This PR updates several dependencies, including migrating `containerd` to v2 and updating `go-attestation` to v0.6.1. These updates address End-of-Life concerns and resolve outstanding OSV scanner findings, which improves the security posture of the project. It also includes minor internal refactoring in the agent run logic.",
-      "reviewedRun": "2026-07-04",
+      "headSHA": "52e002ca061d1d17a045003dadaa67739c558ca2",
+      "verdict": "needs_human_verification",
+      "reasoning": "review endpoint returned HTTP 500",
+      "reviewedRun": "2026-07-08",
       "trace": [
         "github.com/google/go-attestation 0.5.1→0.6.1: compare v0.5.1...v0.6.1 ✓ 40000 bytes",
         "github.com/kairos-io/kairos-sdk 0.23.1→0.23.2: compare v0.23.1...v0.23.2 ✓ 26235 bytes",
-        "context: 77897 bytes"
+        "context: 77901 bytes"
+      ]
+    },
+    {
+      "repo": "kairos-io/kcrypt-discovery-challenger",
+      "pr": 243,
+      "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/243",
+      "headSHA": "ff2f0e97f11347fd851dd749b923f0e9cfb12ca5",
+      "verdict": "good",
+      "reasoning": "This is a minor patch update to a dependency. Patch updates are generally low-risk and are safe to auto-approve, as they typically address bug fixes or minor non-security related improvements.",
+      "changesSummary": "This PR updates the version of the `quay.io/kairos/kairos-init` dependency from v0.15.1 to v0.15.2 by changing the build argument in `Dockerfile.kairos-image`.",
+      "reviewedRun": "2026-07-08",
+      "trace": [
+        "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+        "context: 1501 bytes"
+      ]
+    },
+    {
+      "repo": "kairos-io/kcrypt-discovery-challenger",
+      "pr": 244,
+      "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/244",
+      "headSHA": "a5fc697b5d02759452c69f28c7ae25978dafd329",
+      "verdict": "good",
+      "reasoning": "This change is a routine patch update to the Go language version. Updating to a newer patch version is generally safe and often includes important bug fixes or security patches. Since this is an automated dependency update, it is considered safe to auto-approve.",
+      "changesSummary": "This PR updates the base image for the build process in the Dockerfile and Dockerfile.kairos-image from `golang:1.26.4` to `golang:1.26.5` and its corresponding bookworm tags. This is a standard dependency bump for the Go language version.",
+      "reviewedRun": "2026-07-08",
+      "trace": [
+        "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+        "context: 2473 bytes"
       ]
     },
     {
@@ -2045,6 +1877,20 @@
         "postcss/autoprefixer 10.5.1..10.5.2 (PR body): compare 10.5.1...10.5.2 ✓ 2688 bytes",
         "postcss/autoprefixer 10.5.0..10.5.1 (PR body): compare 10.5.0...10.5.1 ✓ 40000 bytes",
         "context: 54014 bytes"
+      ]
+    },
+    {
+      "repo": "mudler/edgevpn",
+      "pr": 1054,
+      "url": "https://github.com/mudler/edgevpn/pull/1054",
+      "headSHA": "3cc6929dbb27d29eeea8af52075dd239ef6036ac",
+      "verdict": "needs_human_verification",
+      "reasoning": "review endpoint returned HTTP 500",
+      "reviewedRun": "2026-07-08",
+      "trace": [
+        "github.com/urfave/cli/v3 3.10.0→3.10.1: compare v3.10.0...v3.10.1 ✓ 17319 bytes",
+        "urfave/cli v3.9.1..v3.10.0 (PR body): compare v3.9.1...v3.10.0 ✓ 40000 bytes",
+        "context: 101293 bytes"
       ]
     }
   ]
