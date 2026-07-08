@@ -270,11 +270,20 @@ func newCorrelateCmd(gf *globalFlags) *cobra.Command {
 			// rather than dropping them, and --no-ai-applicability turns it
 			// off per run.
 			var applier classify.Applier
-			if !noAIApplicability {
+			if noAIApplicability {
+				fmt.Fprintln(cmd.ErrOrStderr(), "correlate: --no-ai-applicability set; skipping AI applicability")
+			} else {
 				aiCfg, aiErr := config.LoadAI("ai.yaml")
-				if aiErr != nil {
+				switch {
+				case aiErr != nil:
 					fmt.Fprintf(cmd.ErrOrStderr(), "correlate: could not load ai.yaml (%v); skipping AI applicability\n", aiErr)
-				} else if aiCfg.Applicability.Enabled {
+				case !aiCfg.Applicability.Enabled:
+					fmt.Fprintln(cmd.ErrOrStderr(), "correlate: applicability disabled in ai.yaml; skipping")
+				case aiCfg.Applicability.Endpoint == "":
+					fmt.Fprintln(cmd.ErrOrStderr(), "correlate: applicability endpoint is empty (no LOCALAI_URL, no localai.endpoint); skipping")
+				default:
+					fmt.Fprintf(cmd.ErrOrStderr(), "correlate: applicability enabled — endpoint=%q model=%q threshold=%q\n",
+						aiCfg.Applicability.Endpoint, aiCfg.Applicability.Model, aiCfg.Applicability.ConfidenceThreshold)
 					applier = classify.NewOpenAIApplier(
 						aiCfg.Applicability.Endpoint,
 						aiCfg.Applicability.Model,

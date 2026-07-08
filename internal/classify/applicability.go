@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -72,6 +73,7 @@ func NewOpenAIApplier(endpoint, model string, temperature float64, maxTokens int
 // skipped — no point spending model tokens on them.
 func (a *OpenAIApplier) Apply(findings []state.Finding) []state.Finding {
 	if a == nil || a.Endpoint == "" {
+		fmt.Fprintln(os.Stderr, "classify: applier nil or endpoint empty; leaving findings unannotated")
 		return findings
 	}
 	out := make([]state.Finding, len(findings))
@@ -91,28 +93,34 @@ func (a *OpenAIApplier) Apply(findings []state.Finding) []state.Finding {
 	}
 	cache := map[memoKey]memoVal{}
 
+	var (
+		considered, skippedInfo, skippedNoDetails int
+		modelCalls, flagged, errs                 int
+	)
 	for i := range out {
 		f := &out[i]
+		considered++
 		if f.Class == "informational" {
+			skippedInfo++
 			continue
 		}
 		if strings.TrimSpace(f.Details) == "" && strings.TrimSpace(f.AffectedRanges) == "" {
+			skippedNoDetails++
 			continue
 		}
 		k := memoKey{f.CVEID, f.Package, f.CurrentVersion, f.FixedVersion}
 		v, seen := cache[k]
 		if !seen {
+			modelCalls++
 			args, err := a.classify(*f)
 			v = memoVal{args: args, err: err}
 			cache[k] = v
 		}
 		if v.err != nil {
-			fmt.Printf("classify: applicability query failed for %s (%s): %v\n", f.CVEID, f.Package, v.err)
+			errs++
+			fmt.Fprintf(os.Stderr, "classify: applicability query failed for %s (%s): %v\n", f.CVEID, f.Package, v.err)
 			continue
 		}
-		// Only surface a warning for a confident NOT-applicable verdict —
-		// low-confidence noise or an "applicable" verdict would just clutter
-		// the dashboard.
 		if v.args.Applicable || !meetsThreshold(v.args.Confidence, a.ConfidenceThreshold) {
 			continue
 		}
@@ -127,7 +135,10 @@ func (a *OpenAIApplier) Apply(findings []state.Finding) []state.Finding {
 			Model:      a.Model,
 			CheckedAt:  stamp,
 		}
+		flagged++
 	}
+	fmt.Fprintf(os.Stderr, "classify: applicability — considered=%d skipped(info)=%d skipped(no-details)=%d model-calls=%d flagged=%d errors=%d\n",
+		considered, skippedInfo, skippedNoDetails, modelCalls, flagged, errs)
 	return out
 }
 
