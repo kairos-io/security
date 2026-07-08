@@ -21,12 +21,14 @@ func TestComputeActivityNoFindings(t *testing.T) {
 func TestComputeActivityWithFindingsAndPRs(t *testing.T) {
 	a := computeActivity(Input{
 		Repos:         []state.Repo{{Repo: "o/a"}},
-		Correlated:    state.Correlated{Findings: []state.Finding{{Repo: "o/a", Severity: "high"}, {Repo: "o/a", Severity: "low"}}},
+		Correlated:    state.Correlated{Findings: []state.Finding{{Repo: "o/a", Severity: "high"}, {Repo: "o/a", Severity: "low"}, {Repo: "o/a", Severity: "critical", Class: "informational"}}},
 		OpenPRs:       []state.TrackedPR{{Repo: "o/a", Source: "dependabot"}},
 		Ledger:        state.Ledger{Entries: []state.LedgerEntry{{State: "open"}, {State: "build-failed", NeedsHuman: true}}},
 		CollectErrors: []state.CollectionError{{Repo: "o/a", Collector: "sourceCVE", Message: "boom"}},
 	})
-	assert.Equal(t, 2, a.Findings)
+	assert.Equal(t, 2, a.Findings)      // informational excluded from the count
+	assert.Equal(t, 1, a.Informational) // …counted separately
+	assert.Equal(t, 0, a.Crit)          // informational critical does not bump Crit
 	assert.Equal(t, 1, a.High)
 	assert.Equal(t, 1, a.PRs)
 	assert.Equal(t, 1, a.PRsBySource["dependabot"])

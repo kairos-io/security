@@ -181,6 +181,22 @@ func DashboardMarkdown(in Input) string {
 		b.WriteString("\n")
 	}
 
+	// Informational — not counted
+	if info := informationalFindings(in.Correlated.Findings); len(info) > 0 {
+		b.WriteString("## Informational — not counted\n\n")
+		b.WriteString("These findings are separated from the counts above: CVEs we are already past, or components accepted as pinned risk.\n\n")
+		b.WriteString("| Package | Current | Fixed | Severity | CVE | Why |\n|---|---|---|---|---|---|\n")
+		for _, f := range info {
+			fixed := f.FixedVersion
+			if fixed == "" {
+				fixed = "—"
+			}
+			fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s |\n",
+				f.Package, f.CurrentVersion, fixed, f.Severity, findingLink(f), f.ClassReason)
+		}
+		b.WriteString("\n")
+	}
+
 	// Collection errors
 	if len(in.CollectErrors) > 0 {
 		fmt.Fprintf(&b, "## ⚠️ %d collection errors\n\n", len(in.CollectErrors))
@@ -315,6 +331,9 @@ func perRepoRows(repos []state.Repo, findings []state.Finding, errs []state.Coll
 		get(repo.Repo).skipped = !repo.SourceScanEnabled()
 	}
 	for _, f := range findings {
+		if f.Class == "informational" {
+			continue // separated + uncounted; see informationalFindings
+		}
 		r := get(f.Repo)
 		switch f.Severity {
 		case "critical":
@@ -355,6 +374,9 @@ func perRepoRows(repos []state.Repo, findings []state.Finding, errs []state.Coll
 func hadronComponentRows(findings []state.Finding) []state.Finding {
 	var rows []state.Finding
 	for _, f := range findings {
+		if f.Class == "informational" {
+			continue // separated into the informational section, not counted here
+		}
 		if f.Type == "componentCVE" {
 			rows = append(rows, f)
 		}
@@ -367,6 +389,19 @@ func hadronComponentRows(findings []state.Finding) []state.Finding {
 		return rows[i].Package < rows[j].Package
 	})
 	return rows
+}
+
+// informationalFindings returns findings classed "informational" — CVEs we are
+// already past, or components accepted as pinned risk — in input order. They are
+// separated from the actionable tables and excluded from every count.
+func informationalFindings(findings []state.Finding) []state.Finding {
+	var info []state.Finding
+	for _, f := range findings {
+		if f.Class == "informational" {
+			info = append(info, f)
+		}
+	}
+	return info
 }
 
 func severityRank(s string) int {

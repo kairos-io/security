@@ -18,6 +18,7 @@ type htmlData struct {
 	Waterfall           []state.WaterfallGroup
 	Repos               []htmlRepoRow
 	Components          []htmlComponentRow
+	Informational       []htmlInfoRow
 	CollectErrors       []state.CollectionError
 	OpenPRs             []htmlOpenPRGroup
 	Ledger              []htmlLedgerEntry
@@ -97,6 +98,12 @@ type htmlRepoRow struct {
 // htmlComponentRow exposes a hadron component-manifest CVE to the template.
 type htmlComponentRow struct {
 	Package, Current, Fixed, Severity, Title, URL string
+}
+
+// htmlInfoRow exposes an informational (separated + uncounted) finding to the
+// template. Why carries the ClassReason explaining the separation.
+type htmlInfoRow struct {
+	Package, Current, Fixed, Severity, Title, URL, Why string
 }
 
 // dashboardHTMLTmpl renders a self-contained page. All dynamic values are
@@ -293,6 +300,18 @@ footer{ border-top: 1px solid var(--line); padding: 1.5rem 0 3rem; color: var(--
 </table></div>
 </section>
 
+{{end}}{{if .Informational}}<section id="informational">
+<h2>&#8505;&#65039; Informational &mdash; not counted <span class="count">{{len .Informational}}</span></h2>
+<p class="summary">These findings are separated from the counts above: CVEs we are already past, or components accepted as pinned risk.</p>
+<div class="tbl"><table>
+<thead><tr><th>Package</th><th>Current</th><th>Fixed</th><th>Severity</th><th>CVE</th><th>Why</th></tr></thead>
+<tbody>
+{{range .Informational}}<tr><td>{{.Package}}</td><td>{{.Current}}</td><td>{{.Fixed}}</td><td class="{{sevClass .Severity}}">{{.Severity}}</td>
+<td>{{if .URL}}<a href="{{.URL}}" target="_blank" rel="noopener">{{.Title}}</a>{{else}}{{.Title}}{{end}}</td><td>{{.Why}}</td></tr>
+{{end}}</tbody>
+</table></div>
+</section>
+
 {{end}}<section id="prs">
 <h2>&#128203; Open PRs <span class="count">CVE-related</span></h2>
 {{if .OpenPRs}}{{range .OpenPRs}}<h3 class="repo"><a href="{{repoURL .Repo}}" target="_blank" rel="noopener">{{.Repo}}</a></h3>
@@ -422,6 +441,18 @@ func DashboardHTML(in Input) string {
 			Severity: f.Severity, Title: title, URL: url,
 		})
 	}
+	var informational []htmlInfoRow
+	for _, f := range informationalFindings(in.Correlated.Findings) {
+		fixed := f.FixedVersion
+		if fixed == "" {
+			fixed = "—"
+		}
+		title, url := focusTitleURL(f)
+		informational = append(informational, htmlInfoRow{
+			Package: f.Package, Current: f.CurrentVersion, Fixed: fixed,
+			Severity: f.Severity, Title: title, URL: url, Why: f.ClassReason,
+		})
+	}
 	ledger := make([]htmlLedgerEntry, 0, len(in.Ledger.Entries))
 	for _, e := range in.Ledger.Entries {
 		kind := e.Kind
@@ -493,6 +524,7 @@ func DashboardHTML(in Input) string {
 		Waterfall:           in.Correlated.Waterfall,
 		Repos:               repos,
 		Components:          components,
+		Informational:       informational,
 		CollectErrors:       in.CollectErrors,
 		OpenPRs:             openPRs,
 		Ledger:              ledger,

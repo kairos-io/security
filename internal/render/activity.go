@@ -8,6 +8,7 @@ import (
 type RunActivity struct {
 	Repos, Skipped, Errored                    int
 	Findings, Crit, High, Med, Low, Unknown    int
+	Informational                              int
 	PRs                                        int
 	PRsBySource                                map[string]int
 	LedgerOpen, NeedsHuman, Superseded, Merged int
@@ -27,6 +28,10 @@ func computeActivity(in Input) RunActivity {
 	}
 	a.Errored = len(erroredRepos)
 	for _, f := range in.Correlated.Findings {
+		if f.Class == "informational" {
+			a.Informational++
+			continue
+		}
 		a.Findings++
 		switch f.Severity {
 		case "critical":
@@ -89,6 +94,9 @@ func (a RunActivity) Markdown() string {
 	b.WriteString("\n")
 	fmt.Fprintf(&b, "- **Findings:** %d (%d critical / %d high / %d medium / %d low / %d unknown)\n",
 		a.Findings, a.Crit, a.High, a.Med, a.Low, a.Unknown)
+	if a.Informational > 0 {
+		fmt.Fprintf(&b, "- **Informational (not counted):** %d\n", a.Informational)
+	}
 	fmt.Fprintf(&b, "- **CVE-related PRs:** %d", a.PRs)
 	if a.PRs > 0 {
 		b.WriteString(" (" + sourceBreakdown(a.PRsBySource) + ")")

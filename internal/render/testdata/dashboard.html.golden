@@ -178,6 +178,20 @@ footer{ border-top: 1px solid var(--line); padding: 1.5rem 0 3rem; color: var(--
 </table></div>
 </section>
 
+<section id="informational">
+<h2>&#8505;&#65039; Informational &mdash; not counted <span class="count">2</span></h2>
+<p class="summary">These findings are separated from the counts above: CVEs we are already past, or components accepted as pinned risk.</p>
+<div class="tbl"><table>
+<thead><tr><th>Package</th><th>Current</th><th>Fixed</th><th>Severity</th><th>CVE</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td>libxml2</td><td>2.13.0</td><td>2.12.0</td><td class="sev-critical">critical</td>
+<td>CVE-2024-0001</td><td>already fixed: current 2.13.0 is past fixed 2.12.0</td></tr>
+<tr><td>openssl-fips</td><td>3.0.8</td><td>—</td><td class="sev-medium">medium</td>
+<td>CVE-2023-5678</td><td>accepted: pinned FIPS build</td></tr>
+</tbody>
+</table></div>
+</section>
+
 <section id="prs">
 <h2>&#128203; Open PRs <span class="count">CVE-related</span></h2>
 <p class="empty">No CVE-related PRs open.</p>

@@ -8,6 +8,7 @@ _Updated 2026-06-19._
 
 - **Scanned:** 3 repos · ⚠️ 1 errored
 - **Findings:** 1 (1 critical / 0 high / 0 medium / 0 low / 0 unknown)
+- **Informational (not counted):** 2
 - **CVE-related PRs:** 0
 - **Remediation:** 1 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 1 finding(s); 1 PR(s) open.
@@ -31,6 +32,15 @@ _Updated 2026-06-19._
 | [kairos-io/kairos](https://github.com/kairos-io/kairos) | 1 | 0 | 0 | 1 | ok |
 | [kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/x](https://github.com/kairos-io/x) | 0 | 0 | 0 | 0 | ⚠️ errors |
+
+## Informational — not counted
+
+These findings are separated from the counts above: CVEs we are already past, or components accepted as pinned risk.
+
+| Package | Current | Fixed | Severity | CVE | Why |
+|---|---|---|---|---|---|
+| libxml2 | 2.13.0 | 2.12.0 | critical | CVE-2024-0001 | already fixed: current 2.13.0 is past fixed 2.12.0 |
+| openssl-fips | 3.0.8 | — | medium | CVE-2023-5678 | accepted: pinned FIPS build |
 
 ## ⚠️ 1 collection errors
 

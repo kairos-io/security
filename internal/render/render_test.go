@@ -15,6 +15,11 @@ func sampleInput() Input {
 		Correlated: state.Correlated{
 			Findings: []state.Finding{
 				{ID: "crit1", Repo: "kairos-io/kairos", Type: "imageCVE", CVEID: "CVE-2025-9999", Package: "openssl", Severity: "critical", FirstSeen: "2026-06-01", LastSeen: "2026-06-19"},
+				// Informational: separated + uncounted. Both are severity-bearing
+				// on a tracked repo, so the golden proves they never leak into the
+				// headline counts or the per-repo / hadron actionable tables.
+				{ID: "info-fixed", Repo: "kairos-io/kairos", Type: "componentCVE", CVEID: "CVE-2024-0001", Package: "libxml2", CurrentVersion: "2.13.0", FixedVersion: "2.12.0", Severity: "critical", Class: "informational", ClassReason: "already fixed: current 2.13.0 is past fixed 2.12.0"},
+				{ID: "info-accepted", Repo: "kairos-io/kairos", Type: "componentCVE", CVEID: "CVE-2023-5678", Package: "openssl-fips", CurrentVersion: "3.0.8", Severity: "medium", Class: "informational", ClassReason: "accepted: pinned FIPS build"},
 			},
 			Waterfall: []state.WaterfallGroup{
 				{ID: "go-CVE-2025-1-golang.org/x/net", RootCause: "golang.org/x/net (CVE-2025-1)", Severity: "high", AffectedRepos: []string{"kairos-io/immucore", "kairos-io/kairos-agent"}, SuggestedBump: state.Bump{Package: "golang.org/x/net", To: "0.33.0"}},
