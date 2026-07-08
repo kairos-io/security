@@ -333,4 +333,9 @@ _No bot PRs yet._
 - [#1055](https://github.com/mudler/edgevpn/pull/1055) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
     - context: 36260 bytes
+**[mudler/yip](https://github.com/mudler/yip)**
+
+- [#310](https://github.com/mudler/yip/pull/310) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
+    - context: 36249 bytes
 
