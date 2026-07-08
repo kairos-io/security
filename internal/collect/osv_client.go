@@ -150,7 +150,14 @@ func osvApplicableFix(v osvVuln, cmp func(string, string) int, queried string) (
 				continue // below this range's introduced boundary
 			}
 			applicable = true
-			if fixed == "" {
+			// Alpine OSV records use "0" as a placeholder meaning "no known
+			// fix yet" — carrying that forward as FixedVersion tricks the
+			// deterministic classifier (current >= "0" == true) into flagging
+			// every such finding as already-fixed and quietly hiding it in
+			// the informational section. Treat "0" the same as an empty
+			// fixed: the vuln is applicable but we don't have a target
+			// version to bump to.
+			if fixed == "" || fixed == "0" {
 				continue
 			}
 			// Inside the range (q < fixed): this is the fix we want.

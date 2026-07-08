@@ -16,6 +16,7 @@ func TestApply(t *testing.T) {
 		{ID: "b", Package: "glib", CurrentVersion: "2.86.2", FixedVersion: "2.66.6"},       // already-fixed
 		{ID: "c", Package: "openssl", CurrentVersion: "3.1.2", FixedVersion: "3.3.1"},      // actionable
 		{ID: "d", Package: "curl", CurrentVersion: "8.5.0"},                                // no fixed -> actionable
+		{ID: "e", Package: "musl", CurrentVersion: "1.2.5", FixedVersion: "0"},             // "0" placeholder -> actionable, NOT already-fixed
 	}
 	out := Apply(in, pol)
 	byID := map[string]state.Finding{}
@@ -33,5 +34,11 @@ func TestApply(t *testing.T) {
 	}
 	if byID["d"].Class != "" {
 		t.Errorf("no-fixed should stay actionable: %+v", byID["d"])
+	}
+	// "0" fixed is the OSV Alpine placeholder for "not fixed yet". Must NOT
+	// be treated as already-fixed or every unpatched Alpine CVE would silently
+	// vanish into the informational section.
+	if byID["e"].Class != "" || byID["e"].ClassReason != "" {
+		t.Errorf(`fixed "0" placeholder must stay actionable, got %+v`, byID["e"])
 	}
 }
