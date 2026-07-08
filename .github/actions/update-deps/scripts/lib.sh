@@ -19,6 +19,19 @@ lang_nib_task() {
   esac
 }
 
+# collapse_ws STRING -> STRING with every whitespace run (incl. newlines/tabs)
+# squeezed to a single space and no leading/trailing space. nib's --cli reads
+# one prompt per stdin line, so a multi-line custom prompt must be flattened.
+collapse_ws() {
+  printf '%s' "$1" | tr '[:space:]' ' ' | sed -e 's/  */ /g' -e 's/^ //' -e 's/ $//'
+}
+
+# resolve_nib_task LANG CUSTOM -> the task string handed to nib: the CUSTOM
+# prompt (flattened) when non-empty, otherwise the built-in per-language task.
+resolve_nib_task() {
+  if [ -n "$2" ]; then collapse_ws "$2"; else lang_nib_task "$1"; fi
+}
+
 # lang_fallback_cmd LANG -> deterministic dependency-update command.
 lang_fallback_cmd() {
   case "$1" in

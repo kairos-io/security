@@ -19,6 +19,13 @@ assert_eq   "go build ./... && go vet ./..." "$(lang_verify_cmd go)" "go verify 
 assert_eq   $'go.mod\ngo.sum'      "$(lang_dep_paths go)"            "go dep paths are go.mod/go.sum"
 assert_fail "python task rejected" lang_nib_task python
 
+# resolve_nib_task: empty custom -> default per-language task; non-empty custom -> the custom prompt.
+assert_eq "$(lang_nib_task go)" "$(resolve_nib_task go '')"          "resolve_nib_task falls back to default when custom empty"
+assert_eq "bump only kairos-sdk" "$(resolve_nib_task go 'bump only kairos-sdk')" "resolve_nib_task uses the custom prompt"
+# collapse_ws flattens newlines/tabs/runs to single spaces and trims.
+assert_eq "one two three" "$(collapse_ws $'one   two\n\tthree')"     "collapse_ws squeezes whitespace"
+assert_eq "line1 line2"   "$(resolve_nib_task go $'  line1\n  line2  ')" "resolve_nib_task flattens a multi-line custom prompt"
+
 # has_dep_changes reflects git state in a throwaway repo.
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"; _report' EXIT
 (

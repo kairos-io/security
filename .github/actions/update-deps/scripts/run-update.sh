@@ -11,10 +11,13 @@ LANGUAGE="${LANGUAGE:-go}"
 MODEL="${MODEL:?MODEL is required}"
 LOCALAI_URL="${LOCALAI_URL:-http://localhost:8080}"
 NIB_AVAILABLE="${NIB_AVAILABLE:-1}"
+NIB_PROMPT="${NIB_PROMPT:-}"   # optional: replaces the default per-language task
 
-task="$(lang_nib_task "$LANGUAGE")"   || { echo "unsupported language: $LANGUAGE" >&2; exit 2; }
+# Validate the language via a helper that fails for unsupported values, then
+# resolve the task: a custom NIB_PROMPT replaces the built-in task entirely.
+verify="$(lang_verify_cmd "$LANGUAGE")" || { echo "unsupported language: $LANGUAGE" >&2; exit 2; }
 fallback="$(lang_fallback_cmd "$LANGUAGE")"
-verify="$(lang_verify_cmd "$LANGUAGE")"
+task="$(resolve_nib_task "$LANGUAGE" "$NIB_PROMPT")"
 
 # Run nib once with the given one-line task (matches internal/remediate/nib_agent.go).
 run_nib() { # TASK
@@ -33,10 +36,16 @@ else
 fi
 
 # If nib produced no manifest change, fall back to the deterministic update so a
-# PR still opens when the model is down or was a no-op.
+# PR still opens when the model is down or was a no-op. A custom prompt overrides
+# the default "update everything" intent, so we do NOT bump-everything behind the
+# caller's back — skip the fallback when a custom prompt is set.
 if ! has_dep_changes "$LANGUAGE"; then
-  echo "== no change from nib — deterministic fallback: $fallback =="
-  eval "$fallback" || true
+  if [ -n "$NIB_PROMPT" ]; then
+    echo "== no change from nib and a custom prompt is set — skipping deterministic fallback =="
+  else
+    echo "== no change from nib — deterministic fallback: $fallback =="
+    eval "$fallback" || true
+  fi
 fi
 
 echo "== verify: $verify =="

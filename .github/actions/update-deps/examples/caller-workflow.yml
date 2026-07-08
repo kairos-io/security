@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       dry-run: { description: "Preview without opening a PR", type: boolean, default: false }
+      prompt:  { description: "Custom nib task (replaces the default update task)", type: string, default: "" }
 concurrency:
   group: update-deps
   cancel-in-progress: false
@@ -24,3 +25,4 @@ jobs:
           language: go
           token: ${{ steps.app-token.outputs.token }}
           dry-run: ${{ github.event.inputs.dry-run || 'false' }}
+          nib-prompt: ${{ github.event.inputs.prompt || '' }}

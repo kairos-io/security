@@ -17,7 +17,13 @@ Copy [`examples/caller-workflow.yml`](examples/caller-workflow.yml) to
 
 See [`action.yml`](action.yml). Key ones: `token` (required), `language`
 (only `go` today), `model` (default `gemma-4-e2b-it`), `branch`, `base`,
-`dry-run`.
+`dry-run`, and `nib-prompt`.
+
+`nib-prompt` (optional): a custom task for nib. When set, it **replaces** the
+built-in "update all dependencies to latest" task entirely (and the deterministic
+`go get -u` fallback is skipped, so a narrow prompt like "bump only X" isn't
+overridden by a bump-everything fallback). Multi-line values are flattened to a
+single line. Leave empty for the default behavior.
 
 ## Token: use a GitHub App (not the built-in token)
 
