@@ -51,8 +51,10 @@ type Finding struct {
 	Source         string `json:"source"`   // tool/api that produced it
 	Title          string `json:"title,omitempty"`
 	URL            string `json:"url,omitempty"`
-	FirstSeen      string `json:"firstSeen"` // YYYY-MM-DD
-	LastSeen       string `json:"lastSeen"`  // YYYY-MM-DD
+	FirstSeen      string `json:"firstSeen"`             // YYYY-MM-DD
+	LastSeen       string `json:"lastSeen"`              // YYYY-MM-DD
+	Class          string `json:"class,omitempty"`       // "" == actionable; "informational" == separated + uncounted
+	ClassReason    string `json:"classReason,omitempty"` // why it's informational
 }
 
 type TrackedPR struct {
