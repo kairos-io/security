@@ -47,9 +47,6 @@ repos:
   - repo: kairos-io/kairos-installer
     kind: org
     criticality: high
-  - repo: kairos-io/kcrypt
-    kind: org
-    criticality: high
   - repo: kairos-io/tpm-helpers
     kind: org
     criticality: high
