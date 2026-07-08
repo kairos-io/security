@@ -15,7 +15,7 @@ Each phase reads/writes committed JSON state under `state/`, so every run is
 auditable in git history.
 
 ```
-discover  → build the tracked-repo list (kairos-io org + kairos-init deps + repos.yaml)
+discover  → build the tracked-repo list (kairos-io org + kairos-init deps + repos.yaml), dropping archived repos
 collect   → per repo: open security PRs, image CVEs (trivy), source CVEs (govulncheck), GitHub alerts, hadron component-manifest CVEs (OSV.dev + NVD)
 correlate → dedupe findings + build the "waterfall" graph (one Go CVE → the set of affected repos)
 triage    → prioritize + write the "focus now" summary (self-hosted LocalAI via nib; deterministic fallback)

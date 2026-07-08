@@ -83,4 +83,29 @@ func SeedFromOrg(gh ghclient.GitHub, org, initRepo, initRef string) ([]state.Rep
 	return out, nil
 }
 
+// FilterArchived drops repos that GitHub reports as archived. An archived repo
+// is read-only: it accepts no PRs, patches, or automated fixes and usually
+// signals discontinued software, so there is no value in tracking it.
+//
+// A per-repo lookup error is treated as non-fatal: the repo is kept (fail-safe,
+// so a transient GitHub hiccup does not silently drop a live repo) and its slug
+// is returned in failed for the caller to surface. dropped lists the archived
+// repos that were removed.
+func FilterArchived(gh ghclient.GitHub, repos []state.Repo) (kept []state.Repo, dropped, failed []string) {
+	for _, r := range repos {
+		archived, err := gh.RepoArchived(r.Repo)
+		if err != nil {
+			failed = append(failed, r.Repo)
+			kept = append(kept, r)
+			continue
+		}
+		if archived {
+			dropped = append(dropped, r.Repo)
+			continue
+		}
+		kept = append(kept, r)
+	}
+	return kept, dropped, failed
+}
+
 func hasPrefix(s, p string) bool { return len(s) >= len(p) && s[:len(p)] == p }

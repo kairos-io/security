@@ -26,3 +26,16 @@ func TestFakeListOrgRepos(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, []string{"kairos-io/kairos", "kairos-io/immucore"}, got)
 }
+
+func TestFakeRepoArchived(t *testing.T) {
+	f := NewFake()
+	f.Archived["kairos-io/discontinued"] = true
+
+	got, err := f.RepoArchived("kairos-io/discontinued")
+	require.NoError(t, err)
+	assert.True(t, got)
+
+	got, err = f.RepoArchived("kairos-io/kairos") // unset defaults to not archived
+	require.NoError(t, err)
+	assert.False(t, got)
+}
