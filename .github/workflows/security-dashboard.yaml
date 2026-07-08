@@ -51,7 +51,7 @@ jobs:
       # per-subprocess by NibAgent (internal/remediate/nib_agent.go) from
       # ai.yaml, so it never touches the LocalAI server or the other clients.
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
