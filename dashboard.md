@@ -125,9 +125,7 @@ _None._
 
 ## 🤖 Bot PR ledger
 
-| Repo | Bump | Kind | Source | State | PR |
-|---|---|---|---|---|---|
-| [mudler/edgevpn](https://github.com/mudler/edgevpn) | golang.org/x/net@0.33.0 | direct | ksec | error | — |
+_No bot PRs yet._
 
 ## 🔎 Bot-PR reviews
 
