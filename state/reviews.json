@@ -98,6 +98,47 @@
     ]
   },
   {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 630,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/630",
+    "headSHA": "0677aed1ddafcf4fc47b7e1b32f6e1f87616c5f5",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update for a type definition package. Minor version bumps are generally safe and address maintenance or minor bug fixes, posing a low security risk.",
+    "changesSummary": "This PR updates the dependency @types/node from version 25.9.4 to 25.9.5. This is a minor patch update for the TypeScript type definitions and is a routine maintenance task.",
+    "reviewedRun": "2026-07-09",
+    "trace": [
+      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+      "context: 2275 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 631,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/631",
+    "headSHA": "5294f1f7720c2fae8d8c355d9f17c6bc193ba52d",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-09",
+    "trace": [
+      "golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes",
+      "golang.org/x/tools 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 40000 bytes",
+      "context: 54560 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 632,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/632",
+    "headSHA": "69be0eb7b39f5b93c4d1291fc4768608aa56d06d",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-09",
+    "trace": [
+      "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
+      "context: 36312 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/cluster-api-provider-kairos",
     "pr": 38,
     "url": "https://github.com/kairos-io/cluster-api-provider-kairos/pull/38",
@@ -217,17 +258,57 @@
     ]
   },
   {
+    "repo": "kairos-io/immucore",
+    "pr": 591,
+    "url": "https://github.com/kairos-io/immucore/pull/591",
+    "headSHA": "cf89736920b38f0789905a179d9d412e0f9f8dee",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-09",
+    "trace": [
+      "github.com/jaypipes/ghw 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 40000 bytes",
+      "context: 44957 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos",
+    "pr": 4229,
+    "url": "https://github.com/kairos-io/kairos/pull/4229",
+    "headSHA": "28dc863a3cf9f48009f95852fd33523b7a11b04a",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-09",
+    "trace": [
+      "docker/login-action c99871dec2022cc055c062a10cc1a1310835ceb4..af1e73f918a031802d376d3c8bbc3fe56130a9b0 (PR body): compare c99871dec2022cc055c062a10cc1a1310835ceb4...af1e73f918a031802d376d3c8bbc3fe56130a9b0 ✓ 40000 bytes",
+      "context: 43062 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/kairos-operator",
     "pr": 136,
     "url": "https://github.com/kairos-io/kairos-operator/pull/136",
-    "headSHA": "73c2e30df22f11922d54fced1f48412e5c515c0a",
+    "headSHA": "b7436b3dc11552740efa7ca83119e63412844e74",
     "verdict": "good",
-    "reasoning": "This is a patch update to a specific dependency. Updating dependencies to newer patch versions is a standard maintenance practice and is generally safe. There are no obvious security risks introduced by this minor version bump.",
-    "changesSummary": "This PR updates the Docker image tag for `docker.io/golang` from version `1.26.4` to `1.26.5` in the relevant Dockerfiles. This is a minor patch update to the dependency.",
-    "reviewedRun": "2026-07-08",
+    "reasoning": "This is a routine patch update for a standard toolchain dependency. Updating to a newer patch version is generally safe and beneficial for receiving bug fixes and minor security patches. There are no apparent security risks introduced by this change.",
+    "changesSummary": "This PR updates the base image tag for `docker.io/golang` from version `1.26.4` to `1.26.5` in the relevant Dockerfiles. This is a routine dependency update for a toolchain component.",
+    "reviewedRun": "2026-07-09",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 1872 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos-operator",
+    "pr": 138,
+    "url": "https://github.com/kairos-io/kairos-operator/pull/138",
+    "headSHA": "ccd8322f48ee5052c96b6d45f7be268cc4e1da53",
+    "verdict": "good",
+    "reasoning": "This change is a routine digest update for a base image, which is a standard maintenance practice. It does not introduce any new code, functional changes, or security vulnerabilities that would require manual review. Therefore, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the digest of the `gcr.io/distroless/static:nonroot` Docker base image from an older SHA to a newer one. This is a routine maintenance update to ensure the build uses the latest, verified version of the base image.",
+    "reviewedRun": "2026-07-09",
+    "trace": [
+      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+      "context: 1727 bytes"
     ]
   },
   {
@@ -313,6 +394,34 @@
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 2473 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/netboot",
+    "pr": 45,
+    "url": "https://github.com/kairos-io/netboot/pull/45",
+    "headSHA": "8275ea29fed5419470cd8d9be7aeab7fcb4b5b84",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-09",
+    "trace": [
+      "golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes",
+      "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
+      "context: 76977 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/netboot",
+    "pr": 46,
+    "url": "https://github.com/kairos-io/netboot/pull/46",
+    "headSHA": "578803847b1e6f751230ad27720e6ee5afb9c069",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-09",
+    "trace": [
+      "golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes",
+      "golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes",
+      "context: 83965 bytes"
     ]
   },
   {
@@ -614,6 +723,20 @@
     "trace": [
       "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
       "context: 36249 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 311,
+    "url": "https://github.com/mudler/yip/pull/311",
+    "headSHA": "d559c506e0bdcc7d93bced5e85c48544ba570a5e",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-09",
+    "trace": [
+      "golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes",
+      "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
+      "context: 80404 bytes"
     ]
   }
 ]
