@@ -258,13 +258,27 @@
     ]
   },
   {
+    "repo": "kairos-io/hadron",
+    "pr": 506,
+    "url": "https://github.com/kairos-io/hadron/pull/506",
+    "headSHA": "f86ad04f52c9b275b42157382db917924126d601",
+    "verdict": "needs_human_verification",
+    "reasoning": "This change introduces a significant, experimental component (DRBD 9) that interacts closely with the kernel. Although the implementation details seem structured, the PR description explicitly flags open risks regarding kernel compatibility and build failures. Therefore, a human review is required to verify the CI process and ensure stability before merging.",
+    "changesSummary": "This pull request introduces an out-of-tree DRBD 9 kernel module and associated userspace utilities, explicitly disabling the in-tree DRBD 8 module. The build process is configured to compile the new module against the existing kernel tree and update the image to use these new components.",
+    "reviewedRun": "2026-07-10",
+    "trace": [
+      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+      "context: 10981 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/immucore",
     "pr": 591,
     "url": "https://github.com/kairos-io/immucore/pull/591",
-    "headSHA": "cf89736920b38f0789905a179d9d412e0f9f8dee",
+    "headSHA": "df2c115f1214ce7c838c859f5c5f6e60e05c280b",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-09",
+    "reviewedRun": "2026-07-10",
     "trace": [
       "github.com/jaypipes/ghw 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 40000 bytes",
       "context: 44957 bytes"
@@ -281,6 +295,33 @@
     "trace": [
       "docker/login-action c99871dec2022cc055c062a10cc1a1310835ceb4..af1e73f918a031802d376d3c8bbc3fe56130a9b0 (PR body): compare c99871dec2022cc055c062a10cc1a1310835ceb4...af1e73f918a031802d376d3c8bbc3fe56130a9b0 ✓ 40000 bytes",
       "context: 43062 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos",
+    "pr": 4234,
+    "url": "https://github.com/kairos-io/kairos/pull/4234",
+    "headSHA": "9f68391af7e60a41aa1262858750384f036a8e5c",
+    "verdict": "good",
+    "reasoning": "This is a routine minor version bump from a trusted dependency, and the changes are documented in the upstream release notes. The update is applied consistently across all relevant workflow files, suggesting a safe and necessary maintenance update.",
+    "changesSummary": "This PR updates the dependency `kairos-io/kairos-factory-action` from v1.1.3 to v1.2.0. This update incorporates changes from the upstream release, including updates to `actions/checkout` and `github/codeql-action`. The change is applied across multiple CI/CD workflow files.",
+    "reviewedRun": "2026-07-10",
+    "trace": [
+      "kairos-io/kairos-factory-action v1.1.3..v1.2.0 (PR body): compare v1.1.3...v1.2.0 ✓ 7319 bytes",
+      "context: 15709 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos-init",
+    "pr": 397,
+    "url": "https://github.com/kairos-io/kairos-init/pull/397",
+    "headSHA": "a377f2f1fb15ca8ddabbf0557714ca9f008fdec5",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-10",
+    "trace": [
+      "kairos-io/hadron v0.5.0..v0.5.1 (PR body): compare v0.5.0...v0.5.1 ✓ 40000 bytes",
+      "context: 48773 bytes"
     ]
   },
   {
@@ -713,6 +754,19 @@
     ]
   },
   {
+    "repo": "mudler/edgevpn",
+    "pr": 1056,
+    "url": "https://github.com/mudler/edgevpn/pull/1056",
+    "headSHA": "d8d1a5169e7f026425695642a8a597470c691be4",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-10",
+    "trace": [
+      "github.com/libp2p/go-libp2p-pubsub 0.16.0→0.17.0: compare v0.16.0...v0.17.0 ✓ 40000 bytes",
+      "context: 45662 bytes"
+    ]
+  },
+  {
     "repo": "mudler/yip",
     "pr": 310,
     "url": "https://github.com/mudler/yip/pull/310",
@@ -737,6 +791,19 @@
       "golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes",
       "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
       "context: 80404 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 312,
+    "url": "https://github.com/mudler/yip/pull/312",
+    "headSHA": "9909d1f1317fd662135e434194ddf06718540943",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-10",
+    "trace": [
+      "github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes",
+      "context: 49610 bytes"
     ]
   }
 ]

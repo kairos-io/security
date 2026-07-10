@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-09._
+_Updated 2026-07-10._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -13,14 +13,14 @@ _Updated 2026-07-09._
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 6 finding(s); 0 PR(s) open.
 
-> The immediate focus should be on the four high-severity vulnerabilities affecting the openssl and sqlite3 packages. These issues require urgent patching to mitigate critical risks to the Kairos project.
+> The immediate focus should be on the four high-severity findings (F1-F4) affecting critical dependencies like openssl and sqlite3. These vulnerabilities pose the highest risk and require urgent remediation.
 
 ## 🔥 Focus now
 
 - [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) — High severity vulnerability in openssl.
 - [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ — High severity vulnerability in sqlite3.
 - [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) ⚠️ — High severity vulnerability in openssl.
-- [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) — High severity vulnerability in openssl.
+- [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) ⚠️ — High severity vulnerability in openssl.
 
 ## 🌊 Waterfall fronts
 
@@ -62,36 +62,48 @@ _None._
 |---|---|---|---|---|
 | openssl | 3.6.3 | — | high | [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) |
 | openssl | 3.6.3 | — | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) ⚠️ |
-| openssl | 3.6.3 | — | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) |
+| openssl | 3.6.3 | — | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) ⚠️ |
 | sqlite3 | 3.53.3 | — | high | [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ |
 | busybox | 1.37.0 | — | medium | [CVE-2021-42376](https://osv.dev/vulnerability/ALPINE-CVE-2021-42376) |
 | curl | 8.21.0 | — | medium | [CVE-2021-22897](https://osv.dev/vulnerability/ALPINE-CVE-2021-22897) ⚠️ |
 
-## ⚠️ 3 finding(s) possibly not applicable (AI)
+## ⚠️ 4 finding(s) possibly not applicable (AI)
 
 > These findings are still counted and listed above. The AI applicability check thinks they may not affect us — verify the reasoning below and, if you agree, silence via `cve-policy.yaml`.
 
 <details>
 <summary>⚠️ [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (openssl / confidence: high)</summary>
 
-**Reason:** The queried version 3.6.3 is newer than the fixed versions mentioned in the CVE details (e.g., OpenSSL 3.0.4).
+**Reason:** The vulnerability was fixed in OpenSSL 3.0.4 and earlier versions, and 3.6.3 is a later version.
 
 - CVE: `CVE-2022-2068`
 - Current: `3.6.3`
 - Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-09
+- Checked by: `gemma-4-e2b-it` on 2026-07-10
+
+</details>
+
+<details>
+<summary>⚠️ [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (openssl / confidence: high)</summary>
+
+**Reason:** The vulnerability is fixed in OpenSSL 3.0.3, and version 3.6.3 is newer than the fixed version.
+
+- CVE: `CVE-2022-1292`
+- Current: `3.6.3`
+- Fixed: `—`
+- Checked by: `gemma-4-e2b-it` on 2026-07-10
 
 </details>
 
 <details>
 <summary>⚠️ [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (sqlite3 / confidence: high)</summary>
 
-**Reason:** The queried version 3.53.3 is newer than the affected range of SQLite versions up to 3.39.x before 3.39.2.
+**Reason:** The vulnerability affects SQLite versions up to 3.39.x, and the queried version 3.53.3 is outside this range.
 
 - CVE: `CVE-2022-35737`
 - Current: `3.53.3`
 - Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-09
+- Checked by: `gemma-4-e2b-it` on 2026-07-10
 
 </details>
 
@@ -103,7 +115,7 @@ _None._
 - CVE: `CVE-2021-22897`
 - Current: `8.21.0`
 - Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-09
+- Checked by: `gemma-4-e2b-it` on 2026-07-10
 
 </details>
 
@@ -257,6 +269,12 @@ _No bot PRs yet._
     - ipfs/go-log v2.9.0..v2.9.1 (PR body): compare v2.9.0...v2.9.1 ✓ 2149 bytes
     - ipfs/go-log v2.8.2..v2.9.0 (PR body): compare v2.8.2...v2.9.0 ✓ 40000 bytes
     - context: 70615 bytes
+**[kairos-io/hadron](https://github.com/kairos-io/hadron)**
+
+- [#506](https://github.com/kairos-io/hadron/pull/506) — ⚠️ **needs_human_verification** — This change introduces a significant, experimental component (DRBD 9) that interacts closely with the kernel. Although the implementation details seem structured, the PR description explicitly flags open risks regarding kernel compatibility and build failures. Therefore, a human review is required to verify the CI process and ensure stability before merging.
+  ↳ This pull request introduces an out-of-tree DRBD 9 kernel module and associated userspace utilities, explicitly disabling the in-tree DRBD 8 module. The build process is configured to compile the new module against the existing kernel tree and update the image to use these new components.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 10981 bytes
 **[kairos-io/immucore](https://github.com/kairos-io/immucore)**
 
 - [#591](https://github.com/kairos-io/immucore/pull/591) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -267,6 +285,15 @@ _No bot PRs yet._
 - [#4229](https://github.com/kairos-io/kairos/pull/4229) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - docker/login-action c99871dec2022cc055c062a10cc1a1310835ceb4..af1e73f918a031802d376d3c8bbc3fe56130a9b0 (PR body): compare c99871dec2022cc055c062a10cc1a1310835ceb4...af1e73f918a031802d376d3c8bbc3fe56130a9b0 ✓ 40000 bytes
     - context: 43062 bytes
+- [#4234](https://github.com/kairos-io/kairos/pull/4234) — ✅ **good** — This is a routine minor version bump from a trusted dependency, and the changes are documented in the upstream release notes. The update is applied consistently across all relevant workflow files, suggesting a safe and necessary maintenance update.
+  ↳ This PR updates the dependency `kairos-io/kairos-factory-action` from v1.1.3 to v1.2.0. This update incorporates changes from the upstream release, including updates to `actions/checkout` and `github/codeql-action`. The change is applied across multiple CI/CD workflow files.
+    - kairos-io/kairos-factory-action v1.1.3..v1.2.0 (PR body): compare v1.1.3...v1.2.0 ✓ 7319 bytes
+    - context: 15709 bytes
+**[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
+
+- [#397](https://github.com/kairos-io/kairos-init/pull/397) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - kairos-io/hadron v0.5.0..v0.5.1 (PR body): compare v0.5.0...v0.5.1 ✓ 40000 bytes
+    - context: 48773 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#136](https://github.com/kairos-io/kairos-operator/pull/136) — ✅ **good** — This is a routine patch update for a standard toolchain dependency. Updating to a newer patch version is generally safe and beneficial for receiving bug fixes and minor security patches. There are no apparent security risks introduced by this change.
@@ -414,6 +441,9 @@ _No bot PRs yet._
 - [#1055](https://github.com/mudler/edgevpn/pull/1055) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
     - context: 36260 bytes
+- [#1056](https://github.com/mudler/edgevpn/pull/1056) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/libp2p/go-libp2p-pubsub 0.16.0→0.17.0: compare v0.16.0...v0.17.0 ✓ 40000 bytes
+    - context: 45662 bytes
 **[mudler/yip](https://github.com/mudler/yip)**
 
 - [#310](https://github.com/mudler/yip/pull/310) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -423,4 +453,7 @@ _No bot PRs yet._
     - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
     - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
     - context: 80404 bytes
+- [#312](https://github.com/mudler/yip/pull/312) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes
+    - context: 49610 bytes
 
