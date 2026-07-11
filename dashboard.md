@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-10._
+_Updated 2026-07-11._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -13,14 +13,14 @@ _Updated 2026-07-10._
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 6 finding(s); 0 PR(s) open.
 
-> The immediate focus should be on the four high-severity findings (F1-F4) affecting critical dependencies like openssl and sqlite3. These vulnerabilities pose the highest risk and require urgent remediation.
+> The immediate focus should be on the high-severity vulnerabilities affecting the 'openssl' and 'sqlite3' packages. These findings represent critical risks that require urgent patching or mitigation to secure the Kairos project.
 
 ## 🔥 Focus now
 
-- [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) — High severity vulnerability in openssl.
-- [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ — High severity vulnerability in sqlite3.
-- [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) ⚠️ — High severity vulnerability in openssl.
-- [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) ⚠️ — High severity vulnerability in openssl.
+- [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) — High severity vulnerability in openssl (CVE-2023-4807).
+- [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ — High severity vulnerability in sqlite3 (CVE-2022-35737).
+- [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) — High severity vulnerability in openssl (CVE-2022-2068).
+- [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) — High severity vulnerability in openssl (CVE-2022-1292).
 
 ## 🌊 Waterfall fronts
 
@@ -61,49 +61,25 @@ _None._
 | Package | Current | Fixed | Severity | CVE |
 |---|---|---|---|---|
 | openssl | 3.6.3 | — | high | [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) |
-| openssl | 3.6.3 | — | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) ⚠️ |
-| openssl | 3.6.3 | — | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) ⚠️ |
+| openssl | 3.6.3 | — | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) |
+| openssl | 3.6.3 | — | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) |
 | sqlite3 | 3.53.3 | — | high | [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ |
 | busybox | 1.37.0 | — | medium | [CVE-2021-42376](https://osv.dev/vulnerability/ALPINE-CVE-2021-42376) |
 | curl | 8.21.0 | — | medium | [CVE-2021-22897](https://osv.dev/vulnerability/ALPINE-CVE-2021-22897) ⚠️ |
 
-## ⚠️ 4 finding(s) possibly not applicable (AI)
+## ⚠️ 2 finding(s) possibly not applicable (AI)
 
 > These findings are still counted and listed above. The AI applicability check thinks they may not affect us — verify the reasoning below and, if you agree, silence via `cve-policy.yaml`.
 
 <details>
-<summary>⚠️ [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (openssl / confidence: high)</summary>
-
-**Reason:** The vulnerability was fixed in OpenSSL 3.0.4 and earlier versions, and 3.6.3 is a later version.
-
-- CVE: `CVE-2022-2068`
-- Current: `3.6.3`
-- Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-10
-
-</details>
-
-<details>
-<summary>⚠️ [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (openssl / confidence: high)</summary>
-
-**Reason:** The vulnerability is fixed in OpenSSL 3.0.3, and version 3.6.3 is newer than the fixed version.
-
-- CVE: `CVE-2022-1292`
-- Current: `3.6.3`
-- Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-10
-
-</details>
-
-<details>
 <summary>⚠️ [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (sqlite3 / confidence: high)</summary>
 
-**Reason:** The vulnerability affects SQLite versions up to 3.39.x, and the queried version 3.53.3 is outside this range.
+**Reason:** The CVE affects versions up to 3.39.x, and the queried version 3.53.3 is outside this range.
 
 - CVE: `CVE-2022-35737`
 - Current: `3.53.3`
 - Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-10
+- Checked by: `gemma-4-e2b-it` on 2026-07-11
 
 </details>
 
@@ -115,7 +91,7 @@ _None._
 - CVE: `CVE-2021-22897`
 - Current: `8.21.0`
 - Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-10
+- Checked by: `gemma-4-e2b-it` on 2026-07-11
 
 </details>
 
@@ -221,8 +197,8 @@ _No bot PRs yet._
 - [#629](https://github.com/kairos-io/AuroraBoot/pull/629) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/stmcginnis/gofish 0.22.0→0.23.0: compare v0.22.0...v0.23.0 ✓ 25082 bytes
     - context: 29808 bytes
-- [#630](https://github.com/kairos-io/AuroraBoot/pull/630) — ✅ **good** — This is a routine dependency update for a type definition package. Minor version bumps are generally safe and address maintenance or minor bug fixes, posing a low security risk.
-  ↳ This PR updates the dependency @types/node from version 25.9.4 to 25.9.5. This is a minor patch update for the TypeScript type definitions and is a routine maintenance task.
+- [#630](https://github.com/kairos-io/AuroraBoot/pull/630) — ✅ **good** — This is a routine dependency update for a widely used package, `@types/node`, to a minor version. Such updates are generally low-risk and are performed by an automated tool. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the `@types/node` dependency from version 25.9.4 to 25.9.5. This is a minor version bump, which typically includes bug fixes or minor updates for the Node.js type definitions.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 2275 bytes
 - [#631](https://github.com/kairos-io/AuroraBoot/pull/631) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -271,10 +247,13 @@ _No bot PRs yet._
     - context: 70615 bytes
 **[kairos-io/hadron](https://github.com/kairos-io/hadron)**
 
-- [#506](https://github.com/kairos-io/hadron/pull/506) — ⚠️ **needs_human_verification** — This change introduces a significant, experimental component (DRBD 9) that interacts closely with the kernel. Although the implementation details seem structured, the PR description explicitly flags open risks regarding kernel compatibility and build failures. Therefore, a human review is required to verify the CI process and ensure stability before merging.
-  ↳ This pull request introduces an out-of-tree DRBD 9 kernel module and associated userspace utilities, explicitly disabling the in-tree DRBD 8 module. The build process is configured to compile the new module against the existing kernel tree and update the image to use these new components.
+- [#506](https://github.com/kairos-io/hadron/pull/506) — ⚠️ **needs_human_verification** — This change introduces a significant new kernel module and userspace tools, which is an experimental feature. While the implementation details seem sound, the description explicitly mentions open risks regarding kernel compatibility and build failures. A human review is necessary to verify the stability of the out-of-tree module build and confirm all required compatibility checks pass before merging.
+  ↳ This pull request replaces the in-tree DRBD 8 module with an out-of-tree DRBD 9 kernel module and associated userspace utilities. It modifies kernel configuration to disable DRBD 8 and updates dependency tracking to target DRBD 9 releases.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 10981 bytes
+    - context: 10912 bytes
+- [#507](https://github.com/kairos-io/hadron/pull/507) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - facebook/docusaurus v3.10.1..v3.10.2 (PR body): compare v3.10.1...v3.10.2 ✓ 40000 bytes
+    - context: 81124 bytes
 **[kairos-io/immucore](https://github.com/kairos-io/immucore)**
 
 - [#591](https://github.com/kairos-io/immucore/pull/591) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -289,6 +268,9 @@ _No bot PRs yet._
   ↳ This PR updates the dependency `kairos-io/kairos-factory-action` from v1.1.3 to v1.2.0. This update incorporates changes from the upstream release, including updates to `actions/checkout` and `github/codeql-action`. The change is applied across multiple CI/CD workflow files.
     - kairos-io/kairos-factory-action v1.1.3..v1.2.0 (PR body): compare v1.1.3...v1.2.0 ✓ 7319 bytes
     - context: 15709 bytes
+- [#4236](https://github.com/kairos-io/kairos/pull/4236) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - actions/stale v10.3.0..v10.4.0 (PR body): compare v10.3.0...v10.4.0 ✓ 40000 bytes
+    - context: 43055 bytes
 **[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
 
 - [#397](https://github.com/kairos-io/kairos-init/pull/397) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500

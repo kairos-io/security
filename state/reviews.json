@@ -3,10 +3,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 409,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/409",
-    "headSHA": "2c52e79ea0e1e8dcbac2b9e55c8864fd704f497f",
+    "headSHA": "dd81e63495643d031679b778535719d4339e0ea6",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
+    "reviewedRun": "2026-07-11",
     "trace": [
       "github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes",
       "github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes",
@@ -17,10 +17,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 590,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/590",
-    "headSHA": "554349fd98b273e611663b7acaae2938c652ded3",
+    "headSHA": "3a0701b478c811cebe5ec821312e003805791fbb",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
+    "reviewedRun": "2026-07-11",
     "trace": [
       "sindresorhus/globals v17.6.0..a19670cc86c1218e915657c55ea02ba3e7623834 (PR body): compare v17.6.0...a19670cc86c1218e915657c55ea02ba3e7623834 ✓ 11637 bytes",
       "sindresorhus/globals v17.6.0..v17.7.0 (PR body): compare v17.6.0...v17.7.0 ✓ 11637 bytes",
@@ -34,10 +34,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 594,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/594",
-    "headSHA": "ea8d2a2e3a0fe29d7c351ce9ab0d7646538913bd",
+    "headSHA": "4d5a21dff2496bd6fb8797386067f32b9e884e98",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
+    "reviewedRun": "2026-07-11",
     "trace": [
       "facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes",
       "facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes",
@@ -48,10 +48,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 599,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/599",
-    "headSHA": "69baf927dc1fb0446c5186e799a7f1f499aff158",
+    "headSHA": "2e21904e92d24b1116f617ef6fa17803eb8f76c3",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
+    "reviewedRun": "2026-07-11",
     "trace": [
       "eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes",
       "context: 77814 bytes"
@@ -61,10 +61,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 626,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/626",
-    "headSHA": "05d5e5389b40f02025033320d645dd7bebc37d8e",
+    "headSHA": "d850edb0cd60cb914479b0fa360b439b95b68fce",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
+    "reviewedRun": "2026-07-11",
     "trace": [
       "typescript-eslint/typescript-eslint v8.62.1..v8.63.0 (PR body): compare v8.62.1...v8.63.0 ✓ 40000 bytes",
       "context: 53882 bytes"
@@ -74,10 +74,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 627,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/627",
-    "headSHA": "39ee81bfbbb3a16f562348f5f8639cbeb630baa4",
+    "headSHA": "bb22c24aa852c62312fd78646099b74a5e860b6d",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
+    "reviewedRun": "2026-07-11",
     "trace": [
       "eemeli/yaml v2.8.4..v2.9.0 (PR body): compare v2.8.4...v2.9.0 ✓ 11907 bytes",
       "eemeli/yaml v2.8.3..v2.8.4 (PR body): compare v2.8.3...v2.8.4 ✓ 13617 bytes",
@@ -88,10 +88,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 629,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/629",
-    "headSHA": "a6d3c88d72f583db3fd82d8597720178a0c08ea4",
+    "headSHA": "6e5330958c28476c124ede58f0a2644ea7390f80",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
+    "reviewedRun": "2026-07-11",
     "trace": [
       "github.com/stmcginnis/gofish 0.22.0→0.23.0: compare v0.22.0...v0.23.0 ✓ 25082 bytes",
       "context: 29808 bytes"
@@ -101,11 +101,11 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 630,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/630",
-    "headSHA": "0677aed1ddafcf4fc47b7e1b32f6e1f87616c5f5",
+    "headSHA": "b7dd38dd8a9b2b8997a12b6025c3cd0a7250172b",
     "verdict": "good",
-    "reasoning": "This is a routine dependency update for a type definition package. Minor version bumps are generally safe and address maintenance or minor bug fixes, posing a low security risk.",
-    "changesSummary": "This PR updates the dependency @types/node from version 25.9.4 to 25.9.5. This is a minor patch update for the TypeScript type definitions and is a routine maintenance task.",
-    "reviewedRun": "2026-07-09",
+    "reasoning": "This is a routine dependency update for a widely used package, `@types/node`, to a minor version. Such updates are generally low-risk and are performed by an automated tool. Therefore, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the `@types/node` dependency from version 25.9.4 to 25.9.5. This is a minor version bump, which typically includes bug fixes or minor updates for the Node.js type definitions.",
+    "reviewedRun": "2026-07-11",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 2275 bytes"
@@ -115,10 +115,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 631,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/631",
-    "headSHA": "5294f1f7720c2fae8d8c355d9f17c6bc193ba52d",
+    "headSHA": "0cb0753191339a802478afd8cac0ba42652d0b98",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-09",
+    "reviewedRun": "2026-07-11",
     "trace": [
       "golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes",
       "golang.org/x/tools 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 40000 bytes",
@@ -129,10 +129,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 632,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/632",
-    "headSHA": "69be0eb7b39f5b93c4d1291fc4768608aa56d06d",
+    "headSHA": "c44758dae9242f06b3cc5de3eafec9fda0ec6709",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-09",
+    "reviewedRun": "2026-07-11",
     "trace": [
       "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
       "context: 36312 bytes"
@@ -261,14 +261,27 @@
     "repo": "kairos-io/hadron",
     "pr": 506,
     "url": "https://github.com/kairos-io/hadron/pull/506",
-    "headSHA": "f86ad04f52c9b275b42157382db917924126d601",
+    "headSHA": "2dfd85271409ae23c856382f311b54f5a1ec5b99",
     "verdict": "needs_human_verification",
-    "reasoning": "This change introduces a significant, experimental component (DRBD 9) that interacts closely with the kernel. Although the implementation details seem structured, the PR description explicitly flags open risks regarding kernel compatibility and build failures. Therefore, a human review is required to verify the CI process and ensure stability before merging.",
-    "changesSummary": "This pull request introduces an out-of-tree DRBD 9 kernel module and associated userspace utilities, explicitly disabling the in-tree DRBD 8 module. The build process is configured to compile the new module against the existing kernel tree and update the image to use these new components.",
-    "reviewedRun": "2026-07-10",
+    "reasoning": "This change introduces a significant new kernel module and userspace tools, which is an experimental feature. While the implementation details seem sound, the description explicitly mentions open risks regarding kernel compatibility and build failures. A human review is necessary to verify the stability of the out-of-tree module build and confirm all required compatibility checks pass before merging.",
+    "changesSummary": "This pull request replaces the in-tree DRBD 8 module with an out-of-tree DRBD 9 kernel module and associated userspace utilities. It modifies kernel configuration to disable DRBD 8 and updates dependency tracking to target DRBD 9 releases.",
+    "reviewedRun": "2026-07-11",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 10981 bytes"
+      "context: 10912 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/hadron",
+    "pr": 507,
+    "url": "https://github.com/kairos-io/hadron/pull/507",
+    "headSHA": "cf9a91ed8185ea8f18ec562605869d6ddd4839d1",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-11",
+    "trace": [
+      "facebook/docusaurus v3.10.1..v3.10.2 (PR body): compare v3.10.1...v3.10.2 ✓ 40000 bytes",
+      "context: 81124 bytes"
     ]
   },
   {
@@ -309,6 +322,19 @@
     "trace": [
       "kairos-io/kairos-factory-action v1.1.3..v1.2.0 (PR body): compare v1.1.3...v1.2.0 ✓ 7319 bytes",
       "context: 15709 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos",
+    "pr": 4236,
+    "url": "https://github.com/kairos-io/kairos/pull/4236",
+    "headSHA": "8830b3702bb3675ad302c5c68c004e210e7baa14",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-11",
+    "trace": [
+      "actions/stale v10.3.0..v10.4.0 (PR body): compare v10.3.0...v10.4.0 ✓ 40000 bytes",
+      "context: 43055 bytes"
     ]
   },
   {
