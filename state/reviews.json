@@ -261,11 +261,11 @@
     "repo": "kairos-io/hadron",
     "pr": 506,
     "url": "https://github.com/kairos-io/hadron/pull/506",
-    "headSHA": "2dfd85271409ae23c856382f311b54f5a1ec5b99",
+    "headSHA": "5292250f9da74ae7c66f2ae5e79bf68d935c5cbc",
     "verdict": "needs_human_verification",
-    "reasoning": "This change introduces a significant new kernel module and userspace tools, which is an experimental feature. While the implementation details seem sound, the description explicitly mentions open risks regarding kernel compatibility and build failures. A human review is necessary to verify the stability of the out-of-tree module build and confirm all required compatibility checks pass before merging.",
-    "changesSummary": "This pull request replaces the in-tree DRBD 8 module with an out-of-tree DRBD 9 kernel module and associated userspace utilities. It modifies kernel configuration to disable DRBD 8 and updates dependency tracking to target DRBD 9 releases.",
-    "reviewedRun": "2026-07-11",
+    "reasoning": "This change involves a significant architectural shift by moving from an in-tree DRBD module to an out-of-tree DRBD 9 module, which is experimental. Although the PR description outlines the necessary steps, it explicitly flags potential risks regarding kernel compatibility layers (e.g., coccinelle/spatch) that must be verified in CI. Therefore, a human review is required to confirm the build stability and ensure all dependencies are correctly handled before merging.",
+    "changesSummary": "This pull request implements a major architectural change by dropping the in-tree DRBD 8 module and replacing it with an out-of-tree DRBD 9 module and its utilities. It modifies kernel configurations to disable DRBD 8 and updates the Dockerfile to download, build, and integrate the new DRBD 9 components.",
+    "reviewedRun": "2026-07-12",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 10912 bytes"
@@ -273,15 +273,16 @@
   },
   {
     "repo": "kairos-io/hadron",
-    "pr": 507,
-    "url": "https://github.com/kairos-io/hadron/pull/507",
-    "headSHA": "cf9a91ed8185ea8f18ec562605869d6ddd4839d1",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-11",
+    "pr": 512,
+    "url": "https://github.com/kairos-io/hadron/pull/512",
+    "headSHA": "e93f6724dbe806090f3578d1331a75bf7a24da07",
+    "verdict": "good",
+    "reasoning": "The changes successfully implement the stated goal of enabling kernel BTF support by modifying configuration files across all kernel variants. The necessary build tool (`pahole`) is correctly integrated into the Dockerfile, and the CI workflows include verification steps to ensure the BTF configuration is present. This is a necessary feature enablement and is safe to auto-approve.",
+    "changesSummary": "This PR enables kernel BTF support by modifying kernel configuration files to set `CONFIG_DEBUG_INFO_BTF=y` across various variants. It also introduces a new build stage to compile `pahole` and automates the fetching of the `dwarves` dependency.",
+    "reviewedRun": "2026-07-12",
     "trace": [
-      "facebook/docusaurus v3.10.1..v3.10.2 (PR body): compare v3.10.1...v3.10.2 ✓ 40000 bytes",
-      "context: 81124 bytes"
+      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+      "context: 11632 bytes"
     ]
   },
   {
@@ -461,6 +462,22 @@
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 2473 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kcrypt-discovery-challenger",
+    "pr": 245,
+    "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/245",
+    "headSHA": "e324fc6f90082bd66260a03c21bde55960ac0ce9",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-12",
+    "trace": [
+      "k8s.io/client-go 0.27.2→1.5.2: compare v0.27.2...v1.5.2 ✓ 3433 bytes",
+      "kubernetes/client-go v1.5.1..v1.5.2 (PR body): compare v1.5.1...v1.5.2 ✓ 1587 bytes",
+      "kubernetes/client-go v1.5.0..v1.5.1 (PR body): compare v1.5.0...v1.5.1 ✓ 908 bytes",
+      "kubernetes/client-go v1.4.0..v1.5.0 (PR body): compare v1.4.0...v1.5.0 ✓ 40000 bytes",
+      "context: 72145 bytes"
     ]
   },
   {

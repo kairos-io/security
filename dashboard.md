@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-11._
+_Updated 2026-07-12._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -13,14 +13,14 @@ _Updated 2026-07-11._
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 6 finding(s); 0 PR(s) open.
 
-> The immediate focus should be on the high-severity vulnerabilities affecting the 'openssl' and 'sqlite3' packages. These findings represent critical risks that require urgent patching or mitigation to secure the Kairos project.
+> The immediate focus should be on the four high-severity findings (F1, F2, F3, F4) as they involve critical packages like openssl and sqlite3. These vulnerabilities pose the highest risk to the project's security posture and should be addressed first.
 
 ## 🔥 Focus now
 
-- [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) — High severity vulnerability in openssl (CVE-2023-4807).
-- [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ — High severity vulnerability in sqlite3 (CVE-2022-35737).
-- [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) — High severity vulnerability in openssl (CVE-2022-2068).
-- [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) — High severity vulnerability in openssl (CVE-2022-1292).
+- [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) — High severity vulnerability in openssl.
+- [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ — High severity vulnerability in sqlite3.
+- [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) ⚠️ — High severity vulnerability in openssl.
+- [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) ⚠️ — High severity vulnerability in openssl.
 
 ## 🌊 Waterfall fronts
 
@@ -61,37 +61,61 @@ _None._
 | Package | Current | Fixed | Severity | CVE |
 |---|---|---|---|---|
 | openssl | 3.6.3 | — | high | [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) |
-| openssl | 3.6.3 | — | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) |
-| openssl | 3.6.3 | — | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) |
+| openssl | 3.6.3 | — | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) ⚠️ |
+| openssl | 3.6.3 | — | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) ⚠️ |
 | sqlite3 | 3.53.3 | — | high | [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ |
 | busybox | 1.37.0 | — | medium | [CVE-2021-42376](https://osv.dev/vulnerability/ALPINE-CVE-2021-42376) |
 | curl | 8.21.0 | — | medium | [CVE-2021-22897](https://osv.dev/vulnerability/ALPINE-CVE-2021-22897) ⚠️ |
 
-## ⚠️ 2 finding(s) possibly not applicable (AI)
+## ⚠️ 4 finding(s) possibly not applicable (AI)
 
 > These findings are still counted and listed above. The AI applicability check thinks they may not affect us — verify the reasoning below and, if you agree, silence via `cve-policy.yaml`.
 
 <details>
+<summary>⚠️ [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (openssl / confidence: high)</summary>
+
+**Reason:** The vulnerability was fixed in OpenSSL 3.0.4, and version 3.6.3 is a newer release.
+
+- CVE: `CVE-2022-2068`
+- Current: `3.6.3`
+- Fixed: `—`
+- Checked by: `gemma-4-e2b-it` on 2026-07-12
+
+</details>
+
+<details>
+<summary>⚠️ [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (openssl / confidence: high)</summary>
+
+**Reason:** The vulnerability is fixed in OpenSSL 3.0.3, and version 3.6.3 is newer than the fixed versions.
+
+- CVE: `CVE-2022-1292`
+- Current: `3.6.3`
+- Fixed: `—`
+- Checked by: `gemma-4-e2b-it` on 2026-07-12
+
+</details>
+
+<details>
 <summary>⚠️ [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (sqlite3 / confidence: high)</summary>
 
-**Reason:** The CVE affects versions up to 3.39.x, and the queried version 3.53.3 is outside this range.
+**Reason:** The CVE affects versions up to 3.39.x before 3.39.2, and the queried version 3.53.3 is outside this range.
 
 - CVE: `CVE-2022-35737`
 - Current: `3.53.3`
 - Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-11
+- Checked by: `gemma-4-e2b-it` on 2026-07-12
 
 </details>
 
 <details>
 <summary>⚠️ [CVE-2021-22897](https://osv.dev/vulnerability/ALPINE-CVE-2021-22897) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (curl / confidence: high)</summary>
 
-**Reason:** The CVE affects curl versions 7.61.0 through 7.76.1, and the queried version 8.21.0 is outside this range.
+**Reason:** The vulnerability affects curl versions up to 7.76.1, and the queried version 8.21.0 is outside this range.
 
 - CVE: `CVE-2021-22897`
 - Current: `8.21.0`
 - Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-11
+- Checked by: `gemma-4-e2b-it` on 2026-07-12
 
 </details>
 
@@ -247,13 +271,14 @@ _No bot PRs yet._
     - context: 70615 bytes
 **[kairos-io/hadron](https://github.com/kairos-io/hadron)**
 
-- [#506](https://github.com/kairos-io/hadron/pull/506) — ⚠️ **needs_human_verification** — This change introduces a significant new kernel module and userspace tools, which is an experimental feature. While the implementation details seem sound, the description explicitly mentions open risks regarding kernel compatibility and build failures. A human review is necessary to verify the stability of the out-of-tree module build and confirm all required compatibility checks pass before merging.
-  ↳ This pull request replaces the in-tree DRBD 8 module with an out-of-tree DRBD 9 kernel module and associated userspace utilities. It modifies kernel configuration to disable DRBD 8 and updates dependency tracking to target DRBD 9 releases.
+- [#506](https://github.com/kairos-io/hadron/pull/506) — ⚠️ **needs_human_verification** — This change involves a significant architectural shift by moving from an in-tree DRBD module to an out-of-tree DRBD 9 module, which is experimental. Although the PR description outlines the necessary steps, it explicitly flags potential risks regarding kernel compatibility layers (e.g., coccinelle/spatch) that must be verified in CI. Therefore, a human review is required to confirm the build stability and ensure all dependencies are correctly handled before merging.
+  ↳ This pull request implements a major architectural change by dropping the in-tree DRBD 8 module and replacing it with an out-of-tree DRBD 9 module and its utilities. It modifies kernel configurations to disable DRBD 8 and updates the Dockerfile to download, build, and integrate the new DRBD 9 components.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 10912 bytes
-- [#507](https://github.com/kairos-io/hadron/pull/507) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - facebook/docusaurus v3.10.1..v3.10.2 (PR body): compare v3.10.1...v3.10.2 ✓ 40000 bytes
-    - context: 81124 bytes
+- [#512](https://github.com/kairos-io/hadron/pull/512) — ✅ **good** — The changes successfully implement the stated goal of enabling kernel BTF support by modifying configuration files across all kernel variants. The necessary build tool (`pahole`) is correctly integrated into the Dockerfile, and the CI workflows include verification steps to ensure the BTF configuration is present. This is a necessary feature enablement and is safe to auto-approve.
+  ↳ This PR enables kernel BTF support by modifying kernel configuration files to set `CONFIG_DEBUG_INFO_BTF=y` across various variants. It also introduces a new build stage to compile `pahole` and automates the fetching of the `dwarves` dependency.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 11632 bytes
 **[kairos-io/immucore](https://github.com/kairos-io/immucore)**
 
 - [#591](https://github.com/kairos-io/immucore/pull/591) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -313,6 +338,12 @@ _No bot PRs yet._
   ↳ This PR updates the base image for the build process in the Dockerfile and Dockerfile.kairos-image from `golang:1.26.4` to `golang:1.26.5` and its corresponding bookworm tags. This is a standard dependency bump for the Go language version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 2473 bytes
+- [#245](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/245) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - k8s.io/client-go 0.27.2→1.5.2: compare v0.27.2...v1.5.2 ✓ 3433 bytes
+    - kubernetes/client-go v1.5.1..v1.5.2 (PR body): compare v1.5.1...v1.5.2 ✓ 1587 bytes
+    - kubernetes/client-go v1.5.0..v1.5.1 (PR body): compare v1.5.0...v1.5.1 ✓ 908 bytes
+    - kubernetes/client-go v1.4.0..v1.5.0 (PR body): compare v1.4.0...v1.5.0 ✓ 40000 bytes
+    - context: 72145 bytes
 **[kairos-io/netboot](https://github.com/kairos-io/netboot)**
 
 - [#45](https://github.com/kairos-io/netboot/pull/45) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
