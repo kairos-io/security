@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-12._
+_Updated 2026-07-13._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -13,14 +13,14 @@ _Updated 2026-07-12._
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 6 finding(s); 0 PR(s) open.
 
-> The immediate focus should be on the four high-severity findings (F1, F2, F3, F4) as they involve critical packages like openssl and sqlite3. These vulnerabilities pose the highest risk to the project's security posture and should be addressed first.
+> There are multiple high-severity vulnerabilities identified across the project's dependencies, primarily impacting the 'openssl' and 'sqlite3' packages. Immediate attention is required to address these critical security risks.
 
 ## 🔥 Focus now
 
-- [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) — High severity vulnerability in openssl.
-- [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ — High severity vulnerability in sqlite3.
-- [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) ⚠️ — High severity vulnerability in openssl.
-- [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) ⚠️ — High severity vulnerability in openssl.
+- [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) — High severity vulnerability in the openssl package.
+- [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ — High severity vulnerability in the sqlite3 package.
+- [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) — High severity vulnerability in the openssl package.
+- [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) — High severity vulnerability in the openssl package.
 
 ## 🌊 Waterfall fronts
 
@@ -61,61 +61,37 @@ _None._
 | Package | Current | Fixed | Severity | CVE |
 |---|---|---|---|---|
 | openssl | 3.6.3 | — | high | [CVE-2023-4807](https://osv.dev/vulnerability/ALPINE-CVE-2023-4807) |
-| openssl | 3.6.3 | — | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) ⚠️ |
-| openssl | 3.6.3 | — | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) ⚠️ |
+| openssl | 3.6.3 | — | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) |
+| openssl | 3.6.3 | — | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) |
 | sqlite3 | 3.53.3 | — | high | [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) ⚠️ |
 | busybox | 1.37.0 | — | medium | [CVE-2021-42376](https://osv.dev/vulnerability/ALPINE-CVE-2021-42376) |
 | curl | 8.21.0 | — | medium | [CVE-2021-22897](https://osv.dev/vulnerability/ALPINE-CVE-2021-22897) ⚠️ |
 
-## ⚠️ 4 finding(s) possibly not applicable (AI)
+## ⚠️ 2 finding(s) possibly not applicable (AI)
 
 > These findings are still counted and listed above. The AI applicability check thinks they may not affect us — verify the reasoning below and, if you agree, silence via `cve-policy.yaml`.
 
 <details>
-<summary>⚠️ [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (openssl / confidence: high)</summary>
-
-**Reason:** The vulnerability was fixed in OpenSSL 3.0.4, and version 3.6.3 is a newer release.
-
-- CVE: `CVE-2022-2068`
-- Current: `3.6.3`
-- Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-12
-
-</details>
-
-<details>
-<summary>⚠️ [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (openssl / confidence: high)</summary>
-
-**Reason:** The vulnerability is fixed in OpenSSL 3.0.3, and version 3.6.3 is newer than the fixed versions.
-
-- CVE: `CVE-2022-1292`
-- Current: `3.6.3`
-- Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-12
-
-</details>
-
-<details>
 <summary>⚠️ [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (sqlite3 / confidence: high)</summary>
 
-**Reason:** The CVE affects versions up to 3.39.x before 3.39.2, and the queried version 3.53.3 is outside this range.
+**Reason:** The vulnerability affects versions up to 3.39.x before 3.39.2, and the queried version 3.53.3 is outside this range.
 
 - CVE: `CVE-2022-35737`
 - Current: `3.53.3`
 - Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-12
+- Checked by: `gemma-4-e2b-it` on 2026-07-13
 
 </details>
 
 <details>
 <summary>⚠️ [CVE-2021-22897](https://osv.dev/vulnerability/ALPINE-CVE-2021-22897) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (curl / confidence: high)</summary>
 
-**Reason:** The vulnerability affects curl versions up to 7.76.1, and the queried version 8.21.0 is outside this range.
+**Reason:** The CVE only affects curl versions 7.61.0 through 7.76.1, and the queried version 8.21.0 is outside this range.
 
 - CVE: `CVE-2021-22897`
 - Current: `8.21.0`
 - Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-12
+- Checked by: `gemma-4-e2b-it` on 2026-07-13
 
 </details>
 
@@ -244,22 +220,24 @@ _No bot PRs yet._
     - context: 97666 bytes
 **[kairos-io/entangle-proxy](https://github.com/kairos-io/entangle-proxy)**
 
-- [#5](https://github.com/kairos-io/entangle-proxy/pull/5) — ✅ **good** — The changes are primarily feature additions (new matchers, plugin system) and internal refactoring aimed at improving robustness (cycle detection, iteration limits). There are no obvious security vulnerabilities introduced by these changes. The dependency update is a standard version bump, and the architectural changes in the SSH client appear to be performance/concurrency improvements. Therefore, this PR is safe to auto-approve.
-  ↳ This PR updates the `gomega` dependency to v1.42.1, introduces new matchers (`BeASlice`, `BeAnArray`), and adds a plugin system for Claude Code skills. It also includes significant internal refactoring to improve robustness, such as cycle detection in formatting and iteration limits in PKCS#12 decryption. Finally, it implements request pipelining for the SSH agent client to improve concurrency.
+- [#5](https://github.com/kairos-io/entangle-proxy/pull/5) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/onsi/gomega 1.40.0→1.42.1: compare v1.40.0...v1.42.1 ✓ 40000 bytes
     - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
-    - context: 88194 bytes
-- [#6](https://github.com/kairos-io/entangle-proxy/pull/6) — ✅ **good** — This pull request updates the dependency sigs.k8s.io/controller-runtime to version v0.24.1. This is a routine dependency update to a newer version, which is generally safe and necessary for maintaining security and compatibility.
+    - context: 88243 bytes
+- [#6](https://github.com/kairos-io/entangle-proxy/pull/6) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - sigs.k8s.io/controller-runtime 0.12.1→0.24.1: compare v0.12.1...v0.24.1 ✓ 40000 bytes
+    - context: 98801 bytes
 - [#14](https://github.com/kairos-io/entangle-proxy/pull/14) — ✅ **good** — This pull request primarily updates several dependencies to newer versions, including core packages like `golang.org/x` and `google.golang.org/protobuf`. Updating dependencies is a crucial security practice to ensure that known vulnerabilities are patched. The changes appear to be dependency hygiene improvements and do not introduce any obvious security risks.
-- [#18](https://github.com/kairos-io/entangle-proxy/pull/18) — ✅ **good** — This is a standard major version upgrade for a core dependency, which generally includes important security patches and feature improvements. The changes are comprehensive and align with maintaining up-to-date tooling. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the `docker/build-push-action` dependency from v2 to v7, which includes numerous underlying dependency updates. It also modifies the CI/CD workflow files to use the corresponding v7.0.0 and v4.1.0 versions of related Docker actions, ensuring compatibility with the new action.
+- [#18](https://github.com/kairos-io/entangle-proxy/pull/18) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - docker/build-push-action v7.2.0..v7.3.0 (PR body): compare v7.2.0...v7.3.0 ✓ 40000 bytes
     - context: 83719 bytes
-- [#20](https://github.com/kairos-io/entangle-proxy/pull/20) — ⚠️ **needs_human_verification** — Upgrading core Kubernetes dependencies is generally beneficial for security and feature updates. However, this is a major version jump (v0.24.0 to v0.36.2) across multiple critical libraries. A human review is required to ensure that no breaking changes have been introduced that could impact the application's functionality or security posture.
-  ↳ This pull request updates three core Kubernetes dependencies (k8s.io/api, k8s.io/apimachinery, and k8s.io/client-go) from version v0.24.0 to v0.36.2. This involves significant version bumps across the board.
+- [#20](https://github.com/kairos-io/entangle-proxy/pull/20) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - k8s.io/api 0.24.0→0.36.2: compare v0.24.0...v0.36.2 ✓ 40000 bytes
-    - context: 126004 bytes
-- [#23](https://github.com/kairos-io/entangle-proxy/pull/23) — ✅ **good** — This pull request updates the dependency for 'actions/checkout' from version v2 to v7 in two workflow files. This is a standard dependency update to a newer version, which is generally safe and beneficial for security and maintenance.
+    - context: 126088 bytes
+- [#23](https://github.com/kairos-io/entangle-proxy/pull/23) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
+    - actions/checkout v6.0.3..v7.0.0 (PR body): compare v6.0.3...v7.0.0 ✓ 40000 bytes
+    - context: 63254 bytes
 **[kairos-io/go-nodepair](https://github.com/kairos-io/go-nodepair)**
 
 - [#27](https://github.com/kairos-io/go-nodepair/pull/27) — ✅ **good** — The changes involve updating several core dependencies across the project. The changelogs indicate that these updates include important security patches, such as restricting RSA key sizes in go-libp2p and fixing memory exhaustion attacks in quic-go. This is standard maintenance and security hygiene.
@@ -275,10 +253,10 @@ _No bot PRs yet._
   ↳ This pull request implements a major architectural change by dropping the in-tree DRBD 8 module and replacing it with an out-of-tree DRBD 9 module and its utilities. It modifies kernel configurations to disable DRBD 8 and updates the Dockerfile to download, build, and integrate the new DRBD 9 components.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 10912 bytes
-- [#512](https://github.com/kairos-io/hadron/pull/512) — ✅ **good** — The changes successfully implement the stated goal of enabling kernel BTF support by modifying configuration files across all kernel variants. The necessary build tool (`pahole`) is correctly integrated into the Dockerfile, and the CI workflows include verification steps to ensure the BTF configuration is present. This is a necessary feature enablement and is safe to auto-approve.
-  ↳ This PR enables kernel BTF support by modifying kernel configuration files to set `CONFIG_DEBUG_INFO_BTF=y` across various variants. It also introduces a new build stage to compile `pahole` and automates the fetching of the `dwarves` dependency.
+- [#512](https://github.com/kairos-io/hadron/pull/512) — ✅ **good** — The changes directly address the stated requirement to enable kernel BTF support, which is necessary for CO-RE eBPF consumers. The implementation involves necessary kernel configuration modifications, integration of the `pahole` toolchain via `dwarves`, and the addition of verification steps in the CI workflows to ensure correctness. This is a necessary feature enablement and the associated verification makes it safe to auto-approve.
+  ↳ This PR enables kernel BTF support by modifying kernel configuration files across multiple architectures to enable `CONFIG_DEBUG_INFO_BTF=y`. It also updates the build toolchain by adding `pahole` support via a new `dwarves-download` stage in the Dockerfile, and introduces CI checks to verify that the required BTF configuration is correctly set in all kernel variants.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 11632 bytes
+    - context: 13446 bytes
 **[kairos-io/immucore](https://github.com/kairos-io/immucore)**
 
 - [#591](https://github.com/kairos-io/immucore/pull/591) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -301,6 +279,12 @@ _No bot PRs yet._
 - [#397](https://github.com/kairos-io/kairos-init/pull/397) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - kairos-io/hadron v0.5.0..v0.5.1 (PR body): compare v0.5.0...v0.5.1 ✓ 40000 bytes
     - context: 48773 bytes
+**[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
+
+- [#14](https://github.com/kairos-io/kairos-installer/pull/14) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/jaypipes/ghw 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 40000 bytes
+    - github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes
+    - context: 87431 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#136](https://github.com/kairos-io/kairos-operator/pull/136) — ✅ **good** — This is a routine patch update for a standard toolchain dependency. Updating to a newer patch version is generally safe and beneficial for receiving bug fixes and minor security patches. There are no apparent security risks introduced by this change.
@@ -338,12 +322,6 @@ _No bot PRs yet._
   ↳ This PR updates the base image for the build process in the Dockerfile and Dockerfile.kairos-image from `golang:1.26.4` to `golang:1.26.5` and its corresponding bookworm tags. This is a standard dependency bump for the Go language version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 2473 bytes
-- [#245](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/245) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - k8s.io/client-go 0.27.2→1.5.2: compare v0.27.2...v1.5.2 ✓ 3433 bytes
-    - kubernetes/client-go v1.5.1..v1.5.2 (PR body): compare v1.5.1...v1.5.2 ✓ 1587 bytes
-    - kubernetes/client-go v1.5.0..v1.5.1 (PR body): compare v1.5.0...v1.5.1 ✓ 908 bytes
-    - kubernetes/client-go v1.4.0..v1.5.0 (PR body): compare v1.4.0...v1.5.0 ✓ 40000 bytes
-    - context: 72145 bytes
 **[kairos-io/netboot](https://github.com/kairos-io/netboot)**
 
 - [#45](https://github.com/kairos-io/netboot/pull/45) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -356,16 +334,14 @@ _No bot PRs yet._
     - context: 83965 bytes
 **[mudler/edgevpn](https://github.com/mudler/edgevpn)**
 
-- [#804](https://github.com/mudler/edgevpn/pull/804) — ✅ **good** — This pull request appears to be a necessary and comprehensive migration to upgrade the `iplib` library to version 2.0.5. The changes reflect the breaking changes detailed in the v2 release notes, specifically the transition to `uint128` for IPv6 handling. The diffs suggest all necessary package imports and internal logic have been updated to accommodate this major version change.
-  ↳ The PR updates the `github.com/c-robinson/iplib` dependency from v1.0.8 to v2.0.5. This migration involves adopting the new `uint128` type for IPv6 functions and updating related package imports and logic across the codebase.
+- [#804](https://github.com/mudler/edgevpn/pull/804) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - c-robinson/iplib v2.0.4..v2.0.5 (PR body): compare v2.0.4...v2.0.5 ✓ 6378 bytes
     - c-robinson/iplib v2.0.3..v2.0.4 (PR body): compare v2.0.3...v2.0.4 ✓ 3273 bytes
     - c-robinson/iplib v2.0.2..v2.0.3 (PR body): compare v2.0.2...v2.0.3 ✓ 9999 bytes
     - c-robinson/iplib v2.0.1..v2.0.2 (PR body): compare v2.0.1...v2.0.2 ✓ 15662 bytes
     - c-robinson/iplib v2.0.0..v2.0.1 (PR body): compare v2.0.0...v2.0.1 ✓ 1844 bytes
-    - context: 44540 bytes
-- [#805](https://github.com/mudler/edgevpn/pull/805) — ✅ **good** — This is a standard dependency update to a newer version of the YAML library. Upgrading dependencies is crucial for security and accessing bug fixes and new features. The changes appear to be standard migration steps for moving from v2 to v3, making this change safe to auto-approve.
-  ↳ This PR updates the `gopkg.in/yaml.v2` dependency from version v2.4.0 to v3.0.1. This upgrade incorporates changes from v3.0.0, including updates to the parser logic, documentation, and licensing information.
+    - context: 44543 bytes
+- [#805](https://github.com/mudler/edgevpn/pull/805) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - go-yaml/yaml v3.0.0..v3.0.1 (PR body): compare v3.0.0...v3.0.1 ✓ 2202 bytes
     - go-yaml/yaml v2.4.0..v3.0.0 (PR body): compare v2.4.0...v3.0.0 ✓ 40000 bytes
     - context: 44433 bytes
@@ -378,12 +354,11 @@ _No bot PRs yet._
     - dependabot/fetch-metadata v2..v2.4.0 (PR body): compare v2...v2.4.0 failed/empty (no upstream diff)
     - dependabot/fetch-metadata v2.3.0..v2.4.0 (PR body): compare v2.3.0...v2.4.0 ✓ 40000 bytes
     - context: 49729 bytes
-- [#914](https://github.com/mudler/edgevpn/pull/914) — ✅ **good** — This pull request updates a dependency to a version that directly addresses a reported security vulnerability (GHSA-vfp3-v2gw-7wfq). The change hardens the static file serving mechanism by disabling path unescaping by default, which mitigates the risk of encoded path separators bypassing route-level access controls. This is a positive security enhancement.
-  ↳ This PR updates the dependency `github.com/labstack/echo/v4` to version v4.15.4, which includes a security fix. This fix prevents encoded path separators from bypassing route-level middleware when serving static files by disabling path unescaping by default.
+- [#914](https://github.com/mudler/edgevpn/pull/914) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes
     - github.com/mattn/go-colorable 0.1.14→0.1.15: compare v0.1.14...v0.1.15 ✓ 5234 bytes
-    - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
-    - context: 90621 bytes
+    - labstack/echo v4.15.3..v4.15.4 (PR body): compare v4.15.3...v4.15.4 ✓ 34118 bytes
+    - context: 77780 bytes
 - [#923](https://github.com/mudler/edgevpn/pull/923) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
     - github.com/miekg/dns 1.1.66→1.1.68: compare v1.1.66...v1.1.68 ✓ 40000 bytes
     - miekg/dns v1.1.64..v1.1.68 (PR body): compare v1.1.64...v1.1.68 ✓ 40000 bytes
@@ -425,32 +400,28 @@ _No bot PRs yet._
     - github.com/libp2p/go-libp2p-pubsub 0.14.2→0.15.0: compare v0.14.2...v0.15.0 ✓ 40000 bytes
     - libp2p/go-libp2p-pubsub v0.14.3..v0.15.0 (PR body): compare v0.14.3...v0.15.0 ✓ 40000 bytes
     - context: 116011 bytes
-- [#1001](https://github.com/mudler/edgevpn/pull/1001) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
-    - FortAwesome/Font-Awesome 7.0.0..7.0.1 (PR body): compare 7.0.0...7.0.1 ✓ 40000 bytes
-    - FortAwesome/Font-Awesome 6.7.2..7.0.0 (PR body): compare 6.7.2...7.0.0 failed/empty (no upstream diff)
-    - FortAwesome/Font-Awesome 6.7.1..6.7.2 (PR body): compare 6.7.1...6.7.2 ✓ 40000 bytes
-    - context: 83524 bytes
+- [#1001](https://github.com/mudler/edgevpn/pull/1001) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - FortAwesome/Font-Awesome 7.2.0..7.3.0 (PR body): compare 7.2.0...7.3.0 ✓ 40000 bytes
+    - FortAwesome/Font-Awesome 7.1.0..7.2.0 (PR body): compare 7.1.0...7.2.0 ✓ 40000 bytes
+    - context: 84231 bytes
 - [#1006](https://github.com/mudler/edgevpn/pull/1006) — ✅ **good** — The upgrade is to a newer minor version (4.15.1) which includes security enhancements, such as the new CSRF middleware features detailed in the release notes. There are no immediate red flags or known critical vulnerabilities associated with this specific version jump. Therefore, this change is safe to auto-approve.
   ↳ This pull request updates the dependency `github.com/labstack/echo/v4` from version 4.13.3 to 4.15.1. This upgrade incorporates several enhancements, including improved CSRF protection features and minor internal fixes related to time comparison logic.
     - github.com/labstack/echo/v4 4.13.3→4.15.1: compare v4.13.3...v4.15.1 ✓ 40000 bytes
     - github.com/mattn/go-colorable 0.1.13→0.1.14: compare v0.1.13...v0.1.14 ✓ 6350 bytes
     - golang.org/x/time 0.12.0→0.14.0: compare v0.12.0...v0.14.0 ✓ 606 bytes
     - context: 76092 bytes
-- [#1041](https://github.com/mudler/edgevpn/pull/1041) — ✅ **good** — This is a dependency upgrade to a newer version of a library, which is generally beneficial. Crucially, this update incorporates a security fix that mitigates a path traversal/ACL bypass vulnerability related to URL-encoded separators in static file serving. Therefore, this change is safe to auto-approve.
-  ↳ The PR updates the `github.com/labstack/echo/v4` dependency to `v5.2.1`. This upgrade includes a security fix that changes the default behavior of static file serving to prevent encoded path separators from bypassing route-level access controls.
+- [#1041](https://github.com/mudler/edgevpn/pull/1041) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes
-    - github.com/mattn/go-colorable 0.1.14→0.1.15: compare v0.1.14...v0.1.15 ✓ 5234 bytes
-    - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
-    - context: 108729 bytes
-- [#1046](https://github.com/mudler/edgevpn/pull/1046) — ✅ **good** — This is a routine dependency update to a newer version of Autoprefixer. The changes primarily address compatibility fixes and minor logic adjustments, which are generally safe and beneficial for the project. There are no apparent security risks introduced by this version bump.
-  ↳ The PR updates the `autoprefixer` dependency from v10.5.0 to v10.5.2. This update includes fixes for Firefox compatibility related to `-webkit-fill-available` and related adjustments in source code and test files.
+    - github.com/labstack/echo/v5 5.2.1→5.3.0: compare v5.2.1...v5.3.0 ✓ 40000 bytes
+    - context: 99797 bytes
+- [#1046](https://github.com/mudler/edgevpn/pull/1046) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - postcss/autoprefixer 10.5.1..10.5.2 (PR body): compare 10.5.1...10.5.2 ✓ 2688 bytes
     - postcss/autoprefixer 10.5.0..10.5.1 (PR body): compare 10.5.0...10.5.1 ✓ 40000 bytes
     - context: 54014 bytes
 - [#1054](https://github.com/mudler/edgevpn/pull/1054) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/urfave/cli/v3 3.10.0→3.10.1: compare v3.10.0...v3.10.1 ✓ 17319 bytes
+    - urfave/cli v3.10.0..v3.10.1 (PR body): compare v3.10.0...v3.10.1 ✓ 17319 bytes
     - urfave/cli v3.9.1..v3.10.0 (PR body): compare v3.9.1...v3.10.0 ✓ 40000 bytes
-    - context: 101293 bytes
+    - context: 100504 bytes
 - [#1055](https://github.com/mudler/edgevpn/pull/1055) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
     - context: 36260 bytes

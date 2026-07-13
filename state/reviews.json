@@ -34,10 +34,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 594,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/594",
-    "headSHA": "4d5a21dff2496bd6fb8797386067f32b9e884e98",
+    "headSHA": "68b6c6ddb316dacc1379972588ad1303440fdade",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-11",
+    "reviewedRun": "2026-07-13",
     "trace": [
       "facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes",
       "facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes",
@@ -166,25 +166,28 @@
     "repo": "kairos-io/entangle-proxy",
     "pr": 5,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/5",
-    "headSHA": "95bba0199df5f40ff482f4c149a26e8674d1d575",
-    "verdict": "good",
-    "reasoning": "The changes are primarily feature additions (new matchers, plugin system) and internal refactoring aimed at improving robustness (cycle detection, iteration limits). There are no obvious security vulnerabilities introduced by these changes. The dependency update is a standard version bump, and the architectural changes in the SSH client appear to be performance/concurrency improvements. Therefore, this PR is safe to auto-approve.",
-    "changesSummary": "This PR updates the `gomega` dependency to v1.42.1, introduces new matchers (`BeASlice`, `BeAnArray`), and adds a plugin system for Claude Code skills. It also includes significant internal refactoring to improve robustness, such as cycle detection in formatting and iteration limits in PKCS#12 decryption. Finally, it implements request pipelining for the SSH agent client to improve concurrency.",
-    "reviewedRun": "2026-06-26",
+    "headSHA": "060ff1aab03e5b2d4742529cbc937c817744e225",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
     "trace": [
       "github.com/onsi/gomega 1.40.0→1.42.1: compare v1.40.0...v1.42.1 ✓ 40000 bytes",
       "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
-      "context: 88194 bytes"
+      "context: 88243 bytes"
     ]
   },
   {
     "repo": "kairos-io/entangle-proxy",
     "pr": 6,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/6",
-    "headSHA": "2244eda9ad9b6a0d13dff29eab7a8d4051acb832",
-    "verdict": "good",
-    "reasoning": "This pull request updates the dependency sigs.k8s.io/controller-runtime to version v0.24.1. This is a routine dependency update to a newer version, which is generally safe and necessary for maintaining security and compatibility.",
-    "reviewedRun": "2026-06-24"
+    "headSHA": "518c5a82312cf33827dc8c40942aeff2ff0a7a21",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
+    "trace": [
+      "sigs.k8s.io/controller-runtime 0.12.1→0.24.1: compare v0.12.1...v0.24.1 ✓ 40000 bytes",
+      "context: 98801 bytes"
+    ]
   },
   {
     "repo": "kairos-io/entangle-proxy",
@@ -199,11 +202,10 @@
     "repo": "kairos-io/entangle-proxy",
     "pr": 18,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/18",
-    "headSHA": "177b4693a36abb7b87009d0d59f49aa07bfe4f5f",
-    "verdict": "good",
-    "reasoning": "This is a standard major version upgrade for a core dependency, which generally includes important security patches and feature improvements. The changes are comprehensive and align with maintaining up-to-date tooling. Therefore, it is safe to auto-approve.",
-    "changesSummary": "This PR updates the `docker/build-push-action` dependency from v2 to v7, which includes numerous underlying dependency updates. It also modifies the CI/CD workflow files to use the corresponding v7.0.0 and v4.1.0 versions of related Docker actions, ensuring compatibility with the new action.",
-    "reviewedRun": "2026-07-02",
+    "headSHA": "643aa0b208d06cfc36584fca35efa37cec627eb9",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
     "trace": [
       "docker/build-push-action v7.2.0..v7.3.0 (PR body): compare v7.2.0...v7.3.0 ✓ 40000 bytes",
       "context: 83719 bytes"
@@ -213,24 +215,28 @@
     "repo": "kairos-io/entangle-proxy",
     "pr": 20,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/20",
-    "headSHA": "f5dbcd0d456c0b0ac15b540fb7efd0126223ef9b",
+    "headSHA": "1e3757031b180daef5a306308a5a5fbeb3cdba4d",
     "verdict": "needs_human_verification",
-    "reasoning": "Upgrading core Kubernetes dependencies is generally beneficial for security and feature updates. However, this is a major version jump (v0.24.0 to v0.36.2) across multiple critical libraries. A human review is required to ensure that no breaking changes have been introduced that could impact the application's functionality or security posture.",
-    "changesSummary": "This pull request updates three core Kubernetes dependencies (k8s.io/api, k8s.io/apimachinery, and k8s.io/client-go) from version v0.24.0 to v0.36.2. This involves significant version bumps across the board.",
-    "reviewedRun": "2026-06-27",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
     "trace": [
       "k8s.io/api 0.24.0→0.36.2: compare v0.24.0...v0.36.2 ✓ 40000 bytes",
-      "context: 126004 bytes"
+      "context: 126088 bytes"
     ]
   },
   {
     "repo": "kairos-io/entangle-proxy",
     "pr": 23,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/23",
-    "headSHA": "9b4ff15c9209e86ff5225043d1cb21537b8e0a6d",
-    "verdict": "good",
-    "reasoning": "This pull request updates the dependency for 'actions/checkout' from version v2 to v7 in two workflow files. This is a standard dependency update to a newer version, which is generally safe and beneficial for security and maintenance.",
-    "reviewedRun": "2026-06-24"
+    "headSHA": "20184f2b138f6fe5ba0ccbb534018120aa83f670",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
+    "trace": [
+      "actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
+      "actions/checkout v6.0.3..v7.0.0 (PR body): compare v6.0.3...v7.0.0 ✓ 40000 bytes",
+      "context: 63254 bytes"
+    ]
   },
   {
     "repo": "kairos-io/go-nodepair",
@@ -275,14 +281,14 @@
     "repo": "kairos-io/hadron",
     "pr": 512,
     "url": "https://github.com/kairos-io/hadron/pull/512",
-    "headSHA": "e93f6724dbe806090f3578d1331a75bf7a24da07",
+    "headSHA": "c12b79c7f8eb7ab638ff9039541137bc569a72a4",
     "verdict": "good",
-    "reasoning": "The changes successfully implement the stated goal of enabling kernel BTF support by modifying configuration files across all kernel variants. The necessary build tool (`pahole`) is correctly integrated into the Dockerfile, and the CI workflows include verification steps to ensure the BTF configuration is present. This is a necessary feature enablement and is safe to auto-approve.",
-    "changesSummary": "This PR enables kernel BTF support by modifying kernel configuration files to set `CONFIG_DEBUG_INFO_BTF=y` across various variants. It also introduces a new build stage to compile `pahole` and automates the fetching of the `dwarves` dependency.",
-    "reviewedRun": "2026-07-12",
+    "reasoning": "The changes directly address the stated requirement to enable kernel BTF support, which is necessary for CO-RE eBPF consumers. The implementation involves necessary kernel configuration modifications, integration of the `pahole` toolchain via `dwarves`, and the addition of verification steps in the CI workflows to ensure correctness. This is a necessary feature enablement and the associated verification makes it safe to auto-approve.",
+    "changesSummary": "This PR enables kernel BTF support by modifying kernel configuration files across multiple architectures to enable `CONFIG_DEBUG_INFO_BTF=y`. It also updates the build toolchain by adding `pahole` support via a new `dwarves-download` stage in the Dockerfile, and introduces CI checks to verify that the required BTF configuration is correctly set in all kernel variants.",
+    "reviewedRun": "2026-07-13",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 11632 bytes"
+      "context: 13446 bytes"
     ]
   },
   {
@@ -349,6 +355,20 @@
     "trace": [
       "kairos-io/hadron v0.5.0..v0.5.1 (PR body): compare v0.5.0...v0.5.1 ✓ 40000 bytes",
       "context: 48773 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos-installer",
+    "pr": 14,
+    "url": "https://github.com/kairos-io/kairos-installer/pull/14",
+    "headSHA": "29c5e979c926a805bda4b26f1d0f2e9dc4f9d6d6",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
+    "trace": [
+      "github.com/jaypipes/ghw 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 40000 bytes",
+      "github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes",
+      "context: 87431 bytes"
     ]
   },
   {
@@ -465,22 +485,6 @@
     ]
   },
   {
-    "repo": "kairos-io/kcrypt-discovery-challenger",
-    "pr": 245,
-    "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/245",
-    "headSHA": "e324fc6f90082bd66260a03c21bde55960ac0ce9",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-12",
-    "trace": [
-      "k8s.io/client-go 0.27.2→1.5.2: compare v0.27.2...v1.5.2 ✓ 3433 bytes",
-      "kubernetes/client-go v1.5.1..v1.5.2 (PR body): compare v1.5.1...v1.5.2 ✓ 1587 bytes",
-      "kubernetes/client-go v1.5.0..v1.5.1 (PR body): compare v1.5.0...v1.5.1 ✓ 908 bytes",
-      "kubernetes/client-go v1.4.0..v1.5.0 (PR body): compare v1.4.0...v1.5.0 ✓ 40000 bytes",
-      "context: 72145 bytes"
-    ]
-  },
-  {
     "repo": "kairos-io/netboot",
     "pr": 45,
     "url": "https://github.com/kairos-io/netboot/pull/45",
@@ -512,29 +516,27 @@
     "repo": "mudler/edgevpn",
     "pr": 804,
     "url": "https://github.com/mudler/edgevpn/pull/804",
-    "headSHA": "2a31a9b99296ac9a095a0ff59005c7c21939efdf",
-    "verdict": "good",
-    "reasoning": "This pull request appears to be a necessary and comprehensive migration to upgrade the `iplib` library to version 2.0.5. The changes reflect the breaking changes detailed in the v2 release notes, specifically the transition to `uint128` for IPv6 handling. The diffs suggest all necessary package imports and internal logic have been updated to accommodate this major version change.",
-    "changesSummary": "The PR updates the `github.com/c-robinson/iplib` dependency from v1.0.8 to v2.0.5. This migration involves adopting the new `uint128` type for IPv6 functions and updating related package imports and logic across the codebase.",
-    "reviewedRun": "2026-06-26",
+    "headSHA": "a5f1f9cc0de8ee077a7848aadbf06245510de7be",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
     "trace": [
       "c-robinson/iplib v2.0.4..v2.0.5 (PR body): compare v2.0.4...v2.0.5 ✓ 6378 bytes",
       "c-robinson/iplib v2.0.3..v2.0.4 (PR body): compare v2.0.3...v2.0.4 ✓ 3273 bytes",
       "c-robinson/iplib v2.0.2..v2.0.3 (PR body): compare v2.0.2...v2.0.3 ✓ 9999 bytes",
       "c-robinson/iplib v2.0.1..v2.0.2 (PR body): compare v2.0.1...v2.0.2 ✓ 15662 bytes",
       "c-robinson/iplib v2.0.0..v2.0.1 (PR body): compare v2.0.0...v2.0.1 ✓ 1844 bytes",
-      "context: 44540 bytes"
+      "context: 44543 bytes"
     ]
   },
   {
     "repo": "mudler/edgevpn",
     "pr": 805,
     "url": "https://github.com/mudler/edgevpn/pull/805",
-    "headSHA": "67fed9d7e4cd125fe855481da64318abde940021",
-    "verdict": "good",
-    "reasoning": "This is a standard dependency update to a newer version of the YAML library. Upgrading dependencies is crucial for security and accessing bug fixes and new features. The changes appear to be standard migration steps for moving from v2 to v3, making this change safe to auto-approve.",
-    "changesSummary": "This PR updates the `gopkg.in/yaml.v2` dependency from version v2.4.0 to v3.0.1. This upgrade incorporates changes from v3.0.0, including updates to the parser logic, documentation, and licensing information.",
-    "reviewedRun": "2026-07-01",
+    "headSHA": "23fbe2f96b9c6654026f8d4ac5815b2cfb3fb384",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
     "trace": [
       "go-yaml/yaml v3.0.0..v3.0.1 (PR body): compare v3.0.0...v3.0.1 ✓ 2202 bytes",
       "go-yaml/yaml v2.4.0..v3.0.0 (PR body): compare v2.4.0...v3.0.0 ✓ 40000 bytes",
@@ -574,16 +576,15 @@
     "repo": "mudler/edgevpn",
     "pr": 914,
     "url": "https://github.com/mudler/edgevpn/pull/914",
-    "headSHA": "b0eacd30ea13c568464fa6b26ce17eb4f20710b4",
-    "verdict": "good",
-    "reasoning": "This pull request updates a dependency to a version that directly addresses a reported security vulnerability (GHSA-vfp3-v2gw-7wfq). The change hardens the static file serving mechanism by disabling path unescaping by default, which mitigates the risk of encoded path separators bypassing route-level access controls. This is a positive security enhancement.",
-    "changesSummary": "This PR updates the dependency `github.com/labstack/echo/v4` to version v4.15.4, which includes a security fix. This fix prevents encoded path separators from bypassing route-level middleware when serving static files by disabling path unescaping by default.",
-    "reviewedRun": "2026-06-25",
+    "headSHA": "5454afa32db33626a8ebc87451e55b13dc08fd6c",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
     "trace": [
       "github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes",
       "github.com/mattn/go-colorable 0.1.14→0.1.15: compare v0.1.14...v0.1.15 ✓ 5234 bytes",
-      "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
-      "context: 90621 bytes"
+      "labstack/echo v4.15.3..v4.15.4 (PR body): compare v4.15.3...v4.15.4 ✓ 34118 bytes",
+      "context: 77780 bytes"
     ]
   },
   {
@@ -711,15 +712,14 @@
     "repo": "mudler/edgevpn",
     "pr": 1001,
     "url": "https://github.com/mudler/edgevpn/pull/1001",
-    "headSHA": "ee6a8c570666cf97d5b2d095c7c305b0fe788e03",
+    "headSHA": "9f2f5e30ac47a2414161bd7cf5215b6fb59e6262",
     "verdict": "needs_human_verification",
-    "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
-    "reviewedRun": "2026-06-25",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
     "trace": [
-      "FortAwesome/Font-Awesome 7.0.0..7.0.1 (PR body): compare 7.0.0...7.0.1 ✓ 40000 bytes",
-      "FortAwesome/Font-Awesome 6.7.2..7.0.0 (PR body): compare 6.7.2...7.0.0 failed/empty (no upstream diff)",
-      "FortAwesome/Font-Awesome 6.7.1..6.7.2 (PR body): compare 6.7.1...6.7.2 ✓ 40000 bytes",
-      "context: 83524 bytes"
+      "FortAwesome/Font-Awesome 7.2.0..7.3.0 (PR body): compare 7.2.0...7.3.0 ✓ 40000 bytes",
+      "FortAwesome/Font-Awesome 7.1.0..7.2.0 (PR body): compare 7.1.0...7.2.0 ✓ 40000 bytes",
+      "context: 84231 bytes"
     ]
   },
   {
@@ -742,27 +742,24 @@
     "repo": "mudler/edgevpn",
     "pr": 1041,
     "url": "https://github.com/mudler/edgevpn/pull/1041",
-    "headSHA": "8eef830beee45ffd16c27b6ea4198085f7c421e5",
-    "verdict": "good",
-    "reasoning": "This is a dependency upgrade to a newer version of a library, which is generally beneficial. Crucially, this update incorporates a security fix that mitigates a path traversal/ACL bypass vulnerability related to URL-encoded separators in static file serving. Therefore, this change is safe to auto-approve.",
-    "changesSummary": "The PR updates the `github.com/labstack/echo/v4` dependency to `v5.2.1`. This upgrade includes a security fix that changes the default behavior of static file serving to prevent encoded path separators from bypassing route-level access controls.",
-    "reviewedRun": "2026-06-25",
+    "headSHA": "9aa719786d9a9ec36199db8880166b521e84e038",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
     "trace": [
       "github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes",
-      "github.com/mattn/go-colorable 0.1.14→0.1.15: compare v0.1.14...v0.1.15 ✓ 5234 bytes",
-      "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
-      "context: 108729 bytes"
+      "github.com/labstack/echo/v5 5.2.1→5.3.0: compare v5.2.1...v5.3.0 ✓ 40000 bytes",
+      "context: 99797 bytes"
     ]
   },
   {
     "repo": "mudler/edgevpn",
     "pr": 1046,
     "url": "https://github.com/mudler/edgevpn/pull/1046",
-    "headSHA": "336b2e00c049ef8094f7b664c9758d210dd3d461",
-    "verdict": "good",
-    "reasoning": "This is a routine dependency update to a newer version of Autoprefixer. The changes primarily address compatibility fixes and minor logic adjustments, which are generally safe and beneficial for the project. There are no apparent security risks introduced by this version bump.",
-    "changesSummary": "The PR updates the `autoprefixer` dependency from v10.5.0 to v10.5.2. This update includes fixes for Firefox compatibility related to `-webkit-fill-available` and related adjustments in source code and test files.",
-    "reviewedRun": "2026-06-25",
+    "headSHA": "ac24f66f020ea95d5f0fc9ca4dab691931237d08",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-13",
     "trace": [
       "postcss/autoprefixer 10.5.1..10.5.2 (PR body): compare 10.5.1...10.5.2 ✓ 2688 bytes",
       "postcss/autoprefixer 10.5.0..10.5.1 (PR body): compare 10.5.0...10.5.1 ✓ 40000 bytes",
@@ -773,14 +770,14 @@
     "repo": "mudler/edgevpn",
     "pr": 1054,
     "url": "https://github.com/mudler/edgevpn/pull/1054",
-    "headSHA": "3cc6929dbb27d29eeea8af52075dd239ef6036ac",
+    "headSHA": "16dae2ade7462919ee1a547c656b2a7eff83ae44",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
+    "reviewedRun": "2026-07-13",
     "trace": [
-      "github.com/urfave/cli/v3 3.10.0→3.10.1: compare v3.10.0...v3.10.1 ✓ 17319 bytes",
+      "urfave/cli v3.10.0..v3.10.1 (PR body): compare v3.10.0...v3.10.1 ✓ 17319 bytes",
       "urfave/cli v3.9.1..v3.10.0 (PR body): compare v3.9.1...v3.10.0 ✓ 40000 bytes",
-      "context: 101293 bytes"
+      "context: 100504 bytes"
     ]
   },
   {
