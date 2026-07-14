@@ -3,10 +3,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 409,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/409",
-    "headSHA": "dd81e63495643d031679b778535719d4339e0ea6",
+    "headSHA": "01345095c386a1f32867a35857a52821e5a04388",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-11",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes",
       "github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes",
@@ -17,10 +17,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 590,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/590",
-    "headSHA": "3a0701b478c811cebe5ec821312e003805791fbb",
+    "headSHA": "9422678aa5f54f81fc7eb3c9ec06f2de7a9eb2fe",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-11",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "sindresorhus/globals v17.6.0..a19670cc86c1218e915657c55ea02ba3e7623834 (PR body): compare v17.6.0...a19670cc86c1218e915657c55ea02ba3e7623834 ✓ 11637 bytes",
       "sindresorhus/globals v17.6.0..v17.7.0 (PR body): compare v17.6.0...v17.7.0 ✓ 11637 bytes",
@@ -34,10 +34,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 594,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/594",
-    "headSHA": "68b6c6ddb316dacc1379972588ad1303440fdade",
+    "headSHA": "8655cd7d153a3956a249692b87c4c419d692bdfa",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-13",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes",
       "facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes",
@@ -48,10 +48,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 599,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/599",
-    "headSHA": "2e21904e92d24b1116f617ef6fa17803eb8f76c3",
+    "headSHA": "d7abaf55ccc24f9f709cb2e0378dcc61e73b1a59",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-11",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes",
       "context: 77814 bytes"
@@ -61,23 +61,24 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 626,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/626",
-    "headSHA": "d850edb0cd60cb914479b0fa360b439b95b68fce",
+    "headSHA": "5574fab599d1551e4a7165741870744f40fbd43d",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-11",
+    "reviewedRun": "2026-07-14",
     "trace": [
+      "typescript-eslint/typescript-eslint v8.63.0..v8.64.0 (PR body): compare v8.63.0...v8.64.0 ✓ 40000 bytes",
       "typescript-eslint/typescript-eslint v8.62.1..v8.63.0 (PR body): compare v8.62.1...v8.63.0 ✓ 40000 bytes",
-      "context: 53882 bytes"
+      "context: 94647 bytes"
     ]
   },
   {
     "repo": "kairos-io/AuroraBoot",
     "pr": 627,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/627",
-    "headSHA": "bb22c24aa852c62312fd78646099b74a5e860b6d",
+    "headSHA": "73fbc307685309ece353305002729e30cfd28261",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-11",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "eemeli/yaml v2.8.4..v2.9.0 (PR body): compare v2.8.4...v2.9.0 ✓ 11907 bytes",
       "eemeli/yaml v2.8.3..v2.8.4 (PR body): compare v2.8.3...v2.8.4 ✓ 13617 bytes",
@@ -88,10 +89,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 629,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/629",
-    "headSHA": "6e5330958c28476c124ede58f0a2644ea7390f80",
+    "headSHA": "6ddf62793a79efe5da5a525fe78d9152817269ed",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-11",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "github.com/stmcginnis/gofish 0.22.0→0.23.0: compare v0.22.0...v0.23.0 ✓ 25082 bytes",
       "context: 29808 bytes"
@@ -101,11 +102,11 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 630,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/630",
-    "headSHA": "b7dd38dd8a9b2b8997a12b6025c3cd0a7250172b",
+    "headSHA": "504cb3670f0a9bf04f3a71aa3c213bf9f2ee60ef",
     "verdict": "good",
-    "reasoning": "This is a routine dependency update for a widely used package, `@types/node`, to a minor version. Such updates are generally low-risk and are performed by an automated tool. Therefore, it is safe to auto-approve.",
-    "changesSummary": "This PR updates the `@types/node` dependency from version 25.9.4 to 25.9.5. This is a minor version bump, which typically includes bug fixes or minor updates for the Node.js type definitions.",
-    "reviewedRun": "2026-07-11",
+    "reasoning": "This is a routine dependency update to a patch version of a widely used type definition package. There are no apparent security risks associated with this minor version bump, and it is safe to auto-approve.",
+    "changesSummary": "This PR updates the @types/node dependency from version 25.9.4 to 25.9.5. This is a routine patch update to the type definitions for Node.js.",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 2275 bytes"
@@ -115,10 +116,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 631,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/631",
-    "headSHA": "0cb0753191339a802478afd8cac0ba42652d0b98",
+    "headSHA": "8263e4df9716749526fe99b9d872685deb4df10c",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-11",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes",
       "golang.org/x/tools 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 40000 bytes",
@@ -129,10 +130,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 632,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/632",
-    "headSHA": "c44758dae9242f06b3cc5de3eafec9fda0ec6709",
+    "headSHA": "f8e4a84869fef98804d3e6f7d5a289c980cd5033",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-11",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
       "context: 36312 bytes"
@@ -281,27 +282,28 @@
     "repo": "kairos-io/hadron",
     "pr": 512,
     "url": "https://github.com/kairos-io/hadron/pull/512",
-    "headSHA": "c12b79c7f8eb7ab638ff9039541137bc569a72a4",
+    "headSHA": "da710450db8e7c7c888c4aa4c09edd81e4233d4e",
     "verdict": "good",
-    "reasoning": "The changes directly address the stated requirement to enable kernel BTF support, which is necessary for CO-RE eBPF consumers. The implementation involves necessary kernel configuration modifications, integration of the `pahole` toolchain via `dwarves`, and the addition of verification steps in the CI workflows to ensure correctness. This is a necessary feature enablement and the associated verification makes it safe to auto-approve.",
-    "changesSummary": "This PR enables kernel BTF support by modifying kernel configuration files across multiple architectures to enable `CONFIG_DEBUG_INFO_BTF=y`. It also updates the build toolchain by adding `pahole` support via a new `dwarves-download` stage in the Dockerfile, and introduces CI checks to verify that the required BTF configuration is correctly set in all kernel variants.",
-    "reviewedRun": "2026-07-13",
+    "reasoning": "The changes are focused on enabling a specific kernel feature (BTF support) and setting up the necessary build dependencies (`pahole`). The PR includes verification steps in the CI to ensure the configuration changes are correctly applied across different architectures, which mitigates risk. This is a necessary feature enablement.",
+    "changesSummary": "This PR enables kernel BTF support by modifying multiple kernel configuration files to enable `CONFIG_DEBUG_INFO_BTF=y`. It also introduces a new build stage in the Dockerfile to compile and install `pahole`, which is required for generating BTF information, and adds automation to fetch the latest dwarves dependency version.",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 13446 bytes"
+      "context: 16143 bytes"
     ]
   },
   {
-    "repo": "kairos-io/immucore",
-    "pr": 591,
-    "url": "https://github.com/kairos-io/immucore/pull/591",
-    "headSHA": "df2c115f1214ce7c838c859f5c5f6e60e05c280b",
+    "repo": "kairos-io/hadron",
+    "pr": 516,
+    "url": "https://github.com/kairos-io/hadron/pull/516",
+    "headSHA": "966dae146fcef637e7f6b7fdeb4f52a86ce1421f",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-10",
+    "reviewedRun": "2026-07-14",
     "trace": [
-      "github.com/jaypipes/ghw 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 40000 bytes",
-      "context: 44957 bytes"
+      "actions/setup-node v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-node v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
+      "context: 41986 bytes"
     ]
   },
   {
@@ -333,28 +335,30 @@
   },
   {
     "repo": "kairos-io/kairos",
-    "pr": 4236,
-    "url": "https://github.com/kairos-io/kairos/pull/4236",
-    "headSHA": "8830b3702bb3675ad302c5c68c004e210e7baa14",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-11",
+    "pr": 4240,
+    "url": "https://github.com/kairos-io/kairos/pull/4240",
+    "headSHA": "83f2f0a418e84b85b858467cf8f9762031747426",
+    "verdict": "good",
+    "reasoning": "This is a standard, minor version update for an internal dependency image. There are no apparent security risks introduced by this version bump, and it aligns with standard dependency maintenance practices. It is safe to auto-approve.",
+    "changesSummary": "This PR updates the Dockerfile argument for the `kairos-init` image to use version v0.16.1, which is a minor version bump from the previous v0.15.2. This ensures the build uses the latest version of the initialization image.",
+    "reviewedRun": "2026-07-14",
     "trace": [
-      "actions/stale v10.3.0..v10.4.0 (PR body): compare v10.3.0...v10.4.0 ✓ 40000 bytes",
-      "context: 43055 bytes"
+      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+      "context: 1342 bytes"
     ]
   },
   {
     "repo": "kairos-io/kairos-init",
-    "pr": 397,
-    "url": "https://github.com/kairos-io/kairos-init/pull/397",
-    "headSHA": "a377f2f1fb15ca8ddabbf0557714ca9f008fdec5",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-10",
+    "pr": 403,
+    "url": "https://github.com/kairos-io/kairos-init/pull/403",
+    "headSHA": "573e78cefaf8fb5e5e96ada9db420e8330b68bf5",
+    "verdict": "good",
+    "reasoning": "The change is safe to auto-approve because the changelog explicitly states that the update includes a security fix related to the Go version bump and an ignored advisory. This is a standard maintenance update for a dependency.",
+    "changesSummary": "This PR updates the `github.com/kairos-io/kairos-sdk` dependency from version v0.23.3 to v0.23.4. This version bump includes a security fix that updates the Go version to 1.26.5 and ignores a specific Go advisory.",
+    "reviewedRun": "2026-07-14",
     "trace": [
-      "kairos-io/hadron v0.5.0..v0.5.1 (PR body): compare v0.5.0...v0.5.1 ✓ 40000 bytes",
-      "context: 48773 bytes"
+      "github.com/kairos-io/kairos-sdk 0.23.3→0.23.4: compare v0.23.3...v0.23.4 ✓ 5396 bytes",
+      "context: 8973 bytes"
     ]
   },
   {
@@ -446,28 +450,28 @@
     "repo": "kairos-io/kcrypt-discovery-challenger",
     "pr": 241,
     "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/241",
-    "headSHA": "52e002ca061d1d17a045003dadaa67739c558ca2",
+    "headSHA": "164d011bae58e37c3a93d4e744a161fd77f56f79",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "github.com/google/go-attestation 0.5.1→0.6.1: compare v0.5.1...v0.6.1 ✓ 40000 bytes",
-      "github.com/kairos-io/kairos-sdk 0.23.1→0.23.2: compare v0.23.1...v0.23.2 ✓ 26235 bytes",
-      "context: 77901 bytes"
+      "github.com/kairos-io/kairos-sdk 0.23.1→0.23.4: compare v0.23.1...v0.23.4 ✓ 32334 bytes",
+      "context: 89412 bytes"
     ]
   },
   {
     "repo": "kairos-io/kcrypt-discovery-challenger",
     "pr": 243,
     "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/243",
-    "headSHA": "ff2f0e97f11347fd851dd749b923f0e9cfb12ca5",
+    "headSHA": "a033a97a0a01462f273b506a80656ea5df1c6d7c",
     "verdict": "good",
-    "reasoning": "This is a minor patch update to a dependency. Patch updates are generally low-risk and are safe to auto-approve, as they typically address bug fixes or minor non-security related improvements.",
-    "changesSummary": "This PR updates the version of the `quay.io/kairos/kairos-init` dependency from v0.15.1 to v0.15.2 by changing the build argument in `Dockerfile.kairos-image`.",
-    "reviewedRun": "2026-07-08",
+    "reasoning": "This is a routine dependency update to a minor version. There are no apparent security risks or breaking changes indicated by the context, making it safe to auto-approve.",
+    "changesSummary": "This PR updates the version of the `quay.io/kairos/kairos-init` dependency from v0.15.1 to v0.16.1 in the Dockerfile build arguments.",
+    "reviewedRun": "2026-07-14",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 1501 bytes"
+      "context: 1563 bytes"
     ]
   },
   {

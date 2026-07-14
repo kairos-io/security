@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-13._
+_Updated 2026-07-14._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -8,12 +8,12 @@ _Updated 2026-07-13._
 
 - **Scanned:** 25 repos
 - **Findings:** 6 (0 critical / 4 high / 2 medium / 0 low / 0 unknown)
-- **Informational (not counted):** 55
+- **Informational (not counted):** 51
 - **CVE-related PRs:** 0
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 6 finding(s); 0 PR(s) open.
 
-> There are multiple high-severity vulnerabilities identified across the project's dependencies, primarily impacting the 'openssl' and 'sqlite3' packages. Immediate attention is required to address these critical security risks.
+> The most urgent findings are four high-severity vulnerabilities affecting critical packages like OpenSSL and SQLite3. Immediate attention is required to patch these dependencies to mitigate severe security risks.
 
 ## 🔥 Focus now
 
@@ -74,24 +74,24 @@ _None._
 <details>
 <summary>⚠️ [CVE-2022-35737](https://osv.dev/vulnerability/ALPINE-CVE-2022-35737) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (sqlite3 / confidence: high)</summary>
 
-**Reason:** The vulnerability affects versions up to 3.39.x before 3.39.2, and the queried version 3.53.3 is outside this range.
+**Reason:** The vulnerability affects versions up to 3.39.x, and the queried version 3.53.3 is newer.
 
 - CVE: `CVE-2022-35737`
 - Current: `3.53.3`
 - Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-13
+- Checked by: `gemma-4-e2b-it` on 2026-07-14
 
 </details>
 
 <details>
 <summary>⚠️ [CVE-2021-22897](https://osv.dev/vulnerability/ALPINE-CVE-2021-22897) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (curl / confidence: high)</summary>
 
-**Reason:** The CVE only affects curl versions 7.61.0 through 7.76.1, and the queried version 8.21.0 is outside this range.
+**Reason:** The affected versions are 7.61.0 through 7.76.1, and the queried version 8.21.0 is outside this range.
 
 - CVE: `CVE-2021-22897`
 - Current: `8.21.0`
 - Fixed: `—`
-- Checked by: `gemma-4-e2b-it` on 2026-07-13
+- Checked by: `gemma-4-e2b-it` on 2026-07-14
 
 </details>
 
@@ -135,12 +135,10 @@ These findings are separated from the counts above: CVEs we are already past, or
 | openssl-fips | 3.1.2 | 3.3.7 | high | [CVE-2026-28389](https://osv.dev/vulnerability/ALPINE-CVE-2026-28389) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.6 | medium | [CVE-2025-68160](https://osv.dev/vulnerability/ALPINE-CVE-2025-68160) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.7 | medium | [CVE-2024-9143](https://osv.dev/vulnerability/ALPINE-CVE-2024-9143) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| openssl | 3.6.3 | 3.0.8 | medium | [CVE-2023-0466](https://osv.dev/vulnerability/ALPINE-CVE-2023-0466) | already-fixed |
 | libxml2 | 2.15.3 | 2.13.8 | high | [CVE-2025-32415](https://osv.dev/vulnerability/ALPINE-CVE-2025-32415) | already-fixed |
 | openssl-fips | 3.1.2 | 3.3.7 | high | [CVE-2026-28390](https://osv.dev/vulnerability/ALPINE-CVE-2026-28390) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.6 | medium | [CVE-2026-22796](https://osv.dev/vulnerability/ALPINE-CVE-2026-22796) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | high | [CVE-2026-34180](https://osv.dev/vulnerability/ALPINE-CVE-2026-34180) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| openssl-fips | 3.1.2 | 3.0.8 | medium | [CVE-2023-0466](https://osv.dev/vulnerability/ALPINE-CVE-2023-0466) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | — | high | [CVE-2022-1292](https://osv.dev/vulnerability/ALPINE-CVE-2022-1292) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | — | high | [CVE-2022-2068](https://osv.dev/vulnerability/ALPINE-CVE-2022-2068) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.6 | high | [CVE-2025-69421](https://osv.dev/vulnerability/ALPINE-CVE-2025-69421) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
@@ -153,8 +151,6 @@ These findings are separated from the counts above: CVEs we are already past, or
 | openssl-fips | 3.1.2 | 3.1.8 | medium | [CVE-2024-13176](https://osv.dev/vulnerability/ALPINE-CVE-2024-13176) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | medium | [CVE-2026-42767](https://osv.dev/vulnerability/ALPINE-CVE-2026-42767) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.6 | high | [CVE-2024-4741](https://osv.dev/vulnerability/ALPINE-CVE-2024-4741) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| gcc | 15.3.0 | 13.2.1_git20231014 | medium | [CVE-2023-4039](https://osv.dev/vulnerability/ALPINE-CVE-2023-4039) | already-fixed |
-| rsync | 3.4.4 | 3.2.4 | high | [CVE-2020-14387](https://osv.dev/vulnerability/ALPINE-CVE-2020-14387) | already-fixed |
 | perl | 5.42.2 | 5.26.3 | unknown | [CVE-2018-18312](https://osv.dev/vulnerability/ALPINE-CVE-2018-18312) | already-fixed |
 
 ## 📋 Open PRs
@@ -188,8 +184,9 @@ _No bot PRs yet._
     - eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes
     - context: 77814 bytes
 - [#626](https://github.com/kairos-io/AuroraBoot/pull/626) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - typescript-eslint/typescript-eslint v8.63.0..v8.64.0 (PR body): compare v8.63.0...v8.64.0 ✓ 40000 bytes
     - typescript-eslint/typescript-eslint v8.62.1..v8.63.0 (PR body): compare v8.62.1...v8.63.0 ✓ 40000 bytes
-    - context: 53882 bytes
+    - context: 94647 bytes
 - [#627](https://github.com/kairos-io/AuroraBoot/pull/627) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - eemeli/yaml v2.8.4..v2.9.0 (PR body): compare v2.8.4...v2.9.0 ✓ 11907 bytes
     - eemeli/yaml v2.8.3..v2.8.4 (PR body): compare v2.8.3...v2.8.4 ✓ 13617 bytes
@@ -197,8 +194,8 @@ _No bot PRs yet._
 - [#629](https://github.com/kairos-io/AuroraBoot/pull/629) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/stmcginnis/gofish 0.22.0→0.23.0: compare v0.22.0...v0.23.0 ✓ 25082 bytes
     - context: 29808 bytes
-- [#630](https://github.com/kairos-io/AuroraBoot/pull/630) — ✅ **good** — This is a routine dependency update for a widely used package, `@types/node`, to a minor version. Such updates are generally low-risk and are performed by an automated tool. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the `@types/node` dependency from version 25.9.4 to 25.9.5. This is a minor version bump, which typically includes bug fixes or minor updates for the Node.js type definitions.
+- [#630](https://github.com/kairos-io/AuroraBoot/pull/630) — ✅ **good** — This is a routine dependency update to a patch version of a widely used type definition package. There are no apparent security risks associated with this minor version bump, and it is safe to auto-approve.
+  ↳ This PR updates the @types/node dependency from version 25.9.4 to 25.9.5. This is a routine patch update to the type definitions for Node.js.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 2275 bytes
 - [#631](https://github.com/kairos-io/AuroraBoot/pull/631) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -253,15 +250,14 @@ _No bot PRs yet._
   ↳ This pull request implements a major architectural change by dropping the in-tree DRBD 8 module and replacing it with an out-of-tree DRBD 9 module and its utilities. It modifies kernel configurations to disable DRBD 8 and updates the Dockerfile to download, build, and integrate the new DRBD 9 components.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 10912 bytes
-- [#512](https://github.com/kairos-io/hadron/pull/512) — ✅ **good** — The changes directly address the stated requirement to enable kernel BTF support, which is necessary for CO-RE eBPF consumers. The implementation involves necessary kernel configuration modifications, integration of the `pahole` toolchain via `dwarves`, and the addition of verification steps in the CI workflows to ensure correctness. This is a necessary feature enablement and the associated verification makes it safe to auto-approve.
-  ↳ This PR enables kernel BTF support by modifying kernel configuration files across multiple architectures to enable `CONFIG_DEBUG_INFO_BTF=y`. It also updates the build toolchain by adding `pahole` support via a new `dwarves-download` stage in the Dockerfile, and introduces CI checks to verify that the required BTF configuration is correctly set in all kernel variants.
+- [#512](https://github.com/kairos-io/hadron/pull/512) — ✅ **good** — The changes are focused on enabling a specific kernel feature (BTF support) and setting up the necessary build dependencies (`pahole`). The PR includes verification steps in the CI to ensure the configuration changes are correctly applied across different architectures, which mitigates risk. This is a necessary feature enablement.
+  ↳ This PR enables kernel BTF support by modifying multiple kernel configuration files to enable `CONFIG_DEBUG_INFO_BTF=y`. It also introduces a new build stage in the Dockerfile to compile and install `pahole`, which is required for generating BTF information, and adds automation to fetch the latest dwarves dependency version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 13446 bytes
-**[kairos-io/immucore](https://github.com/kairos-io/immucore)**
-
-- [#591](https://github.com/kairos-io/immucore/pull/591) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/jaypipes/ghw 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 40000 bytes
-    - context: 44957 bytes
+    - context: 16143 bytes
+- [#516](https://github.com/kairos-io/hadron/pull/516) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - actions/setup-node v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
+    - actions/setup-node v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
+    - context: 41986 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4229](https://github.com/kairos-io/kairos/pull/4229) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -271,14 +267,16 @@ _No bot PRs yet._
   ↳ This PR updates the dependency `kairos-io/kairos-factory-action` from v1.1.3 to v1.2.0. This update incorporates changes from the upstream release, including updates to `actions/checkout` and `github/codeql-action`. The change is applied across multiple CI/CD workflow files.
     - kairos-io/kairos-factory-action v1.1.3..v1.2.0 (PR body): compare v1.1.3...v1.2.0 ✓ 7319 bytes
     - context: 15709 bytes
-- [#4236](https://github.com/kairos-io/kairos/pull/4236) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/stale v10.3.0..v10.4.0 (PR body): compare v10.3.0...v10.4.0 ✓ 40000 bytes
-    - context: 43055 bytes
+- [#4240](https://github.com/kairos-io/kairos/pull/4240) — ✅ **good** — This is a standard, minor version update for an internal dependency image. There are no apparent security risks introduced by this version bump, and it aligns with standard dependency maintenance practices. It is safe to auto-approve.
+  ↳ This PR updates the Dockerfile argument for the `kairos-init` image to use version v0.16.1, which is a minor version bump from the previous v0.15.2. This ensures the build uses the latest version of the initialization image.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 1342 bytes
 **[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
 
-- [#397](https://github.com/kairos-io/kairos-init/pull/397) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - kairos-io/hadron v0.5.0..v0.5.1 (PR body): compare v0.5.0...v0.5.1 ✓ 40000 bytes
-    - context: 48773 bytes
+- [#403](https://github.com/kairos-io/kairos-init/pull/403) — ✅ **good** — The change is safe to auto-approve because the changelog explicitly states that the update includes a security fix related to the Go version bump and an ignored advisory. This is a standard maintenance update for a dependency.
+  ↳ This PR updates the `github.com/kairos-io/kairos-sdk` dependency from version v0.23.3 to v0.23.4. This version bump includes a security fix that updates the Go version to 1.26.5 and ignores a specific Go advisory.
+    - github.com/kairos-io/kairos-sdk 0.23.3→0.23.4: compare v0.23.3...v0.23.4 ✓ 5396 bytes
+    - context: 8973 bytes
 **[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
 
 - [#14](https://github.com/kairos-io/kairos-installer/pull/14) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -312,12 +310,12 @@ _No bot PRs yet._
     - context: 97188 bytes
 - [#241](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/241) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/google/go-attestation 0.5.1→0.6.1: compare v0.5.1...v0.6.1 ✓ 40000 bytes
-    - github.com/kairos-io/kairos-sdk 0.23.1→0.23.2: compare v0.23.1...v0.23.2 ✓ 26235 bytes
-    - context: 77901 bytes
-- [#243](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/243) — ✅ **good** — This is a minor patch update to a dependency. Patch updates are generally low-risk and are safe to auto-approve, as they typically address bug fixes or minor non-security related improvements.
-  ↳ This PR updates the version of the `quay.io/kairos/kairos-init` dependency from v0.15.1 to v0.15.2 by changing the build argument in `Dockerfile.kairos-image`.
+    - github.com/kairos-io/kairos-sdk 0.23.1→0.23.4: compare v0.23.1...v0.23.4 ✓ 32334 bytes
+    - context: 89412 bytes
+- [#243](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/243) — ✅ **good** — This is a routine dependency update to a minor version. There are no apparent security risks or breaking changes indicated by the context, making it safe to auto-approve.
+  ↳ This PR updates the version of the `quay.io/kairos/kairos-init` dependency from v0.15.1 to v0.16.1 in the Dockerfile build arguments.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 1501 bytes
+    - context: 1563 bytes
 - [#244](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/244) — ✅ **good** — This change is a routine patch update to the Go language version. Updating to a newer patch version is generally safe and often includes important bug fixes or security patches. Since this is an automated dependency update, it is considered safe to auto-approve.
   ↳ This PR updates the base image for the build process in the Dockerfile and Dockerfile.kairos-image from `golang:1.26.4` to `golang:1.26.5` and its corresponding bookworm tags. This is a standard dependency bump for the Go language version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13",
+  "generatedAt": "2026-07-14",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
   "focus": [
@@ -14,5 +14,5 @@
     "6389947b1ff1ca83f782d1157ccb95361608f96d2e10b00cae471c84336c44fb": "High severity vulnerability in the openssl package.",
     "acd193e8b09dfd980c34073c94e63ba6db4a75c25ea5dd374b42247964c19ac1": "High severity vulnerability in the openssl package."
   },
-  "narrative": "There are multiple high-severity vulnerabilities identified across the project's dependencies, primarily impacting the 'openssl' and 'sqlite3' packages. Immediate attention is required to address these critical security risks."
+  "narrative": "The most urgent findings are four high-severity vulnerabilities affecting critical packages like OpenSSL and SQLite3. Immediate attention is required to patch these dependencies to mitigate severe security risks."
 }
