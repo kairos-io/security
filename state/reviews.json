@@ -265,14 +265,55 @@
     ]
   },
   {
+    "repo": "kairos-io/go-nodepair",
+    "pr": 66,
+    "url": "https://github.com/kairos-io/go-nodepair/pull/66",
+    "headSHA": "2ee3ebb484f9ab401983a72e6aa4943db25f5c48",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-16",
+    "trace": [
+      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
+      "context: 42046 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 59,
+    "url": "https://github.com/kairos-io/go-ukify/pull/59",
+    "headSHA": "d2c75ed5854974775dbd4317b2ab389f4223d198",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-16",
+    "trace": [
+      "securego/gosec v2.27.1..v2.28.0 (PR body): compare v2.27.1...v2.28.0 ✓ 40000 bytes",
+      "context: 44536 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 60,
+    "url": "https://github.com/kairos-io/go-ukify/pull/60",
+    "headSHA": "28c3724d503f6170690c2ee1e81ba263f0b72b46",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-16",
+    "trace": [
+      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
+      "context: 42433 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/hadron",
     "pr": 506,
     "url": "https://github.com/kairos-io/hadron/pull/506",
-    "headSHA": "5292250f9da74ae7c66f2ae5e79bf68d935c5cbc",
+    "headSHA": "2e7dd5d499d551e7f847edf74b8ae8937932ec7d",
     "verdict": "needs_human_verification",
-    "reasoning": "This change involves a significant architectural shift by moving from an in-tree DRBD module to an out-of-tree DRBD 9 module, which is experimental. Although the PR description outlines the necessary steps, it explicitly flags potential risks regarding kernel compatibility layers (e.g., coccinelle/spatch) that must be verified in CI. Therefore, a human review is required to confirm the build stability and ensure all dependencies are correctly handled before merging.",
-    "changesSummary": "This pull request implements a major architectural change by dropping the in-tree DRBD 8 module and replacing it with an out-of-tree DRBD 9 module and its utilities. It modifies kernel configurations to disable DRBD 8 and updates the Dockerfile to download, build, and integrate the new DRBD 9 components.",
-    "reviewedRun": "2026-07-12",
+    "reasoning": "This change involves introducing a new, experimental kernel module (DRBD 9) and modifying core kernel configuration files. Although the implementation appears to follow a strategy of using pre-generated sources to simplify the build, the PR description explicitly notes open risks regarding kernel compatibility layers and the need for thorough CI testing. Therefore, a human review is required to validate the stability and compatibility of the new module before merging.",
+    "changesSummary": "This PR introduces the out-of-tree DRBD 9 kernel module and userspace utilities, dropping support for the in-tree DRBD 8 module. It modifies kernel configurations to disable DRBD 8 and updates version tracking to manage the new DRBD 9 sources.",
+    "reviewedRun": "2026-07-16",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 10912 bytes"
@@ -282,28 +323,40 @@
     "repo": "kairos-io/hadron",
     "pr": 512,
     "url": "https://github.com/kairos-io/hadron/pull/512",
-    "headSHA": "da710450db8e7c7c888c4aa4c09edd81e4233d4e",
-    "verdict": "good",
-    "reasoning": "The changes are focused on enabling a specific kernel feature (BTF support) and setting up the necessary build dependencies (`pahole`). The PR includes verification steps in the CI to ensure the configuration changes are correctly applied across different architectures, which mitigates risk. This is a necessary feature enablement.",
-    "changesSummary": "This PR enables kernel BTF support by modifying multiple kernel configuration files to enable `CONFIG_DEBUG_INFO_BTF=y`. It also introduces a new build stage in the Dockerfile to compile and install `pahole`, which is required for generating BTF information, and adds automation to fetch the latest dwarves dependency version.",
-    "reviewedRun": "2026-07-14",
+    "headSHA": "9700868fcd40774df9063edac26e2ec0320629d6",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-16",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 16143 bytes"
+      "context: 24553 bytes"
     ]
   },
   {
     "repo": "kairos-io/hadron",
-    "pr": 516,
-    "url": "https://github.com/kairos-io/hadron/pull/516",
-    "headSHA": "966dae146fcef637e7f6b7fdeb4f52a86ce1421f",
+    "pr": 522,
+    "url": "https://github.com/kairos-io/hadron/pull/522",
+    "headSHA": "29524b5b5b564e919afca1186dbac5149426f2f5",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-14",
+    "reviewedRun": "2026-07-16",
     "trace": [
-      "actions/setup-node v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
-      "actions/setup-node v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
-      "context: 41986 bytes"
+      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
+      "context: 43316 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/immucore",
+    "pr": 594,
+    "url": "https://github.com/kairos-io/immucore/pull/594",
+    "headSHA": "691a8006e291e1b7529ea2bcdfac3226e3c115d9",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-16",
+    "trace": [
+      "securego/gosec v2.27.1..v2.28.0 (PR body): compare v2.27.1...v2.28.0 ✓ 40000 bytes",
+      "context: 44594 bytes"
     ]
   },
   {
@@ -334,31 +387,17 @@
     ]
   },
   {
-    "repo": "kairos-io/kairos",
-    "pr": 4240,
-    "url": "https://github.com/kairos-io/kairos/pull/4240",
-    "headSHA": "83f2f0a418e84b85b858467cf8f9762031747426",
-    "verdict": "good",
-    "reasoning": "This is a standard, minor version update for an internal dependency image. There are no apparent security risks introduced by this version bump, and it aligns with standard dependency maintenance practices. It is safe to auto-approve.",
-    "changesSummary": "This PR updates the Dockerfile argument for the `kairos-init` image to use version v0.16.1, which is a minor version bump from the previous v0.15.2. This ensures the build uses the latest version of the initialization image.",
-    "reviewedRun": "2026-07-14",
-    "trace": [
-      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 1342 bytes"
-    ]
-  },
-  {
     "repo": "kairos-io/kairos-init",
-    "pr": 403,
-    "url": "https://github.com/kairos-io/kairos-init/pull/403",
-    "headSHA": "573e78cefaf8fb5e5e96ada9db420e8330b68bf5",
-    "verdict": "good",
-    "reasoning": "The change is safe to auto-approve because the changelog explicitly states that the update includes a security fix related to the Go version bump and an ignored advisory. This is a standard maintenance update for a dependency.",
-    "changesSummary": "This PR updates the `github.com/kairos-io/kairos-sdk` dependency from version v0.23.3 to v0.23.4. This version bump includes a security fix that updates the Go version to 1.26.5 and ignores a specific Go advisory.",
-    "reviewedRun": "2026-07-14",
+    "pr": 404,
+    "url": "https://github.com/kairos-io/kairos-init/pull/404",
+    "headSHA": "f83ede88bccb506c8e6dcec262b643e5798f43f7",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-16",
     "trace": [
-      "github.com/kairos-io/kairos-sdk 0.23.3→0.23.4: compare v0.23.3...v0.23.4 ✓ 5396 bytes",
-      "context: 8973 bytes"
+      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
+      "context: 42466 bytes"
     ]
   },
   {
@@ -377,30 +416,57 @@
   },
   {
     "repo": "kairos-io/kairos-operator",
-    "pr": 136,
-    "url": "https://github.com/kairos-io/kairos-operator/pull/136",
-    "headSHA": "b7436b3dc11552740efa7ca83119e63412844e74",
+    "pr": 138,
+    "url": "https://github.com/kairos-io/kairos-operator/pull/138",
+    "headSHA": "e5fa4c8098d6f41418253b2bc0601f6c0f576bd8",
     "verdict": "good",
-    "reasoning": "This is a routine patch update for a standard toolchain dependency. Updating to a newer patch version is generally safe and beneficial for receiving bug fixes and minor security patches. There are no apparent security risks introduced by this change.",
-    "changesSummary": "This PR updates the base image tag for `docker.io/golang` from version `1.26.4` to `1.26.5` in the relevant Dockerfiles. This is a routine dependency update for a toolchain component.",
-    "reviewedRun": "2026-07-09",
+    "reasoning": "This change is a simple digest update for a base image, which is a standard maintenance operation. It does not introduce any new code, configuration changes, or functional modifications, making it safe to auto-approve.",
+    "changesSummary": "This PR updates the digest of the `gcr.io/distroless/static:nonroot` base image in the Dockerfile to a newer version. This is a routine maintenance update to ensure the build uses the latest, verified image digest.",
+    "reviewedRun": "2026-07-16",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 1872 bytes"
+      "context: 1727 bytes"
     ]
   },
   {
     "repo": "kairos-io/kairos-operator",
-    "pr": 138,
-    "url": "https://github.com/kairos-io/kairos-operator/pull/138",
-    "headSHA": "ccd8322f48ee5052c96b6d45f7be268cc4e1da53",
+    "pr": 139,
+    "url": "https://github.com/kairos-io/kairos-operator/pull/139",
+    "headSHA": "85ca71ee76fb43b15d5b0a5628c285724f0d3527",
     "verdict": "good",
-    "reasoning": "This change is a routine digest update for a base image, which is a standard maintenance practice. It does not introduce any new code, functional changes, or security vulnerabilities that would require manual review. Therefore, it is safe to auto-approve.",
-    "changesSummary": "This PR updates the digest of the `gcr.io/distroless/static:nonroot` Docker base image from an older SHA to a newer one. This is a routine maintenance update to ensure the build uses the latest, verified version of the base image.",
-    "reviewedRun": "2026-07-09",
+    "reasoning": "This change is a simple digest update for a dependency (`docker.io/golang`) which is a routine maintenance task. Since the version tag (1.26.5) remains the same, this is considered a safe, low-risk update.",
+    "changesSummary": "This PR updates the specific digest used for the `docker.io/golang:1.26.5` base image in the `Dockerfile` and `Dockerfile.node-labeler`. This is a standard maintenance update to ensure the build uses the latest, verified image digest.",
+    "reviewedRun": "2026-07-16",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 1727 bytes"
+      "context: 1875 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos-operator",
+    "pr": 140,
+    "url": "https://github.com/kairos-io/kairos-operator/pull/140",
+    "headSHA": "69084798d0c234722a66211b27b3c3e83f451b44",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-16",
+    "trace": [
+      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
+      "context: 43423 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos-sdk",
+    "pr": 808,
+    "url": "https://github.com/kairos-io/kairos-sdk/pull/808",
+    "headSHA": "743d49731c3a83d1811974ab0274f6cb581c6357",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-16",
+    "trace": [
+      "securego/gosec v2.27.1..v2.28.0 (PR body): compare v2.27.1...v2.28.0 ✓ 40000 bytes",
+      "context: 44596 bytes"
     ]
   },
   {
@@ -514,6 +580,20 @@
       "golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes",
       "golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes",
       "context: 83965 bytes"
+    ]
+  },
+  {
+    "repo": "mauromorales/xpasswd",
+    "pr": 53,
+    "url": "https://github.com/mauromorales/xpasswd/pull/53",
+    "headSHA": "f581ba8253b3daaf1082d7f61da8546997a8e70d",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-16",
+    "trace": [
+      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
+      "context: 42399 bytes"
     ]
   },
   {
@@ -760,14 +840,15 @@
     "repo": "mudler/edgevpn",
     "pr": 1046,
     "url": "https://github.com/mudler/edgevpn/pull/1046",
-    "headSHA": "ac24f66f020ea95d5f0fc9ca4dab691931237d08",
+    "headSHA": "67b0d407b214969108eb6a7d61e7502592c53bd2",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-13",
+    "reviewedRun": "2026-07-16",
     "trace": [
+      "postcss/autoprefixer 10.5.2..10.5.3 (PR body): compare 10.5.2...10.5.3 ✓ 40000 bytes",
       "postcss/autoprefixer 10.5.1..10.5.2 (PR body): compare 10.5.1...10.5.2 ✓ 2688 bytes",
       "postcss/autoprefixer 10.5.0..10.5.1 (PR body): compare 10.5.0...10.5.1 ✓ 40000 bytes",
-      "context: 54014 bytes"
+      "context: 94385 bytes"
     ]
   },
   {
@@ -848,6 +929,20 @@
     "trace": [
       "github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes",
       "context: 49610 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 314,
+    "url": "https://github.com/mudler/yip/pull/314",
+    "headSHA": "a8f82eab5d9c4b07a282554e238a0cd47aab6ab2",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-16",
+    "trace": [
+      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
+      "context: 42931 bytes"
     ]
   }
 ]
