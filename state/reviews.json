@@ -3,10 +3,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 409,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/409",
-    "headSHA": "c2d6cc0a08e3078ca67ed09be5602aebde590e2e",
+    "headSHA": "20f76909ae7bf334cf232f29d6563a073d64424d",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
+    "reviewedRun": "2026-07-18",
     "trace": [
       "github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes",
       "github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes",
@@ -17,10 +17,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 590,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/590",
-    "headSHA": "9ea1fe9eb1b3c3bbdb0c67e426fca6a98f9958d8",
+    "headSHA": "66cb54995e8cbf7e8bde614e4e45329776a8c576",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
+    "reviewedRun": "2026-07-18",
     "trace": [
       "sindresorhus/globals v17.6.0..a19670cc86c1218e915657c55ea02ba3e7623834 (PR body): compare v17.6.0...a19670cc86c1218e915657c55ea02ba3e7623834 ✓ 11637 bytes",
       "sindresorhus/globals v17.6.0..v17.7.0 (PR body): compare v17.6.0...v17.7.0 ✓ 11637 bytes",
@@ -34,10 +34,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 594,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/594",
-    "headSHA": "b5283f64bccb27d8a7dfed0524517fe193804d1a",
+    "headSHA": "94128007666ac5455b2ca229f7eaf86bbfca3e7f",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
+    "reviewedRun": "2026-07-18",
     "trace": [
       "facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes",
       "facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes",
@@ -48,10 +48,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 599,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/599",
-    "headSHA": "713920013905984dd6c2c129e8759d07997fa777",
+    "headSHA": "b10dc9e3680f81bf8de2013a04df86067f964566",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
+    "reviewedRun": "2026-07-18",
     "trace": [
       "eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes",
       "context: 77814 bytes"
@@ -61,10 +61,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 626,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/626",
-    "headSHA": "d043dd0aa3390d7786051de1a33d6823292a2fd2",
+    "headSHA": "1652e58191a310987630a1cc04a7ff05855c2169",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
+    "reviewedRun": "2026-07-18",
     "trace": [
       "typescript-eslint/typescript-eslint v8.63.0..v8.64.0 (PR body): compare v8.63.0...v8.64.0 ✓ 40000 bytes",
       "typescript-eslint/typescript-eslint v8.62.1..v8.63.0 (PR body): compare v8.62.1...v8.63.0 ✓ 40000 bytes",
@@ -75,10 +75,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 627,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/627",
-    "headSHA": "17f4276f10b55088a17cf963091c0acd9ef49ec6",
+    "headSHA": "3c7d7aa64bd8091ee2dd60bdedf3a4d4ffd57ea2",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
+    "reviewedRun": "2026-07-18",
     "trace": [
       "eemeli/yaml v2.8.4..v2.9.0 (PR body): compare v2.8.4...v2.9.0 ✓ 11907 bytes",
       "eemeli/yaml v2.8.3..v2.8.4 (PR body): compare v2.8.3...v2.8.4 ✓ 13617 bytes",
@@ -89,10 +89,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 629,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/629",
-    "headSHA": "ea7ba91800d22e0f09964297b2149f0e167db9ad",
+    "headSHA": "680b6251b29345c985006e83f370f81db04f60c4",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
+    "reviewedRun": "2026-07-18",
     "trace": [
       "github.com/stmcginnis/gofish 0.22.0→0.23.0: compare v0.22.0...v0.23.0 ✓ 25082 bytes",
       "context: 29808 bytes"
@@ -102,46 +102,42 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 631,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/631",
-    "headSHA": "cd62d6d51d86d69573eaa776a1bf2d9c681d1dda",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
+    "headSHA": "1db6f236542f25a125e0cd23600256557638b707",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency version bump performed by an automated tool, which is generally safe. The changes reflect a routine update to a core dependency, and the diffs show expected version updates and internal refactoring associated with the new version.",
+    "changesSummary": "This PR updates the dependency `golang.org/x/mod` from version v0.37.0 to v0.38.0. This version bump also includes related updates to `golang.org/x/tools` and internal file changes within the `golang.org/x/mod` package itself. These changes appear to be routine dependency maintenance and version alignment.",
+    "reviewedRun": "2026-07-18",
     "trace": [
       "golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes",
-      "golang.org/x/tools 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 40000 bytes",
-      "context: 54560 bytes"
+      "context: 13177 bytes"
     ]
   },
   {
     "repo": "kairos-io/AuroraBoot",
     "pr": 637,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/637",
-    "headSHA": "9c70f0f2ec4750ef68ed819d85c980f8e640b406",
+    "headSHA": "fd1ffcfd371f02c2af03888e20111cc218f6763c",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
+    "reviewedRun": "2026-07-18",
     "trace": [
       "golang.org/x/exp 0.0.0-20260611194520-c48552f49976→0.0.0-20260709172345-9ea1abe57597: compare c48552f49976...9ea1abe57597 ✓ 9589 bytes",
       "golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes",
       "golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes",
-      "context: 68956 bytes"
+      "context: 65858 bytes"
     ]
   },
   {
     "repo": "kairos-io/AuroraBoot",
-    "pr": 639,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/639",
-    "headSHA": "4b080d856e990a96c86fd17616abfa129763fd9f",
+    "pr": 643,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/643",
+    "headSHA": "60921f43c154480b262149b4eb1f4f651dd47230",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
+    "reviewedRun": "2026-07-18",
     "trace": [
-      "golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes",
-      "golang.org/x/sync 0.21.0→0.22.0: compare v0.21.0...v0.22.0 ✓ 2763 bytes",
-      "golang.org/x/term 0.44.0→0.45.0: compare v0.44.0...v0.45.0 ✓ 620 bytes",
-      "golang.org/x/text 0.38.0→0.40.0: compare v0.38.0...v0.40.0 ✓ 10351 bytes",
-      "golang.org/x/tools 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 40000 bytes",
-      "context: 107396 bytes"
+      "eslint/eslint v9.39.4..v9.39.5 (PR body): compare v9.39.4...v9.39.5 ✓ 12204 bytes",
+      "context: 20662 bytes"
     ]
   },
   {
@@ -324,21 +320,6 @@
     ]
   },
   {
-    "repo": "kairos-io/immucore",
-    "pr": 595,
-    "url": "https://github.com/kairos-io/immucore/pull/595",
-    "headSHA": "138844dbe976cdf1a7cacb553fd81db091402223",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
-    "trace": [
-      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
-      "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
-      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
-      "context: 83825 bytes"
-    ]
-  },
-  {
     "repo": "kairos-io/kairos",
     "pr": 4229,
     "url": "https://github.com/kairos-io/kairos/pull/4229",
@@ -366,17 +347,18 @@
     ]
   },
   {
-    "repo": "kairos-io/kairos-init",
-    "pr": 405,
-    "url": "https://github.com/kairos-io/kairos-init/pull/405",
-    "headSHA": "69c2bf4017d8b59b580698ddd388206b87062655",
-    "verdict": "good",
-    "reasoning": "This change addresses a specific operational requirement for server hardware (BMC virtual media support) and is well-justified by the context provided. The modifications are targeted, include necessary validation, and do not introduce new security vulnerabilities or significant code changes. Therefore, it is safe to auto-approve.",
-    "changesSummary": "This PR adds the `xhci_pci_renesas` kernel module to the initramfs by updating the Dracut configuration and adding a dedicated initramfs stage. This ensures that server BMCs (like iLO and iDRAC) can correctly expose virtual media and keyboard input during the boot process.",
-    "reviewedRun": "2026-07-17",
+    "repo": "kairos-io/kairos",
+    "pr": 4248,
+    "url": "https://github.com/kairos-io/kairos/pull/4248",
+    "headSHA": "1f241920198245211f34d9c4785f848d729f901a",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-18",
     "trace": [
-      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 6773 bytes"
+      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
+      "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
+      "context: 83913 bytes"
     ]
   },
   {
@@ -611,20 +593,6 @@
   },
   {
     "repo": "mudler/edgevpn",
-    "pr": 808,
-    "url": "https://github.com/mudler/edgevpn/pull/808",
-    "headSHA": "7d4956fc1772eed5fda7f71e7e3a50f9b24420d7",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
-    "reviewedRun": "2026-06-26",
-    "trace": [
-      "FortAwesome/Font-Awesome 6.7.1..6.7.2 (PR body): compare 6.7.1...6.7.2 ✓ 40000 bytes",
-      "FortAwesome/Font-Awesome 6.7.0..6.7.1 (PR body): compare 6.7.0...6.7.1 ✓ 40000 bytes",
-      "context: 83016 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/edgevpn",
     "pr": 905,
     "url": "https://github.com/mudler/edgevpn/pull/905",
     "headSHA": "52a2f60266fd21f2ae635300b1807530c1646cd9",
@@ -636,21 +604,6 @@
       "dependabot/fetch-metadata v2..v2.4.0 (PR body): compare v2...v2.4.0 failed/empty (no upstream diff)",
       "dependabot/fetch-metadata v2.3.0..v2.4.0 (PR body): compare v2.3.0...v2.4.0 ✓ 40000 bytes",
       "context: 49729 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/edgevpn",
-    "pr": 914,
-    "url": "https://github.com/mudler/edgevpn/pull/914",
-    "headSHA": "5454afa32db33626a8ebc87451e55b13dc08fd6c",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-13",
-    "trace": [
-      "github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes",
-      "github.com/mattn/go-colorable 0.1.14→0.1.15: compare v0.1.14...v0.1.15 ✓ 5234 bytes",
-      "labstack/echo v4.15.3..v4.15.4 (PR body): compare v4.15.3...v4.15.4 ✓ 34118 bytes",
-      "context: 77780 bytes"
     ]
   },
   {
@@ -776,20 +729,6 @@
   },
   {
     "repo": "mudler/edgevpn",
-    "pr": 1001,
-    "url": "https://github.com/mudler/edgevpn/pull/1001",
-    "headSHA": "9f2f5e30ac47a2414161bd7cf5215b6fb59e6262",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-13",
-    "trace": [
-      "FortAwesome/Font-Awesome 7.2.0..7.3.0 (PR body): compare 7.2.0...7.3.0 ✓ 40000 bytes",
-      "FortAwesome/Font-Awesome 7.1.0..7.2.0 (PR body): compare 7.1.0...7.2.0 ✓ 40000 bytes",
-      "context: 84231 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/edgevpn",
     "pr": 1006,
     "url": "https://github.com/mudler/edgevpn/pull/1006",
     "headSHA": "b50bebf89b57268a3d68d4845596ec01b160c5a8",
@@ -802,34 +741,6 @@
       "github.com/mattn/go-colorable 0.1.13→0.1.14: compare v0.1.13...v0.1.14 ✓ 6350 bytes",
       "golang.org/x/time 0.12.0→0.14.0: compare v0.12.0...v0.14.0 ✓ 606 bytes",
       "context: 76092 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/edgevpn",
-    "pr": 1041,
-    "url": "https://github.com/mudler/edgevpn/pull/1041",
-    "headSHA": "9aa719786d9a9ec36199db8880166b521e84e038",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-13",
-    "trace": [
-      "github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes",
-      "github.com/labstack/echo/v5 5.2.1→5.3.0: compare v5.2.1...v5.3.0 ✓ 40000 bytes",
-      "context: 99797 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/edgevpn",
-    "pr": 1046,
-    "url": "https://github.com/mudler/edgevpn/pull/1046",
-    "headSHA": "ecc6f3ba5e19e129c296d5bfde27ca08ddbdbe1f",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
-    "trace": [
-      "postcss/autoprefixer 10.5.3..10.5.4 (PR body): compare 10.5.3...10.5.4 ✓ 22539 bytes",
-      "postcss/autoprefixer 10.5.2..10.5.3 (PR body): compare 10.5.2...10.5.3 ✓ 40000 bytes",
-      "context: 74451 bytes"
     ]
   },
   {
@@ -848,19 +759,6 @@
   },
   {
     "repo": "mudler/edgevpn",
-    "pr": 1055,
-    "url": "https://github.com/mudler/edgevpn/pull/1055",
-    "headSHA": "75a1d277310b65cfaf7a3b59534e39dd185094de",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
-    "trace": [
-      "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
-      "context: 36260 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/edgevpn",
     "pr": 1056,
     "url": "https://github.com/mudler/edgevpn/pull/1056",
     "headSHA": "d8d1a5169e7f026425695642a8a597470c691be4",
@@ -873,57 +771,31 @@
     ]
   },
   {
-    "repo": "mudler/yip",
-    "pr": 310,
-    "url": "https://github.com/mudler/yip/pull/310",
-    "headSHA": "f386132152c82e84d40d2fa2c8d8b21152fb9096",
+    "repo": "mudler/edgevpn",
+    "pr": 1057,
+    "url": "https://github.com/mudler/edgevpn/pull/1057",
+    "headSHA": "afc8ca2bfcd13c6dd221451cc27e6484c68b6a57",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-08",
+    "reviewedRun": "2026-07-18",
     "trace": [
-      "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
-      "context: 36249 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/yip",
-    "pr": 311,
-    "url": "https://github.com/mudler/yip/pull/311",
-    "headSHA": "d559c506e0bdcc7d93bced5e85c48544ba570a5e",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-09",
-    "trace": [
-      "golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes",
-      "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
-      "context: 80404 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/yip",
-    "pr": 312,
-    "url": "https://github.com/mudler/yip/pull/312",
-    "headSHA": "9909d1f1317fd662135e434194ddf06718540943",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-10",
-    "trace": [
-      "github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes",
-      "context: 49610 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/yip",
-    "pr": 314,
-    "url": "https://github.com/mudler/yip/pull/314",
-    "headSHA": "a8f82eab5d9c4b07a282554e238a0cd47aab6ab2",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-16",
-    "trace": [
-      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
       "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
-      "context: 42931 bytes"
+      "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
+      "context: 84157 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1058,
+    "url": "https://github.com/mudler/edgevpn/pull/1058",
+    "headSHA": "0d333088f7b382181e91b4b5887cdb62d6c5fada",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-18",
+    "trace": [
+      "labstack/echo v5.2.1..v5.3.0 (PR body): compare v5.2.1...v5.3.0 ✓ 40000 bytes",
+      "context: 63086 bytes"
     ]
   }
 ]

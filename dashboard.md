@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-17._
+_Updated 2026-07-18._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -147,22 +147,18 @@ _No bot PRs yet._
 - [#629](https://github.com/kairos-io/AuroraBoot/pull/629) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/stmcginnis/gofish 0.22.0→0.23.0: compare v0.22.0...v0.23.0 ✓ 25082 bytes
     - context: 29808 bytes
-- [#631](https://github.com/kairos-io/AuroraBoot/pull/631) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+- [#631](https://github.com/kairos-io/AuroraBoot/pull/631) — ✅ **good** — This is a standard dependency version bump performed by an automated tool, which is generally safe. The changes reflect a routine update to a core dependency, and the diffs show expected version updates and internal refactoring associated with the new version.
+  ↳ This PR updates the dependency `golang.org/x/mod` from version v0.37.0 to v0.38.0. This version bump also includes related updates to `golang.org/x/tools` and internal file changes within the `golang.org/x/mod` package itself. These changes appear to be routine dependency maintenance and version alignment.
     - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
-    - golang.org/x/tools 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 40000 bytes
-    - context: 54560 bytes
+    - context: 13177 bytes
 - [#637](https://github.com/kairos-io/AuroraBoot/pull/637) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - golang.org/x/exp 0.0.0-20260611194520-c48552f49976→0.0.0-20260709172345-9ea1abe57597: compare c48552f49976...9ea1abe57597 ✓ 9589 bytes
     - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
     - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
-    - context: 68956 bytes
-- [#639](https://github.com/kairos-io/AuroraBoot/pull/639) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
-    - golang.org/x/sync 0.21.0→0.22.0: compare v0.21.0...v0.22.0 ✓ 2763 bytes
-    - golang.org/x/term 0.44.0→0.45.0: compare v0.44.0...v0.45.0 ✓ 620 bytes
-    - golang.org/x/text 0.38.0→0.40.0: compare v0.38.0...v0.40.0 ✓ 10351 bytes
-    - golang.org/x/tools 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 40000 bytes
-    - context: 107396 bytes
+    - context: 65858 bytes
+- [#643](https://github.com/kairos-io/AuroraBoot/pull/643) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - eslint/eslint v9.39.4..v9.39.5 (PR body): compare v9.39.4...v9.39.5 ✓ 12204 bytes
+    - context: 20662 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -220,13 +216,6 @@ _No bot PRs yet._
 - [#512](https://github.com/kairos-io/hadron/pull/512) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 24553 bytes
-**[kairos-io/immucore](https://github.com/kairos-io/immucore)**
-
-- [#595](https://github.com/kairos-io/immucore/pull/595) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
-    - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
-    - context: 83825 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4229](https://github.com/kairos-io/kairos/pull/4229) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -236,12 +225,11 @@ _No bot PRs yet._
   ↳ This PR updates the dependency `kairos-io/kairos-factory-action` from v1.1.3 to v1.2.0. This update incorporates changes from the upstream release, including updates to `actions/checkout` and `github/codeql-action`. The change is applied across multiple CI/CD workflow files.
     - kairos-io/kairos-factory-action v1.1.3..v1.2.0 (PR body): compare v1.1.3...v1.2.0 ✓ 7319 bytes
     - context: 15709 bytes
-**[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
-
-- [#405](https://github.com/kairos-io/kairos-init/pull/405) — ✅ **good** — This change addresses a specific operational requirement for server hardware (BMC virtual media support) and is well-justified by the context provided. The modifications are targeted, include necessary validation, and do not introduce new security vulnerabilities or significant code changes. Therefore, it is safe to auto-approve.
-  ↳ This PR adds the `xhci_pci_renesas` kernel module to the initramfs by updating the Dracut configuration and adding a dedicated initramfs stage. This ensures that server BMCs (like iLO and iDRAC) can correctly expose virtual media and keyboard input during the boot process.
-    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 6773 bytes
+- [#4248](https://github.com/kairos-io/kairos/pull/4248) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
+    - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
+    - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
+    - context: 83913 bytes
 **[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
 
 - [#14](https://github.com/kairos-io/kairos-installer/pull/14) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -324,20 +312,11 @@ _No bot PRs yet._
     - go-yaml/yaml v3.0.0..v3.0.1 (PR body): compare v3.0.0...v3.0.1 ✓ 2202 bytes
     - go-yaml/yaml v2.4.0..v3.0.0 (PR body): compare v2.4.0...v3.0.0 ✓ 40000 bytes
     - context: 44433 bytes
-- [#808](https://github.com/mudler/edgevpn/pull/808) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
-    - FortAwesome/Font-Awesome 6.7.1..6.7.2 (PR body): compare 6.7.1...6.7.2 ✓ 40000 bytes
-    - FortAwesome/Font-Awesome 6.7.0..6.7.1 (PR body): compare 6.7.0...6.7.1 ✓ 40000 bytes
-    - context: 83016 bytes
 - [#905](https://github.com/mudler/edgevpn/pull/905) — ✅ **good** — This is a routine dependency bump for a tool used in the CI/CD workflow. The changelog indicates that version 2.4.0 includes various maintenance updates and fixes, suggesting this is a safe and necessary update. There are no immediate security red flags indicated by the context.
   ↳ This pull request updates the version of the `dependabot/fetch-metadata` dependency from 2.3.0 to 2.4.0. This upgrade incorporates various fixes, updates to actions, and improvements to the dependency fetching mechanism.
     - dependabot/fetch-metadata v2..v2.4.0 (PR body): compare v2...v2.4.0 failed/empty (no upstream diff)
     - dependabot/fetch-metadata v2.3.0..v2.4.0 (PR body): compare v2.3.0...v2.4.0 ✓ 40000 bytes
     - context: 49729 bytes
-- [#914](https://github.com/mudler/edgevpn/pull/914) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes
-    - github.com/mattn/go-colorable 0.1.14→0.1.15: compare v0.1.14...v0.1.15 ✓ 5234 bytes
-    - labstack/echo v4.15.3..v4.15.4 (PR body): compare v4.15.3...v4.15.4 ✓ 34118 bytes
-    - context: 77780 bytes
 - [#923](https://github.com/mudler/edgevpn/pull/923) — ⚠️ **needs_human_verification** — review endpoint unreachable: Post "http://localhost:8080/v1/chat/completions": context deadline exceeded
     - github.com/miekg/dns 1.1.66→1.1.68: compare v1.1.66...v1.1.68 ✓ 40000 bytes
     - miekg/dns v1.1.64..v1.1.68 (PR body): compare v1.1.64...v1.1.68 ✓ 40000 bytes
@@ -379,48 +358,25 @@ _No bot PRs yet._
     - github.com/libp2p/go-libp2p-pubsub 0.14.2→0.15.0: compare v0.14.2...v0.15.0 ✓ 40000 bytes
     - libp2p/go-libp2p-pubsub v0.14.3..v0.15.0 (PR body): compare v0.14.3...v0.15.0 ✓ 40000 bytes
     - context: 116011 bytes
-- [#1001](https://github.com/mudler/edgevpn/pull/1001) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - FortAwesome/Font-Awesome 7.2.0..7.3.0 (PR body): compare 7.2.0...7.3.0 ✓ 40000 bytes
-    - FortAwesome/Font-Awesome 7.1.0..7.2.0 (PR body): compare 7.1.0...7.2.0 ✓ 40000 bytes
-    - context: 84231 bytes
 - [#1006](https://github.com/mudler/edgevpn/pull/1006) — ✅ **good** — The upgrade is to a newer minor version (4.15.1) which includes security enhancements, such as the new CSRF middleware features detailed in the release notes. There are no immediate red flags or known critical vulnerabilities associated with this specific version jump. Therefore, this change is safe to auto-approve.
   ↳ This pull request updates the dependency `github.com/labstack/echo/v4` from version 4.13.3 to 4.15.1. This upgrade incorporates several enhancements, including improved CSRF protection features and minor internal fixes related to time comparison logic.
     - github.com/labstack/echo/v4 4.13.3→4.15.1: compare v4.13.3...v4.15.1 ✓ 40000 bytes
     - github.com/mattn/go-colorable 0.1.13→0.1.14: compare v0.1.13...v0.1.14 ✓ 6350 bytes
     - golang.org/x/time 0.12.0→0.14.0: compare v0.12.0...v0.14.0 ✓ 606 bytes
     - context: 76092 bytes
-- [#1041](https://github.com/mudler/edgevpn/pull/1041) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes
-    - github.com/labstack/echo/v5 5.2.1→5.3.0: compare v5.2.1...v5.3.0 ✓ 40000 bytes
-    - context: 99797 bytes
-- [#1046](https://github.com/mudler/edgevpn/pull/1046) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - postcss/autoprefixer 10.5.3..10.5.4 (PR body): compare 10.5.3...10.5.4 ✓ 22539 bytes
-    - postcss/autoprefixer 10.5.2..10.5.3 (PR body): compare 10.5.2...10.5.3 ✓ 40000 bytes
-    - context: 74451 bytes
 - [#1054](https://github.com/mudler/edgevpn/pull/1054) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - urfave/cli v3.10.0..v3.10.1 (PR body): compare v3.10.0...v3.10.1 ✓ 17319 bytes
     - urfave/cli v3.9.1..v3.10.0 (PR body): compare v3.9.1...v3.10.0 ✓ 40000 bytes
     - context: 100504 bytes
-- [#1055](https://github.com/mudler/edgevpn/pull/1055) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
-    - context: 36260 bytes
 - [#1056](https://github.com/mudler/edgevpn/pull/1056) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/libp2p/go-libp2p-pubsub 0.16.0→0.17.0: compare v0.16.0...v0.17.0 ✓ 40000 bytes
     - context: 45662 bytes
-**[mudler/yip](https://github.com/mudler/yip)**
-
-- [#310](https://github.com/mudler/yip/pull/310) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
-    - context: 36249 bytes
-- [#311](https://github.com/mudler/yip/pull/311) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
-    - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
-    - context: 80404 bytes
-- [#312](https://github.com/mudler/yip/pull/312) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes
-    - context: 49610 bytes
-- [#314](https://github.com/mudler/yip/pull/314) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
+- [#1057](https://github.com/mudler/edgevpn/pull/1057) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - context: 42931 bytes
+    - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
+    - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
+    - context: 84157 bytes
+- [#1058](https://github.com/mudler/edgevpn/pull/1058) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - labstack/echo v5.2.1..v5.3.0 (PR body): compare v5.2.1...v5.3.0 ✓ 40000 bytes
+    - context: 63086 bytes
 
