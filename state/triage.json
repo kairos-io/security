@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-18",
+  "generatedAt": "2026-07-19",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
   "focus": [],
   "summaries": {},
-  "narrative": ""
+  "narrative": "No security findings were provided in the input. Please provide the correlated security findings so I can analyze and report the most urgent items."
 }

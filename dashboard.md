@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-18._
+_Updated 2026-07-19._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -12,6 +12,8 @@ _Updated 2026-07-18._
 - **CVE-related PRs:** 0
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** No CVEs found across 25 repos — nothing to remediate.
+
+> No security findings were provided in the input. Please provide the correlated security findings so I can analyze and report the most urgent items.
 
 ## 🔥 Focus now
 
@@ -152,10 +154,10 @@ _No bot PRs yet._
     - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
     - context: 13177 bytes
 - [#637](https://github.com/kairos-io/AuroraBoot/pull/637) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/exp 0.0.0-20260611194520-c48552f49976→0.0.0-20260709172345-9ea1abe57597: compare c48552f49976...9ea1abe57597 ✓ 9589 bytes
+    - golang.org/x/exp 0.0.0-20260611194520-c48552f49976→0.0.0-20260718201538-764159d718ef: compare c48552f49976...764159d718ef ✓ 40000 bytes
     - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
     - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
-    - context: 65858 bytes
+    - context: 96269 bytes
 - [#643](https://github.com/kairos-io/AuroraBoot/pull/643) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - eslint/eslint v9.39.4..v9.39.5 (PR body): compare v9.39.4...v9.39.5 ✓ 12204 bytes
     - context: 20662 bytes

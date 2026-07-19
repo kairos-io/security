@@ -116,15 +116,15 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 637,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/637",
-    "headSHA": "fd1ffcfd371f02c2af03888e20111cc218f6763c",
+    "headSHA": "0e12a5def49ea2c4924b51243bf3a9c545d34dab",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-18",
+    "reviewedRun": "2026-07-19",
     "trace": [
-      "golang.org/x/exp 0.0.0-20260611194520-c48552f49976→0.0.0-20260709172345-9ea1abe57597: compare c48552f49976...9ea1abe57597 ✓ 9589 bytes",
+      "golang.org/x/exp 0.0.0-20260611194520-c48552f49976→0.0.0-20260718201538-764159d718ef: compare c48552f49976...764159d718ef ✓ 40000 bytes",
       "golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes",
       "golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes",
-      "context: 65858 bytes"
+      "context: 96269 bytes"
     ]
   },
   {
@@ -789,10 +789,10 @@
     "repo": "mudler/edgevpn",
     "pr": 1058,
     "url": "https://github.com/mudler/edgevpn/pull/1058",
-    "headSHA": "0d333088f7b382181e91b4b5887cdb62d6c5fada",
+    "headSHA": "0e793fd0ae662c62bfc64f9338a83ee18f1459a1",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-18",
+    "reviewedRun": "2026-07-19",
     "trace": [
       "labstack/echo v5.2.1..v5.3.0 (PR body): compare v5.2.1...v5.3.0 ✓ 40000 bytes",
       "context: 63086 bytes"
