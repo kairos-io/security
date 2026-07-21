@@ -34,10 +34,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 594,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/594",
-    "headSHA": "94128007666ac5455b2ca229f7eaf86bbfca3e7f",
+    "headSHA": "0673f06a106a8e50e989798f24c7aa5eb41666c2",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-18",
+    "reviewedRun": "2026-07-21",
     "trace": [
       "facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes",
       "facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes",
@@ -61,14 +61,14 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 626,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/626",
-    "headSHA": "1652e58191a310987630a1cc04a7ff05855c2169",
+    "headSHA": "591871bb8ce5ad31cf51f7203ccf0a840dd624ea",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-18",
+    "reviewedRun": "2026-07-21",
     "trace": [
+      "typescript-eslint/typescript-eslint v8.64.0..v8.65.0 (PR body): compare v8.64.0...v8.65.0 ✓ 40000 bytes",
       "typescript-eslint/typescript-eslint v8.63.0..v8.64.0 (PR body): compare v8.63.0...v8.64.0 ✓ 40000 bytes",
-      "typescript-eslint/typescript-eslint v8.62.1..v8.63.0 (PR body): compare v8.62.1...v8.63.0 ✓ 40000 bytes",
-      "context: 94647 bytes"
+      "context: 96182 bytes"
     ]
   },
   {
@@ -241,6 +241,19 @@
     ]
   },
   {
+    "repo": "kairos-io/entangle-proxy",
+    "pr": 25,
+    "url": "https://github.com/kairos-io/entangle-proxy/pull/25",
+    "headSHA": "e6a869900172b1716a997d81030e8bf7b5c9bc3e",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-21",
+    "trace": [
+      "github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes",
+      "context: 44091 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/go-nodepair",
     "pr": 27,
     "url": "https://github.com/kairos-io/go-nodepair/pull/27",
@@ -307,16 +320,21 @@
     ]
   },
   {
-    "repo": "kairos-io/hadron",
-    "pr": 512,
-    "url": "https://github.com/kairos-io/hadron/pull/512",
-    "headSHA": "9700868fcd40774df9063edac26e2ec0320629d6",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-16",
+    "repo": "kairos-io/go-ukify",
+    "pr": 61,
+    "url": "https://github.com/kairos-io/go-ukify/pull/61",
+    "headSHA": "8b9a5f7a9ee68ea3581af9ac0fc52a19f2dc8968",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency version update. The context provided suggests that the dependency is undergoing a repository migration, which is a planned change. There are no immediate security red flags or major version changes indicated that would warrant manual review. Therefore, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the dependency `github.com/ThalesGroup/crypto11` from version v1.6.2 to v1.6.5. The upstream context indicates this update is part of a project migration to `github.com/eclipse-keypont/crypto11`. This is a standard version bump for a third-party library.",
+    "reviewedRun": "2026-07-21",
     "trace": [
-      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 24553 bytes"
+      "github.com/ThalesGroup/crypto11 1.6.2→1.6.5: compare v1.6.2...v1.6.5 ✓ 1245 bytes",
+      "ThalesGroup/crypto11 v1.6.4..v1.6.5 (PR body): compare v1.6.4...v1.6.5 ✓ 309 bytes",
+      "eclipse-keypont/crypto11 v1.6.3..v1.6.5 (PR body): compare v1.6.3...v1.6.5 ✓ 314 bytes",
+      "ThalesGroup/crypto11 v1.6.3..v1.6.4 (PR body): compare v1.6.3...v1.6.4 ✓ 377 bytes",
+      "ThalesGroup/crypto11 v1.6.2..v1.6.3 (PR body): compare v1.6.2...v1.6.3 ✓ 1316 bytes",
+      "context: 6745 bytes"
     ]
   },
   {
@@ -348,31 +366,30 @@
   },
   {
     "repo": "kairos-io/kairos",
-    "pr": 4248,
-    "url": "https://github.com/kairos-io/kairos/pull/4248",
-    "headSHA": "1f241920198245211f34d9c4785f848d729f901a",
+    "pr": 4256,
+    "url": "https://github.com/kairos-io/kairos/pull/4256",
+    "headSHA": "23c71fa2b7c64368fb6162970f006d817d3a7bad",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-18",
+    "reviewedRun": "2026-07-21",
     "trace": [
-      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
-      "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
-      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
-      "context: 83913 bytes"
+      "actions/checkout v7.0.0..v7.0.1 (PR body): compare v7.0.0...v7.0.1 ✓ 40000 bytes",
+      "context: 48520 bytes"
     ]
   },
   {
     "repo": "kairos-io/kairos-installer",
     "pr": 14,
     "url": "https://github.com/kairos-io/kairos-installer/pull/14",
-    "headSHA": "29c5e979c926a805bda4b26f1d0f2e9dc4f9d6d6",
+    "headSHA": "622becc59203165a7e1dc126d8ebccb9d1a50d37",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-13",
+    "reviewedRun": "2026-07-21",
     "trace": [
       "github.com/jaypipes/ghw 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 40000 bytes",
+      "github.com/kairos-io/kairos-sdk 0.23.2→0.23.4: compare v0.23.2...v0.23.4 ✓ 10535 bytes",
       "github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes",
-      "context: 87431 bytes"
+      "context: 105868 bytes"
     ]
   },
   {
@@ -393,11 +410,11 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 139,
     "url": "https://github.com/kairos-io/kairos-operator/pull/139",
-    "headSHA": "85ca71ee76fb43b15d5b0a5628c285724f0d3527",
+    "headSHA": "b6b01b8a64f3f3d2378c2374f66fb01d3ac6fc24",
     "verdict": "good",
-    "reasoning": "This change is a simple digest update for a dependency (`docker.io/golang`) which is a routine maintenance task. Since the version tag (1.26.5) remains the same, this is considered a safe, low-risk update.",
-    "changesSummary": "This PR updates the specific digest used for the `docker.io/golang:1.26.5` base image in the `Dockerfile` and `Dockerfile.node-labeler`. This is a standard maintenance update to ensure the build uses the latest, verified image digest.",
-    "reviewedRun": "2026-07-16",
+    "reasoning": "This change only updates the digest of an existing Docker image tag. Pinning to a specific digest is a standard and safe practice for ensuring build reproducibility and security. Since this is an automated dependency update, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the Docker image digest for docker.io/golang:1.26.5 from an older SHA to a newer one. This ensures that the build process uses a specific, verified image artifact.",
+    "reviewedRun": "2026-07-21",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 1875 bytes"
@@ -415,6 +432,19 @@
       "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
       "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
       "context: 43423 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/kairos-operator",
+    "pr": 141,
+    "url": "https://github.com/kairos-io/kairos-operator/pull/141",
+    "headSHA": "62a6ed9ed9d6d58f00b6660a352c54061e693302",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-21",
+    "trace": [
+      "actions/checkout 9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0..3d3c42e5aac5ba805825da76410c181273ba90b1 (PR body): compare 9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0...3d3c42e5aac5ba805825da76410c181273ba90b1 ✓ 40000 bytes",
+      "context: 44780 bytes"
     ]
   },
   {
@@ -504,6 +534,19 @@
     ]
   },
   {
+    "repo": "kairos-io/kcrypt-discovery-challenger",
+    "pr": 247,
+    "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/247",
+    "headSHA": "c147237cdb5be4927c20e1572eceb037c61e361e",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-21",
+    "trace": [
+      "github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes",
+      "context: 44037 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/netboot",
     "pr": 45,
     "url": "https://github.com/kairos-io/netboot/pull/45",
@@ -564,10 +607,10 @@
     "repo": "mudler/edgevpn",
     "pr": 804,
     "url": "https://github.com/mudler/edgevpn/pull/804",
-    "headSHA": "a5f1f9cc0de8ee077a7848aadbf06245510de7be",
+    "headSHA": "dddf88518a3d02449d3bc09b1345e1b9ac12c5dd",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-13",
+    "reviewedRun": "2026-07-21",
     "trace": [
       "c-robinson/iplib v2.0.4..v2.0.5 (PR body): compare v2.0.4...v2.0.5 ✓ 6378 bytes",
       "c-robinson/iplib v2.0.3..v2.0.4 (PR body): compare v2.0.3...v2.0.4 ✓ 3273 bytes",
@@ -581,10 +624,10 @@
     "repo": "mudler/edgevpn",
     "pr": 805,
     "url": "https://github.com/mudler/edgevpn/pull/805",
-    "headSHA": "23fbe2f96b9c6654026f8d4ac5815b2cfb3fb384",
+    "headSHA": "0f44c2e542e68db4882dad5447c48bc1e87161a5",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-13",
+    "reviewedRun": "2026-07-21",
     "trace": [
       "go-yaml/yaml v3.0.0..v3.0.1 (PR body): compare v3.0.0...v3.0.1 ✓ 2202 bytes",
       "go-yaml/yaml v2.4.0..v3.0.0 (PR body): compare v2.4.0...v3.0.0 ✓ 40000 bytes",
@@ -747,10 +790,10 @@
     "repo": "mudler/edgevpn",
     "pr": 1054,
     "url": "https://github.com/mudler/edgevpn/pull/1054",
-    "headSHA": "16dae2ade7462919ee1a547c656b2a7eff83ae44",
+    "headSHA": "bc4a761c024da1c24c264f3756a9f874648cb6af",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-13",
+    "reviewedRun": "2026-07-21",
     "trace": [
       "urfave/cli v3.10.0..v3.10.1 (PR body): compare v3.10.0...v3.10.1 ✓ 17319 bytes",
       "urfave/cli v3.9.1..v3.10.0 (PR body): compare v3.9.1...v3.10.0 ✓ 40000 bytes",
@@ -761,10 +804,10 @@
     "repo": "mudler/edgevpn",
     "pr": 1056,
     "url": "https://github.com/mudler/edgevpn/pull/1056",
-    "headSHA": "d8d1a5169e7f026425695642a8a597470c691be4",
+    "headSHA": "59952d69f380ad1cd77ddd5e07bd3ec56abfe574",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-10",
+    "reviewedRun": "2026-07-21",
     "trace": [
       "github.com/libp2p/go-libp2p-pubsub 0.16.0→0.17.0: compare v0.16.0...v0.17.0 ✓ 40000 bytes",
       "context: 45662 bytes"
@@ -774,10 +817,10 @@
     "repo": "mudler/edgevpn",
     "pr": 1057,
     "url": "https://github.com/mudler/edgevpn/pull/1057",
-    "headSHA": "afc8ca2bfcd13c6dd221451cc27e6484c68b6a57",
+    "headSHA": "9a2390bbf95754c9a2e44b8f87f48d8cc3979a33",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-18",
+    "reviewedRun": "2026-07-21",
     "trace": [
       "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
       "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
@@ -796,6 +839,33 @@
     "trace": [
       "labstack/echo v5.2.1..v5.3.0 (PR body): compare v5.2.1...v5.3.0 ✓ 40000 bytes",
       "context: 63086 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1059,
+    "url": "https://github.com/mudler/edgevpn/pull/1059",
+    "headSHA": "9993354a6b585a44d134e6339008330f3c9e1526",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-21",
+    "trace": [
+      "github.com/libp2p/go-libp2p-kad-dht 0.41.0→0.42.1: compare v0.41.0...v0.42.1 ✓ 40000 bytes",
+      "github.com/ipfs/boxo 0.39.0→0.41.0: compare v0.39.0...v0.41.0 ✓ 40000 bytes",
+      "context: 99296 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 315,
+    "url": "https://github.com/mudler/yip/pull/315",
+    "headSHA": "2708f669281f11bdfc5e235301684667ff3674d8",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-21",
+    "trace": [
+      "github.com/diskfs/go-diskfs 1.9.3→1.9.4: compare v1.9.3...v1.9.4 ✓ 40000 bytes",
+      "context: 43159 bytes"
     ]
   }
 ]
