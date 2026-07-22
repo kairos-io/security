@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-21._
+_Updated 2026-07-22._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -147,8 +147,8 @@ _No bot PRs yet._
 - [#629](https://github.com/kairos-io/AuroraBoot/pull/629) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/stmcginnis/gofish 0.22.0→0.23.0: compare v0.22.0...v0.23.0 ✓ 25082 bytes
     - context: 29808 bytes
-- [#631](https://github.com/kairos-io/AuroraBoot/pull/631) — ✅ **good** — This is a standard dependency version bump performed by an automated tool, which is generally safe. The changes reflect a routine update to a core dependency, and the diffs show expected version updates and internal refactoring associated with the new version.
-  ↳ This PR updates the dependency `golang.org/x/mod` from version v0.37.0 to v0.38.0. This version bump also includes related updates to `golang.org/x/tools` and internal file changes within the `golang.org/x/mod` package itself. These changes appear to be routine dependency maintenance and version alignment.
+- [#631](https://github.com/kairos-io/AuroraBoot/pull/631) — ✅ **good** — This is a routine dependency update performed by an automated tool. The change is a minor version bump, which is generally safe and expected for maintaining up-to-date dependencies. No immediate security risks or breaking changes are indicated in the context.
+  ↳ This PR updates the dependency golang.org/x/mod from version v0.37.0 to v0.38.0. This is a standard dependency bump to incorporate recent updates and potential fixes.
     - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
     - context: 13177 bytes
 - [#637](https://github.com/kairos-io/AuroraBoot/pull/637) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -222,6 +222,16 @@ _No bot PRs yet._
     - ThalesGroup/crypto11 v1.6.3..v1.6.4 (PR body): compare v1.6.3...v1.6.4 ✓ 377 bytes
     - ThalesGroup/crypto11 v1.6.2..v1.6.3 (PR body): compare v1.6.2...v1.6.3 ✓ 1316 bytes
     - context: 6745 bytes
+**[kairos-io/hadron](https://github.com/kairos-io/hadron)**
+
+- [#531](https://github.com/kairos-io/hadron/pull/531) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - react/react v19.2.7..1dd4ecbdabf826f527fc9a58c05ea70375b7d170 (PR body): compare v19.2.7...1dd4ecbdabf826f527fc9a58c05ea70375b7d170 ✓ 40000 bytes
+    - react/react v19.2.7..v19.2.8 (PR body): compare v19.2.7...v19.2.8 ✓ 40000 bytes
+    - context: 82647 bytes
+- [#532](https://github.com/kairos-io/hadron/pull/532) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - react/react v19.2.7..1dd4ecbdabf826f527fc9a58c05ea70375b7d170 (PR body): compare v19.2.7...1dd4ecbdabf826f527fc9a58c05ea70375b7d170 ✓ 40000 bytes
+    - react/react v19.2.7..v19.2.8 (PR body): compare v19.2.7...v19.2.8 ✓ 40000 bytes
+    - context: 83417 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4229](https://github.com/kairos-io/kairos/pull/4229) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -234,6 +244,12 @@ _No bot PRs yet._
 - [#4256](https://github.com/kairos-io/kairos/pull/4256) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - actions/checkout v7.0.0..v7.0.1 (PR body): compare v7.0.0...v7.0.1 ✓ 40000 bytes
     - context: 48520 bytes
+**[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
+
+- [#408](https://github.com/kairos-io/kairos-init/pull/408) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/mudler/yip 1.25.0→1.25.1: compare v1.25.0...v1.25.1 ✓ 22176 bytes
+    - github.com/diskfs/go-diskfs 1.9.3→1.9.4: compare v1.9.3...v1.9.4 ✓ 40000 bytes
+    - context: 71770 bytes
 **[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
 
 - [#14](https://github.com/kairos-io/kairos-installer/pull/14) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -241,23 +257,6 @@ _No bot PRs yet._
     - github.com/kairos-io/kairos-sdk 0.23.2→0.23.4: compare v0.23.2...v0.23.4 ✓ 10535 bytes
     - github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes
     - context: 105868 bytes
-**[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
-
-- [#138](https://github.com/kairos-io/kairos-operator/pull/138) — ✅ **good** — This change is a simple digest update for a base image, which is a standard maintenance operation. It does not introduce any new code, configuration changes, or functional modifications, making it safe to auto-approve.
-  ↳ This PR updates the digest of the `gcr.io/distroless/static:nonroot` base image in the Dockerfile to a newer version. This is a routine maintenance update to ensure the build uses the latest, verified image digest.
-    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 1727 bytes
-- [#139](https://github.com/kairos-io/kairos-operator/pull/139) — ✅ **good** — This change only updates the digest of an existing Docker image tag. Pinning to a specific digest is a standard and safe practice for ensuring build reproducibility and security. Since this is an automated dependency update, it is safe to auto-approve.
-  ↳ This PR updates the Docker image digest for docker.io/golang:1.26.5 from an older SHA to a newer one. This ensures that the build process uses a specific, verified image artifact.
-    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 1875 bytes
-- [#140](https://github.com/kairos-io/kairos-operator/pull/140) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
-    - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - context: 43423 bytes
-- [#141](https://github.com/kairos-io/kairos-operator/pull/141) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/checkout 9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0..3d3c42e5aac5ba805825da76410c181273ba90b1 (PR body): compare 9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0...3d3c42e5aac5ba805825da76410c181273ba90b1 ✓ 40000 bytes
-    - context: 44780 bytes
 **[kairos-io/kcrypt-discovery-challenger](https://github.com/kairos-io/kcrypt-discovery-challenger)**
 
 - [#41](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/41) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -291,10 +290,6 @@ _No bot PRs yet._
     - context: 44037 bytes
 **[kairos-io/netboot](https://github.com/kairos-io/netboot)**
 
-- [#45](https://github.com/kairos-io/netboot/pull/45) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
-    - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
-    - context: 76977 bytes
 - [#46](https://github.com/kairos-io/netboot/pull/46) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
     - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
@@ -388,15 +383,15 @@ _No bot PRs yet._
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - context: 84157 bytes
 - [#1058](https://github.com/mudler/edgevpn/pull/1058) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - labstack/echo v5.2.1..v5.3.0 (PR body): compare v5.2.1...v5.3.0 ✓ 40000 bytes
-    - context: 63086 bytes
+    - github.com/labstack/echo/v5 5.3.0→5.3.1: compare v5.3.0...v5.3.1 ✓ 35382 bytes
+    - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
+    - context: 107813 bytes
 - [#1059](https://github.com/mudler/edgevpn/pull/1059) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/libp2p/go-libp2p-kad-dht 0.41.0→0.42.1: compare v0.41.0...v0.42.1 ✓ 40000 bytes
     - github.com/ipfs/boxo 0.39.0→0.41.0: compare v0.39.0...v0.41.0 ✓ 40000 bytes
     - context: 99296 bytes
-**[mudler/yip](https://github.com/mudler/yip)**
-
-- [#315](https://github.com/mudler/yip/pull/315) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/diskfs/go-diskfs 1.9.3→1.9.4: compare v1.9.3...v1.9.4 ✓ 40000 bytes
-    - context: 43159 bytes
+- [#1060](https://github.com/mudler/edgevpn/pull/1060) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/labstack/echo/v5 5.3.0→5.3.1: compare v5.3.0...v5.3.1 ✓ 35382 bytes
+    - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
+    - context: 86707 bytes
 
