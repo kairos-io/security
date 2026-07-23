@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-22._
+_Updated 2026-07-23._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -132,7 +132,7 @@ _No bot PRs yet._
 - [#594](https://github.com/kairos-io/AuroraBoot/pull/594) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes
     - facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes
-    - context: 100027 bytes
+    - context: 100025 bytes
 - [#599](https://github.com/kairos-io/AuroraBoot/pull/599) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes
     - context: 77814 bytes
@@ -147,8 +147,8 @@ _No bot PRs yet._
 - [#629](https://github.com/kairos-io/AuroraBoot/pull/629) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/stmcginnis/gofish 0.22.0→0.23.0: compare v0.22.0...v0.23.0 ✓ 25082 bytes
     - context: 29808 bytes
-- [#631](https://github.com/kairos-io/AuroraBoot/pull/631) — ✅ **good** — This is a routine dependency update performed by an automated tool. The change is a minor version bump, which is generally safe and expected for maintaining up-to-date dependencies. No immediate security risks or breaking changes are indicated in the context.
-  ↳ This PR updates the dependency golang.org/x/mod from version v0.37.0 to v0.38.0. This is a standard dependency bump to incorporate recent updates and potential fixes.
+- [#631](https://github.com/kairos-io/AuroraBoot/pull/631) — ✅ **good** — This is a routine dependency update to a newer minor version of a well-known Go module. The changes appear to be internal maintenance updates rather than introducing new security risks. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the dependency golang.org/x/mod from v0.37.0 to v0.38.0. The upstream changes involve internal modifications to module path handling, ignore directive management, and storage logic within the dependency's source code.
     - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
     - context: 13177 bytes
 - [#637](https://github.com/kairos-io/AuroraBoot/pull/637) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -183,15 +183,12 @@ _No bot PRs yet._
     - docker/build-push-action v7.2.0..v7.3.0 (PR body): compare v7.2.0...v7.3.0 ✓ 40000 bytes
     - context: 83719 bytes
 - [#20](https://github.com/kairos-io/entangle-proxy/pull/20) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - k8s.io/api 0.24.0→0.36.2: compare v0.24.0...v0.36.2 ✓ 40000 bytes
+    - k8s.io/api 0.24.0→0.36.3: compare v0.24.0...v0.36.3 ✓ 40000 bytes
     - context: 126088 bytes
 - [#23](https://github.com/kairos-io/entangle-proxy/pull/23) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
     - actions/checkout v6.0.3..v7.0.0 (PR body): compare v6.0.3...v7.0.0 ✓ 40000 bytes
     - context: 63254 bytes
-- [#25](https://github.com/kairos-io/entangle-proxy/pull/25) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes
-    - context: 44091 bytes
 **[kairos-io/go-nodepair](https://github.com/kairos-io/go-nodepair)**
 
 - [#27](https://github.com/kairos-io/go-nodepair/pull/27) — ✅ **good** — The changes involve updating several core dependencies across the project. The changelogs indicate that these updates include important security patches, such as restricting RSA key sizes in go-libp2p and fixing memory exhaustion attacks in quic-go. This is standard maintenance and security hygiene.
@@ -222,16 +219,6 @@ _No bot PRs yet._
     - ThalesGroup/crypto11 v1.6.3..v1.6.4 (PR body): compare v1.6.3...v1.6.4 ✓ 377 bytes
     - ThalesGroup/crypto11 v1.6.2..v1.6.3 (PR body): compare v1.6.2...v1.6.3 ✓ 1316 bytes
     - context: 6745 bytes
-**[kairos-io/hadron](https://github.com/kairos-io/hadron)**
-
-- [#531](https://github.com/kairos-io/hadron/pull/531) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - react/react v19.2.7..1dd4ecbdabf826f527fc9a58c05ea70375b7d170 (PR body): compare v19.2.7...1dd4ecbdabf826f527fc9a58c05ea70375b7d170 ✓ 40000 bytes
-    - react/react v19.2.7..v19.2.8 (PR body): compare v19.2.7...v19.2.8 ✓ 40000 bytes
-    - context: 82647 bytes
-- [#532](https://github.com/kairos-io/hadron/pull/532) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - react/react v19.2.7..1dd4ecbdabf826f527fc9a58c05ea70375b7d170 (PR body): compare v19.2.7...1dd4ecbdabf826f527fc9a58c05ea70375b7d170 ✓ 40000 bytes
-    - react/react v19.2.7..v19.2.8 (PR body): compare v19.2.7...v19.2.8 ✓ 40000 bytes
-    - context: 83417 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4229](https://github.com/kairos-io/kairos/pull/4229) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -244,6 +231,9 @@ _No bot PRs yet._
 - [#4256](https://github.com/kairos-io/kairos/pull/4256) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - actions/checkout v7.0.0..v7.0.1 (PR body): compare v7.0.0...v7.0.1 ✓ 40000 bytes
     - context: 48520 bytes
+- [#4259](https://github.com/kairos-io/kairos/pull/4259) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - aws-actions/configure-aws-credentials 517a711dbcd0e402f90c77e7e2f81e849156e31d..e6de054238d6b7531b4efff3b6587d9aade6a06c (PR body): compare 517a711dbcd0e402f90c77e7e2f81e849156e31d...e6de054238d6b7531b4efff3b6587d9aade6a06c ✓ 40000 bytes
+    - context: 42305 bytes
 **[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
 
 - [#408](https://github.com/kairos-io/kairos-init/pull/408) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -290,6 +280,10 @@ _No bot PRs yet._
     - context: 44037 bytes
 **[kairos-io/netboot](https://github.com/kairos-io/netboot)**
 
+- [#45](https://github.com/kairos-io/netboot/pull/45) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
+    - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
+    - context: 76977 bytes
 - [#46](https://github.com/kairos-io/netboot/pull/46) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
     - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
@@ -394,4 +388,8 @@ _No bot PRs yet._
     - github.com/labstack/echo/v5 5.3.0→5.3.1: compare v5.3.0...v5.3.1 ✓ 35382 bytes
     - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
     - context: 86707 bytes
+- [#1061](https://github.com/mudler/edgevpn/pull/1061) — ✅ **good** — This change is a routine dependency update, specifically updating the digest of `go-libp2p-pubsub`. There are no apparent security risks introduced by this version bump, and it aligns with standard dependency maintenance practices.
+  ↳ This PR updates the dependency `github.com/mudler/go-libp2p-pubsub` by changing its digest from `205ded1` to `2a31b5e`. This is a routine maintenance update to ensure the project uses the latest version of this library.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 2511 bytes
 
