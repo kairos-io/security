@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-23._
+_Updated 2026-07-24._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -122,43 +122,23 @@ _No bot PRs yet._
     - github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes
     - github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes
     - context: 58329 bytes
-- [#590](https://github.com/kairos-io/AuroraBoot/pull/590) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - sindresorhus/globals v17.6.0..a19670cc86c1218e915657c55ea02ba3e7623834 (PR body): compare v17.6.0...a19670cc86c1218e915657c55ea02ba3e7623834 ✓ 11637 bytes
-    - sindresorhus/globals v17.6.0..v17.7.0 (PR body): compare v17.6.0...v17.7.0 ✓ 11637 bytes
-    - sindresorhus/globals v17.5.0..v17.6.0 (PR body): compare v17.5.0...v17.6.0 ✓ 3099 bytes
-    - sindresorhus/globals v17.4.0..v17.5.0 (PR body): compare v17.4.0...v17.5.0 ✓ 5103 bytes
-    - sindresorhus/globals v17.3.0..v17.4.0 (PR body): compare v17.3.0...v17.4.0 ✓ 4284 bytes
-    - context: 45798 bytes
 - [#594](https://github.com/kairos-io/AuroraBoot/pull/594) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes
     - facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes
-    - context: 100025 bytes
+    - context: 100023 bytes
 - [#599](https://github.com/kairos-io/AuroraBoot/pull/599) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes
-    - context: 77814 bytes
-- [#626](https://github.com/kairos-io/AuroraBoot/pull/626) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - typescript-eslint/typescript-eslint v8.64.0..v8.65.0 (PR body): compare v8.64.0...v8.65.0 ✓ 40000 bytes
-    - typescript-eslint/typescript-eslint v8.63.0..v8.64.0 (PR body): compare v8.63.0...v8.64.0 ✓ 40000 bytes
-    - context: 96182 bytes
-- [#627](https://github.com/kairos-io/AuroraBoot/pull/627) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - eemeli/yaml v2.8.4..v2.9.0 (PR body): compare v2.8.4...v2.9.0 ✓ 11907 bytes
-    - eemeli/yaml v2.8.3..v2.8.4 (PR body): compare v2.8.3...v2.8.4 ✓ 13617 bytes
-    - context: 29659 bytes
-- [#629](https://github.com/kairos-io/AuroraBoot/pull/629) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/stmcginnis/gofish 0.22.0→0.23.0: compare v0.22.0...v0.23.0 ✓ 25082 bytes
-    - context: 29808 bytes
-- [#631](https://github.com/kairos-io/AuroraBoot/pull/631) — ✅ **good** — This is a routine dependency update to a newer minor version of a well-known Go module. The changes appear to be internal maintenance updates rather than introducing new security risks. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the dependency golang.org/x/mod from v0.37.0 to v0.38.0. The upstream changes involve internal modifications to module path handling, ignore directive management, and storage logic within the dependency's source code.
-    - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
-    - context: 13177 bytes
-- [#637](https://github.com/kairos-io/AuroraBoot/pull/637) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/exp 0.0.0-20260611194520-c48552f49976→0.0.0-20260718201538-764159d718ef: compare c48552f49976...764159d718ef ✓ 40000 bytes
-    - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
-    - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
-    - context: 96269 bytes
-- [#643](https://github.com/kairos-io/AuroraBoot/pull/643) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - eslint/eslint v9.39.4..v9.39.5 (PR body): compare v9.39.4...v9.39.5 ✓ 12204 bytes
-    - context: 20662 bytes
+    - context: 77813 bytes
+- [#649](https://github.com/kairos-io/AuroraBoot/pull/649) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - grpc/grpc-go v1.80.0..v1.82.1 (PR body): compare v1.80.0...v1.82.1 ✓ 40000 bytes
+    - context: 53835 bytes
+- [#650](https://github.com/kairos-io/AuroraBoot/pull/650) — ✅ **good** — This is a minor version bump for a utility dependency. The changelog explicitly mentions a fix for a CVE, which mitigates potential security risks. Since this is a dependency update and not a major breaking change, it is safe to auto-approve.
+  ↳ This pull request updates the `brace-expansion` dependency from version 1.1.15 to 1.1.16. This update includes a fix for a reported vulnerability (CVE-2026-13149) and incorporates code refactoring in the library.
+    - juliangruber/brace-expansion v1.1.15..v1.1.16 (PR body): compare v1.1.15...v1.1.16 ✓ 6744 bytes
+    - context: 10552 bytes
+- [#651](https://github.com/kairos-io/AuroraBoot/pull/651) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - vitejs/vite-plugin-react 640fd358a0e82393acfce4e92e19a6ac6e1641a7..f4b549822ec239799d746c030abb0b9a7d8f0a04 (PR body): compare 640fd358a0e82393acfce4e92e19a6ac6e1641a7...f4b549822ec239799d746c030abb0b9a7d8f0a04 ✓ 40000 bytes
+    - context: 43207 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -189,6 +169,9 @@ _No bot PRs yet._
     - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
     - actions/checkout v6.0.3..v7.0.0 (PR body): compare v6.0.3...v7.0.0 ✓ 40000 bytes
     - context: 63254 bytes
+- [#25](https://github.com/kairos-io/entangle-proxy/pull/25) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes
+    - context: 44091 bytes
 **[kairos-io/go-nodepair](https://github.com/kairos-io/go-nodepair)**
 
 - [#27](https://github.com/kairos-io/go-nodepair/pull/27) — ✅ **good** — The changes involve updating several core dependencies across the project. The changelogs indicate that these updates include important security patches, such as restricting RSA key sizes in go-libp2p and fixing memory exhaustion attacks in quic-go. This is standard maintenance and security hygiene.
@@ -219,6 +202,15 @@ _No bot PRs yet._
     - ThalesGroup/crypto11 v1.6.3..v1.6.4 (PR body): compare v1.6.3...v1.6.4 ✓ 377 bytes
     - ThalesGroup/crypto11 v1.6.2..v1.6.3 (PR body): compare v1.6.2...v1.6.3 ✓ 1316 bytes
     - context: 6745 bytes
+**[kairos-io/immucore](https://github.com/kairos-io/immucore)**
+
+- [#597](https://github.com/kairos-io/immucore/pull/597) — ✅ **good** — This is a configuration change to adjust the behavior of a security scanning tool within the CI pipeline. It does not introduce any new security risks or change the underlying security logic of the project. The change aligns with the stated goal of making the scan report-only instead of build-blocking.
+  ↳ This change modifies the GitHub Actions workflow for OSV scanning to set `fail-on-vuln: false`. This prevents the CI job from failing when vulnerabilities are detected, ensuring that scanning reports are still published while maintaining CI flow.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 1327 bytes
+- [#598](https://github.com/kairos-io/immucore/pull/598) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 20241 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4229](https://github.com/kairos-io/kairos/pull/4229) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -234,12 +226,19 @@ _No bot PRs yet._
 - [#4259](https://github.com/kairos-io/kairos/pull/4259) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - aws-actions/configure-aws-credentials 517a711dbcd0e402f90c77e7e2f81e849156e31d..e6de054238d6b7531b4efff3b6587d9aade6a06c (PR body): compare 517a711dbcd0e402f90c77e7e2f81e849156e31d...e6de054238d6b7531b4efff3b6587d9aade6a06c ✓ 40000 bytes
     - context: 42305 bytes
+- [#4262](https://github.com/kairos-io/kairos/pull/4262) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - ossf/scorecard-action v2.4.3..v2.4.4 (PR body): compare v2.4.3...v2.4.4 ✓ 40000 bytes
+    - context: 42648 bytes
 **[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
 
 - [#408](https://github.com/kairos-io/kairos-init/pull/408) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/mudler/yip 1.25.0→1.25.1: compare v1.25.0...v1.25.1 ✓ 22176 bytes
     - github.com/diskfs/go-diskfs 1.9.3→1.9.4: compare v1.9.3...v1.9.4 ✓ 40000 bytes
     - context: 71770 bytes
+- [#409](https://github.com/kairos-io/kairos-init/pull/409) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/kairos-io/kairos-sdk 0.23.4→0.24.0: compare v0.23.4...v0.24.0 ✓ 37418 bytes
+    - github.com/mudler/yip 1.25.0→1.25.1: compare v1.25.0...v1.25.1 ✓ 22176 bytes
+    - context: 73017 bytes
 **[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
 
 - [#14](https://github.com/kairos-io/kairos-installer/pull/14) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -251,25 +250,12 @@ _No bot PRs yet._
 
 - [#41](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/41) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - k8s.io/api 0.27.2→0.36.0: compare v0.27.2...v0.36.0 ✓ 40000 bytes
-    - context: 123948 bytes
+    - context: 123081 bytes
 - [#190](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/190) — ✅ **good** — Updating core infrastructure dependencies like Kubernetes components to the latest stable version is a crucial security and stability practice. This change incorporates bug fixes and security patches from the upstream, making the project more resilient. Therefore, it is safe to auto-approve.
   ↳ This PR updates the core Kubernetes dependencies, k8s.io/api, k8s.io/apimachinery, and k8s.io/client-go, to version v0.36.2. This brings the project up to a recent, patched version of the Kubernetes ecosystem components.
     - k8s.io/apimachinery 0.27.4→0.27.2: compare v0.27.4...v0.27.2 failed: <nil> (no upstream diff)
     - github.com/emicklei/go-restful/v3 3.10.1→3.13.0: compare v3.10.1...v3.13.0 ✓ 40000 bytes
     - context: 131955 bytes
-- [#240](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/240) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/google/go-attestation 0.5.1→0.6.1: compare v0.5.1...v0.6.1 ✓ 40000 bytes
-    - github.com/kairos-io/tpm-helpers 0.0.0-20260608091616-8a4ccb53d8f7→0.0.0-20260702080541-9b3e057e2f32: compare 8a4ccb53d8f7...9b3e057e2f32 ✓ 11771 bytes
-    - github.com/google/go-tpm-tools 0.4.4→0.4.7: compare v0.4.4...v0.4.7 ✓ 40000 bytes
-    - context: 97184 bytes
-- [#241](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/241) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/google/go-attestation 0.5.1→0.6.1: compare v0.5.1...v0.6.1 ✓ 40000 bytes
-    - github.com/kairos-io/kairos-sdk 0.23.1→0.23.4: compare v0.23.1...v0.23.4 ✓ 32334 bytes
-    - context: 89408 bytes
-- [#244](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/244) — ✅ **good** — This pull request is a routine dependency update to a newer patch version of the Go language runtime. There are no apparent security risks introduced by this minor version bump, and it aligns with standard maintenance practices for keeping build environments up-to-date. Therefore, it is safe to auto-approve.
-  ↳ This PR updates all instances of the `golang` base image tag in `Dockerfile` and `Dockerfile.kairos-image` from `1.26.4` to `1.26.5`. This is a routine maintenance update to the Go toolchain version used for building the project's Docker images.
-    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 2469 bytes
 - [#246](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/246) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
     - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
