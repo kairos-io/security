@@ -3,24 +3,24 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 409,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/409",
-    "headSHA": "c27e20cce3c24484492e663c2365eb6bddfc58bc",
+    "headSHA": "acc9315e9c25a8627125d52c071afe0fda18429d",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-24",
+    "reviewedRun": "2026-07-25",
     "trace": [
       "github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes",
       "github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes",
-      "context: 58329 bytes"
+      "context: 58368 bytes"
     ]
   },
   {
     "repo": "kairos-io/AuroraBoot",
     "pr": 594,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/594",
-    "headSHA": "e15df1356669d1e5745681a7c63510d1c462ea7c",
+    "headSHA": "d81910858627a3d736545673637d56d0a4640fa1",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-24",
+    "reviewedRun": "2026-07-25",
     "trace": [
       "facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes",
       "facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes",
@@ -31,10 +31,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 599,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/599",
-    "headSHA": "4be202cc3b335d251c0e7826590919e1ce1bc648",
+    "headSHA": "95a4a88a9ac829f155e37bc344d70683acc84a01",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-24",
+    "reviewedRun": "2026-07-25",
     "trace": [
       "eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes",
       "context: 77813 bytes"
@@ -42,42 +42,15 @@
   },
   {
     "repo": "kairos-io/AuroraBoot",
-    "pr": 649,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/649",
-    "headSHA": "cb22ad091b391b9cd0529619a92238c33b3b4d1f",
+    "pr": 664,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/664",
+    "headSHA": "dd17c043f216dd8aed0155722c1a128842ea74b7",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-24",
+    "reviewedRun": "2026-07-25",
     "trace": [
-      "grpc/grpc-go v1.80.0..v1.82.1 (PR body): compare v1.80.0...v1.82.1 ✓ 40000 bytes",
-      "context: 53835 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/AuroraBoot",
-    "pr": 650,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/650",
-    "headSHA": "a3a76539d7c0deb3c60fdea9b168ff9c507181d1",
-    "verdict": "good",
-    "reasoning": "This is a minor version bump for a utility dependency. The changelog explicitly mentions a fix for a CVE, which mitigates potential security risks. Since this is a dependency update and not a major breaking change, it is safe to auto-approve.",
-    "changesSummary": "This pull request updates the `brace-expansion` dependency from version 1.1.15 to 1.1.16. This update includes a fix for a reported vulnerability (CVE-2026-13149) and incorporates code refactoring in the library.",
-    "reviewedRun": "2026-07-24",
-    "trace": [
-      "juliangruber/brace-expansion v1.1.15..v1.1.16 (PR body): compare v1.1.15...v1.1.16 ✓ 6744 bytes",
-      "context: 10552 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/AuroraBoot",
-    "pr": 651,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/651",
-    "headSHA": "f68a5e990d95b5d65789ddef9f014f2dce631054",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-24",
-    "trace": [
-      "vitejs/vite-plugin-react 640fd358a0e82393acfce4e92e19a6ac6e1641a7..f4b549822ec239799d746c030abb0b9a7d8f0a04 (PR body): compare 640fd358a0e82393acfce4e92e19a6ac6e1641a7...f4b549822ec239799d746c030abb0b9a7d8f0a04 ✓ 40000 bytes",
-      "context: 43207 bytes"
+      "github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes",
+      "context: 49680 bytes"
     ]
   },
   {
@@ -371,56 +344,26 @@
     ]
   },
   {
-    "repo": "kairos-io/kairos-init",
-    "pr": 408,
-    "url": "https://github.com/kairos-io/kairos-init/pull/408",
-    "headSHA": "baa079d03e042a44e2612325348aef5cef6d7cd0",
+    "repo": "kairos-io/kairos-operator",
+    "pr": 149,
+    "url": "https://github.com/kairos-io/kairos-operator/pull/149",
+    "headSHA": "0b777aa3f3a319082b98a91701425f731a6ad2f5",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-22",
+    "reviewedRun": "2026-07-25",
     "trace": [
-      "github.com/mudler/yip 1.25.0→1.25.1: compare v1.25.0...v1.25.1 ✓ 22176 bytes",
-      "github.com/diskfs/go-diskfs 1.9.3→1.9.4: compare v1.9.3...v1.9.4 ✓ 40000 bytes",
-      "context: 71770 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/kairos-init",
-    "pr": 409,
-    "url": "https://github.com/kairos-io/kairos-init/pull/409",
-    "headSHA": "b3a9b152e96935602cc8d695731e95841fc66eae",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-24",
-    "trace": [
-      "github.com/kairos-io/kairos-sdk 0.23.4→0.24.0: compare v0.23.4...v0.24.0 ✓ 37418 bytes",
-      "github.com/mudler/yip 1.25.0→1.25.1: compare v1.25.0...v1.25.1 ✓ 22176 bytes",
-      "context: 73017 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/kairos-installer",
-    "pr": 14,
-    "url": "https://github.com/kairos-io/kairos-installer/pull/14",
-    "headSHA": "622becc59203165a7e1dc126d8ebccb9d1a50d37",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-21",
-    "trace": [
-      "github.com/jaypipes/ghw 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 40000 bytes",
-      "github.com/kairos-io/kairos-sdk 0.23.2→0.23.4: compare v0.23.2...v0.23.4 ✓ 10535 bytes",
-      "github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes",
-      "context: 105868 bytes"
+      "docker/login-action 06fb636fac595d6fb4b28a5dfcb21a6f5091859c..abd2ef45e78c5afb21d64d4ca52ee8550d9572c7 (PR body): compare 06fb636fac595d6fb4b28a5dfcb21a6f5091859c...abd2ef45e78c5afb21d64d4ca52ee8550d9572c7 ✓ 40000 bytes",
+      "context: 43269 bytes"
     ]
   },
   {
     "repo": "kairos-io/kcrypt-discovery-challenger",
     "pr": 41,
     "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/41",
-    "headSHA": "351c83ad44a63b2756285814b544575ef383e836",
+    "headSHA": "c16d6e06475b15212ebcd2d7ecd510152a9aff47",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-24",
+    "reviewedRun": "2026-07-25",
     "trace": [
       "k8s.io/api 0.27.2→0.36.0: compare v0.27.2...v0.36.0 ✓ 40000 bytes",
       "context: 123081 bytes"
@@ -443,27 +386,12 @@
   },
   {
     "repo": "kairos-io/kcrypt-discovery-challenger",
-    "pr": 246,
-    "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/246",
-    "headSHA": "04afe0e17843a4670618fe423c16df45a7e3c515",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-24",
-    "trace": [
-      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
-      "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
-      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
-      "context: 84405 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/kcrypt-discovery-challenger",
     "pr": 247,
     "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/247",
-    "headSHA": "1ec5c404f55cac6f6d52a8c121a52d8ace83dfde",
+    "headSHA": "412fa5ea35c056d206515cb4a68bdbb2a8211c28",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-24",
+    "reviewedRun": "2026-07-25",
     "trace": [
       "github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes",
       "context: 44037 bytes"

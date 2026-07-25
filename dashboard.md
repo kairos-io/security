@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-24._
+_Updated 2026-07-25._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -121,7 +121,7 @@ _No bot PRs yet._
 - [#409](https://github.com/kairos-io/AuroraBoot/pull/409) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes
     - github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes
-    - context: 58329 bytes
+    - context: 58368 bytes
 - [#594](https://github.com/kairos-io/AuroraBoot/pull/594) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes
     - facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes
@@ -129,16 +129,9 @@ _No bot PRs yet._
 - [#599](https://github.com/kairos-io/AuroraBoot/pull/599) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes
     - context: 77813 bytes
-- [#649](https://github.com/kairos-io/AuroraBoot/pull/649) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - grpc/grpc-go v1.80.0..v1.82.1 (PR body): compare v1.80.0...v1.82.1 ✓ 40000 bytes
-    - context: 53835 bytes
-- [#650](https://github.com/kairos-io/AuroraBoot/pull/650) — ✅ **good** — This is a minor version bump for a utility dependency. The changelog explicitly mentions a fix for a CVE, which mitigates potential security risks. Since this is a dependency update and not a major breaking change, it is safe to auto-approve.
-  ↳ This pull request updates the `brace-expansion` dependency from version 1.1.15 to 1.1.16. This update includes a fix for a reported vulnerability (CVE-2026-13149) and incorporates code refactoring in the library.
-    - juliangruber/brace-expansion v1.1.15..v1.1.16 (PR body): compare v1.1.15...v1.1.16 ✓ 6744 bytes
-    - context: 10552 bytes
-- [#651](https://github.com/kairos-io/AuroraBoot/pull/651) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - vitejs/vite-plugin-react 640fd358a0e82393acfce4e92e19a6ac6e1641a7..f4b549822ec239799d746c030abb0b9a7d8f0a04 (PR body): compare 640fd358a0e82393acfce4e92e19a6ac6e1641a7...f4b549822ec239799d746c030abb0b9a7d8f0a04 ✓ 40000 bytes
-    - context: 43207 bytes
+- [#664](https://github.com/kairos-io/AuroraBoot/pull/664) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes
+    - context: 49680 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -229,23 +222,11 @@ _No bot PRs yet._
 - [#4262](https://github.com/kairos-io/kairos/pull/4262) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - ossf/scorecard-action v2.4.3..v2.4.4 (PR body): compare v2.4.3...v2.4.4 ✓ 40000 bytes
     - context: 42648 bytes
-**[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
+**[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
-- [#408](https://github.com/kairos-io/kairos-init/pull/408) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/mudler/yip 1.25.0→1.25.1: compare v1.25.0...v1.25.1 ✓ 22176 bytes
-    - github.com/diskfs/go-diskfs 1.9.3→1.9.4: compare v1.9.3...v1.9.4 ✓ 40000 bytes
-    - context: 71770 bytes
-- [#409](https://github.com/kairos-io/kairos-init/pull/409) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/kairos-io/kairos-sdk 0.23.4→0.24.0: compare v0.23.4...v0.24.0 ✓ 37418 bytes
-    - github.com/mudler/yip 1.25.0→1.25.1: compare v1.25.0...v1.25.1 ✓ 22176 bytes
-    - context: 73017 bytes
-**[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
-
-- [#14](https://github.com/kairos-io/kairos-installer/pull/14) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/jaypipes/ghw 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 40000 bytes
-    - github.com/kairos-io/kairos-sdk 0.23.2→0.23.4: compare v0.23.2...v0.23.4 ✓ 10535 bytes
-    - github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes
-    - context: 105868 bytes
+- [#149](https://github.com/kairos-io/kairos-operator/pull/149) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - docker/login-action 06fb636fac595d6fb4b28a5dfcb21a6f5091859c..abd2ef45e78c5afb21d64d4ca52ee8550d9572c7 (PR body): compare 06fb636fac595d6fb4b28a5dfcb21a6f5091859c...abd2ef45e78c5afb21d64d4ca52ee8550d9572c7 ✓ 40000 bytes
+    - context: 43269 bytes
 **[kairos-io/kcrypt-discovery-challenger](https://github.com/kairos-io/kcrypt-discovery-challenger)**
 
 - [#41](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/41) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -256,11 +237,6 @@ _No bot PRs yet._
     - k8s.io/apimachinery 0.27.4→0.27.2: compare v0.27.4...v0.27.2 failed: <nil> (no upstream diff)
     - github.com/emicklei/go-restful/v3 3.10.1→3.13.0: compare v3.10.1...v3.13.0 ✓ 40000 bytes
     - context: 131955 bytes
-- [#246](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/246) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
-    - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
-    - context: 84405 bytes
 - [#247](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/247) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes
     - context: 44037 bytes
