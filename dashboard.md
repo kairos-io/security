@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-25._
+_Updated 2026-07-26._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -129,9 +129,40 @@ _No bot PRs yet._
 - [#599](https://github.com/kairos-io/AuroraBoot/pull/599) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes
     - context: 77813 bytes
-- [#664](https://github.com/kairos-io/AuroraBoot/pull/664) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/containerd/containerd/v2 2.3.2→2.3.3: compare v2.3.2...v2.3.3 ✓ 40000 bytes
-    - context: 49680 bytes
+- [#668](https://github.com/kairos-io/AuroraBoot/pull/668) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - cypress-io/cypress v15.18.1..v15.19.0 (PR body): compare v15.18.1...v15.19.0 ✓ 40000 bytes
+    - context: 42668 bytes
+- [#669](https://github.com/kairos-io/AuroraBoot/pull/669) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - kairos-io/kairos-init v0.16.0..v0.16.1 (PR body): compare v0.16.0...v0.16.1 ✓ 315 bytes
+    - kairos-io/kairos-init v0.15.3..v0.16.0 (PR body): compare v0.15.3...v0.16.0 ✓ 17599 bytes
+    - kairos-io/kairos-init v0.15.2..v0.16.0 (PR body): compare v0.15.2...v0.16.0 ✓ 17599 bytes
+    - kairos-io/kairos-init v0.15.2..v0.15.3 (PR body): compare v0.15.2...v0.15.3 ✓ 2322 bytes
+    - context: 42733 bytes
+- [#670](https://github.com/kairos-io/AuroraBoot/pull/670) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/diskfs/go-diskfs 1.9.3→1.9.4: compare v1.9.3...v1.9.4 ✓ 40000 bytes
+    - github.com/kairos-io/kairos-sdk 0.23.3→0.24.0: compare v0.23.3...v0.24.0 ✓ 40000 bytes
+    - context: 88231 bytes
+- [#671](https://github.com/kairos-io/AuroraBoot/pull/671) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
+    - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
+    - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
+    - context: 84713 bytes
+- [#672](https://github.com/kairos-io/AuroraBoot/pull/672) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - actions/setup-node v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
+    - actions/setup-node v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
+    - actions/setup-node v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
+    - context: 84942 bytes
+- [#673](https://github.com/kairos-io/AuroraBoot/pull/673) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - testing-library/jest-dom cae44df901cf8e92e3febc0af6fa667b10be6d6a..1e39089d850408a583c83495d00d8aa27078933f (PR body): compare cae44df901cf8e92e3febc0af6fa667b10be6d6a...1e39089d850408a583c83495d00d8aa27078933f ✓ 417 bytes
+    - testing-library/jest-dom v6.10.0..v7.0.0 (PR body): compare v6.10.0...v7.0.0 ✓ 417 bytes
+    - testing-library/jest-dom v6.9.1..cae44df901cf8e92e3febc0af6fa667b10be6d6a (PR body): compare v6.9.1...cae44df901cf8e92e3febc0af6fa667b10be6d6a ✓ 40000 bytes
+    - testing-library/jest-dom v6.9.1..v6.10.0 (PR body): compare v6.9.1...v6.10.0 ✓ 40000 bytes
+    - context: 85392 bytes
+- [#674](https://github.com/kairos-io/AuroraBoot/pull/674) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - microsoft/TypeScript v6.0.3..2bd066d87f5bafd315be9f40889d0a60b9e58e0b (PR body): compare v6.0.3...2bd066d87f5bafd315be9f40889d0a60b9e58e0b failed/empty (no upstream diff)
+    - microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes
+    - microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 ✓ 40000 bytes
+    - context: 84322 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
