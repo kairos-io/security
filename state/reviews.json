@@ -435,6 +435,21 @@
     ]
   },
   {
+    "repo": "kairos-io/kairos-installer",
+    "pr": 17,
+    "url": "https://github.com/kairos-io/kairos-installer/pull/17",
+    "headSHA": "3b1c1220c4751e6364a7a79841e3fff8d2ce6a8d",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-27",
+    "trace": [
+      "github.com/kairos-io/kairos-sdk 0.23.4→0.24.0: compare v0.23.4...v0.24.0 ✓ 37418 bytes",
+      "github.com/mudler/yip 1.25.0→1.25.1: compare v1.25.0...v1.25.1 ✓ 22176 bytes",
+      "github.com/docker/go-connections 0.7.0→0.8.0: compare v0.7.0...v0.8.0 ✓ 31291 bytes",
+      "context: 102391 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/kairos-operator",
     "pr": 149,
     "url": "https://github.com/kairos-io/kairos-operator/pull/149",

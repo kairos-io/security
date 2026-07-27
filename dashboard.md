@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-26._
+_Updated 2026-07-27._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -253,6 +253,13 @@ _No bot PRs yet._
 - [#4262](https://github.com/kairos-io/kairos/pull/4262) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - ossf/scorecard-action v2.4.3..v2.4.4 (PR body): compare v2.4.3...v2.4.4 ✓ 40000 bytes
     - context: 42648 bytes
+**[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
+
+- [#17](https://github.com/kairos-io/kairos-installer/pull/17) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/kairos-io/kairos-sdk 0.23.4→0.24.0: compare v0.23.4...v0.24.0 ✓ 37418 bytes
+    - github.com/mudler/yip 1.25.0→1.25.1: compare v1.25.0...v1.25.1 ✓ 22176 bytes
+    - github.com/docker/go-connections 0.7.0→0.8.0: compare v0.7.0...v0.8.0 ✓ 31291 bytes
+    - context: 102391 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#149](https://github.com/kairos-io/kairos-operator/pull/149) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
