@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-27._
+_Updated 2026-07-28._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -129,29 +129,10 @@ _No bot PRs yet._
 - [#599](https://github.com/kairos-io/AuroraBoot/pull/599) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes
     - context: 77813 bytes
-- [#668](https://github.com/kairos-io/AuroraBoot/pull/668) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - cypress-io/cypress v15.18.1..v15.19.0 (PR body): compare v15.18.1...v15.19.0 ✓ 40000 bytes
-    - context: 42668 bytes
-- [#669](https://github.com/kairos-io/AuroraBoot/pull/669) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - kairos-io/kairos-init v0.16.0..v0.16.1 (PR body): compare v0.16.0...v0.16.1 ✓ 315 bytes
-    - kairos-io/kairos-init v0.15.3..v0.16.0 (PR body): compare v0.15.3...v0.16.0 ✓ 17599 bytes
-    - kairos-io/kairos-init v0.15.2..v0.16.0 (PR body): compare v0.15.2...v0.16.0 ✓ 17599 bytes
-    - kairos-io/kairos-init v0.15.2..v0.15.3 (PR body): compare v0.15.2...v0.15.3 ✓ 2322 bytes
-    - context: 42733 bytes
-- [#670](https://github.com/kairos-io/AuroraBoot/pull/670) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/diskfs/go-diskfs 1.9.3→1.9.4: compare v1.9.3...v1.9.4 ✓ 40000 bytes
-    - github.com/kairos-io/kairos-sdk 0.23.3→0.24.0: compare v0.23.3...v0.24.0 ✓ 40000 bytes
-    - context: 88231 bytes
-- [#671](https://github.com/kairos-io/AuroraBoot/pull/671) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
-    - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
-    - context: 84713 bytes
-- [#672](https://github.com/kairos-io/AuroraBoot/pull/672) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/setup-node v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - actions/setup-node v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
-    - actions/setup-node v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
-    - context: 84942 bytes
+- [#637](https://github.com/kairos-io/AuroraBoot/pull/637) — ✅ **good** — This change is a standard dependency digest update for an existing package. It only modifies the cryptographic hash reference in `go.mod` and `go.sum` and does not introduce any new code or functional changes. Therefore, it is safe to auto-approve.
+  ↳ The pull request updates the dependency `golang.org/x/exp` by changing its digest from `764159d` to `b88d891`. This is a routine dependency digest update to ensure the use of a specific, potentially patched, version of the dependency.
+    - golang.org/x/exp 0.0.0-20260718201538-764159d718ef→0.0.0-20260727155853-b88d891fe743: compare 764159d718ef...b88d891fe743 ✓ 5477 bytes
+    - context: 8234 bytes
 - [#673](https://github.com/kairos-io/AuroraBoot/pull/673) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - testing-library/jest-dom cae44df901cf8e92e3febc0af6fa667b10be6d6a..1e39089d850408a583c83495d00d8aa27078933f (PR body): compare cae44df901cf8e92e3febc0af6fa667b10be6d6a...1e39089d850408a583c83495d00d8aa27078933f ✓ 417 bytes
     - testing-library/jest-dom v6.10.0..v7.0.0 (PR body): compare v6.10.0...v7.0.0 ✓ 417 bytes
@@ -163,6 +144,12 @@ _No bot PRs yet._
     - microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes
     - microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 ✓ 40000 bytes
     - context: 84322 bytes
+- [#678](https://github.com/kairos-io/AuroraBoot/pull/678) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - sindresorhus/globals v17.7.0..v17.8.0 (PR body): compare v17.7.0...v17.8.0 ✓ 24175 bytes
+    - context: 26892 bytes
+- [#679](https://github.com/kairos-io/AuroraBoot/pull/679) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - jsdom/jsdom v29.1.1..v30.0.0 (PR body): compare v29.1.1...v30.0.0 ✓ 40000 bytes
+    - context: 53939 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -250,9 +237,6 @@ _No bot PRs yet._
 - [#4259](https://github.com/kairos-io/kairos/pull/4259) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - aws-actions/configure-aws-credentials 517a711dbcd0e402f90c77e7e2f81e849156e31d..e6de054238d6b7531b4efff3b6587d9aade6a06c (PR body): compare 517a711dbcd0e402f90c77e7e2f81e849156e31d...e6de054238d6b7531b4efff3b6587d9aade6a06c ✓ 40000 bytes
     - context: 42305 bytes
-- [#4262](https://github.com/kairos-io/kairos/pull/4262) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - ossf/scorecard-action v2.4.3..v2.4.4 (PR body): compare v2.4.3...v2.4.4 ✓ 40000 bytes
-    - context: 42648 bytes
 **[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
 
 - [#17](https://github.com/kairos-io/kairos-installer/pull/17) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -260,11 +244,11 @@ _No bot PRs yet._
     - github.com/mudler/yip 1.25.0→1.25.1: compare v1.25.0...v1.25.1 ✓ 22176 bytes
     - github.com/docker/go-connections 0.7.0→0.8.0: compare v0.7.0...v0.8.0 ✓ 31291 bytes
     - context: 102391 bytes
-**[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
+**[kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk)**
 
-- [#149](https://github.com/kairos-io/kairos-operator/pull/149) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - docker/login-action 06fb636fac595d6fb4b28a5dfcb21a6f5091859c..abd2ef45e78c5afb21d64d4ca52ee8550d9572c7 (PR body): compare 06fb636fac595d6fb4b28a5dfcb21a6f5091859c...abd2ef45e78c5afb21d64d4ca52ee8550d9572c7 ✓ 40000 bytes
-    - context: 43269 bytes
+- [#817](https://github.com/kairos-io/kairos-sdk/pull/817) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/moby/moby/client 0.5.0→0.5.1: compare v0.5.0...v0.5.1 ✓ 40000 bytes
+    - context: 43072 bytes
 **[kairos-io/kcrypt-discovery-challenger](https://github.com/kairos-io/kcrypt-discovery-challenger)**
 
 - [#41](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/41) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500

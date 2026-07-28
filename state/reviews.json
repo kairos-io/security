@@ -3,10 +3,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 409,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/409",
-    "headSHA": "99b4a9042b6fb5e4133029574936bd1e94ad9df1",
+    "headSHA": "9cd42082799c07d557f6abb4191a3ae8eb5016b5",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-26",
+    "reviewedRun": "2026-07-28",
     "trace": [
       "github.com/foxboron/sbctl 0.0.0-20240526163235-64e649b31c8e→0.0.0-20260316200809-1b913e78d38c: compare 64e649b31c8e...1b913e78d38c ✓ 40000 bytes",
       "github.com/fatih/color 1.15.0→1.17.0: compare v1.15.0...v1.17.0 ✓ 9976 bytes",
@@ -17,10 +17,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 594,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/594",
-    "headSHA": "6bf7b19b758f1d1442b3d2577f83e9df0c95f41d",
+    "headSHA": "bd32affd842d6607b55261e508b81d65c7bab981",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-26",
+    "reviewedRun": "2026-07-28",
     "trace": [
       "facebook/react eslint-plugin-react-hooks@7.1.0..eslint-plugin-react-hooks@7.1.1 (PR body): compare eslint-plugin-react-hooks@7.1.0...eslint-plugin-react-hooks@7.1.1 ✓ 24066 bytes",
       "facebook/react 408b38ef7304faf022d2a37110c57efce12c6bad..eslint-plugin-react-hooks@7.1.0 (PR body): compare 408b38ef7304faf022d2a37110c57efce12c6bad...eslint-plugin-react-hooks@7.1.0 ✓ 40000 bytes",
@@ -31,10 +31,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 599,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/599",
-    "headSHA": "d252d8344cd9fed40f07c30dfd6bfa8dcc0e379d",
+    "headSHA": "fee26055797f686da399ded6f6f36b89397000f0",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-26",
+    "reviewedRun": "2026-07-28",
     "trace": [
       "eslint/eslint v10.0.0..v10.0.1 (PR body): compare v10.0.0...v10.0.1 ✓ 40000 bytes",
       "context: 77813 bytes"
@@ -42,85 +42,26 @@
   },
   {
     "repo": "kairos-io/AuroraBoot",
-    "pr": 668,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/668",
-    "headSHA": "99dfb285a45e816848fdc5f2aaf024313162f91e",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-26",
+    "pr": 637,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/637",
+    "headSHA": "809354d2d05a0397ee4b9e3689e81da7a95f4c60",
+    "verdict": "good",
+    "reasoning": "This change is a standard dependency digest update for an existing package. It only modifies the cryptographic hash reference in `go.mod` and `go.sum` and does not introduce any new code or functional changes. Therefore, it is safe to auto-approve.",
+    "changesSummary": "The pull request updates the dependency `golang.org/x/exp` by changing its digest from `764159d` to `b88d891`. This is a routine dependency digest update to ensure the use of a specific, potentially patched, version of the dependency.",
+    "reviewedRun": "2026-07-28",
     "trace": [
-      "cypress-io/cypress v15.18.1..v15.19.0 (PR body): compare v15.18.1...v15.19.0 ✓ 40000 bytes",
-      "context: 42668 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/AuroraBoot",
-    "pr": 669,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/669",
-    "headSHA": "7b257d23e2762d4ca7ea5ecf2a40664814a810f1",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-26",
-    "trace": [
-      "kairos-io/kairos-init v0.16.0..v0.16.1 (PR body): compare v0.16.0...v0.16.1 ✓ 315 bytes",
-      "kairos-io/kairos-init v0.15.3..v0.16.0 (PR body): compare v0.15.3...v0.16.0 ✓ 17599 bytes",
-      "kairos-io/kairos-init v0.15.2..v0.16.0 (PR body): compare v0.15.2...v0.16.0 ✓ 17599 bytes",
-      "kairos-io/kairos-init v0.15.2..v0.15.3 (PR body): compare v0.15.2...v0.15.3 ✓ 2322 bytes",
-      "context: 42733 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/AuroraBoot",
-    "pr": 670,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/670",
-    "headSHA": "a84202c83def7618e2e3b48f18d466938bd90065",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-26",
-    "trace": [
-      "github.com/diskfs/go-diskfs 1.9.3→1.9.4: compare v1.9.3...v1.9.4 ✓ 40000 bytes",
-      "github.com/kairos-io/kairos-sdk 0.23.3→0.24.0: compare v0.23.3...v0.24.0 ✓ 40000 bytes",
-      "context: 88231 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/AuroraBoot",
-    "pr": 671,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/671",
-    "headSHA": "aabb3b2a13ab1e99a2833a776ddca7c42f84449a",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-26",
-    "trace": [
-      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
-      "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
-      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
-      "context: 84713 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/AuroraBoot",
-    "pr": 672,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/672",
-    "headSHA": "2a66a6467a5e761547c3a5f31d8ffe3d6449eaa6",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-26",
-    "trace": [
-      "actions/setup-node v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
-      "actions/setup-node v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
-      "actions/setup-node v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
-      "context: 84942 bytes"
+      "golang.org/x/exp 0.0.0-20260718201538-764159d718ef→0.0.0-20260727155853-b88d891fe743: compare 764159d718ef...b88d891fe743 ✓ 5477 bytes",
+      "context: 8234 bytes"
     ]
   },
   {
     "repo": "kairos-io/AuroraBoot",
     "pr": 673,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/673",
-    "headSHA": "a3886172891251212002c7ccf3f04f0336a2c2f1",
+    "headSHA": "5e57d254fbed573de5af2523bbf8535c8ec264d5",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-26",
+    "reviewedRun": "2026-07-28",
     "trace": [
       "testing-library/jest-dom cae44df901cf8e92e3febc0af6fa667b10be6d6a..1e39089d850408a583c83495d00d8aa27078933f (PR body): compare cae44df901cf8e92e3febc0af6fa667b10be6d6a...1e39089d850408a583c83495d00d8aa27078933f ✓ 417 bytes",
       "testing-library/jest-dom v6.10.0..v7.0.0 (PR body): compare v6.10.0...v7.0.0 ✓ 417 bytes",
@@ -133,15 +74,41 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 674,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/674",
-    "headSHA": "1138ecef4457cab9864b0257b2deeb41ea33dde4",
+    "headSHA": "3a456628d33a6a68d950f2ee44e2210446cefbac",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-26",
+    "reviewedRun": "2026-07-28",
     "trace": [
       "microsoft/TypeScript v6.0.3..2bd066d87f5bafd315be9f40889d0a60b9e58e0b (PR body): compare v6.0.3...2bd066d87f5bafd315be9f40889d0a60b9e58e0b failed/empty (no upstream diff)",
       "microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes",
       "microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 ✓ 40000 bytes",
       "context: 84322 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 678,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/678",
+    "headSHA": "3aa1e29f1969a83ce9cae058778d16a9d6426807",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-28",
+    "trace": [
+      "sindresorhus/globals v17.7.0..v17.8.0 (PR body): compare v17.7.0...v17.8.0 ✓ 24175 bytes",
+      "context: 26892 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 679,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/679",
+    "headSHA": "1274183e46de72991f13ca1f1955c44c806bf92d",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-07-28",
+    "trace": [
+      "jsdom/jsdom v29.1.1..v30.0.0 (PR body): compare v29.1.1...v30.0.0 ✓ 40000 bytes",
+      "context: 53939 bytes"
     ]
   },
   {
@@ -422,19 +389,6 @@
     ]
   },
   {
-    "repo": "kairos-io/kairos",
-    "pr": 4262,
-    "url": "https://github.com/kairos-io/kairos/pull/4262",
-    "headSHA": "76d73a797e9075999d6cb0d26d7d34b6fc588bfb",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-24",
-    "trace": [
-      "ossf/scorecard-action v2.4.3..v2.4.4 (PR body): compare v2.4.3...v2.4.4 ✓ 40000 bytes",
-      "context: 42648 bytes"
-    ]
-  },
-  {
     "repo": "kairos-io/kairos-installer",
     "pr": 17,
     "url": "https://github.com/kairos-io/kairos-installer/pull/17",
@@ -450,16 +404,16 @@
     ]
   },
   {
-    "repo": "kairos-io/kairos-operator",
-    "pr": 149,
-    "url": "https://github.com/kairos-io/kairos-operator/pull/149",
-    "headSHA": "0b777aa3f3a319082b98a91701425f731a6ad2f5",
+    "repo": "kairos-io/kairos-sdk",
+    "pr": 817,
+    "url": "https://github.com/kairos-io/kairos-sdk/pull/817",
+    "headSHA": "e5d2cfa948d3e9b5bc01207580bd148989545a72",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-25",
+    "reviewedRun": "2026-07-28",
     "trace": [
-      "docker/login-action 06fb636fac595d6fb4b28a5dfcb21a6f5091859c..abd2ef45e78c5afb21d64d4ca52ee8550d9572c7 (PR body): compare 06fb636fac595d6fb4b28a5dfcb21a6f5091859c...abd2ef45e78c5afb21d64d4ca52ee8550d9572c7 ✓ 40000 bytes",
-      "context: 43269 bytes"
+      "github.com/moby/moby/client 0.5.0→0.5.1: compare v0.5.0...v0.5.1 ✓ 40000 bytes",
+      "context: 43072 bytes"
     ]
   },
   {
