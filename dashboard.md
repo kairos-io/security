@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-07-29._
+_Updated 2026-08-02._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -127,15 +127,48 @@ _No bot PRs yet._
     - microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes
     - microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 ✓ 40000 bytes
     - context: 84322 bytes
-- [#684](https://github.com/kairos-io/AuroraBoot/pull/684) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/landlock-lsm/go-landlock 0.0.0-20240715193425-db0c8d6f1dff→0.0.0-20241013234402-fb3ad845df46: compare db0c8d6f1dff...fb3ad845df46 ✓ 19280 bytes
-    - context: 35354 bytes
-- [#687](https://github.com/kairos-io/AuroraBoot/pull/687) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - vitejs/vite-plugin-react 640fd358a0e82393acfce4e92e19a6ac6e1641a7..f4b549822ec239799d746c030abb0b9a7d8f0a04 (PR body): compare 640fd358a0e82393acfce4e92e19a6ac6e1641a7...f4b549822ec239799d746c030abb0b9a7d8f0a04 ✓ 40000 bytes
-    - context: 43256 bytes
-- [#690](https://github.com/kairos-io/AuroraBoot/pull/690) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+- [#695](https://github.com/kairos-io/AuroraBoot/pull/695) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - tailwindlabs/tailwindcss v4.3.2..v4.3.3 (PR body): compare v4.3.2...v4.3.3 ✓ 40000 bytes
+    - context: 58866 bytes
+- [#699](https://github.com/kairos-io/AuroraBoot/pull/699) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - typescript-eslint/typescript-eslint v8.64.0..v8.65.0 (PR body): compare v8.64.0...v8.65.0 ✓ 40000 bytes
+    - typescript-eslint/typescript-eslint v8.63.0..v8.64.0 (PR body): compare v8.63.0...v8.64.0 ✓ 40000 bytes
+    - context: 96178 bytes
+- [#700](https://github.com/kairos-io/AuroraBoot/pull/700) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - vitejs/vite v8.1.5..v8.2.0 (PR body): compare v8.1.5...v8.2.0 ✓ 40000 bytes
+    - context: 72498 bytes
+- [#701](https://github.com/kairos-io/AuroraBoot/pull/701) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - eemeli/yaml v2.8.4..v2.9.0 (PR body): compare v2.8.4...v2.9.0 ✓ 11907 bytes
+    - eemeli/yaml v2.8.3..v2.8.4 (PR body): compare v2.8.3...v2.8.4 ✓ 13617 bytes
+    - context: 29655 bytes
+- [#703](https://github.com/kairos-io/AuroraBoot/pull/703) — ✅ **good** — This is a routine version bump for a Helm chart to align with a newly released version (0.26.0). The description confirms this is intended to target the released image, and there are no security implications associated with updating to a stable, released version.
+  ↳ This PR updates the `version` and `appVersion` in `deploy/helm/auroraboot/Chart.yaml` to `0.26.0`. This change ensures that Helm installations target the officially released chart artifact.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 56647 bytes
+    - context: 816 bytes
+- [#704](https://github.com/kairos-io/AuroraBoot/pull/704) — ✅ **good** — This pull request is a routine maintenance update to sync the Helm chart version to the latest released tag (0.26.1). Since the description confirms the artifact is published and the change is to a known, released version, it poses no security risk and is safe to auto-approve.
+  ↳ This change updates the `version` and `appVersion` in `Chart.yaml` to `0.26.1`. This ensures that Helm installations targeting the main branch default to using the newly released chart artifact.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 817 bytes
+- [#706](https://github.com/kairos-io/AuroraBoot/pull/706) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/google/go-containerregistry 0.21.7→0.21.8: compare v0.21.7...v0.21.8 ✓ 40000 bytes
+    - github.com/docker/cli 29.5.3+incompatible→29.6.2+incompatible: compare v29.5.3+incompatible...v29.6.2+incompatible failed/empty (no upstream diff)
+    - github.com/moby/moby/client 0.5.0→0.5.1: compare v0.5.0...v0.5.1 ✓ 40000 bytes
+    - context: 92176 bytes
+- [#707](https://github.com/kairos-io/AuroraBoot/pull/707) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/jackc/pgx/v5 5.9.2→5.10.0: compare v5.9.2...v5.10.0 ✓ 40000 bytes
+    - go-gorm/postgres v1.6.1..v1.6.2 (PR body): compare v1.6.1...v1.6.2 ✓ 13474 bytes
+    - go-gorm/postgres v1.6.0..v1.6.1 (PR body): compare v1.6.0...v1.6.1 ✓ 10553 bytes
+    - context: 68506 bytes
+- [#708](https://github.com/kairos-io/AuroraBoot/pull/708) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - helm/helm v3.21.2..v3.21.3 (PR body): compare v3.21.2...v3.21.3 ✓ 5490 bytes
+    - context: 64643 bytes
+- [#709](https://github.com/kairos-io/AuroraBoot/pull/709) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/kairos-io/kairos-sdk 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 26995 bytes
+    - github.com/moby/moby/client 0.5.0→0.5.1: compare v0.5.0...v0.5.1 ✓ 40000 bytes
+    - context: 74140 bytes
+- [#710](https://github.com/kairos-io/AuroraBoot/pull/710) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/stmcginnis/gofish 0.23.0→0.24.0: compare v0.23.0...v0.24.0 ✓ 33308 bytes
+    - context: 38098 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -191,14 +224,14 @@ _No bot PRs yet._
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
     - context: 42433 bytes
-- [#61](https://github.com/kairos-io/go-ukify/pull/61) — ✅ **good** — This is a routine dependency version update. The context provided suggests that the dependency is undergoing a repository migration, which is a planned change. There are no immediate security red flags or major version changes indicated that would warrant manual review. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the dependency `github.com/ThalesGroup/crypto11` from version v1.6.2 to v1.6.5. The upstream context indicates this update is part of a project migration to `github.com/eclipse-keypont/crypto11`. This is a standard version bump for a third-party library.
-    - github.com/ThalesGroup/crypto11 1.6.2→1.6.5: compare v1.6.2...v1.6.5 ✓ 1245 bytes
-    - ThalesGroup/crypto11 v1.6.4..v1.6.5 (PR body): compare v1.6.4...v1.6.5 ✓ 309 bytes
-    - eclipse-keypont/crypto11 v1.6.3..v1.6.5 (PR body): compare v1.6.3...v1.6.5 ✓ 314 bytes
-    - ThalesGroup/crypto11 v1.6.3..v1.6.4 (PR body): compare v1.6.3...v1.6.4 ✓ 377 bytes
-    - ThalesGroup/crypto11 v1.6.2..v1.6.3 (PR body): compare v1.6.2...v1.6.3 ✓ 1316 bytes
-    - context: 6745 bytes
+- [#61](https://github.com/kairos-io/go-ukify/pull/61) — ✅ **good** — The update is a standard version bump to a newer release (v1.6.8) of the dependency. The upstream changelog indicates this release addresses important structural changes, specifically restoring the module path and updating Go version policies, which is a necessary maintenance step. There are no immediate red flags suggesting a security risk.
+  ↳ This PR updates the dependency `github.com/ThalesGroup/crypto11` from version v1.6.2 to v1.6.8. This update incorporates a repository migration to the `github.com/eclipse-keypont/crypto11` module path and includes fixes related to module path restoration and Go version policy.
+    - github.com/ThalesGroup/crypto11 1.6.2→1.6.8: compare v1.6.2...v1.6.8 ✓ 2785 bytes
+    - ThalesGroup/crypto11 v1.6.7..v1.6.8 (PR body): compare v1.6.7...v1.6.8 ✓ 2070 bytes
+    - eclipse-keypont/crypto11 v1.6.5..v1.6.8 (PR body): compare v1.6.5...v1.6.8 ✓ 2070 bytes
+    - ThalesGroup/crypto11 v1.6.6..v1.6.7 (PR body): compare v1.6.6...v1.6.7 ✓ 617 bytes
+    - ThalesGroup/crypto11 v1.6.5..v1.6.6 (PR body): compare v1.6.5...v1.6.6 ✓ 936 bytes
+    - context: 14589 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4229](https://github.com/kairos-io/kairos/pull/4229) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -219,24 +252,27 @@ _No bot PRs yet._
     - actions/stale v10..v11.0.0 (PR body): compare v10...v11.0.0 ✓ 40000 bytes
     - actions/stale v10.4.0..v11.0.0 (PR body): compare v10.4.0...v11.0.0 ✓ 40000 bytes
     - context: 82981 bytes
-**[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
+- [#4272](https://github.com/kairos-io/kairos/pull/4272) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - kairos-io/kairos-init v0.16.1..v0.16.2 (PR body): compare v0.16.1...v0.16.2 ✓ 25265 bytes
+    - context: 29768 bytes
+- [#4273](https://github.com/kairos-io/kairos/pull/4273) — ✅ **good** — This pull request is a minor version bump for a specific Docker image tag. As this is a dependency update within a known project, and there are no indications of malicious code or breaking changes, it is safe to auto-approve.
+  ↳ This PR updates the Docker image tag for `quay.io/kairos/auroraboot` from v0.25.2 to v0.26.1 across multiple GitHub Actions workflows. This is a standard dependency maintenance update.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 3582 bytes
+**[kairos-io/kairos-agent](https://github.com/kairos-io/kairos-agent)**
 
-- [#17](https://github.com/kairos-io/kairos-installer/pull/17) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/kairos-io/kairos-sdk 0.23.4→0.24.0: compare v0.23.4...v0.24.0 ✓ 37418 bytes
-    - github.com/mudler/yip 1.25.0→1.25.1: compare v1.25.0...v1.25.1 ✓ 22176 bytes
-    - github.com/docker/go-connections 0.7.0→0.8.0: compare v0.7.0...v0.8.0 ✓ 31291 bytes
-    - context: 102391 bytes
+- [#1331](https://github.com/kairos-io/kairos-agent/pull/1331) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/google/go-containerregistry 0.21.7→0.21.8: compare v0.21.7...v0.21.8 ✓ 40000 bytes
+    - github.com/docker/cli 29.5.3+incompatible→29.6.2+incompatible: compare v29.5.3+incompatible...v29.6.2+incompatible failed/empty (no upstream diff)
+    - github.com/klauspost/compress 1.18.7→1.19.1: compare v1.18.7...v1.19.1 ✓ 40000 bytes
+    - context: 93638 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#153](https://github.com/kairos-io/kairos-operator/pull/153) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - docker/login-action abd2ef45e78c5afb21d64d4ca52ee8550d9572c7..371161bbe7024a29a25c5e19bfcbc0804fe9ad2c (PR body): compare abd2ef45e78c5afb21d64d4ca52ee8550d9572c7...371161bbe7024a29a25c5e19bfcbc0804fe9ad2c ✓ 40000 bytes
+    - docker/login-action abd2ef45e78c5afb21d64d4ca52ee8550d9572c7..dbcb813823bdd20940b903addbd779551569679f (PR body): compare abd2ef45e78c5afb21d64d4ca52ee8550d9572c7...dbcb813823bdd20940b903addbd779551569679f ✓ 40000 bytes
     - context: 43269 bytes
 **[kairos-io/netboot](https://github.com/kairos-io/netboot)**
 
-- [#45](https://github.com/kairos-io/netboot/pull/45) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
-    - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
-    - context: 76977 bytes
 - [#46](https://github.com/kairos-io/netboot/pull/46) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
     - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
@@ -246,6 +282,10 @@ _No bot PRs yet._
     - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - context: 83203 bytes
+- [#48](https://github.com/kairos-io/netboot/pull/48) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
+    - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
+    - context: 76973 bytes
 **[mauromorales/xpasswd](https://github.com/mauromorales/xpasswd)**
 
 - [#53](https://github.com/mauromorales/xpasswd/pull/53) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
