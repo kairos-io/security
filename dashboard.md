@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-02._
+_Updated 2026-08-03._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -266,6 +266,14 @@ _No bot PRs yet._
     - github.com/docker/cli 29.5.3+incompatible→29.6.2+incompatible: compare v29.5.3+incompatible...v29.6.2+incompatible failed/empty (no upstream diff)
     - github.com/klauspost/compress 1.18.7→1.19.1: compare v1.18.7...v1.19.1 ✓ 40000 bytes
     - context: 93638 bytes
+**[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
+
+- [#19](https://github.com/kairos-io/kairos-installer/pull/19) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/kairos-io/kairos-sdk 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 26995 bytes
+    - github.com/docker/cli 29.6.2+incompatible→29.7.1+incompatible: compare v29.6.2+incompatible...v29.7.1+incompatible failed/empty (no upstream diff)
+    - github.com/docker/go-connections 0.8.0→0.8.1: compare v0.8.0...v0.8.1 ✓ 1617 bytes
+    - github.com/google/go-containerregistry 0.21.7→0.21.8: compare v0.21.7...v0.21.8 ✓ 40000 bytes
+    - context: 82356 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#153](https://github.com/kairos-io/kairos-operator/pull/153) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -390,4 +398,14 @@ _No bot PRs yet._
     - github.com/ipfs/go-cid 0.6.1→0.6.2: compare v0.6.1...v0.6.2 ✓ 8550 bytes
     - github.com/ipfs/go-datastore 0.9.1→0.9.2: compare v0.9.1...v0.9.2 ✓ 16069 bytes
     - context: 93503 bytes
+**[mudler/yip](https://github.com/mudler/yip)**
+
+- [#320](https://github.com/mudler/yip/pull/320) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
+    - context: 44928 bytes
+- [#322](https://github.com/mudler/yip/pull/322) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/google/go-containerregistry 0.21.7→0.21.8: compare v0.21.7...v0.21.8 ✓ 40000 bytes
+    - github.com/docker/cli 29.5.3+incompatible→29.6.2+incompatible: compare v29.5.3+incompatible...v29.6.2+incompatible failed/empty (no upstream diff)
+    - github.com/klauspost/compress 1.18.6→1.19.1: compare v1.18.6...v1.19.1 ✓ 40000 bytes
+    - context: 97086 bytes
 
