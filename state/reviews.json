@@ -31,14 +31,14 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 699,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/699",
-    "headSHA": "4e865ea606ecd904178f5288caf84a3454e09b48",
+    "headSHA": "6a24facb53ab4d8318e086292b9bd2998243739a",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-02",
+    "reviewedRun": "2026-08-04",
     "trace": [
+      "typescript-eslint/typescript-eslint v8.65.0..v8.66.0 (PR body): compare v8.65.0...v8.66.0 ✓ 40000 bytes",
       "typescript-eslint/typescript-eslint v8.64.0..v8.65.0 (PR body): compare v8.64.0...v8.65.0 ✓ 40000 bytes",
-      "typescript-eslint/typescript-eslint v8.63.0..v8.64.0 (PR body): compare v8.63.0...v8.64.0 ✓ 40000 bytes",
-      "context: 96178 bytes"
+      "context: 96848 bytes"
     ]
   },
   {
@@ -639,22 +639,6 @@
   },
   {
     "repo": "mudler/edgevpn",
-    "pr": 939,
-    "url": "https://github.com/mudler/edgevpn/pull/939",
-    "headSHA": "f6ec0893377fd21426d4b1acaa00239a5d3f7e2b",
-    "verdict": "good",
-    "reasoning": "The change is a dependency bump for a widely used action, which is a standard maintenance task. The changelog indicates breaking changes, specifically a Node.js runtime upgrade, which requires verification in the CI pipeline. Assuming the project's CI passes successfully after this update, the change is safe to auto-approve.",
-    "changesSummary": "This PR upgrades the `actions/setup-go` dependency from version 5 to 6. This involves updating references in various GitHub Actions workflow files to use the new action version and incorporates breaking changes from v6.0.0, such as upgrading the Node.js runtime to node 24.x in affected workflows.",
-    "reviewedRun": "2026-06-25",
-    "trace": [
-      "actions/setup-go v5..v6.0.0 (PR body): compare v5...v6.0.0 ✓ 40000 bytes",
-      "actions/setup-go v5..v5.5.0 (PR body): compare v5...v5.5.0 failed/empty (no upstream diff)",
-      "actions/setup-go v5..v6 (PR body): compare v5...v6 ✓ 40000 bytes",
-      "context: 92926 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/edgevpn",
     "pr": 942,
     "url": "https://github.com/mudler/edgevpn/pull/942",
     "headSHA": "3facb984c9ec2ed3d713d141eed9672780cca210",
@@ -680,20 +664,6 @@
     "trace": [
       "codecov/codecov-action v5.5.0..v5.5.1 (PR body): compare v5.5.0...v5.5.1 ✓ 10680 bytes",
       "context: 21031 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/edgevpn",
-    "pr": 946,
-    "url": "https://github.com/mudler/edgevpn/pull/946",
-    "headSHA": "04fd640fcd4a015bfbe1b7954a811384b92f1b1b",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint unreachable: Post \"http://localhost:8080/v1/chat/completions\": context deadline exceeded",
-    "reviewedRun": "2026-06-25",
-    "trace": [
-      "github.com/libp2p/go-libp2p-kad-dht 0.36.0→0.39.0: compare v0.36.0...v0.39.0 ✓ 40000 bytes",
-      "golang.org/x/sys 0.41.0→0.42.0: compare v0.41.0...v0.42.0 ✓ 28932 bytes",
-      "context: 212268 bytes"
     ]
   },
   {
@@ -773,15 +743,15 @@
     "repo": "mudler/edgevpn",
     "pr": 1057,
     "url": "https://github.com/mudler/edgevpn/pull/1057",
-    "headSHA": "9a2390bbf95754c9a2e44b8f87f48d8cc3979a33",
+    "headSHA": "55a666a2b7271f09f27c694c0c2bbcfd491dadd6",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-21",
+    "reviewedRun": "2026-08-04",
     "trace": [
       "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
       "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
       "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
-      "context: 84157 bytes"
+      "context: 84598 bytes"
     ]
   },
   {
@@ -853,6 +823,37 @@
       "github.com/ipfs/go-cid 0.6.1→0.6.2: compare v0.6.1...v0.6.2 ✓ 8550 bytes",
       "github.com/ipfs/go-datastore 0.9.1→0.9.2: compare v0.9.1...v0.9.2 ✓ 16069 bytes",
       "context: 93503 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1067,
+    "url": "https://github.com/mudler/edgevpn/pull/1067",
+    "headSHA": "a9583783531a7573db202bd030aaa1a5204d3f4e",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-08-04",
+    "trace": [
+      "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-go v6..v6.5.0 (PR body): compare v6...v6.5.0 failed/empty (no upstream diff)",
+      "actions/setup-go v6..v6.4.0 (PR body): compare v6...v6.4.0 failed/empty (no upstream diff)",
+      "actions/setup-go v6..v6.3.0 (PR body): compare v6...v6.3.0 failed/empty (no upstream diff)",
+      "actions/setup-go v6..v7 (PR body): compare v6...v7 ✓ 40000 bytes",
+      "context: 89775 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1068,
+    "url": "https://github.com/mudler/edgevpn/pull/1068",
+    "headSHA": "10eb0881b8944b86f591fba9204828c1ebbba45b",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-08-04",
+    "trace": [
+      "github.com/libp2p/go-libp2p-kad-dht 0.41.0→0.42.1: compare v0.41.0...v0.42.1 ✓ 40000 bytes",
+      "github.com/ipfs/boxo 0.39.0→0.41.0: compare v0.39.0...v0.41.0 ✓ 40000 bytes",
+      "context: 189140 bytes"
     ]
   },
   {
