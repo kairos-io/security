@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-06",
+  "generatedAt": "2026-08-08",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
   "focus": [],
   "summaries": {},
-  "narrative": ""
+  "narrative": "No security findings were provided in the input, so no triage report could be generated. Please provide the security findings to proceed with the analysis."
 }

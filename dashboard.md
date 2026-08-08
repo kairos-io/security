@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-06._
+_Updated 2026-08-08._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -12,6 +12,8 @@ _Updated 2026-08-06._
 - **CVE-related PRs:** 0
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** No CVEs found, but 1 repo(s) could not be scanned — see collection errors.
+
+> No security findings were provided in the input, so no triage report could be generated. Please provide the security findings to proceed with the analysis.
 
 ## 🔥 Focus now
 
@@ -135,8 +137,9 @@ _No bot PRs yet._
     - typescript-eslint/typescript-eslint v8.64.0..v8.65.0 (PR body): compare v8.64.0...v8.65.0 ✓ 40000 bytes
     - context: 96848 bytes
 - [#700](https://github.com/kairos-io/AuroraBoot/pull/700) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - vitejs/vite v8.2.0..v8.2.1 (PR body): compare v8.2.0...v8.2.1 ✓ 40000 bytes
     - vitejs/vite v8.1.5..v8.2.0 (PR body): compare v8.1.5...v8.2.0 ✓ 40000 bytes
-    - context: 72989 bytes
+    - context: 117129 bytes
 - [#701](https://github.com/kairos-io/AuroraBoot/pull/701) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - eemeli/yaml v2.8.4..v2.9.0 (PR body): compare v2.8.4...v2.9.0 ✓ 11907 bytes
     - eemeli/yaml v2.8.3..v2.8.4 (PR body): compare v2.8.3...v2.8.4 ✓ 13617 bytes
@@ -149,19 +152,26 @@ _No bot PRs yet._
   ↳ This change updates the `version` and `appVersion` in `Chart.yaml` to `0.26.1`. This ensures that Helm installations targeting the main branch default to using the newly released chart artifact.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 817 bytes
+- [#707](https://github.com/kairos-io/AuroraBoot/pull/707) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/jackc/pgx/v5 5.9.2→5.10.0: compare v5.9.2...v5.10.0 ✓ 40000 bytes
+    - go-gorm/postgres v1.6.1..v1.6.2 (PR body): compare v1.6.1...v1.6.2 ✓ 13474 bytes
+    - go-gorm/postgres v1.6.0..v1.6.1 (PR body): compare v1.6.0...v1.6.1 ✓ 10553 bytes
+    - context: 68506 bytes
 - [#708](https://github.com/kairos-io/AuroraBoot/pull/708) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - helm/helm v3.21.2..v3.21.3 (PR body): compare v3.21.2...v3.21.3 ✓ 5490 bytes
     - context: 64643 bytes
-- [#709](https://github.com/kairos-io/AuroraBoot/pull/709) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/kairos-io/kairos-sdk 0.24.0→0.25.1: compare v0.24.0...v0.25.1 ✓ 40000 bytes
-    - github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes
-    - context: 90757 bytes
 - [#710](https://github.com/kairos-io/AuroraBoot/pull/710) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/stmcginnis/gofish 0.23.0→0.24.0: compare v0.23.0...v0.24.0 ✓ 33308 bytes
     - context: 37982 bytes
 - [#712](https://github.com/kairos-io/AuroraBoot/pull/712) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/foxboron/sbctl 0.0.0-20250917190250-6b8ed8715652→0.0.0-20260802183653-a7168106e003: compare 6b8ed8715652...a7168106e003 ✓ 18927 bytes
     - context: 21798 bytes
+- [#722](https://github.com/kairos-io/AuroraBoot/pull/722) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/klauspost/compress 1.19.1→1.19.2: compare v1.19.1...v1.19.2 ✓ 40000 bytes
+    - context: 45301 bytes
+- [#723](https://github.com/kairos-io/AuroraBoot/pull/723) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
+    - context: 49866 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -208,6 +218,10 @@ _No bot PRs yet._
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
     - context: 42046 bytes
+- [#69](https://github.com/kairos-io/go-nodepair/pull/69) — ✅ **good** — The update is a minor version bump to a newer release (v2.5.0) which includes several features and fixes. The changelog indicates improvements such as adding `GOTOOLCHAIN=auto` and addressing warnings, which are positive changes for the project's CI/CD pipeline. There are no apparent security regressions or breaking changes.
+  ↳ This PR updates the `google/osv-scanner-action` dependency from v2.3.8 to v2.5.0. The new version introduces several features and fixes, including adding `GOTOOLCHAIN=auto` to the environment variables and addressing existing warnings.
+    - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
+    - context: 15613 bytes
 **[kairos-io/go-ukify](https://github.com/kairos-io/go-ukify)**
 
 - [#59](https://github.com/kairos-io/go-ukify/pull/59) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -225,6 +239,17 @@ _No bot PRs yet._
     - ThalesGroup/crypto11 v1.6.6..v1.6.7 (PR body): compare v1.6.6...v1.6.7 ✓ 617 bytes
     - ThalesGroup/crypto11 v1.6.5..v1.6.6 (PR body): compare v1.6.5...v1.6.6 ✓ 936 bytes
     - context: 14589 bytes
+**[kairos-io/hadron](https://github.com/kairos-io/hadron)**
+
+- [#557](https://github.com/kairos-io/hadron/pull/557) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - updatecli/updatecli-action v3.4.0..v3.5.0 (PR body): compare v3.4.0...v3.5.0 ✓ 40000 bytes
+    - context: 45108 bytes
+**[kairos-io/immucore](https://github.com/kairos-io/immucore)**
+
+- [#607](https://github.com/kairos-io/immucore/pull/607) — ✅ **good** — This is a minor version update to a dependency (`google/osv-scanner-action`). The upstream release notes indicate that this version includes new features and fixes, and there are no indications of new security vulnerabilities introduced by this version bump. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the `google/osv-scanner-action` dependency from v2.3.8 to v2.5.0. The update includes several new features, such as gating reusable workflow outputs and adding runs-on input, as well as fixes for zizmor warnings and the addition of the `GOTOOLCHAIN=auto` environment variable.
+    - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
+    - context: 15615 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4229](https://github.com/kairos-io/kairos/pull/4229) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -255,13 +280,15 @@ _No bot PRs yet._
 - [#4277](https://github.com/kairos-io/kairos/pull/4277) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - azure/login 532459ea530d8321f2fb9bb10d1e0bcf23869a43..f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca (PR body): compare 532459ea530d8321f2fb9bb10d1e0bcf23869a43...f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca ✓ 40000 bytes
     - context: 42094 bytes
+- [#4289](https://github.com/kairos-io/kairos/pull/4289) — ✅ **good** — The PR is a standard minor version update for a dependency. The upstream release notes indicate that this version includes new features and fixes, such as addressing warnings and adding the `GOTOOLCHAIN=auto` environment variable. This change is safe and beneficial.
+  ↳ This PR updates the google/osv-scanner-action dependency from version v2.3.8 to v2.5.0. This update includes new features and fixes, such as adding the `GOTOOLCHAIN=auto` environment variable to improve scanner functionality.
+    - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
+    - context: 15657 bytes
 **[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
 
-- [#422](https://github.com/kairos-io/kairos-init/pull/422) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/kairos-io/kairos-sdk 0.25.0→0.25.1: compare v0.25.0...v0.25.1 ✓ 37726 bytes
-    - github.com/docker/cli 29.5.3+incompatible→29.6.2+incompatible: compare v29.5.3+incompatible...v29.6.2+incompatible failed/empty (no upstream diff)
-    - github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes
-    - context: 92488 bytes
+- [#423](https://github.com/kairos-io/kairos-init/pull/423) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - kairos-io/immucore v0.19.0..v0.20.0 (PR body): compare v0.19.0...v0.20.0 ✓ 40000 bytes
+    - context: 42752 bytes
 **[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
 
 - [#19](https://github.com/kairos-io/kairos-installer/pull/19) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -279,6 +306,10 @@ _No bot PRs yet._
   ↳ This PR updates the specific SHA256 digest for the `docker.io/golang:1.26.5` base image across the Dockerfiles and Dockerfile.node-labeler. This change ensures the build uses a fixed, known version of the image, which is a standard maintenance practice.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1972 bytes
+- [#158](https://github.com/kairos-io/kairos-operator/pull/158) — ✅ **good** — This is a routine dependency update to a newer version of the operator. The change is a standard version bump and does not introduce any security vulnerabilities. It is safe to auto-approve.
+  ↳ The PR updates the Docker tag for the `quay.io/kairos/operator` dependency from `v0.1.2` to `v0.1.3` in the Kustomization configuration.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 1500 bytes
 **[kairos-io/kairos-sdk](https://github.com/kairos-io/kairos-sdk)**
 
 - [#827](https://github.com/kairos-io/kairos-sdk/pull/827) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -301,6 +332,10 @@ _No bot PRs yet._
     - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
     - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
     - context: 76973 bytes
+- [#49](https://github.com/kairos-io/netboot/pull/49) — ✅ **good** — This is a routine dependency update to a well-known action. The update moves to a newer version (v2.5.0) which includes new features and fixes, and does not introduce any security vulnerabilities or malicious code. It is safe to auto-approve.
+  ↳ This PR updates the `google/osv-scanner-action` dependency from version v2.3.8 to v2.5.0. This update incorporates new features and fixes mentioned in the release notes, such as gating reusable workflow outputs and addressing zizmor warnings.
+    - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
+    - context: 15612 bytes
 **[mauromorales/xpasswd](https://github.com/mauromorales/xpasswd)**
 
 - [#53](https://github.com/mauromorales/xpasswd/pull/53) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
