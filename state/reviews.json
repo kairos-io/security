@@ -1031,19 +1031,6 @@
   },
   {
     "repo": "mudler/yip",
-    "pr": 320,
-    "url": "https://github.com/mudler/yip/pull/320",
-    "headSHA": "f935ff74a2b57be847380281ce46e83c1957bd9a",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-03",
-    "trace": [
-      "github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes",
-      "context: 44928 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/yip",
     "pr": 322,
     "url": "https://github.com/mudler/yip/pull/322",
     "headSHA": "8acce9b325e8fd3fb671cbe9446f11a56c515716",
@@ -1055,6 +1042,19 @@
       "github.com/docker/cli 29.5.3+incompatible→29.6.2+incompatible: compare v29.5.3+incompatible...v29.6.2+incompatible failed/empty (no upstream diff)",
       "github.com/klauspost/compress 1.18.6→1.19.1: compare v1.18.6...v1.19.1 ✓ 40000 bytes",
       "context: 98197 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 323,
+    "url": "https://github.com/mudler/yip/pull/323",
+    "headSHA": "ed9244da24b2364b3705f6055e5bc44d3e0172b5",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-08-09",
+    "trace": [
+      "github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes",
+      "context: 52337 bytes"
     ]
   }
 ]

@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-08._
+_Updated 2026-08-09._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -12,8 +12,6 @@ _Updated 2026-08-08._
 - **CVE-related PRs:** 0
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** No CVEs found, but 1 repo(s) could not be scanned — see collection errors.
-
-> No security findings were provided in the input, so no triage report could be generated. Please provide the security findings to proceed with the analysis.
 
 ## 🔥 Focus now
 
@@ -454,12 +452,12 @@ _No bot PRs yet._
     - context: 8083956 bytes
 **[mudler/yip](https://github.com/mudler/yip)**
 
-- [#320](https://github.com/mudler/yip/pull/320) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
-    - context: 44928 bytes
 - [#322](https://github.com/mudler/yip/pull/322) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/google/go-containerregistry 0.21.7→0.21.9: compare v0.21.7...v0.21.9 ✓ 40000 bytes
     - github.com/docker/cli 29.5.3+incompatible→29.6.2+incompatible: compare v29.5.3+incompatible...v29.6.2+incompatible failed/empty (no upstream diff)
     - github.com/klauspost/compress 1.18.6→1.19.1: compare v1.18.6...v1.19.1 ✓ 40000 bytes
     - context: 98197 bytes
+- [#323](https://github.com/mudler/yip/pull/323) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
+    - context: 52337 bytes
 
