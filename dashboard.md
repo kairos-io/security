@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-09._
+_Updated 2026-08-10._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -9,7 +9,7 @@ _Updated 2026-08-09._
 - **Scanned:** 25 repos · ⚠️ 1 errored
 - **Findings:** 0 (0 critical / 0 high / 0 medium / 0 low / 0 unknown)
 - **Informational (not counted):** 48
-- **CVE-related PRs:** 0
+- **CVE-related PRs:** 1 (1 human)
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** No CVEs found, but 1 repo(s) could not be scanned — see collection errors.
 
@@ -112,7 +112,9 @@ These findings are separated from the counts above: CVEs we are already past, or
 
 ## 📋 Open PRs
 
-_None._
+**[kairos-io/hadron](https://github.com/kairos-io/hadron)**
+
+- [#560 Automatic version bumps for busybox](https://github.com/kairos-io/hadron/pull/560) — human — tracked
 
 ## 🤖 Bot PR ledger
 
@@ -242,12 +244,27 @@ _No bot PRs yet._
 - [#557](https://github.com/kairos-io/hadron/pull/557) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - updatecli/updatecli-action v3.4.0..v3.5.0 (PR body): compare v3.4.0...v3.5.0 ✓ 40000 bytes
     - context: 45108 bytes
+- [#561](https://github.com/kairos-io/hadron/pull/561) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - actions/checkout v7.0.0..v7.0.1 (PR body): compare v7.0.0...v7.0.1 ✓ 40000 bytes
+    - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
+    - actions/checkout v6.1.0..v7.0.0 (PR body): compare v6.1.0...v7.0.0 ✓ 40000 bytes
+    - context: 90192 bytes
+- [#562](https://github.com/kairos-io/hadron/pull/562) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - docker/setup-qemu-action v4.1.0..v4.2.0 (PR body): compare v4.1.0...v4.2.0 ✓ 40000 bytes
+    - docker/setup-qemu-action v4..v4.1.0 (PR body): compare v4...v4.1.0 failed/empty (no upstream diff)
+    - docker/setup-qemu-action v4.0.0..v4.1.0 (PR body): compare v4.0.0...v4.1.0 failed/empty (no upstream diff)
+    - docker/setup-qemu-action v4..v4 (PR body): compare v4...v4 failed/empty (no upstream diff)
+    - docker/setup-qemu-action v3.7.0..v4.0.0 (PR body): compare v3.7.0...v4.0.0 failed/empty (no upstream diff)
+    - context: 45783 bytes
 **[kairos-io/immucore](https://github.com/kairos-io/immucore)**
 
 - [#607](https://github.com/kairos-io/immucore/pull/607) — ✅ **good** — This is a minor version update to a dependency (`google/osv-scanner-action`). The upstream release notes indicate that this version includes new features and fixes, and there are no indications of new security vulnerabilities introduced by this version bump. Therefore, it is safe to auto-approve.
   ↳ This PR updates the `google/osv-scanner-action` dependency from v2.3.8 to v2.5.0. The update includes several new features, such as gating reusable workflow outputs and adding runs-on input, as well as fixes for zizmor warnings and the addition of the `GOTOOLCHAIN=auto` environment variable.
     - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
     - context: 15615 bytes
+- [#608](https://github.com/kairos-io/immucore/pull/608) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
+    - context: 49086 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
 - [#4229](https://github.com/kairos-io/kairos/pull/4229) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -290,11 +307,9 @@ _No bot PRs yet._
 **[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
 
 - [#19](https://github.com/kairos-io/kairos-installer/pull/19) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/kairos-io/kairos-sdk 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 26995 bytes
-    - github.com/docker/cli 29.6.2+incompatible→29.7.1+incompatible: compare v29.6.2+incompatible...v29.7.1+incompatible failed/empty (no upstream diff)
-    - github.com/docker/go-connections 0.8.0→0.8.1: compare v0.8.0...v0.8.1 ✓ 1617 bytes
-    - github.com/google/go-containerregistry 0.21.7→0.21.8: compare v0.21.7...v0.21.8 ✓ 40000 bytes
-    - context: 82356 bytes
+    - github.com/kairos-io/kairos-sdk 0.24.0→0.25.2: compare v0.24.0...v0.25.2 ✓ 40000 bytes
+    - github.com/Masterminds/semver/v3 3.4.0→3.5.0: compare v3.4.0...v3.5.0 ✓ 40000 bytes
+    - context: 105669 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#153](https://github.com/kairos-io/kairos-operator/pull/153) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500

@@ -402,6 +402,38 @@
     ]
   },
   {
+    "repo": "kairos-io/hadron",
+    "pr": 561,
+    "url": "https://github.com/kairos-io/hadron/pull/561",
+    "headSHA": "1d050cf8881db6afab2551afee73949d3b79fdd4",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-08-10",
+    "trace": [
+      "actions/checkout v7.0.0..v7.0.1 (PR body): compare v7.0.0...v7.0.1 ✓ 40000 bytes",
+      "actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
+      "actions/checkout v6.1.0..v7.0.0 (PR body): compare v6.1.0...v7.0.0 ✓ 40000 bytes",
+      "context: 90192 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/hadron",
+    "pr": 562,
+    "url": "https://github.com/kairos-io/hadron/pull/562",
+    "headSHA": "cf677897fe4daa3f13cffd77f63d9e3a16d5bc44",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-08-10",
+    "trace": [
+      "docker/setup-qemu-action v4.1.0..v4.2.0 (PR body): compare v4.1.0...v4.2.0 ✓ 40000 bytes",
+      "docker/setup-qemu-action v4..v4.1.0 (PR body): compare v4...v4.1.0 failed/empty (no upstream diff)",
+      "docker/setup-qemu-action v4.0.0..v4.1.0 (PR body): compare v4.0.0...v4.1.0 failed/empty (no upstream diff)",
+      "docker/setup-qemu-action v4..v4 (PR body): compare v4...v4 failed/empty (no upstream diff)",
+      "docker/setup-qemu-action v3.7.0..v4.0.0 (PR body): compare v3.7.0...v4.0.0 failed/empty (no upstream diff)",
+      "context: 45783 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/immucore",
     "pr": 607,
     "url": "https://github.com/kairos-io/immucore/pull/607",
@@ -413,6 +445,19 @@
     "trace": [
       "google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes",
       "context: 15615 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/immucore",
+    "pr": 608,
+    "url": "https://github.com/kairos-io/immucore/pull/608",
+    "headSHA": "1eaf7182de70a4f7619e608c70ac7188e629c14a",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-08-10",
+    "trace": [
+      "github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes",
+      "context: 49086 bytes"
     ]
   },
   {
@@ -554,16 +599,14 @@
     "repo": "kairos-io/kairos-installer",
     "pr": 19,
     "url": "https://github.com/kairos-io/kairos-installer/pull/19",
-    "headSHA": "60ad65d3c51dd1341870105b4f354529f58361f6",
+    "headSHA": "4a6a7b3dfe3715be40369f63080fcb79f21d1eaf",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-03",
+    "reviewedRun": "2026-08-10",
     "trace": [
-      "github.com/kairos-io/kairos-sdk 0.24.0→0.25.0: compare v0.24.0...v0.25.0 ✓ 26995 bytes",
-      "github.com/docker/cli 29.6.2+incompatible→29.7.1+incompatible: compare v29.6.2+incompatible...v29.7.1+incompatible failed/empty (no upstream diff)",
-      "github.com/docker/go-connections 0.8.0→0.8.1: compare v0.8.0...v0.8.1 ✓ 1617 bytes",
-      "github.com/google/go-containerregistry 0.21.7→0.21.8: compare v0.21.7...v0.21.8 ✓ 40000 bytes",
-      "context: 82356 bytes"
+      "github.com/kairos-io/kairos-sdk 0.24.0→0.25.2: compare v0.24.0...v0.25.2 ✓ 40000 bytes",
+      "github.com/Masterminds/semver/v3 3.4.0→3.5.0: compare v3.4.0...v3.5.0 ✓ 40000 bytes",
+      "context: 105669 bytes"
     ]
   },
   {
