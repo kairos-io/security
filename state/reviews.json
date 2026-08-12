@@ -318,10 +318,10 @@
     "repo": "kairos-io/go-nodepair",
     "pr": 65,
     "url": "https://github.com/kairos-io/go-nodepair/pull/65",
-    "headSHA": "de2b9376f349bc8826090533fd6a273498a03e40",
+    "headSHA": "967dfd90fb7b41b43b22b048066057b37cad2441",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-02",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "ipfs/go-log v2.9.1..v2.9.2 (PR body): compare v2.9.1...v2.9.2 ✓ 12110 bytes",
       "ipfs/go-log v2.9.0..v2.9.1 (PR body): compare v2.9.0...v2.9.1 ✓ 2149 bytes",
@@ -333,25 +333,26 @@
     "repo": "kairos-io/go-nodepair",
     "pr": 66,
     "url": "https://github.com/kairos-io/go-nodepair/pull/66",
-    "headSHA": "2ee3ebb484f9ab401983a72e6aa4943db25f5c48",
+    "headSHA": "a63f9f500b2e8a0848b3f15db522295d449aab73",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-16",
+    "reviewedRun": "2026-08-12",
     "trace": [
-      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
       "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
-      "context: 42046 bytes"
+      "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
+      "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
+      "context: 82814 bytes"
     ]
   },
   {
     "repo": "kairos-io/go-nodepair",
     "pr": 69,
     "url": "https://github.com/kairos-io/go-nodepair/pull/69",
-    "headSHA": "0264f3e37d4a9c5ecbaa862e430cb157c22d8853",
+    "headSHA": "0a28d603dd09f9ddeb437068bd524764b00b2eeb",
     "verdict": "good",
-    "reasoning": "The update is a minor version bump to a newer release (v2.5.0) which includes several features and fixes. The changelog indicates improvements such as adding `GOTOOLCHAIN=auto` and addressing warnings, which are positive changes for the project's CI/CD pipeline. There are no apparent security regressions or breaking changes.",
-    "changesSummary": "This PR updates the `google/osv-scanner-action` dependency from v2.3.8 to v2.5.0. The new version introduces several features and fixes, including adding `GOTOOLCHAIN=auto` to the environment variables and addressing existing warnings.",
-    "reviewedRun": "2026-08-08",
+    "reasoning": "This is a minor version update to an official Google action. The changelog indicates that the update includes new features and fixes, which are beneficial. There are no apparent security risks associated with this version bump.",
+    "changesSummary": "This PR updates the `google/osv-scanner-action` dependency from v2.3.8 to v2.5.0. This update includes new features such as gating reusable workflow outputs and adding runs-on input, along with several bug fixes.",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes",
       "context: 15613 bytes"
@@ -420,10 +421,10 @@
     "repo": "kairos-io/hadron",
     "pr": 557,
     "url": "https://github.com/kairos-io/hadron/pull/557",
-    "headSHA": "8bcf2bb2b5b4fae1f24dd22e14dd78baf8540926",
+    "headSHA": "966e2ea08c50de82553126f7d32a4e95034a2207",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-08",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "updatecli/updatecli-action v3.4.0..v3.5.0 (PR body): compare v3.4.0...v3.5.0 ✓ 40000 bytes",
       "context: 45108 bytes"
@@ -588,13 +589,13 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 153,
     "url": "https://github.com/kairos-io/kairos-operator/pull/153",
-    "headSHA": "fe6bf7eeffae92d01accdde18bb2595b2dda0d69",
+    "headSHA": "578fc2a5c11ae927ff90df16781d4a254003c32e",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-02",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "docker/login-action abd2ef45e78c5afb21d64d4ca52ee8550d9572c7..dbcb813823bdd20940b903addbd779551569679f (PR body): compare abd2ef45e78c5afb21d64d4ca52ee8550d9572c7...dbcb813823bdd20940b903addbd779551569679f ✓ 40000 bytes",
-      "context: 43269 bytes"
+      "context: 43400 bytes"
     ]
   },
   {
@@ -655,19 +656,6 @@
     ]
   },
   {
-    "repo": "kairos-io/kcrypt-discovery-challenger",
-    "pr": 260,
-    "url": "https://github.com/kairos-io/kcrypt-discovery-challenger/pull/260",
-    "headSHA": "bc9a9c5a111b96a03f62d1f3ac5994b8a519bc26",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-11",
-    "trace": [
-      "kairos-io/kairos-init v0.16.2..v0.16.3 (PR body): compare v0.16.2...v0.16.3 ✓ 40000 bytes",
-      "context: 43871 bytes"
-    ]
-  },
-  {
     "repo": "kairos-io/netboot",
     "pr": 46,
     "url": "https://github.com/kairos-io/netboot/pull/46",
@@ -700,14 +688,14 @@
     "repo": "kairos-io/netboot",
     "pr": 48,
     "url": "https://github.com/kairos-io/netboot/pull/48",
-    "headSHA": "46ab3dae48a9f13346e1c9e1899240edf3fb6d94",
+    "headSHA": "20990599534ddb7fa42ab62a9f29736a7c09f1c1",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-02",
+    "reviewedRun": "2026-08-12",
     "trace": [
-      "golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes",
-      "golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes",
-      "context: 76973 bytes"
+      "golang.org/x/crypto 0.53.0→0.55.0: compare v0.53.0...v0.55.0 ✓ 40000 bytes",
+      "golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes",
+      "context: 83976 bytes"
     ]
   },
   {
@@ -756,17 +744,17 @@
     "repo": "mudler/edgevpn",
     "pr": 804,
     "url": "https://github.com/mudler/edgevpn/pull/804",
-    "headSHA": "dddf88518a3d02449d3bc09b1345e1b9ac12c5dd",
+    "headSHA": "ebf4363e582137c08e39a338cd3bfaae827c6524",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-21",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "c-robinson/iplib v2.0.4..v2.0.5 (PR body): compare v2.0.4...v2.0.5 ✓ 6378 bytes",
       "c-robinson/iplib v2.0.3..v2.0.4 (PR body): compare v2.0.3...v2.0.4 ✓ 3273 bytes",
-      "c-robinson/iplib v2.0.2..v2.0.3 (PR body): compare v2.0.2...v2.0.3 ✓ 9999 bytes",
+      "c-robinson/iplib v2.0.2..v2.0.3 (PR body): compare v2.0.2...v2.0.3 failed/empty (no upstream diff)",
       "c-robinson/iplib v2.0.1..v2.0.2 (PR body): compare v2.0.1...v2.0.2 ✓ 15662 bytes",
       "c-robinson/iplib v2.0.0..v2.0.1 (PR body): compare v2.0.0...v2.0.1 ✓ 1844 bytes",
-      "context: 44543 bytes"
+      "context: 34472 bytes"
     ]
   },
   {
@@ -895,10 +883,10 @@
     "repo": "mudler/edgevpn",
     "pr": 1054,
     "url": "https://github.com/mudler/edgevpn/pull/1054",
-    "headSHA": "bc4a761c024da1c24c264f3756a9f874648cb6af",
+    "headSHA": "f2fd7e138fc6cfd072e5055a214085d2f7ee3819",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-21",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "urfave/cli v3.10.0..v3.10.1 (PR body): compare v3.10.0...v3.10.1 ✓ 17319 bytes",
       "urfave/cli v3.9.1..v3.10.0 (PR body): compare v3.9.1...v3.10.0 ✓ 40000 bytes",
@@ -909,10 +897,10 @@
     "repo": "mudler/edgevpn",
     "pr": 1056,
     "url": "https://github.com/mudler/edgevpn/pull/1056",
-    "headSHA": "59952d69f380ad1cd77ddd5e07bd3ec56abfe574",
+    "headSHA": "20eb8d2d9e8d89c0e639fa0239b2200ea0df44a1",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-21",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "github.com/libp2p/go-libp2p-pubsub 0.16.0→0.17.0: compare v0.16.0...v0.17.0 ✓ 40000 bytes",
       "context: 45662 bytes"
@@ -922,10 +910,10 @@
     "repo": "mudler/edgevpn",
     "pr": 1057,
     "url": "https://github.com/mudler/edgevpn/pull/1057",
-    "headSHA": "55a666a2b7271f09f27c694c0c2bbcfd491dadd6",
+    "headSHA": "f405c000a0129792f431eed89970dcdc14645322",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-04",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
       "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
@@ -937,10 +925,10 @@
     "repo": "mudler/edgevpn",
     "pr": 1059,
     "url": "https://github.com/mudler/edgevpn/pull/1059",
-    "headSHA": "9993354a6b585a44d134e6339008330f3c9e1526",
+    "headSHA": "59f948ab08f6de44ca0e95b72075ee3095f709d3",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-21",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "github.com/libp2p/go-libp2p-kad-dht 0.41.0→0.42.1: compare v0.41.0...v0.42.1 ✓ 40000 bytes",
       "github.com/ipfs/boxo 0.39.0→0.41.0: compare v0.39.0...v0.41.0 ✓ 40000 bytes",
@@ -951,10 +939,10 @@
     "repo": "mudler/edgevpn",
     "pr": 1060,
     "url": "https://github.com/mudler/edgevpn/pull/1060",
-    "headSHA": "a70efaff1e5d881c45fa77d6da6bf30f684574de",
+    "headSHA": "818bb5720a583723c86ad3fa0ac9e0e0a8ba6e1a",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-02",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "github.com/labstack/echo/v5 5.3.0→5.3.1: compare v5.3.0...v5.3.1 ✓ 35382 bytes",
       "golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes",
@@ -965,11 +953,11 @@
     "repo": "mudler/edgevpn",
     "pr": 1061,
     "url": "https://github.com/mudler/edgevpn/pull/1061",
-    "headSHA": "1248154196ec5cd25c26b7a82776b8338f106d4b",
+    "headSHA": "22a6369bf8a63b00402e46c249885b61cb0df4f7",
     "verdict": "good",
-    "reasoning": "This change is a routine dependency update, specifically updating the digest of `go-libp2p-pubsub`. There are no apparent security risks introduced by this version bump, and it aligns with standard dependency maintenance practices.",
-    "changesSummary": "This PR updates the dependency `github.com/mudler/go-libp2p-pubsub` by changing its digest from `205ded1` to `2a31b5e`. This is a routine maintenance update to ensure the project uses the latest version of this library.",
-    "reviewedRun": "2026-07-23",
+    "reasoning": "The change is a routine dependency update (digest bump) for a library. There are no obvious security risks introduced by updating to a newer digest, and this is a standard maintenance task. Therefore, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the dependency `github.com/mudler/go-libp2p-pubsub` by replacing the old digest with a newer one (`2a31b5e`). This is a standard maintenance update to ensure the project uses the latest version of the library.",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 2511 bytes"
@@ -979,10 +967,10 @@
     "repo": "mudler/edgevpn",
     "pr": 1062,
     "url": "https://github.com/mudler/edgevpn/pull/1062",
-    "headSHA": "f813063af4c7e5e445f0dc07999178a20247652e",
+    "headSHA": "6b881586ee0364822a2174585e48486dd33763ab",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-29",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "github.com/libp2p/go-libp2p 0.48.0→0.49.0: compare v0.48.0...v0.49.0 ✓ 40000 bytes",
       "github.com/ipfs/go-cid 0.6.1→0.6.2: compare v0.6.1...v0.6.2 ✓ 8550 bytes",
@@ -1038,10 +1026,10 @@
     "repo": "mudler/edgevpn",
     "pr": 1070,
     "url": "https://github.com/mudler/edgevpn/pull/1070",
-    "headSHA": "b3ba9d316fa84cc0afabbf9615068c44de7a1959",
+    "headSHA": "23316e91aa004fdee3f5cc6c649243f7de1cdf40",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-06",
+    "reviewedRun": "2026-08-12",
     "trace": [
       "actions/setup-node v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
       "actions/setup-node v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
@@ -1128,6 +1116,21 @@
     "trace": [
       "github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes",
       "context: 15994 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 325,
+    "url": "https://github.com/mudler/yip/pull/325",
+    "headSHA": "aa1b481ea2564386d7313263e62082ad83adf933",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-08-12",
+    "trace": [
+      "golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes",
+      "golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes",
+      "golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes",
+      "context: 97415 bytes"
     ]
   }
 ]

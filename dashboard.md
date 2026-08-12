@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-11._
+_Updated 2026-08-12._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -12,6 +12,8 @@ _Updated 2026-08-11._
 - **CVE-related PRs:** 1 (1 human)
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** No CVEs found, but 1 repo(s) could not be scanned — see collection errors.
+
+> No security findings were provided in the input for analysis.
 
 ## 🔥 Focus now
 
@@ -219,11 +221,12 @@ _No bot PRs yet._
     - ipfs/go-log v2.8.2..v2.9.0 (PR body): compare v2.8.2...v2.9.0 ✓ 40000 bytes
     - context: 70615 bytes
 - [#66](https://github.com/kairos-io/go-nodepair/pull/66) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - context: 42046 bytes
-- [#69](https://github.com/kairos-io/go-nodepair/pull/69) — ✅ **good** — The update is a minor version bump to a newer release (v2.5.0) which includes several features and fixes. The changelog indicates improvements such as adding `GOTOOLCHAIN=auto` and addressing warnings, which are positive changes for the project's CI/CD pipeline. There are no apparent security regressions or breaking changes.
-  ↳ This PR updates the `google/osv-scanner-action` dependency from v2.3.8 to v2.5.0. The new version introduces several features and fixes, including adding `GOTOOLCHAIN=auto` to the environment variables and addressing existing warnings.
+    - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
+    - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
+    - context: 82814 bytes
+- [#69](https://github.com/kairos-io/go-nodepair/pull/69) — ✅ **good** — This is a minor version update to an official Google action. The changelog indicates that the update includes new features and fixes, which are beneficial. There are no apparent security risks associated with this version bump.
+  ↳ This PR updates the `google/osv-scanner-action` dependency from v2.3.8 to v2.5.0. This update includes new features such as gating reusable workflow outputs and adding runs-on input, along with several bug fixes.
     - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
     - context: 15613 bytes
 **[kairos-io/go-ukify](https://github.com/kairos-io/go-ukify)**
@@ -307,7 +310,7 @@ _No bot PRs yet._
 
 - [#153](https://github.com/kairos-io/kairos-operator/pull/153) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - docker/login-action abd2ef45e78c5afb21d64d4ca52ee8550d9572c7..dbcb813823bdd20940b903addbd779551569679f (PR body): compare abd2ef45e78c5afb21d64d4ca52ee8550d9572c7...dbcb813823bdd20940b903addbd779551569679f ✓ 40000 bytes
-    - context: 43269 bytes
+    - context: 43400 bytes
 - [#156](https://github.com/kairos-io/kairos-operator/pull/156) — ✅ **good** — This is a routine maintenance update to change the digest of an existing dependency version. Since the version number remains the same (1.26.5), this change is safe and does not introduce any new security vulnerabilities or breaking changes.
   ↳ This PR updates the Docker image digest for the `docker.io/golang:1.26.5` base image in the Dockerfile and Dockerfile.node-labeler files. This change replaces the old digest with a new one, which points to the same version but uses a different manifest.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
@@ -327,11 +330,6 @@ _No bot PRs yet._
     - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - context: 82917 bytes
-**[kairos-io/kcrypt-discovery-challenger](https://github.com/kairos-io/kcrypt-discovery-challenger)**
-
-- [#260](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/260) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - kairos-io/kairos-init v0.16.2..v0.16.3 (PR body): compare v0.16.2...v0.16.3 ✓ 40000 bytes
-    - context: 43871 bytes
 **[kairos-io/netboot](https://github.com/kairos-io/netboot)**
 
 - [#46](https://github.com/kairos-io/netboot/pull/46) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -344,9 +342,9 @@ _No bot PRs yet._
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - context: 83203 bytes
 - [#48](https://github.com/kairos-io/netboot/pull/48) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
-    - golang.org/x/sys 0.46.0→0.47.0: compare v0.46.0...v0.47.0 ✓ 33531 bytes
-    - context: 76973 bytes
+    - golang.org/x/crypto 0.53.0→0.55.0: compare v0.53.0...v0.55.0 ✓ 40000 bytes
+    - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
+    - context: 83976 bytes
 - [#49](https://github.com/kairos-io/netboot/pull/49) — ✅ **good** — This is a routine dependency update to a well-known action. The update moves to a newer version (v2.5.0) which includes new features and fixes, and does not introduce any security vulnerabilities or malicious code. It is safe to auto-approve.
   ↳ This PR updates the `google/osv-scanner-action` dependency from version v2.3.8 to v2.5.0. This update incorporates new features and fixes mentioned in the release notes, such as gating reusable workflow outputs and addressing zizmor warnings.
     - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
@@ -366,10 +364,10 @@ _No bot PRs yet._
 - [#804](https://github.com/mudler/edgevpn/pull/804) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - c-robinson/iplib v2.0.4..v2.0.5 (PR body): compare v2.0.4...v2.0.5 ✓ 6378 bytes
     - c-robinson/iplib v2.0.3..v2.0.4 (PR body): compare v2.0.3...v2.0.4 ✓ 3273 bytes
-    - c-robinson/iplib v2.0.2..v2.0.3 (PR body): compare v2.0.2...v2.0.3 ✓ 9999 bytes
+    - c-robinson/iplib v2.0.2..v2.0.3 (PR body): compare v2.0.2...v2.0.3 failed/empty (no upstream diff)
     - c-robinson/iplib v2.0.1..v2.0.2 (PR body): compare v2.0.1...v2.0.2 ✓ 15662 bytes
     - c-robinson/iplib v2.0.0..v2.0.1 (PR body): compare v2.0.0...v2.0.1 ✓ 1844 bytes
-    - context: 44543 bytes
+    - context: 34472 bytes
 - [#905](https://github.com/mudler/edgevpn/pull/905) — ✅ **good** — This is a routine dependency bump for a tool used in the CI/CD workflow. The changelog indicates that version 2.4.0 includes various maintenance updates and fixes, suggesting this is a safe and necessary update. There are no immediate security red flags indicated by the context.
   ↳ This pull request updates the version of the `dependabot/fetch-metadata` dependency from 2.3.0 to 2.4.0. This upgrade incorporates various fixes, updates to actions, and improvements to the dependency fetching mechanism.
     - dependabot/fetch-metadata v2..v2.4.0 (PR body): compare v2...v2.4.0 failed/empty (no upstream diff)
@@ -432,8 +430,8 @@ _No bot PRs yet._
     - github.com/labstack/echo/v5 5.3.0→5.3.1: compare v5.3.0...v5.3.1 ✓ 35382 bytes
     - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
     - context: 86707 bytes
-- [#1061](https://github.com/mudler/edgevpn/pull/1061) — ✅ **good** — This change is a routine dependency update, specifically updating the digest of `go-libp2p-pubsub`. There are no apparent security risks introduced by this version bump, and it aligns with standard dependency maintenance practices.
-  ↳ This PR updates the dependency `github.com/mudler/go-libp2p-pubsub` by changing its digest from `205ded1` to `2a31b5e`. This is a routine maintenance update to ensure the project uses the latest version of this library.
+- [#1061](https://github.com/mudler/edgevpn/pull/1061) — ✅ **good** — The change is a routine dependency update (digest bump) for a library. There are no obvious security risks introduced by updating to a newer digest, and this is a standard maintenance task. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the dependency `github.com/mudler/go-libp2p-pubsub` by replacing the old digest with a newer one (`2a31b5e`). This is a standard maintenance update to ensure the project uses the latest version of the library.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 2511 bytes
 - [#1062](https://github.com/mudler/edgevpn/pull/1062) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -485,4 +483,9 @@ _No bot PRs yet._
   ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from version v2.32.0 to v2.32.1. The upstream change includes a fix for deferring `AfterAll` until repeated specs complete, which is a non-breaking refinement.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - context: 15994 bytes
+- [#325](https://github.com/mudler/yip/pull/325) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes
+    - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
+    - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
+    - context: 97415 bytes
 
