@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-14._
+_Updated 2026-08-15._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -153,8 +153,8 @@ _No bot PRs yet._
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 817 bytes
 - [#708](https://github.com/kairos-io/AuroraBoot/pull/708) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - helm/helm v3.21.2..v3.21.3 (PR body): compare v3.21.2...v3.21.3 ✓ 5490 bytes
-    - context: 64643 bytes
+    - helm/helm v3.21.3..v3.21.4 (PR body): compare v3.21.3...v3.21.4 ✓ 23359 bytes
+    - context: 82511 bytes
 - [#710](https://github.com/kairos-io/AuroraBoot/pull/710) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/stmcginnis/gofish 0.23.0→0.24.0: compare v0.23.0...v0.24.0 ✓ 33308 bytes
     - context: 37982 bytes
@@ -251,8 +251,9 @@ _No bot PRs yet._
 **[kairos-io/hadron](https://github.com/kairos-io/hadron)**
 
 - [#557](https://github.com/kairos-io/hadron/pull/557) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - updatecli/updatecli-action v3.5.0..v3.6.0 (PR body): compare v3.5.0...v3.6.0 ✓ 40000 bytes
     - updatecli/updatecli-action v3.4.0..v3.5.0 (PR body): compare v3.4.0...v3.5.0 ✓ 40000 bytes
-    - context: 45108 bytes
+    - context: 86160 bytes
 - [#561](https://github.com/kairos-io/hadron/pull/561) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - actions/checkout v7.0.0..v7.0.1 (PR body): compare v7.0.0...v7.0.1 ✓ 40000 bytes
     - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
@@ -281,10 +282,6 @@ _No bot PRs yet._
     - actions/stale v10..v11.0.0 (PR body): compare v10...v11.0.0 ✓ 40000 bytes
     - actions/stale v10.4.0..v11.0.0 (PR body): compare v10.4.0...v11.0.0 ✓ 40000 bytes
     - context: 82981 bytes
-- [#4272](https://github.com/kairos-io/kairos/pull/4272) — ✅ **good** — The PR is a standard version bump for a dependency. The associated changelog explicitly states that this update includes security fixes, specifically mentioning the clearing of 9 advisories by bumping the provider package. This makes the change safe to auto-approve.
-  ↳ This PR updates the `kairos-init` dependency to version v0.16.4. The release notes indicate this update includes a fix for QEMU guest detection and a bump to `provider-kairos` v2.16.2, which clears 9 security advisories.
-    - kairos-io/kairos-init v0.16.3..v0.16.4 (PR body): compare v0.16.3...v0.16.4 ✓ 5115 bytes
-    - context: 7724 bytes
 - [#4277](https://github.com/kairos-io/kairos/pull/4277) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - azure/login 532459ea530d8321f2fb9bb10d1e0bcf23869a43..f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca (PR body): compare 532459ea530d8321f2fb9bb10d1e0bcf23869a43...f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca ✓ 40000 bytes
     - context: 42094 bytes
@@ -299,12 +296,12 @@ _No bot PRs yet._
     - context: 83771 bytes
 **[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
 
-- [#427](https://github.com/kairos-io/kairos-init/pull/427) — ✅ **good** — This is a patch update to a well-known dependency. The changes are minor fixes and internal adjustments to the library and its related test utilities, which do not introduce new features or apparent security risks. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the `github.com/onsi/ginkgo/v2` dependency from version `v2.32.0` to `v2.32.1`. The update includes a fix to defer `AfterAll` until repeated specs complete, along with minor adjustments to documentation and internal test utilities.
+- [#427](https://github.com/kairos-io/kairos-init/pull/427) — ✅ **good** — This is a minor patch release (v2.32.0 to v2.32.1) and appears to be internal refactoring and a small fix related to spec execution flow and test reporting. There are no apparent security risks or breaking changes introduced by this update, making it safe for auto-approval.
+  ↳ Updates the `github.com/onsi/ginkgo/v2` dependency to version v2.32.1, which includes a fix to defer `AfterAll` until repeated specs complete and internal refactoring for handling repeated attempts in ordered and parallel test scenarios.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - context: 16062 bytes
-- [#429](https://github.com/kairos-io/kairos-init/pull/429) — ✅ **good** — The change is a minor patch update for a specific dependency (`nvidia-jetson-linux`). Patch releases are generally safe for automated updates as they typically contain bug fixes and minor security patches without introducing breaking changes. The change is localized to a version string assignment and poses no immediate security risk.
-  ↳ This PR updates the version of the `nvidia-jetson-linux` dependency from `39.2` to `39.2.1` in `pkg/stages/steps_install.go`. This is a patch update that likely includes bug fixes and minor security improvements.
+- [#429](https://github.com/kairos-io/kairos-init/pull/429) — ✅ **good** — This is a minor patch update to the `nvidia-jetson-linux` dependency version. The change only updates a version string used for configuration and logging, which does not introduce any apparent security risks.
+  ↳ The PR updates the `nvidia-jetson-linux` dependency version from `39.2` to `39.2.1` in the installation stage configuration.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1629 bytes
 - [#431](https://github.com/kairos-io/kairos-init/pull/431) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -312,7 +309,7 @@ _No bot PRs yet._
     - actions/download-artifact v8..v8 (PR body): compare v8...v8 failed/empty (no upstream diff)
     - actions/download-artifact v7..v8.0.0 (PR body): compare v7...v8.0.0 ✓ 40000 bytes
     - actions/download-artifact v7.0.0..v8 (PR body): compare v7.0.0...v8 ✓ 40000 bytes
-    - context: 97960 bytes
+    - context: 97844 bytes
 **[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
 
 - [#19](https://github.com/kairos-io/kairos-installer/pull/19) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -340,20 +337,6 @@ _No bot PRs yet._
   ↳ This PR updates the base image tag for the docker.io/golang dependency from version 1.26.5 to 1.26.6 in the Dockerfile and Dockerfile.node-labeler files.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1969 bytes
-**[kairos-io/kcrypt-discovery-challenger](https://github.com/kairos-io/kcrypt-discovery-challenger)**
-
-- [#264](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/264) — ✅ **good** — The PR updates a dependency to a newer version (v0.16.4) which is explicitly noted in the changelog to include a fix for QEMU guest detection and resolve 9 advisories. This is a standard, beneficial dependency update that addresses potential security concerns.
-  ↳ This PR updates the `kairos-init` dependency to v0.16.4, which includes a fix for QEMU guest detection and bumps `provider-kairos` to v2.16.2 to clear 9 advisories.
-    - kairos-io/kairos-init v0.16.3..v0.16.4 (PR body): compare v0.16.3...v0.16.4 ✓ 5115 bytes
-    - context: 7754 bytes
-- [#265](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/265) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/spectrocloud/peg 0.0.0-20260123084329-97c9703181cf→0.0.0-20260813125620-d8627da0983c: compare 97c9703181cf...d8627da0983c ✓ 8447 bytes
-    - golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes
-    - golang.org/x/text 0.40.0→0.41.0: compare v0.40.0...v0.41.0 ✓ 10857 bytes
-    - context: 64484 bytes
-- [#266](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/266) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github/codeql-action v4.37.6..v4.37.7 (PR body): compare v4.37.6...v4.37.7 ✓ 40000 bytes
-    - context: 42269 bytes
 **[kairos-io/netboot](https://github.com/kairos-io/netboot)**
 
 - [#46](https://github.com/kairos-io/netboot/pull/46) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -391,10 +374,10 @@ _No bot PRs yet._
 - [#804](https://github.com/mudler/edgevpn/pull/804) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - c-robinson/iplib v2.0.4..v2.0.5 (PR body): compare v2.0.4...v2.0.5 ✓ 6378 bytes
     - c-robinson/iplib v2.0.3..v2.0.4 (PR body): compare v2.0.3...v2.0.4 ✓ 3273 bytes
-    - c-robinson/iplib v2.0.2..v2.0.3 (PR body): compare v2.0.2...v2.0.3 failed/empty (no upstream diff)
+    - c-robinson/iplib v2.0.2..v2.0.3 (PR body): compare v2.0.2...v2.0.3 ✓ 9999 bytes
     - c-robinson/iplib v2.0.1..v2.0.2 (PR body): compare v2.0.1...v2.0.2 ✓ 15662 bytes
     - c-robinson/iplib v2.0.0..v2.0.1 (PR body): compare v2.0.0...v2.0.1 ✓ 1844 bytes
-    - context: 34472 bytes
+    - context: 44543 bytes
 - [#905](https://github.com/mudler/edgevpn/pull/905) — ✅ **good** — This is a routine dependency bump for a tool used in the CI/CD workflow. The changelog indicates that version 2.4.0 includes various maintenance updates and fixes, suggesting this is a safe and necessary update. There are no immediate security red flags indicated by the context.
   ↳ This pull request updates the version of the `dependabot/fetch-metadata` dependency from 2.3.0 to 2.4.0. This upgrade incorporates various fixes, updates to actions, and improvements to the dependency fetching mechanism.
     - dependabot/fetch-metadata v2..v2.4.0 (PR body): compare v2...v2.4.0 failed/empty (no upstream diff)
@@ -453,8 +436,8 @@ _No bot PRs yet._
     - github.com/labstack/echo/v5 5.3.0→5.3.1: compare v5.3.0...v5.3.1 ✓ 35382 bytes
     - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
     - context: 86707 bytes
-- [#1061](https://github.com/mudler/edgevpn/pull/1061) — ✅ **good** — The change is a routine dependency update (digest bump) for a library. There are no obvious security risks introduced by updating to a newer digest, and this is a standard maintenance task. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the dependency `github.com/mudler/go-libp2p-pubsub` by replacing the old digest with a newer one (`2a31b5e`). This is a standard maintenance update to ensure the project uses the latest version of the library.
+- [#1061](https://github.com/mudler/edgevpn/pull/1061) — ✅ **good** — The change is a routine dependency digest update. There are no obvious security implications, and this type of maintenance is necessary to keep dependencies current. It is safe to auto-approve.
+  ↳ This PR updates the dependency `github.com/mudler/go-libp2p-pubsub` by replacing the old digest (`205ded1`) with a newer one (`2a31b5e`). This is a routine maintenance update to ensure the project uses the latest version of the library.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 2511 bytes
 - [#1062](https://github.com/mudler/edgevpn/pull/1062) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
