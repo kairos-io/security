@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-15._
+_Updated 2026-08-16._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -12,6 +12,8 @@ _Updated 2026-08-15._
 - **CVE-related PRs:** 1 (1 human)
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** No CVEs found, but 1 repo(s) could not be scanned — see collection errors.
+
+> No security findings were provided in the input. Please provide the findings so I can perform the triage.
 
 ## 🔥 Focus now
 
