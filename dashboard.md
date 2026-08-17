@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-16._
+_Updated 2026-08-17._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -12,8 +12,6 @@ _Updated 2026-08-16._
 - **CVE-related PRs:** 1 (1 human)
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** No CVEs found, but 1 repo(s) could not be scanned — see collection errors.
-
-> No security findings were provided in the input. Please provide the findings so I can perform the triage.
 
 ## 🔥 Focus now
 
@@ -317,7 +315,7 @@ _No bot PRs yet._
 - [#19](https://github.com/kairos-io/kairos-installer/pull/19) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/kairos-io/kairos-sdk 0.24.0→0.25.2: compare v0.24.0...v0.25.2 ✓ 40000 bytes
     - github.com/Masterminds/semver/v3 3.4.0→3.5.0: compare v3.4.0...v3.5.0 ✓ 40000 bytes
-    - context: 105669 bytes
+    - context: 112893 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#153](https://github.com/kairos-io/kairos-operator/pull/153) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -335,8 +333,8 @@ _No bot PRs yet._
   ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from version `v2.32.0` to `v2.32.1`. The update includes a fix to defer `AfterAll` until repeated specs complete, which addresses a potential issue with test cleanup during repeated runs.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - context: 16025 bytes
-- [#162](https://github.com/kairos-io/kairos-operator/pull/162) — ✅ **good** — The change is a standard version bump for a common dependency. Updating to a minor version (1.26.6) is generally safe and does not introduce obvious security vulnerabilities or breaking changes based on the provided context.
-  ↳ This PR updates the base image tag for the docker.io/golang dependency from version 1.26.5 to 1.26.6 in the Dockerfile and Dockerfile.node-labeler files.
+- [#162](https://github.com/kairos-io/kairos-operator/pull/162) — ✅ **good** — This PR updates a standard dependency (golang) to a newer version (v1.26.6). This is a routine maintenance update and does not introduce any new security vulnerabilities or changes to the build process that would require manual intervention.
+  ↳ Updates the Docker base image tag for docker.io/golang from v1.26.5 to v1.26.6 in both the Dockerfile and Dockerfile.node-labeler files.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1969 bytes
 **[kairos-io/netboot](https://github.com/kairos-io/netboot)**
@@ -354,10 +352,10 @@ _No bot PRs yet._
     - golang.org/x/crypto 0.53.0→0.55.0: compare v0.53.0...v0.55.0 ✓ 40000 bytes
     - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
     - context: 83976 bytes
-- [#49](https://github.com/kairos-io/netboot/pull/49) — ✅ **good** — This is a routine dependency update to a well-known action. The update moves to a newer version (v2.5.0) which includes new features and fixes, and does not introduce any security vulnerabilities or malicious code. It is safe to auto-approve.
-  ↳ This PR updates the `google/osv-scanner-action` dependency from version v2.3.8 to v2.5.0. This update incorporates new features and fixes mentioned in the release notes, such as gating reusable workflow outputs and addressing zizmor warnings.
+- [#49](https://github.com/kairos-io/netboot/pull/49) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes
     - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
-    - context: 15612 bytes
+    - context: 25025 bytes
 **[mauromorales/xpasswd](https://github.com/mauromorales/xpasswd)**
 
 - [#53](https://github.com/mauromorales/xpasswd/pull/53) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500

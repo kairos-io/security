@@ -219,10 +219,10 @@
     "repo": "kairos-io/entangle-proxy",
     "pr": 6,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/6",
-    "headSHA": "518c5a82312cf33827dc8c40942aeff2ff0a7a21",
+    "headSHA": "078d14ce6be5abee6e120ba3db1c3e5932f3baa7",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-13",
+    "reviewedRun": "2026-08-17",
     "trace": [
       "sigs.k8s.io/controller-runtime 0.12.1→0.24.1: compare v0.12.1...v0.24.1 ✓ 40000 bytes",
       "context: 98801 bytes"
@@ -607,14 +607,14 @@
     "repo": "kairos-io/kairos-installer",
     "pr": 19,
     "url": "https://github.com/kairos-io/kairos-installer/pull/19",
-    "headSHA": "4a6a7b3dfe3715be40369f63080fcb79f21d1eaf",
+    "headSHA": "fd5c85bdfa174d4eb1b5e6b4e73076ee08eddc45",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-10",
+    "reviewedRun": "2026-08-17",
     "trace": [
       "github.com/kairos-io/kairos-sdk 0.24.0→0.25.2: compare v0.24.0...v0.25.2 ✓ 40000 bytes",
       "github.com/Masterminds/semver/v3 3.4.0→3.5.0: compare v3.4.0...v3.5.0 ✓ 40000 bytes",
-      "context: 105669 bytes"
+      "context: 112893 bytes"
     ]
   },
   {
@@ -676,11 +676,11 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 162,
     "url": "https://github.com/kairos-io/kairos-operator/pull/162",
-    "headSHA": "6430d2e876b6fa6cdc86016b0eac658253ec5107",
+    "headSHA": "57b142f8b30df1ebfce84494a505adb74849412d",
     "verdict": "good",
-    "reasoning": "The change is a standard version bump for a common dependency. Updating to a minor version (1.26.6) is generally safe and does not introduce obvious security vulnerabilities or breaking changes based on the provided context.",
-    "changesSummary": "This PR updates the base image tag for the docker.io/golang dependency from version 1.26.5 to 1.26.6 in the Dockerfile and Dockerfile.node-labeler files.",
-    "reviewedRun": "2026-08-14",
+    "reasoning": "This PR updates a standard dependency (golang) to a newer version (v1.26.6). This is a routine maintenance update and does not introduce any new security vulnerabilities or changes to the build process that would require manual intervention.",
+    "changesSummary": "Updates the Docker base image tag for docker.io/golang from v1.26.5 to v1.26.6 in both the Dockerfile and Dockerfile.node-labeler files.",
+    "reviewedRun": "2026-08-17",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 1969 bytes"
@@ -733,14 +733,14 @@
     "repo": "kairos-io/netboot",
     "pr": 49,
     "url": "https://github.com/kairos-io/netboot/pull/49",
-    "headSHA": "0a8ee33888dbad407d145f719d182815e073cb25",
-    "verdict": "good",
-    "reasoning": "This is a routine dependency update to a well-known action. The update moves to a newer version (v2.5.0) which includes new features and fixes, and does not introduce any security vulnerabilities or malicious code. It is safe to auto-approve.",
-    "changesSummary": "This PR updates the `google/osv-scanner-action` dependency from version v2.3.8 to v2.5.0. This update incorporates new features and fixes mentioned in the release notes, such as gating reusable workflow outputs and addressing zizmor warnings.",
-    "reviewedRun": "2026-08-08",
+    "headSHA": "a845cc07def67934e50ee93d79665bda99ef4c5a",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-08-17",
     "trace": [
+      "google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes",
       "google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes",
-      "context: 15612 bytes"
+      "context: 25025 bytes"
     ]
   },
   {
