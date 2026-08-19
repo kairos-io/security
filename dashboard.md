@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-18._
+_Updated 2026-08-19._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -13,7 +13,7 @@ _Updated 2026-08-18._
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** No CVEs found, but 1 repo(s) could not be scanned — see collection errors.
 
-> The most urgent items are the SQL Injection vulnerability (F1) and the outdated library (W2). Immediate action is required to patch the injection point to prevent data breaches and to update the library to mitigate known exploits.
+> No security findings were provided for analysis.
 
 ## 🔥 Focus now
 
@@ -265,60 +265,10 @@ _No bot PRs yet._
     - context: 45783 bytes
 **[kairos-io/kairos](https://github.com/kairos-io/kairos)**
 
-- [#4229](https://github.com/kairos-io/kairos/pull/4229) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - docker/login-action c99871dec2022cc055c062a10cc1a1310835ceb4..af1e73f918a031802d376d3c8bbc3fe56130a9b0 (PR body): compare c99871dec2022cc055c062a10cc1a1310835ceb4...af1e73f918a031802d376d3c8bbc3fe56130a9b0 ✓ 40000 bytes
-    - context: 43062 bytes
-- [#4256](https://github.com/kairos-io/kairos/pull/4256) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/checkout v7.0.0..v7.0.1 (PR body): compare v7.0.0...v7.0.1 ✓ 40000 bytes
-    - context: 48520 bytes
-- [#4259](https://github.com/kairos-io/kairos/pull/4259) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - aws-actions/configure-aws-credentials 517a711dbcd0e402f90c77e7e2f81e849156e31d..e6de054238d6b7531b4efff3b6587d9aade6a06c (PR body): compare 517a711dbcd0e402f90c77e7e2f81e849156e31d...e6de054238d6b7531b4efff3b6587d9aade6a06c ✓ 40000 bytes
-    - context: 42305 bytes
-- [#4270](https://github.com/kairos-io/kairos/pull/4270) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/stale v11.0.0..v11.0.0 (PR body): compare v11.0.0...v11.0.0 failed/empty (no upstream diff)
-    - actions/stale v10..v11.0.0 (PR body): compare v10...v11.0.0 ✓ 40000 bytes
-    - actions/stale v10.4.0..v11.0.0 (PR body): compare v10.4.0...v11.0.0 ✓ 40000 bytes
-    - context: 82981 bytes
-- [#4277](https://github.com/kairos-io/kairos/pull/4277) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - azure/login 532459ea530d8321f2fb9bb10d1e0bcf23869a43..f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca (PR body): compare 532459ea530d8321f2fb9bb10d1e0bcf23869a43...f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca ✓ 40000 bytes
-    - context: 42094 bytes
-- [#4297](https://github.com/kairos-io/kairos/pull/4297) — ✅ **good** — The change is a minor version bump to a dependency, and the upstream change is a bug fix. There are no security vulnerabilities introduced by this update. It is safe to auto-approve.
-  ↳ The PR updates the `github.com/onsi/ginkgo/v2` dependency to version `v2.32.1`. This update includes a fix for deferring `AfterAll` until repeated specs complete, addressing a bug in the library.
-    - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
-    - context: 16173 bytes
-- [#4313](https://github.com/kairos-io/kairos/pull/4313) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/spectrocloud/peg 0.0.0-20260123084329-97c9703181cf→0.0.0-20260813125620-d8627da0983c: compare 97c9703181cf...d8627da0983c ✓ 8447 bytes
-    - golang.org/x/crypto 0.53.0→0.55.0: compare v0.53.0...v0.55.0 ✓ 40000 bytes
-    - golang.org/x/mod 0.36.0→0.38.0: compare v0.36.0...v0.38.0 ✓ 24705 bytes
-    - context: 83771 bytes
-- [#4325](https://github.com/kairos-io/kairos/pull/4325) — ✅ **good** — This PR is a routine dependency update for a security scanning action. Updating to a newer version (v2.5.1) is a standard maintenance practice and is safe to auto-approve.
-  ↳ The PR updates multiple workflow files and the action definition to use version v2.5.1 of `google/osv-scanner-action`, which includes bug fixes and security patches.
-    - google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes
-    - context: 11144 bytes
-- [#4326](https://github.com/kairos-io/kairos/pull/4326) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/mudler/edgevpn 0.35.3→0.35.4: compare v0.35.3...v0.35.4 ✓ 40000 bytes
-    - github.com/pion/dtls/v3 3.1.2→3.1.4: compare v3.1.2...v3.1.4 ✓ 40000 bytes
-    - context: 89795 bytes
-**[kairos-io/kairos-init](https://github.com/kairos-io/kairos-init)**
-
-- [#427](https://github.com/kairos-io/kairos-init/pull/427) — ✅ **good** — This is a minor version bump to a patch release, which typically introduces non-breaking fixes. The changelog confirms the update includes a fix for spec lifecycle management. There are no obvious security vulnerabilities or breaking API changes indicated by the diffs.
-  ↳ This PR updates the `github.com/onsi/ginkgo/v2` dependency from version `v2.32.0` to `v2.32.1`. This update includes a fix to defer `AfterAll` until repeated specs complete, addressing potential lifecycle issues in Ginkgo.
-    - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
-    - context: 16062 bytes
-- [#429](https://github.com/kairos-io/kairos-init/pull/429) — ✅ **good** — This is a minor patch update to a specific dependency version. The change is purely a version bump in a configuration file and does not introduce any new security vulnerabilities or significant functional changes. It is safe to auto-approve.
-  ↳ This PR updates the default L4T version from "39.2" to "39.2.1" in `pkg/stages/steps_install.go` to use a more recent patch version of the `nvidia-jetson-linux` dependency.
-    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 1629 bytes
-- [#431](https://github.com/kairos-io/kairos-init/pull/431) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/download-artifact v8..v8.0.1 (PR body): compare v8...v8.0.1 failed/empty (no upstream diff)
-    - actions/download-artifact v8..v8 (PR body): compare v8...v8 failed/empty (no upstream diff)
-    - actions/download-artifact v7..v8.0.0 (PR body): compare v7...v8.0.0 ✓ 40000 bytes
-    - actions/download-artifact v7.0.0..v8 (PR body): compare v7.0.0...v8 ✓ 40000 bytes
-    - context: 99269 bytes
-- [#434](https://github.com/kairos-io/kairos-init/pull/434) — ✅ **good** — This is a patch update to a dependency, and the upstream changes appear to be bug fixes and improvements to the state handling and linting configuration. The changes are focused on stability and correctness, making this update safe to auto-approve.
-  ↳ This PR updates the dependency `kairos-io/immucore` from v0.20.3 to v0.20.4. The upstream changes include a patch to fix recovery extensions on an AutoReset boot and improvements to state handling logic, including adding exhaustive linting and handling `LiveCD` and `Unknown` boot states. The PR itself only updates the version number in the Makefile.
-    - kairos-io/immucore v0.20.3..v0.20.4 (PR body): compare v0.20.3...v0.20.4 ✓ 4630 bytes
-    - context: 6808 bytes
+- [#4342](https://github.com/kairos-io/kairos/pull/4342) — ✅ **good** — The change is a version bump for a widely used and fundamental action (`actions/checkout`) to a patch release. This is a routine maintenance update, and there are no apparent security risks associated with this specific version change.
+  ↳ This PR updates the version of the `actions/checkout` action from v7.0.0 to v7.0.1 in the workflow files. This is a minor patch update to the action.
+    - actions/checkout v7..v7.0.1 (PR body): compare v7...v7.0.1 failed/empty (no upstream diff)
+    - context: 4313 bytes
 **[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
 
 - [#19](https://github.com/kairos-io/kairos-installer/pull/19) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -329,7 +279,7 @@ _No bot PRs yet._
 
 - [#153](https://github.com/kairos-io/kairos-operator/pull/153) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - docker/login-action abd2ef45e78c5afb21d64d4ca52ee8550d9572c7..dbcb813823bdd20940b903addbd779551569679f (PR body): compare abd2ef45e78c5afb21d64d4ca52ee8550d9572c7...dbcb813823bdd20940b903addbd779551569679f ✓ 40000 bytes
-    - context: 43400 bytes
+    - context: 43836 bytes
 - [#156](https://github.com/kairos-io/kairos-operator/pull/156) — ✅ **good** — The pull request is a standard dependency update, specifically changing the digest for the `docker.io/golang:1.26.5` image. This is a routine maintenance task and does not introduce any new security risks or breaking changes. The change is safe to auto-approve.
   ↳ This PR updates the Docker image digest for the `docker.io/golang:1.26.5` dependency from an older SHA to a newer one. This is a standard maintenance update to ensure the build uses the latest artifact for the specified version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
@@ -338,14 +288,21 @@ _No bot PRs yet._
   ↳ The PR updates the Docker tag for the `quay.io/kairos/operator` dependency from `v0.1.2` to `v0.1.3` in the Kustomization configuration.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1500 bytes
-- [#160](https://github.com/kairos-io/kairos-operator/pull/160) — ✅ **good** — This is a routine dependency version bump to a patch release. The change is purely a version update and includes a reported fix for test execution logic, posing no security risk. It is safe to auto-approve.
-  ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from version `v2.32.0` to `v2.32.1`. The update includes a fix to defer `AfterAll` until repeated specs complete, which addresses a potential issue with test cleanup during repeated runs.
+- [#160](https://github.com/kairos-io/kairos-operator/pull/160) — ✅ **good** — This is a minor patch update to a dependency, and the changelog indicates a fix for a specific behavior. The changes appear to be related to improving the test runner's handling of spec lifecycles, which is a positive change. The version bump is safe.
+  ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from version v2.32.0 to v2.32.1. The update includes a fix to defer `AfterAll` until repeated specs complete, along with several internal code changes to the test runner logic to support this new behavior.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - context: 16025 bytes
 - [#162](https://github.com/kairos-io/kairos-operator/pull/162) — ✅ **good** — This PR updates a standard dependency (golang) to a newer version (v1.26.6). This is a routine maintenance update and does not introduce any new security vulnerabilities or changes to the build process that would require manual intervention.
   ↳ Updates the Docker base image tag for docker.io/golang from v1.26.5 to v1.26.6 in both the Dockerfile and Dockerfile.node-labeler files.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1969 bytes
+- [#163](https://github.com/kairos-io/kairos-operator/pull/163) — ✅ **good** — This change is a dependency pinning update. Pinning a dependency to a specific digest (SHA) is a security best practice that ensures the build uses a known, immutable version of the image, mitigating risks associated with mutable tags.
+  ↳ The PR updates the `defaultImage` for the `nodeops` configuration in `values.yaml` to pin the `busybox` image to a specific SHA digest. This change enforces image immutability, which is a security best practice to prevent supply chain attacks via mutable tags.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 1570 bytes
+- [#164](https://github.com/kairos-io/kairos-operator/pull/164) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - actions/checkout 9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0..3d3c42e5aac5ba805825da76410c181273ba90b1 (PR body): compare 9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0...3d3c42e5aac5ba805825da76410c181273ba90b1 ✓ 40000 bytes
+    - context: 41932 bytes
 - [#165](https://github.com/kairos-io/kairos-operator/pull/165) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - azure/setup-helm b9e51907a09c216f16ebe8536097933489208112..1a275c3b69536ee54be43f2070a358922e12c8d4 (PR body): compare b9e51907a09c216f16ebe8536097933489208112...1a275c3b69536ee54be43f2070a358922e12c8d4 ✓ 40000 bytes
     - context: 41976 bytes
@@ -355,6 +312,18 @@ _No bot PRs yet._
     - azure/setup-helm v5..v5 (PR body): compare v5...v5 failed/empty (no upstream diff)
     - azure/setup-helm v4.3.1..v5.0.0 (PR body): compare v4.3.1...v5.0.0 ✓ 40000 bytes
     - context: 85977 bytes
+**[kairos-io/kcrypt-discovery-challenger](https://github.com/kairos-io/kcrypt-discovery-challenger)**
+
+- [#269](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/269) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - kairos-io/kairos-init v0.17.2..v0.17.3 (PR body): compare v0.17.2...v0.17.3 ✓ 25158 bytes
+    - kairos-io/kairos-init v0.17.1..v0.17.2 (PR body): compare v0.17.1...v0.17.2 ✓ 8034 bytes
+    - kairos-io/kairos-init v0.17.0..v0.17.1 (PR body): compare v0.17.0...v0.17.1 ✓ 292 bytes
+    - context: 38709 bytes
+- [#270](https://github.com/kairos-io/kcrypt-discovery-challenger/pull/270) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/kairos-io/kairos-sdk 0.25.2→0.25.3: compare v0.25.2...v0.25.3 ✓ 15499 bytes
+    - golang.org/x/mod 0.38.0→0.40.0: compare v0.38.0...v0.40.0 ✓ 10536 bytes
+    - golang.org/x/net 0.57.0→0.58.0: compare v0.57.0...v0.58.0 ✓ 40000 bytes
+    - context: 74298 bytes
 **[kairos-io/netboot](https://github.com/kairos-io/netboot)**
 
 - [#46](https://github.com/kairos-io/netboot/pull/46) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -374,6 +343,12 @@ _No bot PRs yet._
     - google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes
     - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
     - context: 25025 bytes
+**[kairos-io/provider-kairos](https://github.com/kairos-io/provider-kairos)**
+
+- [#965](https://github.com/kairos-io/provider-kairos/pull/965) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/mudler/edgevpn 0.35.3→0.35.4: compare v0.35.3...v0.35.4 ✓ 40000 bytes
+    - github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes
+    - context: 78052 bytes
 **[mauromorales/xpasswd](https://github.com/mauromorales/xpasswd)**
 
 - [#53](https://github.com/mauromorales/xpasswd/pull/53) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -503,13 +478,15 @@ _No bot PRs yet._
     - github.com/docker/cli 29.5.3+incompatible→29.6.2+incompatible: compare v29.5.3+incompatible...v29.6.2+incompatible failed/empty (no upstream diff)
     - github.com/klauspost/compress 1.18.6→1.19.1: compare v1.18.6...v1.19.1 ✓ 40000 bytes
     - context: 98197 bytes
-- [#323](https://github.com/mudler/yip/pull/323) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
-    - context: 52337 bytes
 - [#324](https://github.com/mudler/yip/pull/324) — ✅ **good** — The PR updates a dependency to a newer version (v2.32.1) which includes a fix for deferring `AfterAll` until repeated specs complete. This is a standard dependency update to a patched version and does not introduce any obvious breaking changes or security vulnerabilities. Therefore, it is safe to auto-approve.
   ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from version v2.32.0 to v2.32.1. The upstream change includes a fix for deferring `AfterAll` until repeated specs complete, which is a non-breaking refinement.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - context: 15994 bytes
+- [#325](https://github.com/mudler/yip/pull/325) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes
+    - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
+    - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
+    - context: 97547 bytes
 - [#326](https://github.com/mudler/yip/pull/326) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/containerd/containerd/v2 2.3.3→2.3.4: compare v2.3.3...v2.3.4 ✓ 40000 bytes
     - context: 53007 bytes
