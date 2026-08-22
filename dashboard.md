@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-21._
+_Updated 2026-08-22._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -142,12 +142,12 @@ _No bot PRs yet._
 - [#723](https://github.com/kairos-io/AuroraBoot/pull/723) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
     - context: 49866 bytes
-- [#732](https://github.com/kairos-io/AuroraBoot/pull/732) — ✅ **good** — The primary change is a digest pinning update for `github.com/spectrocloud/peg`, which is a standard maintenance practice to ensure reproducible builds. The other dependency updates appear to be part of a broader dependency refresh. The code change in `matcher/helpers.go` is a benign addition of a helper method. There are no obvious security risks or breaking changes introduced by these updates.
-  ↳ This PR updates the dependency `github.com/spectrocloud/peg` to a specific digest (`d8627da`) and includes several other dependency bumps, such as updating the Go version and various `golang.org/x` packages. Additionally, it introduces a new `SSHPort()` method in `matcher/helpers.go`.
+- [#732](https://github.com/kairos-io/AuroraBoot/pull/732) — ✅ **good** — This PR is a standard dependency update, specifically refreshing the digest for `github.com/spectrocloud/peg`. The changes appear to be part of a routine dependency maintenance process, and there are no immediate security risks apparent from the diffs.
+  ↳ This PR updates the `github.com/spectrocloud/peg` dependency to a newer digest (`d8627da`). It also includes several other dependency updates, such as a Go version bump and updates to several `golang.org/x` packages. Additionally, it adds an `SSHPort()` method to the `VM` struct in `matcher/helpers.go`.
     - github.com/spectrocloud/peg 0.0.0-20260123084329-97c9703181cf→0.0.0-20260813125620-d8627da0983c: compare 97c9703181cf...d8627da0983c ✓ 8447 bytes
     - context: 11272 bytes
-- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ✅ **good** — This is a routine digest update for a dependency (`golang.org/x/exp`). The change involves updating the version digest, which is a standard practice for dependency management and does not introduce any apparent security risks. It is safe to auto-approve.
-  ↳ This PR updates the digest for the dependency `golang.org/x/exp` from `c1d0aac` to `ca53665`. This change is a routine dependency digest update performed by an automated tool.
+- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ✅ **good** — The change is a dependency digest update for a standard library package (`golang.org/x/exp`). The upstream diff shows minor test output formatting changes and a Go version bump to 1.26.0 across the affected modules. This type of update is generally safe and necessary for keeping dependencies current.
+  ↳ This PR updates the digest for the golang.org/x/exp dependency from `c1d0aac` to `ca53665`. This update also bumps the Go version used by the sub-packages to 1.26.0 and includes a minor fix to the error message formatting in a test file.
     - golang.org/x/exp 0.0.0-20260813180055-c1d0aacb2297→0.0.0-20260820142414-ca536658362e: compare c1d0aacb2297...ca536658362e ✓ 3054 bytes
     - context: 5811 bytes
 - [#743](https://github.com/kairos-io/AuroraBoot/pull/743) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -158,6 +158,15 @@ _No bot PRs yet._
 - [#744](https://github.com/kairos-io/AuroraBoot/pull/744) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - vitejs/vite-plugin-react 68c0cb8796ce18bd049c3d05c5210eaf0617eac0..39b31735bf79c2dd380eedaba7ed849256f92a29 (PR body): compare 68c0cb8796ce18bd049c3d05c5210eaf0617eac0...39b31735bf79c2dd380eedaba7ed849256f92a29 ✓ 40000 bytes
     - context: 44009 bytes
+- [#747](https://github.com/kairos-io/AuroraBoot/pull/747) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - cypress-io/cypress v15.20.1..v15.21.0 (PR body): compare v15.20.1...v15.21.0 failed/empty (no upstream diff)
+    - cypress-io/cypress v15.20.0..v15.20.1 (PR body): compare v15.20.0...v15.20.1 ✓ 40000 bytes
+    - cypress-io/cypress v15.19.0..v15.20.0 (PR body): compare v15.19.0...v15.20.0 ✓ 40000 bytes
+    - context: 86940 bytes
+- [#748](https://github.com/kairos-io/AuroraBoot/pull/748) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - eslint/eslint v10.8.1..c27bc926e496985eb7911c09eb60914b2e4b5d0f (PR body): compare v10.8.1...c27bc926e496985eb7911c09eb60914b2e4b5d0f ✓ 40000 bytes
+    - eslint/eslint v10.8.1..v10.9.0 (PR body): compare v10.8.1...v10.9.0 ✓ 40000 bytes
+    - context: 82692 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -275,19 +284,27 @@ _No bot PRs yet._
   ↳ This PR updates the `google/osv-scanner-action` and related actions from version v2.5.0 to v2.5.1. The update includes bug fixes and new support for environment variables, such as `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY`, and improves local vulnerability matching.
     - google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes
     - context: 12069 bytes
-- [#4351](https://github.com/kairos-io/kairos/pull/4351) — ✅ **good** — This is a patch update to a dependency. The upstream changes are focused on robustness and minor feature additions, and there are no indications of breaking changes or security regressions. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the `kairos-io/kairos-factory-action` dependency from version v1.4.1 to v1.4.5. The upstream changes include minor improvements to the reusable workflow, such as adding support for `build_args` and enhancing artifact handling logic.
-    - kairos-io/kairos-factory-action v1.4.4..v1.4.5 (PR body): compare v1.4.4...v1.4.5 ✓ 861 bytes
-    - kairos-io/kairos-factory-action v1.4.3..v1.4.4 (PR body): compare v1.4.3...v1.4.4 ✓ 1279 bytes
-    - kairos-io/kairos-factory-action v1.4.2..v1.4.3 (PR body): compare v1.4.2...v1.4.3 ✓ 1269 bytes
-    - kairos-io/kairos-factory-action v1.4.1..v1.4.2 (PR body): compare v1.4.1...v1.4.2 ✓ 2314 bytes
-    - context: 14824 bytes
 - [#4352](https://github.com/kairos-io/kairos/pull/4352) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - k8s.io/api 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 3078 bytes
     - k8s.io/apimachinery 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 3427 bytes
     - k8s.io/client-go 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 7769 bytes
     - k8s.io/mount-utils 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 1432 bytes
     - context: 22199 bytes
+- [#4370](https://github.com/kairos-io/kairos/pull/4370) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/google/go-attestation 0.6.1→0.6.4: compare v0.6.1...v0.6.4 ✓ 40000 bytes
+    - google/go-attestation v0.6.3..v0.6.4 (PR body): compare v0.6.3...v0.6.4 ✓ 17615 bytes
+    - context: 63581 bytes
+- [#4371](https://github.com/kairos-io/kairos/pull/4371) — ✅ **good** — This change is a routine dependency update for the golang language across several build components. Updating to a newer, stable minor version is a standard maintenance practice and does not introduce any apparent security risks. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the base Docker image tag for the golang dependency across multiple build stages in several Dockerfiles (e.g., from 1.26.6-bookworm to 1.27.0-bookworm). This is a routine maintenance update to incorporate minor version improvements and security patches.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 3298 bytes
+- [#4372](https://github.com/kairos-io/kairos/pull/4372) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/Masterminds/semver/v3 3.4.0→3.5.0: compare v3.4.0...v3.5.0 ✓ 40000 bytes
+    - context: 45171 bytes
+- [#4373](https://github.com/kairos-io/kairos/pull/4373) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/sirupsen/logrus 1.9.4→1.10.1: compare v1.9.4...v1.10.1 ✓ 40000 bytes
+    - sirupsen/logrus v1.10.0..v1.10.1 (PR body): compare v1.10.0...v1.10.1 ✓ 40000 bytes
+    - context: 99693 bytes
 **[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
 
 - [#19](https://github.com/kairos-io/kairos-installer/pull/19) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -422,9 +439,9 @@ _No bot PRs yet._
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - context: 84598 bytes
 - [#1059](https://github.com/mudler/edgevpn/pull/1059) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/libp2p/go-libp2p-kad-dht 0.41.0→0.42.1: compare v0.41.0...v0.42.1 ✓ 40000 bytes
-    - github.com/ipfs/boxo 0.39.0→0.41.0: compare v0.39.0...v0.41.0 ✓ 40000 bytes
-    - context: 99296 bytes
+    - github.com/libp2p/go-libp2p 0.48.0→0.49.0: compare v0.48.0...v0.49.0 ✓ 40000 bytes
+    - github.com/libp2p/go-libp2p-kad-dht 0.41.0→0.42.2: compare v0.41.0...v0.42.2 ✓ 40000 bytes
+    - context: 117355 bytes
 - [#1060](https://github.com/mudler/edgevpn/pull/1060) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/labstack/echo/v5 5.3.0→5.3.1: compare v5.3.0...v5.3.1 ✓ 35382 bytes
     - golang.org/x/crypto 0.53.0→0.54.0: compare v0.53.0...v0.54.0 ✓ 40000 bytes
