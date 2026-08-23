@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-22._
+_Updated 2026-08-23._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -142,12 +142,12 @@ _No bot PRs yet._
 - [#723](https://github.com/kairos-io/AuroraBoot/pull/723) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
     - context: 49866 bytes
-- [#732](https://github.com/kairos-io/AuroraBoot/pull/732) — ✅ **good** — This PR is a standard dependency update, specifically refreshing the digest for `github.com/spectrocloud/peg`. The changes appear to be part of a routine dependency maintenance process, and there are no immediate security risks apparent from the diffs.
-  ↳ This PR updates the `github.com/spectrocloud/peg` dependency to a newer digest (`d8627da`). It also includes several other dependency updates, such as a Go version bump and updates to several `golang.org/x` packages. Additionally, it adds an `SSHPort()` method to the `VM` struct in `matcher/helpers.go`.
+- [#732](https://github.com/kairos-io/AuroraBoot/pull/732) — ✅ **good** — The PR is a routine maintenance update involving a digest change for a known dependency and several other standard dependency bumps. There are no apparent security risks introduced by these updates, and they align with standard dependency management practices.
+  ↳ This PR updates the digest for the github.com/spectrocloud/peg dependency to a newer version (d8627da). It also includes several other standard dependency bumps, such as updating the Go version and various golang.org/x packages.
     - github.com/spectrocloud/peg 0.0.0-20260123084329-97c9703181cf→0.0.0-20260813125620-d8627da0983c: compare 97c9703181cf...d8627da0983c ✓ 8447 bytes
     - context: 11272 bytes
-- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ✅ **good** — The change is a dependency digest update for a standard library package (`golang.org/x/exp`). The upstream diff shows minor test output formatting changes and a Go version bump to 1.26.0 across the affected modules. This type of update is generally safe and necessary for keeping dependencies current.
-  ↳ This PR updates the digest for the golang.org/x/exp dependency from `c1d0aac` to `ca53665`. This update also bumps the Go version used by the sub-packages to 1.26.0 and includes a minor fix to the error message formatting in a test file.
+- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ✅ **good** — This is a routine dependency update to the latest upstream digest for `golang.org/x/exp`. The change also includes a minor go version bump across several modules, which is a standard maintenance task and does not introduce any known security risks. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the digest for the `golang.org/x/exp` dependency to the latest upstream version (`ca53665`) and also bumps the go version in several sub-modules to `go 1.26.0`. This is a routine maintenance update to ensure the project uses the latest, verified code.
     - golang.org/x/exp 0.0.0-20260813180055-c1d0aacb2297→0.0.0-20260820142414-ca536658362e: compare c1d0aacb2297...ca536658362e ✓ 3054 bytes
     - context: 5811 bytes
 - [#743](https://github.com/kairos-io/AuroraBoot/pull/743) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
