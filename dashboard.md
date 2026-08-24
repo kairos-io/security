@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-23._
+_Updated 2026-08-24._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -308,9 +308,10 @@ _No bot PRs yet._
 **[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
 
 - [#19](https://github.com/kairos-io/kairos-installer/pull/19) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/kairos-io/kairos-sdk 0.24.0→0.25.2: compare v0.24.0...v0.25.2 ✓ 40000 bytes
+    - github.com/kairos-io/kairos-sdk 0.24.0→0.25.3: compare v0.24.0...v0.25.3 ✓ 40000 bytes
+    - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - github.com/Masterminds/semver/v3 3.4.0→3.5.0: compare v3.4.0...v3.5.0 ✓ 40000 bytes
-    - context: 112893 bytes
+    - context: 141704 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#153](https://github.com/kairos-io/kairos-operator/pull/153) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500

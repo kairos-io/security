@@ -609,14 +609,15 @@
     "repo": "kairos-io/kairos-installer",
     "pr": 19,
     "url": "https://github.com/kairos-io/kairos-installer/pull/19",
-    "headSHA": "fd5c85bdfa174d4eb1b5e6b4e73076ee08eddc45",
+    "headSHA": "647ca7540f6e09016ced5ffc7ff2606377cfe8f9",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-17",
+    "reviewedRun": "2026-08-24",
     "trace": [
-      "github.com/kairos-io/kairos-sdk 0.24.0→0.25.2: compare v0.24.0...v0.25.2 ✓ 40000 bytes",
+      "github.com/kairos-io/kairos-sdk 0.24.0→0.25.3: compare v0.24.0...v0.25.3 ✓ 40000 bytes",
+      "github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes",
       "github.com/Masterminds/semver/v3 3.4.0→3.5.0: compare v3.4.0...v3.5.0 ✓ 40000 bytes",
-      "context: 112893 bytes"
+      "context: 141704 bytes"
     ]
   },
   {
