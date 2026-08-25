@@ -1,6 +1,14 @@
 [
   {
     "repo": "kairos-io/hadron",
+    "number": 559,
+    "title": "Automatic version bumps for libffi, libkcapi",
+    "author": "ci-robbot",
+    "url": "https://github.com/kairos-io/hadron/pull/559",
+    "source": "human"
+  },
+  {
+    "repo": "kairos-io/hadron",
     "number": 560,
     "title": "Automatic version bumps for busybox",
     "author": "ci-robbot",

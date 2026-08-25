@@ -1,21 +1,25 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-24._
+_Updated 2026-08-25._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
 ## 📋 This run
 
 - **Scanned:** 20 repos · ⚠️ 1 errored
-- **Findings:** 0 (0 critical / 0 high / 0 medium / 0 low / 0 unknown)
+- **Findings:** 3 (0 critical / 1 high / 2 medium / 0 low / 0 unknown)
 - **Informational (not counted):** 48
-- **CVE-related PRs:** 1 (1 human)
+- **CVE-related PRs:** 2 (2 human)
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
-- **Why:** No CVEs found, but 1 repo(s) could not be scanned — see collection errors.
+- **Why:** 3 finding(s); 0 PR(s) open.
+
+> The most urgent finding is F1, which has a high severity rating. This should be addressed immediately, followed by the medium-severity findings F2 and F3 related to the libkcapi package.
 
 ## 🔥 Focus now
 
-_Nothing flagged._
+- [CVE-2026-71226](https://osv.dev/vulnerability/ALPINE-CVE-2026-71226) — High severity vulnerability (CVE-2026-71226) found in libkcapi.
+- [CVE-2026-71227](https://osv.dev/vulnerability/ALPINE-CVE-2026-71227) — Medium severity vulnerability (CVE-2026-71227) found in libkcapi.
+- [CVE-2026-71225](https://osv.dev/vulnerability/ALPINE-CVE-2026-71225) — Medium severity vulnerability (CVE-2026-71225) found in libkcapi.
 
 ## 🌊 Waterfall fronts
 
@@ -25,13 +29,13 @@ _None._
 
 | Repo | Critical | High | Medium | Total | Status |
 |---|---|---|---|---|---|
+| [kairos-io/hadron](https://github.com/kairos-io/hadron) | 0 | 1 | 2 | 3 | ok |
 | [kairos-io/AuroraBoot](https://github.com/kairos-io/AuroraBoot) | 0 | 0 | 0 | 0 | ⚠️ errors |
 | [kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/entangle](https://github.com/kairos-io/entangle) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/entangle-proxy](https://github.com/kairos-io/entangle-proxy) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/go-nodepair](https://github.com/kairos-io/go-nodepair) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/go-ukify](https://github.com/kairos-io/go-ukify) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
-| [kairos-io/hadron](https://github.com/kairos-io/hadron) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos](https://github.com/kairos-io/kairos) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos-lab](https://github.com/kairos-io/kairos-lab) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
@@ -45,6 +49,14 @@ _None._
 | [mudler/entities](https://github.com/mudler/entities) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [mudler/go-pluggable](https://github.com/mudler/go-pluggable) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [mudler/yip](https://github.com/mudler/yip) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
+
+## 🧩 Hadron component CVEs
+
+| Package | Current | Fixed | Severity | CVE |
+|---|---|---|---|---|
+| libkcapi | 1.5.0 | 1.5.1 | high | [CVE-2026-71226](https://osv.dev/vulnerability/ALPINE-CVE-2026-71226) |
+| libkcapi | 1.5.0 | 1.5.1 | medium | [CVE-2026-71227](https://osv.dev/vulnerability/ALPINE-CVE-2026-71227) |
+| libkcapi | 1.5.0 | 1.5.1 | medium | [CVE-2026-71225](https://osv.dev/vulnerability/ALPINE-CVE-2026-71225) |
 
 ## Informational — not counted
 
@@ -109,6 +121,7 @@ These findings are separated from the counts above: CVEs we are already past, or
 
 **[kairos-io/hadron](https://github.com/kairos-io/hadron)**
 
+- [#559 Automatic version bumps for libffi, libkcapi](https://github.com/kairos-io/hadron/pull/559) — human — tracked
 - [#560 Automatic version bumps for busybox](https://github.com/kairos-io/hadron/pull/560) — human — tracked
 
 ## 🤖 Bot PR ledger
@@ -142,19 +155,14 @@ _No bot PRs yet._
 - [#723](https://github.com/kairos-io/AuroraBoot/pull/723) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
     - context: 49866 bytes
-- [#732](https://github.com/kairos-io/AuroraBoot/pull/732) — ✅ **good** — The PR is a routine maintenance update involving a digest change for a known dependency and several other standard dependency bumps. There are no apparent security risks introduced by these updates, and they align with standard dependency management practices.
-  ↳ This PR updates the digest for the github.com/spectrocloud/peg dependency to a newer version (d8627da). It also includes several other standard dependency bumps, such as updating the Go version and various golang.org/x packages.
+- [#732](https://github.com/kairos-io/AuroraBoot/pull/732) — ✅ **good** — The change is a routine dependency version pin update for `github.com/spectrocloud/peg` to a specific digest. This is a standard maintenance task and does not introduce any obvious security vulnerabilities or breaking changes.
+  ↳ This PR updates the dependency `github.com/spectrocloud/peg` to a specific digest (`d8627da`). This change ensures the project uses a pinned version of the library, which is a standard practice for maintaining build reproducibility and applying specific version fixes.
     - github.com/spectrocloud/peg 0.0.0-20260123084329-97c9703181cf→0.0.0-20260813125620-d8627da0983c: compare 97c9703181cf...d8627da0983c ✓ 8447 bytes
     - context: 11272 bytes
-- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ✅ **good** — This is a routine dependency update to the latest upstream digest for `golang.org/x/exp`. The change also includes a minor go version bump across several modules, which is a standard maintenance task and does not introduce any known security risks. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the digest for the `golang.org/x/exp` dependency to the latest upstream version (`ca53665`) and also bumps the go version in several sub-modules to `go 1.26.0`. This is a routine maintenance update to ensure the project uses the latest, verified code.
+- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ✅ **good** — The change is a routine dependency digest update for golang.org/x/exp. This is a standard maintenance task and does not introduce any new code or security vulnerabilities. Since the new digest is provided by the upstream source, it is safe to auto-approve.
+  ↳ This PR updates the digest for the golang.org/x/exp dependency from c1d0aac to ca53665. This change is a routine maintenance update to pull in a newer version of the package, which includes updates to the Go version requirement in several sub-modules.
     - golang.org/x/exp 0.0.0-20260813180055-c1d0aacb2297→0.0.0-20260820142414-ca536658362e: compare c1d0aacb2297...ca536658362e ✓ 3054 bytes
     - context: 5811 bytes
-- [#743](https://github.com/kairos-io/AuroraBoot/pull/743) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - k8s.io/api 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 3078 bytes
-    - k8s.io/apimachinery 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 3427 bytes
-    - k8s.io/client-go 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 7769 bytes
-    - context: 19307 bytes
 - [#744](https://github.com/kairos-io/AuroraBoot/pull/744) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - vitejs/vite-plugin-react 68c0cb8796ce18bd049c3d05c5210eaf0617eac0..39b31735bf79c2dd380eedaba7ed849256f92a29 (PR body): compare 68c0cb8796ce18bd049c3d05c5210eaf0617eac0...39b31735bf79c2dd380eedaba7ed849256f92a29 ✓ 40000 bytes
     - context: 44009 bytes
@@ -380,6 +388,12 @@ _No bot PRs yet._
     - github.com/mudler/edgevpn 0.35.3→0.35.4: compare v0.35.3...v0.35.4 ✓ 40000 bytes
     - github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes
     - context: 78052 bytes
+**[kairos-io/tpm-helpers](https://github.com/kairos-io/tpm-helpers)**
+
+- [#12](https://github.com/kairos-io/tpm-helpers/pull/12) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/gorilla/websocket 1.5.0→1.5.3: compare v1.5.0...v1.5.3 ✓ 7569 bytes
+    - gorilla/websocket v1.5.1..v1.5.3 (PR body): compare v1.5.1...v1.5.3 ✓ 40000 bytes
+    - context: 62623 bytes
 **[mudler/edgevpn](https://github.com/mudler/edgevpn)**
 
 - [#804](https://github.com/mudler/edgevpn/pull/804) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500

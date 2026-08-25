@@ -3,10 +3,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 674,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/674",
-    "headSHA": "b1b939261459d061d635a665680249d03756e2db",
+    "headSHA": "dd4a04ba6dd3ac55fc7559ac19fe4212c0df8bdd",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-23",
+    "reviewedRun": "2026-08-25",
     "trace": [
       "microsoft/TypeScript v6.0.3..2bd066d87f5bafd315be9f40889d0a60b9e58e0b (PR body): compare v6.0.3...2bd066d87f5bafd315be9f40889d0a60b9e58e0b failed/empty (no upstream diff)",
       "microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes",
@@ -18,10 +18,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 699,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/699",
-    "headSHA": "908f37061aaea7c499a547189581135a33bec561",
+    "headSHA": "447b12966d552e4d30420ab81ed4d1bcfac16584",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-23",
+    "reviewedRun": "2026-08-25",
     "trace": [
       "typescript-eslint/typescript-eslint v8.66.0..v8.67.0 (PR body): compare v8.66.0...v8.67.0 ✓ 40000 bytes",
       "typescript-eslint/typescript-eslint v8.65.0..v8.66.0 (PR body): compare v8.65.0...v8.66.0 ✓ 40000 bytes",
@@ -32,10 +32,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 700,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/700",
-    "headSHA": "c247cbfe6ec64f4a7ad7067d26257c917febd5b0",
+    "headSHA": "c8963d7e512d42e244e337357a0ce956fb0d4f97",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-23",
+    "reviewedRun": "2026-08-25",
     "trace": [
       "vitejs/vite v8.2.1..v8.2.2 (PR body): compare v8.2.1...v8.2.2 ✓ 40000 bytes",
       "vitejs/vite v8.2.0..v8.2.1 (PR body): compare v8.2.0...v8.2.1 ✓ 40000 bytes",
@@ -60,10 +60,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 712,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/712",
-    "headSHA": "e6c8a2cb6c94293d092640268449a8277629392c",
+    "headSHA": "832de09b4b4ca0df620e7362db85a54c96fd12f8",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-23",
+    "reviewedRun": "2026-08-25",
     "trace": [
       "github.com/foxboron/sbctl 0.0.0-20250917190250-6b8ed8715652→0.0.0-20260802183653-a7168106e003: compare 6b8ed8715652...a7168106e003 ✓ 18927 bytes",
       "context: 21798 bytes"
@@ -86,11 +86,11 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 732,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/732",
-    "headSHA": "e81faea8626c74e4260d3729e2b590769a77f1d0",
+    "headSHA": "68618313878095afbec3e47ca54e0470f742cf02",
     "verdict": "good",
-    "reasoning": "The PR is a routine maintenance update involving a digest change for a known dependency and several other standard dependency bumps. There are no apparent security risks introduced by these updates, and they align with standard dependency management practices.",
-    "changesSummary": "This PR updates the digest for the github.com/spectrocloud/peg dependency to a newer version (d8627da). It also includes several other standard dependency bumps, such as updating the Go version and various golang.org/x packages.",
-    "reviewedRun": "2026-08-23",
+    "reasoning": "The change is a routine dependency version pin update for `github.com/spectrocloud/peg` to a specific digest. This is a standard maintenance task and does not introduce any obvious security vulnerabilities or breaking changes.",
+    "changesSummary": "This PR updates the dependency `github.com/spectrocloud/peg` to a specific digest (`d8627da`). This change ensures the project uses a pinned version of the library, which is a standard practice for maintaining build reproducibility and applying specific version fixes.",
+    "reviewedRun": "2026-08-25",
     "trace": [
       "github.com/spectrocloud/peg 0.0.0-20260123084329-97c9703181cf→0.0.0-20260813125620-d8627da0983c: compare 97c9703181cf...d8627da0983c ✓ 8447 bytes",
       "context: 11272 bytes"
@@ -100,11 +100,11 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 740,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/740",
-    "headSHA": "d9de390712d7db64eb0f248000c2b4a79d9a5ff5",
+    "headSHA": "9258ecb2b3dd70e974528a2694c9551df1ea42a0",
     "verdict": "good",
-    "reasoning": "This is a routine dependency update to the latest upstream digest for `golang.org/x/exp`. The change also includes a minor go version bump across several modules, which is a standard maintenance task and does not introduce any known security risks. Therefore, it is safe to auto-approve.",
-    "changesSummary": "This PR updates the digest for the `golang.org/x/exp` dependency to the latest upstream version (`ca53665`) and also bumps the go version in several sub-modules to `go 1.26.0`. This is a routine maintenance update to ensure the project uses the latest, verified code.",
-    "reviewedRun": "2026-08-23",
+    "reasoning": "The change is a routine dependency digest update for golang.org/x/exp. This is a standard maintenance task and does not introduce any new code or security vulnerabilities. Since the new digest is provided by the upstream source, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the digest for the golang.org/x/exp dependency from c1d0aac to ca53665. This change is a routine maintenance update to pull in a newer version of the package, which includes updates to the Go version requirement in several sub-modules.",
+    "reviewedRun": "2026-08-25",
     "trace": [
       "golang.org/x/exp 0.0.0-20260813180055-c1d0aacb2297→0.0.0-20260820142414-ca536658362e: compare c1d0aacb2297...ca536658362e ✓ 3054 bytes",
       "context: 5811 bytes"
@@ -112,27 +112,12 @@
   },
   {
     "repo": "kairos-io/AuroraBoot",
-    "pr": 743,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/743",
-    "headSHA": "e73e7b44f04ed796c0d7dda4dcd0a1117e4a1f30",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-23",
-    "trace": [
-      "k8s.io/api 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 3078 bytes",
-      "k8s.io/apimachinery 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 3427 bytes",
-      "k8s.io/client-go 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 7769 bytes",
-      "context: 19307 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/AuroraBoot",
     "pr": 744,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/744",
-    "headSHA": "7772f3816615024e789a9f3b46cc41d2eb1d5db6",
+    "headSHA": "26485e8a29ba88bd5811c75dfde1f96e405d03c9",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-23",
+    "reviewedRun": "2026-08-25",
     "trace": [
       "vitejs/vite-plugin-react 68c0cb8796ce18bd049c3d05c5210eaf0617eac0..39b31735bf79c2dd380eedaba7ed849256f92a29 (PR body): compare 68c0cb8796ce18bd049c3d05c5210eaf0617eac0...39b31735bf79c2dd380eedaba7ed849256f92a29 ✓ 40000 bytes",
       "context: 44009 bytes"
@@ -142,10 +127,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 747,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/747",
-    "headSHA": "43969595b60e7022d9269bec7e61f1513c29c0a6",
+    "headSHA": "a08b84d9809075d976b3d429e8535281456800c5",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-23",
+    "reviewedRun": "2026-08-25",
     "trace": [
       "cypress-io/cypress v15.20.1..v15.21.0 (PR body): compare v15.20.1...v15.21.0 failed/empty (no upstream diff)",
       "cypress-io/cypress v15.20.0..v15.20.1 (PR body): compare v15.20.0...v15.20.1 ✓ 40000 bytes",
@@ -157,10 +142,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 748,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/748",
-    "headSHA": "8e5308b523c85cfc807535e645b095e9268dad4e",
+    "headSHA": "b6e73384a39f16fe2d6e61c0246902074be5082f",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-23",
+    "reviewedRun": "2026-08-25",
     "trace": [
       "eslint/eslint v10.8.1..c27bc926e496985eb7911c09eb60914b2e4b5d0f (PR body): compare v10.8.1...c27bc926e496985eb7911c09eb60914b2e4b5d0f ✓ 40000 bytes",
       "eslint/eslint v10.8.1..v10.9.0 (PR body): compare v10.8.1...v10.9.0 ✓ 40000 bytes",
@@ -830,6 +815,20 @@
       "github.com/mudler/edgevpn 0.35.3→0.35.4: compare v0.35.3...v0.35.4 ✓ 40000 bytes",
       "github.com/labstack/echo/v4 4.15.2→4.15.4: compare v4.15.2...v4.15.4 ✓ 30288 bytes",
       "context: 78052 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/tpm-helpers",
+    "pr": 12,
+    "url": "https://github.com/kairos-io/tpm-helpers/pull/12",
+    "headSHA": "9dfbc12abd306307e29fcc143d55dd68f4d2fa46",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-08-25",
+    "trace": [
+      "github.com/gorilla/websocket 1.5.0→1.5.3: compare v1.5.0...v1.5.3 ✓ 7569 bytes",
+      "gorilla/websocket v1.5.1..v1.5.3 (PR body): compare v1.5.1...v1.5.3 ✓ 40000 bytes",
+      "context: 62623 bytes"
     ]
   },
   {
