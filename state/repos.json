@@ -73,14 +73,6 @@
     "scan": {}
   },
   {
-    "repo": "kairos-io/kairos-installer",
-    "kind": "org",
-    "branch": "main",
-    "criticality": "high",
-    "artifacts": null,
-    "scan": {}
-  },
-  {
     "repo": "kairos-io/kairos-lab",
     "kind": "org",
     "branch": "main",

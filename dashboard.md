@@ -1,25 +1,23 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-26._
+_Updated 2026-08-27._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
 ## 📋 This run
 
-- **Scanned:** 20 repos · ⚠️ 1 errored
+- **Scanned:** 19 repos · ⚠️ 1 errored
 - **Findings:** 3 (0 critical / 1 high / 2 medium / 0 low / 0 unknown)
-- **Informational (not counted):** 49
+- **Informational (not counted):** 58
 - **CVE-related PRs:** 2 (2 human)
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 3 finding(s); 0 PR(s) open.
 
-> The most urgent finding is F1, which has a high severity rating related to CVE-2026-71226 in the libkcapi package. Additionally, medium severity findings F2 and F3 should be reviewed as they pertain to the same component.
+> The most urgent finding is a high-severity vulnerability (F1) affecting the libkcapi package in the kairos-io/hadron repository. Medium severity findings (F2, F3) also exist and should be addressed.
 
 ## 🔥 Focus now
 
-- [CVE-2026-71226](https://osv.dev/vulnerability/ALPINE-CVE-2026-71226) — High severity vulnerability (CVE-2026-71226) in libkcapi.
-- [CVE-2026-71227](https://osv.dev/vulnerability/ALPINE-CVE-2026-71227) — Medium severity vulnerability (CVE-2026-71227) in libkcapi.
-- [CVE-2026-71225](https://osv.dev/vulnerability/ALPINE-CVE-2026-71225) — Medium severity vulnerability (CVE-2026-71225) in libkcapi.
+- [CVE-2026-71226](https://osv.dev/vulnerability/ALPINE-CVE-2026-71226) — High severity vulnerability in libkcapi within the hadron repository.
 
 ## 🌊 Waterfall fronts
 
@@ -37,7 +35,6 @@ _None._
 | [kairos-io/go-nodepair](https://github.com/kairos-io/go-nodepair) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/go-ukify](https://github.com/kairos-io/go-ukify) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos](https://github.com/kairos-io/kairos) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
-| [kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos-lab](https://github.com/kairos-io/kairos-lab) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/netboot](https://github.com/kairos-io/netboot) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
@@ -65,6 +62,7 @@ These findings are separated from the counts above: CVEs we are already past, or
 | Package | Current | Fixed | Severity | CVE | Why |
 |---|---|---|---|---|---|
 | openssl-fips | 3.1.2 | 3.3.7 | critical | [CVE-2026-31789](https://osv.dev/vulnerability/ALPINE-CVE-2026-31789) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| openssl-fips | 3.1.2 | 3.5.8 | high | [CVE-2026-18798](https://osv.dev/vulnerability/ALPINE-CVE-2026-18798) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | busybox | 1.37.0 | 1.37.0 | low | [CVE-2025-46394](https://osv.dev/vulnerability/ALPINE-CVE-2025-46394) | already-fixed |
 | openssl-fips | 3.1.2 | 3.1.6 | critical | [CVE-2024-5535](https://osv.dev/vulnerability/ALPINE-CVE-2024-5535) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | high | [CVE-2026-9076](https://osv.dev/vulnerability/ALPINE-CVE-2026-9076) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
@@ -76,7 +74,9 @@ These findings are separated from the counts above: CVEs we are already past, or
 | openssl-fips | 3.1.2 | 3.5.7 | high | [CVE-2026-45447](https://osv.dev/vulnerability/ALPINE-CVE-2026-45447) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | medium | [CVE-2026-45446](https://osv.dev/vulnerability/ALPINE-CVE-2026-45446) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.8 | high | [CVE-2025-9230](https://osv.dev/vulnerability/ALPINE-CVE-2025-9230) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| openssl-fips | 3.1.2 | 3.5.8 | high | [CVE-2026-14457](https://osv.dev/vulnerability/ALPINE-CVE-2026-14457) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.5 | medium | [CVE-2024-4603](https://osv.dev/vulnerability/ALPINE-CVE-2024-4603) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| openssl-fips | 3.1.2 | 3.5.8 | unknown | [CVE-2026-75803](https://osv.dev/vulnerability/ALPINE-CVE-2026-75803) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | high | [CVE-2026-7383](https://osv.dev/vulnerability/ALPINE-CVE-2026-7383) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.4 | medium | [CVE-2024-0727](https://osv.dev/vulnerability/ALPINE-CVE-2024-0727) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.4 | medium | [CVE-2023-5678](https://osv.dev/vulnerability/ALPINE-CVE-2023-5678) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
@@ -92,8 +92,12 @@ These findings are separated from the counts above: CVEs we are already past, or
 | openssl-fips | 3.1.2 | 3.5.7 | critical | [CVE-2026-34182](https://osv.dev/vulnerability/ALPINE-CVE-2026-34182) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.7 | high | [CVE-2026-28387](https://osv.dev/vulnerability/ALPINE-CVE-2026-28387) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.6 | high | [CVE-2025-15467](https://osv.dev/vulnerability/ALPINE-CVE-2025-15467) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| openssl-fips | 3.1.2 | 3.5.8 | medium | [CVE-2026-63074](https://osv.dev/vulnerability/ALPINE-CVE-2026-63074) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| openssl-fips | 3.1.2 | 3.5.8 | high | [CVE-2026-63072](https://osv.dev/vulnerability/ALPINE-CVE-2026-63072) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | libxml2 | 2.15.3 | 2.13.8 | high | [CVE-2025-32414](https://osv.dev/vulnerability/ALPINE-CVE-2025-32414) | already-fixed |
+| openssl-fips | 3.1.2 | 3.5.8 | high | [CVE-2026-63076](https://osv.dev/vulnerability/ALPINE-CVE-2026-63076) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.7 | high | [CVE-2026-28388](https://osv.dev/vulnerability/ALPINE-CVE-2026-28388) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| openssl-fips | 3.1.2 | 3.5.8 | high | [CVE-2026-63075](https://osv.dev/vulnerability/ALPINE-CVE-2026-63075) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.7 | high | [CVE-2026-28389](https://osv.dev/vulnerability/ALPINE-CVE-2026-28389) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.6 | medium | [CVE-2025-68160](https://osv.dev/vulnerability/ALPINE-CVE-2025-68160) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.7 | medium | [CVE-2024-9143](https://osv.dev/vulnerability/ALPINE-CVE-2024-9143) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
@@ -110,6 +114,8 @@ These findings are separated from the counts above: CVEs we are already past, or
 | openssl-fips | 3.1.2 | 3.3.7 | high | [CVE-2026-31790](https://osv.dev/vulnerability/ALPINE-CVE-2026-31790) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | high | [CVE-2026-45445](https://osv.dev/vulnerability/ALPINE-CVE-2026-45445) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.8 | medium | [CVE-2024-13176](https://osv.dev/vulnerability/ALPINE-CVE-2024-13176) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| openssl-fips | 3.1.2 | 3.5.8 | high | [CVE-2026-54874](https://osv.dev/vulnerability/ALPINE-CVE-2026-54874) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| openssl-fips | 3.1.2 | 3.5.8 | unknown | [CVE-2026-63073](https://osv.dev/vulnerability/ALPINE-CVE-2026-63073) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | medium | [CVE-2026-42767](https://osv.dev/vulnerability/ALPINE-CVE-2026-42767) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.6 | high | [CVE-2024-4741](https://osv.dev/vulnerability/ALPINE-CVE-2024-4741) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | perl | 5.44.0 | 5.26.3 | unknown | [CVE-2018-18312](https://osv.dev/vulnerability/ALPINE-CVE-2018-18312) | already-fixed |
@@ -156,11 +162,12 @@ _No bot PRs yet._
 - [#723](https://github.com/kairos-io/AuroraBoot/pull/723) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
     - context: 49866 bytes
-- [#732](https://github.com/kairos-io/AuroraBoot/pull/732) — ⚠️ **needs_human_verification** — tool-call arguments were not valid JSON
+- [#732](https://github.com/kairos-io/AuroraBoot/pull/732) — ✅ **good** — The PR primarily updates a dependency to a newer digest, which is a standard maintenance task to incorporate security patches and bug fixes. The other changes are standard dependency bumps (Go version and `golang.org/x` packages), which are generally safe and common in dependency management workflows.
+  ↳ This PR updates the dependency `github.com/spectrocloud/peg` to a newer digest (`d8627da`) and includes several other standard dependency bumps, such as upgrading the Go version and several `golang.org/x` packages.
     - github.com/spectrocloud/peg 0.0.0-20260123084329-97c9703181cf→0.0.0-20260813125620-d8627da0983c: compare 97c9703181cf...d8627da0983c ✓ 8447 bytes
     - context: 11272 bytes
-- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ✅ **good** — This is a routine dependency digest update, likely triggered by a security advisory or version bump. The change is applied consistently across all affected files in the `golang.org/x/exp` module, which is standard practice for dependency maintenance. There are no obvious security risks introduced by this update.
-  ↳ The PR updates the digest for the `golang.org/x/exp` dependency from `c1d0aac` to `e88cd73`. This change propagates across multiple sub-packages of the `golang.org/x/exp` module, ensuring all internal dependencies are aligned with the new version.
+- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ✅ **good** — This is a standard dependency digest update for a known package. Updating dependency digests is a routine maintenance task and does not introduce new security vulnerabilities or breaking changes unless the new digest points to a malicious source, which is not indicated here. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the digest for the golang.org/x/exp dependency from `c1d0aac` to `e88cd73`. This change is reflected in the `go.sum` file.
     - golang.org/x/exp 0.0.0-20260813180055-c1d0aacb2297→0.0.0-20260824195058-e88cd73687aa: compare c1d0aacb2297...e88cd73687aa ✓ 7904 bytes
     - context: 10661 bytes
 - [#744](https://github.com/kairos-io/AuroraBoot/pull/744) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -170,7 +177,7 @@ _No bot PRs yet._
     - cypress-io/cypress v15.21.0..v15.21.1 (PR body): compare v15.21.0...v15.21.1 ✓ 32157 bytes
     - cypress-io/cypress v15.20.1..v15.21.0 (PR body): compare v15.20.1...v15.21.0 failed/empty (no upstream diff)
     - cypress-io/cypress v15.20.0..v15.20.1 (PR body): compare v15.20.0...v15.20.1 ✓ 40000 bytes
-    - context: 79350 bytes
+    - context: 79466 bytes
 - [#748](https://github.com/kairos-io/AuroraBoot/pull/748) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - eslint/eslint v10.9.0..5c8c2417b9ff462f2dc4e54a062c59135b45b845 (PR body): compare v10.9.0...5c8c2417b9ff462f2dc4e54a062c59135b45b845 ✓ 7871 bytes
     - eslint/eslint v10.9.0..v10.9.1 (PR body): compare v10.9.0...v10.9.1 ✓ 7871 bytes
@@ -182,8 +189,8 @@ _No bot PRs yet._
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 819 bytes
 - [#757](https://github.com/kairos-io/AuroraBoot/pull/757) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/kairos-io/kairos/v4 4.2.1-0.20260825070803-b5e8809b4aee→4.2.1-0.20260825132624-2ea88af10d3f: compare b5e8809b4aee...2ea88af10d3f ✓ 32260 bytes
-    - context: 35166 bytes
+    - github.com/kairos-io/kairos/v4 4.2.1-0.20260825070803-b5e8809b4aee→4.2.1-0.20260826140743-cb61a33404dc: compare b5e8809b4aee...cb61a33404dc ✓ 40000 bytes
+    - context: 43022 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -208,8 +215,8 @@ _No bot PRs yet._
     - docker/build-push-action v7.2.0..v7.3.0 (PR body): compare v7.2.0...v7.3.0 ✓ 40000 bytes
     - context: 83719 bytes
 - [#20](https://github.com/kairos-io/entangle-proxy/pull/20) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - k8s.io/api 0.24.0→0.36.4: compare v0.24.0...v0.36.4 ✓ 40000 bytes
-    - context: 98536 bytes
+    - k8s.io/api 0.24.0→0.37.0: compare v0.24.0...v0.37.0 ✓ 40000 bytes
+    - context: 129685 bytes
 - [#23](https://github.com/kairos-io/entangle-proxy/pull/23) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
     - actions/checkout v6.0.3..v7.0.0 (PR body): compare v6.0.3...v7.0.0 ✓ 40000 bytes
@@ -242,12 +249,13 @@ _No bot PRs yet._
 - [#69](https://github.com/kairos-io/go-nodepair/pull/69) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes
     - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
-    - context: 25026 bytes
+    - context: 25809 bytes
 **[kairos-io/go-ukify](https://github.com/kairos-io/go-ukify)**
 
 - [#59](https://github.com/kairos-io/go-ukify/pull/59) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - securego/gosec v2.28.0..v2.29.0 (PR body): compare v2.28.0...v2.29.0 ✓ 40000 bytes
     - securego/gosec v2.27.1..v2.28.0 (PR body): compare v2.27.1...v2.28.0 ✓ 40000 bytes
-    - context: 44536 bytes
+    - context: 87925 bytes
 - [#60](https://github.com/kairos-io/go-ukify/pull/60) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
@@ -269,12 +277,13 @@ _No bot PRs yet._
 - [#557](https://github.com/kairos-io/hadron/pull/557) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - updatecli/updatecli-action v3.5.0..v3.6.0 (PR body): compare v3.5.0...v3.6.0 ✓ 40000 bytes
     - updatecli/updatecli-action v3.4.0..v3.5.0 (PR body): compare v3.4.0...v3.5.0 ✓ 40000 bytes
-    - context: 86160 bytes
+    - context: 86163 bytes
 - [#561](https://github.com/kairos-io/hadron/pull/561) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/checkout v7.0.0..v7.0.1 (PR body): compare v7.0.0...v7.0.1 ✓ 40000 bytes
-    - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - actions/checkout v6.1.0..v7.0.0 (PR body): compare v6.1.0...v7.0.0 ✓ 40000 bytes
-    - context: 90192 bytes
+    - actions/checkout v7..v7.0.1 (PR body): compare v7...v7.0.1 failed/empty (no upstream diff)
+    - actions/checkout v7..v7 (PR body): compare v7...v7 failed/empty (no upstream diff)
+    - actions/checkout v6.1.0..v7 (PR body): compare v6.1.0...v7 ✓ 40000 bytes
+    - actions/checkout v6.0.3..v6.1.0 (PR body): compare v6.0.3...v6.1.0 ✓ 32809 bytes
+    - context: 82977 bytes
 - [#562](https://github.com/kairos-io/hadron/pull/562) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - docker/setup-qemu-action v4.1.0..v4.2.0 (PR body): compare v4.1.0...v4.2.0 ✓ 40000 bytes
     - docker/setup-qemu-action v4..v4.1.0 (PR body): compare v4...v4.1.0 failed/empty (no upstream diff)
@@ -322,13 +331,6 @@ _No bot PRs yet._
     - github.com/sirupsen/logrus 1.9.4→1.10.1: compare v1.9.4...v1.10.1 ✓ 40000 bytes
     - sirupsen/logrus v1.10.0..v1.10.1 (PR body): compare v1.10.0...v1.10.1 ✓ 40000 bytes
     - context: 99693 bytes
-**[kairos-io/kairos-installer](https://github.com/kairos-io/kairos-installer)**
-
-- [#19](https://github.com/kairos-io/kairos-installer/pull/19) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/kairos-io/kairos-sdk 0.24.0→0.25.3: compare v0.24.0...v0.25.3 ✓ 40000 bytes
-    - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
-    - github.com/Masterminds/semver/v3 3.4.0→3.5.0: compare v3.4.0...v3.5.0 ✓ 40000 bytes
-    - context: 141704 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#153](https://github.com/kairos-io/kairos-operator/pull/153) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -366,12 +368,9 @@ _No bot PRs yet._
     - docker/setup-buildx-action bb05f3f5519dd87d3ba754cc423b652a5edd6d2c..37fe631027851001ddb9b187196cc803df7f5f0e (PR body): compare bb05f3f5519dd87d3ba754cc423b652a5edd6d2c...37fe631027851001ddb9b187196cc803df7f5f0e ✓ 40000 bytes
     - context: 44259 bytes
 - [#172](https://github.com/kairos-io/kairos-operator/pull/172) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - k8s.io/api 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 3078 bytes
-    - k8s.io/apimachinery 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 3427 bytes
-    - k8s.io/client-go 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 7769 bytes
-    - golang.org/x/mod 0.36.0→0.37.0: compare v0.36.0...v0.37.0 ✓ 15670 bytes
-    - golang.org/x/text 0.38.0→0.39.0: compare v0.38.0...v0.39.0 ✓ 9395 bytes
-    - context: 49066 bytes
+    - k8s.io/api 0.36.3→0.37.0: compare v0.36.3...v0.37.0 ✓ 40000 bytes
+    - k8s.io/apimachinery 0.36.3→0.37.0: compare v0.36.3...v0.37.0 ✓ 40000 bytes
+    - context: 101770 bytes
 **[kairos-io/netboot](https://github.com/kairos-io/netboot)**
 
 - [#46](https://github.com/kairos-io/netboot/pull/46) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
