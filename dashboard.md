@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-27._
+_Updated 2026-08-28._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -13,11 +13,13 @@ _Updated 2026-08-27._
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 3 finding(s); 0 PR(s) open.
 
-> The most urgent finding is a high-severity vulnerability (F1) affecting the libkcapi package in the kairos-io/hadron repository. Medium severity findings (F2, F3) also exist and should be addressed.
+> The most urgent finding is F1, which is rated as high severity. Findings F2 and F3 are medium severity vulnerabilities affecting the same package, libkcapi, and should be addressed promptly after F1.
 
 ## 🔥 Focus now
 
-- [CVE-2026-71226](https://osv.dev/vulnerability/ALPINE-CVE-2026-71226) — High severity vulnerability in libkcapi within the hadron repository.
+- [CVE-2026-71226](https://osv.dev/vulnerability/ALPINE-CVE-2026-71226) — High severity vulnerability in libkcapi (CVE-2026-71226).
+- [CVE-2026-71227](https://osv.dev/vulnerability/ALPINE-CVE-2026-71227) — Medium severity vulnerability in libkcapi (CVE-2026-71227).
+- [CVE-2026-71225](https://osv.dev/vulnerability/ALPINE-CVE-2026-71225) — Medium severity vulnerability in libkcapi (CVE-2026-71225).
 
 ## 🌊 Waterfall fronts
 
@@ -152,10 +154,6 @@ _No bot PRs yet._
     - vitejs/vite v8.2.1..v8.2.2 (PR body): compare v8.2.1...v8.2.2 ✓ 40000 bytes
     - vitejs/vite v8.2.0..v8.2.1 (PR body): compare v8.2.0...v8.2.1 ✓ 40000 bytes
     - context: 123673 bytes
-- [#703](https://github.com/kairos-io/AuroraBoot/pull/703) — ✅ **good** — This is a routine version bump for a Helm chart to align with a newly released version (0.26.0). The description confirms this is intended to target the released image, and there are no security implications associated with updating to a stable, released version.
-  ↳ This PR updates the `version` and `appVersion` in `deploy/helm/auroraboot/Chart.yaml` to `0.26.0`. This change ensures that Helm installations target the officially released chart artifact.
-    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 816 bytes
 - [#712](https://github.com/kairos-io/AuroraBoot/pull/712) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/foxboron/sbctl 0.0.0-20250917190250-6b8ed8715652→0.0.0-20260802183653-a7168106e003: compare 6b8ed8715652...a7168106e003 ✓ 18927 bytes
     - context: 21798 bytes
@@ -171,8 +169,9 @@ _No bot PRs yet._
     - golang.org/x/exp 0.0.0-20260813180055-c1d0aacb2297→0.0.0-20260824195058-e88cd73687aa: compare c1d0aacb2297...e88cd73687aa ✓ 7904 bytes
     - context: 10661 bytes
 - [#744](https://github.com/kairos-io/AuroraBoot/pull/744) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - vitejs/vite-plugin-react 39b31735bf79c2dd380eedaba7ed849256f92a29..04cac5020e349f452d76c5a4f6d788ad4b38930a (PR body): compare 39b31735bf79c2dd380eedaba7ed849256f92a29...04cac5020e349f452d76c5a4f6d788ad4b38930a ✓ 40000 bytes
     - vitejs/vite-plugin-react 68c0cb8796ce18bd049c3d05c5210eaf0617eac0..39b31735bf79c2dd380eedaba7ed849256f92a29 (PR body): compare 68c0cb8796ce18bd049c3d05c5210eaf0617eac0...39b31735bf79c2dd380eedaba7ed849256f92a29 ✓ 40000 bytes
-    - context: 44009 bytes
+    - context: 85153 bytes
 - [#747](https://github.com/kairos-io/AuroraBoot/pull/747) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - cypress-io/cypress v15.21.0..v15.21.1 (PR body): compare v15.21.0...v15.21.1 ✓ 32157 bytes
     - cypress-io/cypress v15.20.1..v15.21.0 (PR body): compare v15.20.1...v15.21.0 failed/empty (no upstream diff)
@@ -189,8 +188,8 @@ _No bot PRs yet._
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 819 bytes
 - [#757](https://github.com/kairos-io/AuroraBoot/pull/757) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/kairos-io/kairos/v4 4.2.1-0.20260825070803-b5e8809b4aee→4.2.1-0.20260826140743-cb61a33404dc: compare b5e8809b4aee...cb61a33404dc ✓ 40000 bytes
-    - context: 43022 bytes
+    - github.com/kairos-io/kairos/v4 4.2.1-0.20260825070803-b5e8809b4aee→4.2.1-0.20260828070212-18a9153eff86: compare b5e8809b4aee...18a9153eff86 ✓ 40000 bytes
+    - context: 42906 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -204,9 +203,10 @@ _No bot PRs yet._
 **[kairos-io/entangle-proxy](https://github.com/kairos-io/entangle-proxy)**
 
 - [#5](https://github.com/kairos-io/entangle-proxy/pull/5) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/onsi/gomega 1.40.0→1.42.1: compare v1.40.0...v1.42.1 ✓ 40000 bytes
+    - github.com/onsi/gomega 1.40.0→1.43.0: compare v1.40.0...v1.43.0 failed/empty (no upstream diff)
     - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
-    - context: 88243 bytes
+    - golang.org/x/net 0.55.0→0.56.0: compare v0.55.0...v0.56.0 ✓ 40000 bytes
+    - context: 88494 bytes
 - [#6](https://github.com/kairos-io/entangle-proxy/pull/6) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - sigs.k8s.io/controller-runtime 0.12.1→0.24.1: compare v0.12.1...v0.24.1 ✓ 40000 bytes
     - context: 98801 bytes
@@ -250,6 +250,10 @@ _No bot PRs yet._
     - google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes
     - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
     - context: 25809 bytes
+- [#72](https://github.com/kairos-io/go-nodepair/pull/72) — ✅ **good** — This is a routine dependency update for a testing framework. The changes are a standard version bump and the addition of a new, non-breaking feature (gomock adaptor), which is safe to auto-approve.
+  ↳ This PR updates the `github.com/onsi/gomega` dependency from v1.42.1 to v1.43.0. This version includes a new feature: a gomock adaptor extension that allows Gomega matchers to be used with gomock argument matchers.
+    - github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes
+    - context: 6924 bytes
 **[kairos-io/go-ukify](https://github.com/kairos-io/go-ukify)**
 
 - [#59](https://github.com/kairos-io/go-ukify/pull/59) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -272,6 +276,10 @@ _No bot PRs yet._
   ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.32.0 to v2.32.1. The changes include a fix deferring `AfterAll` until repeated specs complete, updates to internal logic for spec attempt handling, and corresponding documentation and test updates.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - context: 16020 bytes
+- [#63](https://github.com/kairos-io/go-ukify/pull/63) — ✅ **good** — This is a routine version bump for a well-known dependency, `github.com/onsi/gomega`. The release notes indicate a new feature (gomock adaptor extension), and the diffs show standard version updates in `go.mod` and `go.sum`. There are no immediate security concerns apparent from the context.
+  ↳ The PR updates the `github.com/onsi/gomega` dependency from v1.42.1 to v1.43.0, adding a gomock adaptor extension to allow Gomega matchers to be used with gomock argument matchers.
+    - github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes
+    - context: 6845 bytes
 **[kairos-io/hadron](https://github.com/kairos-io/hadron)**
 
 - [#557](https://github.com/kairos-io/hadron/pull/557) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -324,13 +332,13 @@ _No bot PRs yet._
   ↳ This PR updates the base Docker image tag for the golang dependency across multiple build stages in several Dockerfiles (e.g., from 1.26.6-bookworm to 1.27.0-bookworm). This is a routine maintenance update to incorporate minor version improvements and security patches.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 3298 bytes
-- [#4372](https://github.com/kairos-io/kairos/pull/4372) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/Masterminds/semver/v3 3.4.0→3.5.0: compare v3.4.0...v3.5.0 ✓ 40000 bytes
-    - context: 45171 bytes
 - [#4373](https://github.com/kairos-io/kairos/pull/4373) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/sirupsen/logrus 1.9.4→1.10.1: compare v1.9.4...v1.10.1 ✓ 40000 bytes
     - sirupsen/logrus v1.10.0..v1.10.1 (PR body): compare v1.10.0...v1.10.1 ✓ 40000 bytes
     - context: 99693 bytes
+- [#4406](https://github.com/kairos-io/kairos/pull/4406) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - azure/login f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca..7ddb5af1ef8758cf1353cf3b42f940aee27ba21c (PR body): compare f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca...7ddb5af1ef8758cf1353cf3b42f940aee27ba21c ✓ 40000 bytes
+    - context: 42227 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#153](https://github.com/kairos-io/kairos-operator/pull/153) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -340,8 +348,8 @@ _No bot PRs yet._
   ↳ This PR updates the Docker image digest for the `docker.io/golang:1.26.5` dependency from an older SHA to a newer one. This is a standard maintenance update to ensure the build uses the latest artifact for the specified version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1972 bytes
-- [#158](https://github.com/kairos-io/kairos-operator/pull/158) — ✅ **good** — This is a routine dependency update to a newer version of the operator. The change is a standard version bump and does not introduce any security vulnerabilities. It is safe to auto-approve.
-  ↳ The PR updates the Docker tag for the `quay.io/kairos/operator` dependency from `v0.1.2` to `v0.1.3` in the Kustomization configuration.
+- [#158](https://github.com/kairos-io/kairos-operator/pull/158) — ✅ **good** — The PR is a routine dependency update to a minor version of a well-known operator. Updating to v0.1.3 is a standard maintenance task and does not introduce obvious security risks. It is safe to auto-approve.
+  ↳ This PR updates the Docker tag for the `quay.io/kairos/operator` image in the Kustomization file from version v0.1.2 to v0.1.3. This is a routine dependency update to a newer, presumably stable version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1500 bytes
 - [#162](https://github.com/kairos-io/kairos-operator/pull/162) — ✅ **good** — This is a routine dependency update to a minor version, which is standard maintenance. There are no obvious security risks associated with this version bump, and the change is clearly documented in the changelog.
@@ -402,6 +410,12 @@ _No bot PRs yet._
     - github.com/gorilla/websocket 1.5.0→1.5.3: compare v1.5.0...v1.5.3 ✓ 7569 bytes
     - gorilla/websocket v1.5.1..v1.5.3 (PR body): compare v1.5.1...v1.5.3 ✓ 40000 bytes
     - context: 62623 bytes
+**[mauromorales/xpasswd](https://github.com/mauromorales/xpasswd)**
+
+- [#64](https://github.com/mauromorales/xpasswd/pull/64) — ✅ **good** — This is a standard dependency version bump to a newer release. The changelog indicates a new feature addition, and the diffs show the necessary code changes to support this new functionality. There are no obvious security risks or breaking changes indicated in the provided context.
+  ↳ The PR updates the dependency `github.com/onsi/gomega` from version `v1.42.1` to `v1.43.0`. This update introduces a new feature: a gomock adaptor extension that allows Gomega matchers to be used as gomock argument matchers.
+    - github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes
+    - context: 6711 bytes
 **[mudler/edgevpn](https://github.com/mudler/edgevpn)**
 
 - [#804](https://github.com/mudler/edgevpn/pull/804) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -500,7 +514,7 @@ _No bot PRs yet._
 - [#1076](https://github.com/mudler/edgevpn/pull/1076) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - vitejs/vite v8.2.1..v8.2.2 (PR body): compare v8.2.1...v8.2.2 ✓ 40000 bytes
     - vitejs/vite v8.2.0..v8.2.1 (PR body): compare v8.2.0...v8.2.1 ✓ 40000 bytes
-    - context: 111760 bytes
+    - context: 111628 bytes
 **[mudler/entities](https://github.com/mudler/entities)**
 
 - [#10](https://github.com/mudler/entities/pull/10) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -521,15 +535,15 @@ _No bot PRs yet._
 - [#323](https://github.com/mudler/yip/pull/323) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
     - context: 52337 bytes
-- [#324](https://github.com/mudler/yip/pull/324) — ✅ **good** — The PR updates a dependency to a newer version (v2.32.1) which includes a fix for deferring `AfterAll` until repeated specs complete. This is a standard dependency update to a patched version and does not introduce any obvious breaking changes or security vulnerabilities. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from version v2.32.0 to v2.32.1. The upstream change includes a fix for deferring `AfterAll` until repeated specs complete, which is a non-breaking refinement.
+- [#324](https://github.com/mudler/yip/pull/324) — ✅ **good** — This is a routine dependency update that incorporates a bug fix from the upstream project. There are no security implications to this change, and updating dependencies is a standard maintenance practice for stability.
+  ↳ This PR updates the `github.com/onsi/ginkgo/v2` dependency from version `v2.32.0` to `v2.32.1`, which includes a fix for deferring `AfterAll` until repeated specs complete.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - context: 15994 bytes
 - [#325](https://github.com/mudler/yip/pull/325) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes
     - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
     - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
-    - context: 97547 bytes
+    - context: 97415 bytes
 - [#326](https://github.com/mudler/yip/pull/326) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/containerd/containerd/v2 2.3.3→2.3.4: compare v2.3.3...v2.3.4 ✓ 40000 bytes
     - context: 53007 bytes
@@ -543,4 +557,8 @@ _No bot PRs yet._
     - mauromorales/xpasswd v0.4.9..v0.5.0 (PR body): compare v0.4.9...v0.5.0 ✓ 13436 bytes
     - mauromorales/xpasswd v0.4.8..v0.4.9 (PR body): compare v0.4.8...v0.4.9 ✓ 2023 bytes
     - context: 51001 bytes
+- [#331](https://github.com/mudler/yip/pull/331) — ✅ **good** — This is a standard dependency version bump for a well-maintained library. The update introduces a new feature and updates the version number, which is generally safe. No critical security vulnerabilities are indicated, and the changes are localized to the dependency version and a new feature implementation.
+  ↳ The PR updates the dependency `github.com/onsi/gomega` from version `v1.42.1` to `v1.43.0`. This update introduces a new feature: a gomock adaptor extension that allows using Gomega matchers with gomock argument matchers.
+    - github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes
+    - context: 6898 bytes
 

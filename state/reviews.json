@@ -44,20 +44,6 @@
   },
   {
     "repo": "kairos-io/AuroraBoot",
-    "pr": 703,
-    "url": "https://github.com/kairos-io/AuroraBoot/pull/703",
-    "headSHA": "2ab8f239e1760d760a0d5b85d5ac7d038ccc159e",
-    "verdict": "good",
-    "reasoning": "This is a routine version bump for a Helm chart to align with a newly released version (0.26.0). The description confirms this is intended to target the released image, and there are no security implications associated with updating to a stable, released version.",
-    "changesSummary": "This PR updates the `version` and `appVersion` in `deploy/helm/auroraboot/Chart.yaml` to `0.26.0`. This change ensures that Helm installations target the officially released chart artifact.",
-    "reviewedRun": "2026-08-02",
-    "trace": [
-      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 816 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/AuroraBoot",
     "pr": 712,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/712",
     "headSHA": "a9a5fa295df931fd0147ec007c52c708b43fe855",
@@ -114,13 +100,14 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 744,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/744",
-    "headSHA": "49c22ce36045c9cf7051846d2c98c85a695e6a3c",
+    "headSHA": "75a45c563174c534ebef80d5415fbc21bd311df7",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-27",
+    "reviewedRun": "2026-08-28",
     "trace": [
+      "vitejs/vite-plugin-react 39b31735bf79c2dd380eedaba7ed849256f92a29..04cac5020e349f452d76c5a4f6d788ad4b38930a (PR body): compare 39b31735bf79c2dd380eedaba7ed849256f92a29...04cac5020e349f452d76c5a4f6d788ad4b38930a ✓ 40000 bytes",
       "vitejs/vite-plugin-react 68c0cb8796ce18bd049c3d05c5210eaf0617eac0..39b31735bf79c2dd380eedaba7ed849256f92a29 (PR body): compare 68c0cb8796ce18bd049c3d05c5210eaf0617eac0...39b31735bf79c2dd380eedaba7ed849256f92a29 ✓ 40000 bytes",
-      "context: 44009 bytes"
+      "context: 85153 bytes"
     ]
   },
   {
@@ -172,13 +159,13 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 757,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/757",
-    "headSHA": "fa7c5276c2fab50bcfbf50c84d4c75337528e180",
+    "headSHA": "80511a47e8e6e7670789d7a43e08f03a42146d0a",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-27",
+    "reviewedRun": "2026-08-28",
     "trace": [
-      "github.com/kairos-io/kairos/v4 4.2.1-0.20260825070803-b5e8809b4aee→4.2.1-0.20260826140743-cb61a33404dc: compare b5e8809b4aee...cb61a33404dc ✓ 40000 bytes",
-      "context: 43022 bytes"
+      "github.com/kairos-io/kairos/v4 4.2.1-0.20260825070803-b5e8809b4aee→4.2.1-0.20260828070212-18a9153eff86: compare b5e8809b4aee...18a9153eff86 ✓ 40000 bytes",
+      "context: 42906 bytes"
     ]
   },
   {
@@ -209,14 +196,15 @@
     "repo": "kairos-io/entangle-proxy",
     "pr": 5,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/5",
-    "headSHA": "060ff1aab03e5b2d4742529cbc937c817744e225",
+    "headSHA": "ae56155c4b8cb35db9d285dcd71f23caeac6584f",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-13",
+    "reviewedRun": "2026-08-28",
     "trace": [
-      "github.com/onsi/gomega 1.40.0→1.42.1: compare v1.40.0...v1.42.1 ✓ 40000 bytes",
+      "github.com/onsi/gomega 1.40.0→1.43.0: compare v1.40.0...v1.43.0 failed/empty (no upstream diff)",
       "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
-      "context: 88243 bytes"
+      "golang.org/x/net 0.55.0→0.56.0: compare v0.55.0...v0.56.0 ✓ 40000 bytes",
+      "context: 88494 bytes"
     ]
   },
   {
@@ -377,6 +365,20 @@
     ]
   },
   {
+    "repo": "kairos-io/go-nodepair",
+    "pr": 72,
+    "url": "https://github.com/kairos-io/go-nodepair/pull/72",
+    "headSHA": "f3e022764af9241431bf0541153ece540a6522f9",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update for a testing framework. The changes are a standard version bump and the addition of a new, non-breaking feature (gomock adaptor), which is safe to auto-approve.",
+    "changesSummary": "This PR updates the `github.com/onsi/gomega` dependency from v1.42.1 to v1.43.0. This version includes a new feature: a gomock adaptor extension that allows Gomega matchers to be used with gomock argument matchers.",
+    "reviewedRun": "2026-08-28",
+    "trace": [
+      "github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes",
+      "context: 6924 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/go-ukify",
     "pr": 59,
     "url": "https://github.com/kairos-io/go-ukify/pull/59",
@@ -434,6 +436,20 @@
     "trace": [
       "github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes",
       "context: 16020 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/go-ukify",
+    "pr": 63,
+    "url": "https://github.com/kairos-io/go-ukify/pull/63",
+    "headSHA": "886e8686de9a15a396bbc5cdc5649f969653ae52",
+    "verdict": "good",
+    "reasoning": "This is a routine version bump for a well-known dependency, `github.com/onsi/gomega`. The release notes indicate a new feature (gomock adaptor extension), and the diffs show standard version updates in `go.mod` and `go.sum`. There are no immediate security concerns apparent from the context.",
+    "changesSummary": "The PR updates the `github.com/onsi/gomega` dependency from v1.42.1 to v1.43.0, adding a gomock adaptor extension to allow Gomega matchers to be used with gomock argument matchers.",
+    "reviewedRun": "2026-08-28",
+    "trace": [
+      "github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes",
+      "context: 6845 bytes"
     ]
   },
   {
@@ -596,19 +612,6 @@
   },
   {
     "repo": "kairos-io/kairos",
-    "pr": 4372,
-    "url": "https://github.com/kairos-io/kairos/pull/4372",
-    "headSHA": "1e3cd08c4a23ecd44e5e5a3265d8f578c4c60e2d",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-22",
-    "trace": [
-      "github.com/Masterminds/semver/v3 3.4.0→3.5.0: compare v3.4.0...v3.5.0 ✓ 40000 bytes",
-      "context: 45171 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/kairos",
     "pr": 4373,
     "url": "https://github.com/kairos-io/kairos/pull/4373",
     "headSHA": "1facca527a6fd2a4c53ff3d7e147950509705287",
@@ -622,13 +625,26 @@
     ]
   },
   {
+    "repo": "kairos-io/kairos",
+    "pr": 4406,
+    "url": "https://github.com/kairos-io/kairos/pull/4406",
+    "headSHA": "9aec8dcb1c895b81e1ee105ca28ea345c314606f",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-08-28",
+    "trace": [
+      "azure/login f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca..7ddb5af1ef8758cf1353cf3b42f940aee27ba21c (PR body): compare f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca...7ddb5af1ef8758cf1353cf3b42f940aee27ba21c ✓ 40000 bytes",
+      "context: 42227 bytes"
+    ]
+  },
+  {
     "repo": "kairos-io/kairos-operator",
     "pr": 153,
     "url": "https://github.com/kairos-io/kairos-operator/pull/153",
-    "headSHA": "2a782fd332d805d30eba3fa13b686dd806ec35eb",
+    "headSHA": "a74c5620c8fdee5b36ca122c54e846f2cd5100d6",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-19",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "docker/login-action abd2ef45e78c5afb21d64d4ca52ee8550d9572c7..dbcb813823bdd20940b903addbd779551569679f (PR body): compare abd2ef45e78c5afb21d64d4ca52ee8550d9572c7...dbcb813823bdd20940b903addbd779551569679f ✓ 40000 bytes",
       "context: 43836 bytes"
@@ -652,11 +668,11 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 158,
     "url": "https://github.com/kairos-io/kairos-operator/pull/158",
-    "headSHA": "32e1c3bfeb39d0249891cddfae9cdf0d195f07a7",
+    "headSHA": "37b4b9676f004c352daf90f814d27d6199dd5f65",
     "verdict": "good",
-    "reasoning": "This is a routine dependency update to a newer version of the operator. The change is a standard version bump and does not introduce any security vulnerabilities. It is safe to auto-approve.",
-    "changesSummary": "The PR updates the Docker tag for the `quay.io/kairos/operator` dependency from `v0.1.2` to `v0.1.3` in the Kustomization configuration.",
-    "reviewedRun": "2026-08-08",
+    "reasoning": "The PR is a routine dependency update to a minor version of a well-known operator. Updating to v0.1.3 is a standard maintenance task and does not introduce obvious security risks. It is safe to auto-approve.",
+    "changesSummary": "This PR updates the Docker tag for the `quay.io/kairos/operator` image in the Kustomization file from version v0.1.2 to v0.1.3. This is a routine dependency update to a newer, presumably stable version.",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 1500 bytes"
@@ -694,10 +710,10 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 164,
     "url": "https://github.com/kairos-io/kairos-operator/pull/164",
-    "headSHA": "c14d74872def9357c3bc8fbd029fc380c6d86b35",
+    "headSHA": "86ecb2c9500cfb290ee3855360e40d7f28c631f5",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-19",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "actions/checkout 9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0..3d3c42e5aac5ba805825da76410c181273ba90b1 (PR body): compare 9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0...3d3c42e5aac5ba805825da76410c181273ba90b1 ✓ 40000 bytes",
       "context: 41932 bytes"
@@ -707,10 +723,10 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 165,
     "url": "https://github.com/kairos-io/kairos-operator/pull/165",
-    "headSHA": "1ffb3a87cdefcaeb1b320d879f0d13628e8e4bce",
+    "headSHA": "b1ada2032e69c7a1a256b28c91d54b9c552c67ba",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-18",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "azure/setup-helm b9e51907a09c216f16ebe8536097933489208112..1a275c3b69536ee54be43f2070a358922e12c8d4 (PR body): compare b9e51907a09c216f16ebe8536097933489208112...1a275c3b69536ee54be43f2070a358922e12c8d4 ✓ 40000 bytes",
       "context: 41976 bytes"
@@ -820,10 +836,10 @@
     "repo": "kairos-io/provider-kairos",
     "pr": 965,
     "url": "https://github.com/kairos-io/provider-kairos/pull/965",
-    "headSHA": "d8e1a66d9a8dbf2db865da4001d2d4d46427da6d",
+    "headSHA": "18c719ec2343fcb2efa7a2db85ffbc07f0f26151",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-26",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "github.com/mudler/edgevpn 0.35.3→0.35.4: compare v0.35.3...v0.35.4 ✓ 40000 bytes",
       "github.com/labstack/echo/v4 4.15.3→4.15.4: compare v4.15.3...v4.15.4 ✓ 34118 bytes",
@@ -842,6 +858,20 @@
       "github.com/gorilla/websocket 1.5.0→1.5.3: compare v1.5.0...v1.5.3 ✓ 7569 bytes",
       "gorilla/websocket v1.5.1..v1.5.3 (PR body): compare v1.5.1...v1.5.3 ✓ 40000 bytes",
       "context: 62623 bytes"
+    ]
+  },
+  {
+    "repo": "mauromorales/xpasswd",
+    "pr": 64,
+    "url": "https://github.com/mauromorales/xpasswd/pull/64",
+    "headSHA": "3253549b8aff5bedefc1a219f0000f1f47f0cc7c",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency version bump to a newer release. The changelog indicates a new feature addition, and the diffs show the necessary code changes to support this new functionality. There are no obvious security risks or breaking changes indicated in the provided context.",
+    "changesSummary": "The PR updates the dependency `github.com/onsi/gomega` from version `v1.42.1` to `v1.43.0`. This update introduces a new feature: a gomock adaptor extension that allows Gomega matchers to be used as gomock argument matchers.",
+    "reviewedRun": "2026-08-28",
+    "trace": [
+      "github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes",
+      "context: 6711 bytes"
     ]
   },
   {
@@ -1131,14 +1161,14 @@
     "repo": "mudler/edgevpn",
     "pr": 1076,
     "url": "https://github.com/mudler/edgevpn/pull/1076",
-    "headSHA": "25d7d316a39fe5d6d14bb75cebd814ffffdd1768",
+    "headSHA": "d4a5e1128d3e39fec09e3354cf43cd0666ce3e29",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-20",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "vitejs/vite v8.2.1..v8.2.2 (PR body): compare v8.2.1...v8.2.2 ✓ 40000 bytes",
       "vitejs/vite v8.2.0..v8.2.1 (PR body): compare v8.2.0...v8.2.1 ✓ 40000 bytes",
-      "context: 111760 bytes"
+      "context: 111628 bytes"
     ]
   },
   {
@@ -1198,10 +1228,10 @@
     "repo": "mudler/yip",
     "pr": 323,
     "url": "https://github.com/mudler/yip/pull/323",
-    "headSHA": "e98d3f3eabfb2a70aba43d9add0e4a1cbd84a2d1",
+    "headSHA": "57e058ec8179e2567c5e18c8927f1c52c35bb951",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-20",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes",
       "context: 52337 bytes"
@@ -1211,11 +1241,11 @@
     "repo": "mudler/yip",
     "pr": 324,
     "url": "https://github.com/mudler/yip/pull/324",
-    "headSHA": "bc281e7b4618bd00bf537843945f832a2c44fcf5",
+    "headSHA": "4a5d7ad799229436383c897a8c3f3a675221827e",
     "verdict": "good",
-    "reasoning": "The PR updates a dependency to a newer version (v2.32.1) which includes a fix for deferring `AfterAll` until repeated specs complete. This is a standard dependency update to a patched version and does not introduce any obvious breaking changes or security vulnerabilities. Therefore, it is safe to auto-approve.",
-    "changesSummary": "This PR updates the dependency `github.com/onsi/ginkgo/v2` from version v2.32.0 to v2.32.1. The upstream change includes a fix for deferring `AfterAll` until repeated specs complete, which is a non-breaking refinement.",
-    "reviewedRun": "2026-08-11",
+    "reasoning": "This is a routine dependency update that incorporates a bug fix from the upstream project. There are no security implications to this change, and updating dependencies is a standard maintenance practice for stability.",
+    "changesSummary": "This PR updates the `github.com/onsi/ginkgo/v2` dependency from version `v2.32.0` to `v2.32.1`, which includes a fix for deferring `AfterAll` until repeated specs complete.",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes",
       "context: 15994 bytes"
@@ -1225,25 +1255,25 @@
     "repo": "mudler/yip",
     "pr": 325,
     "url": "https://github.com/mudler/yip/pull/325",
-    "headSHA": "a48eef05ff7758d314960dac0143bdfcab15472f",
+    "headSHA": "2c75d4dd83bc31bd6cf58a4f47aafa2fc8af2194",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-19",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes",
       "golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes",
       "golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes",
-      "context: 97547 bytes"
+      "context: 97415 bytes"
     ]
   },
   {
     "repo": "mudler/yip",
     "pr": 326,
     "url": "https://github.com/mudler/yip/pull/326",
-    "headSHA": "d0703d453b22df948acdf6c7e2898c2aeb4cc775",
+    "headSHA": "0150557cd3dee030ca81bb90ae4d3ac110849cfb",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-13",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "github.com/containerd/containerd/v2 2.3.3→2.3.4: compare v2.3.3...v2.3.4 ✓ 40000 bytes",
       "context: 53007 bytes"
@@ -1253,10 +1283,10 @@
     "repo": "mudler/yip",
     "pr": 327,
     "url": "https://github.com/mudler/yip/pull/327",
-    "headSHA": "12564029c13a8f3b06fa9eb40a90d6a1c126e705",
+    "headSHA": "281d1743f8b56fa350f0b4cd92295b02bccbd57d",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-26",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "github.com/sirupsen/logrus 1.9.4→1.10.2: compare v1.9.4...v1.10.2 ✓ 40000 bytes",
       "sirupsen/logrus v1.10.1..v1.10.2 (PR body): compare v1.10.1...v1.10.2 ✓ 1852 bytes",
@@ -1267,16 +1297,30 @@
     "repo": "mudler/yip",
     "pr": 328,
     "url": "https://github.com/mudler/yip/pull/328",
-    "headSHA": "f00d93439f7dfbc6d64cbf1b33d1db74ea0bc224",
+    "headSHA": "7af4d13f4b015a0d2ab0b7c98b9f30cdf4abf9cc",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-20",
+    "reviewedRun": "2026-08-28",
     "trace": [
       "github.com/mauromorales/xpasswd 0.4.8→0.5.0: compare v0.4.8...v0.5.0 ✓ 15459 bytes",
       "github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes",
       "mauromorales/xpasswd v0.4.9..v0.5.0 (PR body): compare v0.4.9...v0.5.0 ✓ 13436 bytes",
       "mauromorales/xpasswd v0.4.8..v0.4.9 (PR body): compare v0.4.8...v0.4.9 ✓ 2023 bytes",
       "context: 51001 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 331,
+    "url": "https://github.com/mudler/yip/pull/331",
+    "headSHA": "aec72c8af68c2de637be92e18a38c77cd2ca62c5",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency version bump for a well-maintained library. The update introduces a new feature and updates the version number, which is generally safe. No critical security vulnerabilities are indicated, and the changes are localized to the dependency version and a new feature implementation.",
+    "changesSummary": "The PR updates the dependency `github.com/onsi/gomega` from version `v1.42.1` to `v1.43.0`. This update introduces a new feature: a gomock adaptor extension that allows using Gomega matchers with gomock argument matchers.",
+    "reviewedRun": "2026-08-28",
+    "trace": [
+      "github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes",
+      "context: 6898 bytes"
     ]
   }
 ]
