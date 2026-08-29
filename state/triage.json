@@ -1,16 +1,14 @@
 {
-  "generatedAt": "2026-08-28",
+  "generatedAt": "2026-08-29",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
   "focus": [
-    "d68f1758240fd9b832772e30abf3567c520a2137d7e44614f24797c6e9a52eee",
-    "4d07ef852ee2a45e5e1553cb5fb271c70ed0e1de54d9440e8239fa4bdd63a326",
-    "d50930e6a4e471e45f538641397d8752f718a144ff26989672993ab3ef2c6b98"
+    "d68f1758240fd9b832772e30abf3567c520a2137d7e44614f24797c6e9a52eee"
   ],
   "summaries": {
-    "4d07ef852ee2a45e5e1553cb5fb271c70ed0e1de54d9440e8239fa4bdd63a326": "Medium severity vulnerability in libkcapi (CVE-2026-71227).",
-    "d50930e6a4e471e45f538641397d8752f718a144ff26989672993ab3ef2c6b98": "Medium severity vulnerability in libkcapi (CVE-2026-71225).",
-    "d68f1758240fd9b832772e30abf3567c520a2137d7e44614f24797c6e9a52eee": "High severity vulnerability in libkcapi (CVE-2026-71226)."
+    "4d07ef852ee2a45e5e1553cb5fb271c70ed0e1de54d9440e8239fa4bdd63a326": "Medium severity vulnerability (CVE-2026-71227) in libkcapi.",
+    "d50930e6a4e471e45f538641397d8752f718a144ff26989672993ab3ef2c6b98": "Medium severity vulnerability (CVE-2026-71225) in libkcapi.",
+    "d68f1758240fd9b832772e30abf3567c520a2137d7e44614f24797c6e9a52eee": "High severity vulnerability (CVE-2026-71226) in libkcapi."
   },
-  "narrative": "The most urgent finding is F1, which is rated as high severity. Findings F2 and F3 are medium severity vulnerabilities affecting the same package, libkcapi, and should be addressed promptly after F1."
+  "narrative": "The primary focus should be on finding F1, which is a high-severity vulnerability in the `libkcapi` package. While F2 and F3 are medium severity, F1 requires immediate attention due to its high risk."
 }

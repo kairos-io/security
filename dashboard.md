@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-28._
+_Updated 2026-08-29._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -13,13 +13,11 @@ _Updated 2026-08-28._
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 3 finding(s); 0 PR(s) open.
 
-> The most urgent finding is F1, which is rated as high severity. Findings F2 and F3 are medium severity vulnerabilities affecting the same package, libkcapi, and should be addressed promptly after F1.
+> The primary focus should be on finding F1, which is a high-severity vulnerability in the `libkcapi` package. While F2 and F3 are medium severity, F1 requires immediate attention due to its high risk.
 
 ## 🔥 Focus now
 
-- [CVE-2026-71226](https://osv.dev/vulnerability/ALPINE-CVE-2026-71226) — High severity vulnerability in libkcapi (CVE-2026-71226).
-- [CVE-2026-71227](https://osv.dev/vulnerability/ALPINE-CVE-2026-71227) — Medium severity vulnerability in libkcapi (CVE-2026-71227).
-- [CVE-2026-71225](https://osv.dev/vulnerability/ALPINE-CVE-2026-71225) — Medium severity vulnerability in libkcapi (CVE-2026-71225).
+- [CVE-2026-71226](https://osv.dev/vulnerability/ALPINE-CVE-2026-71226) — High severity vulnerability (CVE-2026-71226) in libkcapi.
 
 ## 🌊 Waterfall fronts
 
@@ -160,18 +158,14 @@ _No bot PRs yet._
 - [#723](https://github.com/kairos-io/AuroraBoot/pull/723) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
     - context: 49866 bytes
-- [#732](https://github.com/kairos-io/AuroraBoot/pull/732) — ✅ **good** — The PR primarily updates a dependency to a newer digest, which is a standard maintenance task to incorporate security patches and bug fixes. The other changes are standard dependency bumps (Go version and `golang.org/x` packages), which are generally safe and common in dependency management workflows.
-  ↳ This PR updates the dependency `github.com/spectrocloud/peg` to a newer digest (`d8627da`) and includes several other standard dependency bumps, such as upgrading the Go version and several `golang.org/x` packages.
-    - github.com/spectrocloud/peg 0.0.0-20260123084329-97c9703181cf→0.0.0-20260813125620-d8627da0983c: compare 97c9703181cf...d8627da0983c ✓ 8447 bytes
-    - context: 11272 bytes
-- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ✅ **good** — This is a standard dependency digest update for a known package. Updating dependency digests is a routine maintenance task and does not introduce new security vulnerabilities or breaking changes unless the new digest points to a malicious source, which is not indicated here. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the digest for the golang.org/x/exp dependency from `c1d0aac` to `e88cd73`. This change is reflected in the `go.sum` file.
+- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ✅ **good** — This is a routine digest update for a known dependency. Since the change is a maintenance task and the new digest is from the upstream source, it is safe to auto-approve.
+  ↳ The PR updates the digest for the `golang.org/x/exp` dependency from `c1d0aac` to `e88cd73`. This change is part of a routine dependency maintenance task.
     - golang.org/x/exp 0.0.0-20260813180055-c1d0aacb2297→0.0.0-20260824195058-e88cd73687aa: compare c1d0aacb2297...e88cd73687aa ✓ 7904 bytes
     - context: 10661 bytes
 - [#744](https://github.com/kairos-io/AuroraBoot/pull/744) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - vitejs/vite-plugin-react 39b31735bf79c2dd380eedaba7ed849256f92a29..04cac5020e349f452d76c5a4f6d788ad4b38930a (PR body): compare 39b31735bf79c2dd380eedaba7ed849256f92a29...04cac5020e349f452d76c5a4f6d788ad4b38930a ✓ 40000 bytes
     - vitejs/vite-plugin-react 68c0cb8796ce18bd049c3d05c5210eaf0617eac0..39b31735bf79c2dd380eedaba7ed849256f92a29 (PR body): compare 68c0cb8796ce18bd049c3d05c5210eaf0617eac0...39b31735bf79c2dd380eedaba7ed849256f92a29 ✓ 40000 bytes
-    - context: 85153 bytes
+    - context: 85269 bytes
 - [#747](https://github.com/kairos-io/AuroraBoot/pull/747) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - cypress-io/cypress v15.21.0..v15.21.1 (PR body): compare v15.21.0...v15.21.1 ✓ 32157 bytes
     - cypress-io/cypress v15.20.1..v15.21.0 (PR body): compare v15.20.1...v15.21.0 failed/empty (no upstream diff)
@@ -188,8 +182,12 @@ _No bot PRs yet._
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 819 bytes
 - [#757](https://github.com/kairos-io/AuroraBoot/pull/757) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/kairos-io/kairos/v4 4.2.1-0.20260825070803-b5e8809b4aee→4.2.1-0.20260828070212-18a9153eff86: compare b5e8809b4aee...18a9153eff86 ✓ 40000 bytes
-    - context: 42906 bytes
+    - github.com/kairos-io/kairos/v4 4.2.1-0.20260825070803-b5e8809b4aee→4.2.1-0.20260828082842-a3619b06ea86: compare b5e8809b4aee...a3619b06ea86 ✓ 40000 bytes
+    - context: 43022 bytes
+- [#761](https://github.com/kairos-io/AuroraBoot/pull/761) — ✅ **good** — The PR updates a dependency to a newer version (`16.3.3`) which includes a bug fix for act() re-entrant behavior. This is a safe and beneficial update that improves the stability of the testing library.
+  ↳ This PR updates the `@testing-library/react` dependency from version `16.3.2` to `16.3.3`. This version bump includes a bug fix addressing act() re-entrant issues when dispatching events, improving the stability of the testing library.
+    - testing-library/react-testing-library v16.3.2..v16.3.3 (PR body): compare v16.3.2...v16.3.3 ✓ 4007 bytes
+    - context: 7111 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -202,11 +200,6 @@ _No bot PRs yet._
     - context: 97666 bytes
 **[kairos-io/entangle-proxy](https://github.com/kairos-io/entangle-proxy)**
 
-- [#5](https://github.com/kairos-io/entangle-proxy/pull/5) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/onsi/gomega 1.40.0→1.43.0: compare v1.40.0...v1.43.0 failed/empty (no upstream diff)
-    - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
-    - golang.org/x/net 0.55.0→0.56.0: compare v0.55.0...v0.56.0 ✓ 40000 bytes
-    - context: 88494 bytes
 - [#6](https://github.com/kairos-io/entangle-proxy/pull/6) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - sigs.k8s.io/controller-runtime 0.12.1→0.24.1: compare v0.12.1...v0.24.1 ✓ 40000 bytes
     - context: 98801 bytes
@@ -224,10 +217,10 @@ _No bot PRs yet._
 - [#25](https://github.com/kairos-io/entangle-proxy/pull/25) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes
     - context: 44091 bytes
-- [#26](https://github.com/kairos-io/entangle-proxy/pull/26) — ✅ **good** — This is a routine dependency version bump to a minor release that includes a bug fix. There are no apparent security vulnerabilities introduced by this change, making it safe to auto-approve.
-  ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from version `v2.32.0` to `v2.32.1`. This update includes a fix to defer `AfterAll` until repeated specs complete, improving spec lifecycle management.
+- [#26](https://github.com/kairos-io/entangle-proxy/pull/26) — ✅ **good** — This is a routine version bump for a dependency from the official upstream repository. The changelog indicates a fix for spec lifecycle management, and there are no indications of any security vulnerabilities or malicious code introduced by this update. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from version v2.32.0 to v2.32.1. The update includes a fix to defer `AfterAll` until repeated specs complete, improving spec lifecycle management.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
-    - context: 15999 bytes
+    - context: 16130 bytes
 - [#27](https://github.com/kairos-io/entangle-proxy/pull/27) — ✅ **good** — This is a minor version bump for the Go base image. Updating the base image is a standard maintenance task and generally improves security and stability by incorporating bug fixes and minor security patches. There are no known security risks associated with this specific version upgrade.
   ↳ The PR updates the base image for the Go build stage in the Dockerfile from golang:1.26 to golang:1.27.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
@@ -403,7 +396,7 @@ _No bot PRs yet._
 - [#965](https://github.com/kairos-io/provider-kairos/pull/965) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/mudler/edgevpn 0.35.3→0.35.4: compare v0.35.3...v0.35.4 ✓ 40000 bytes
     - github.com/labstack/echo/v4 4.15.3→4.15.4: compare v4.15.3...v4.15.4 ✓ 34118 bytes
-    - context: 81905 bytes
+    - context: 82037 bytes
 **[kairos-io/tpm-helpers](https://github.com/kairos-io/tpm-helpers)**
 
 - [#12](https://github.com/kairos-io/tpm-helpers/pull/12) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -531,14 +524,14 @@ _No bot PRs yet._
 - [#322](https://github.com/mudler/yip/pull/322) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/google/go-containerregistry 0.21.7→0.22.0: compare v0.21.7...v0.22.0 ✓ 40000 bytes
     - golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes
-    - context: 103465 bytes
+    - context: 103597 bytes
 - [#323](https://github.com/mudler/yip/pull/323) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
-    - context: 52337 bytes
-- [#324](https://github.com/mudler/yip/pull/324) — ✅ **good** — This is a routine dependency update that incorporates a bug fix from the upstream project. There are no security implications to this change, and updating dependencies is a standard maintenance practice for stability.
-  ↳ This PR updates the `github.com/onsi/ginkgo/v2` dependency from version `v2.32.0` to `v2.32.1`, which includes a fix for deferring `AfterAll` until repeated specs complete.
+    - context: 52469 bytes
+- [#324](https://github.com/mudler/yip/pull/324) — ✅ **good** — This PR updates a dependency to a patch release (v2.32.1) which contains a fix for spec timeout behavior. This is a standard maintenance update and does not introduce breaking changes or security vulnerabilities.
+  ↳ Updates the `github.com/onsi/ginkgo/v2` dependency from version v2.32.0 to v2.32.1, which includes a fix to defer `AfterAll` until repeated specs complete.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
-    - context: 15994 bytes
+    - context: 16126 bytes
 - [#325](https://github.com/mudler/yip/pull/325) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes
     - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
@@ -550,7 +543,7 @@ _No bot PRs yet._
 - [#327](https://github.com/mudler/yip/pull/327) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/sirupsen/logrus 1.9.4→1.10.2: compare v1.9.4...v1.10.2 ✓ 40000 bytes
     - sirupsen/logrus v1.10.1..v1.10.2 (PR body): compare v1.10.1...v1.10.2 ✓ 1852 bytes
-    - context: 63270 bytes
+    - context: 63402 bytes
 - [#328](https://github.com/mudler/yip/pull/328) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/mauromorales/xpasswd 0.4.8→0.5.0: compare v0.4.8...v0.5.0 ✓ 15459 bytes
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
