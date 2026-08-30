@@ -194,6 +194,21 @@
   },
   {
     "repo": "kairos-io/entangle-proxy",
+    "pr": 5,
+    "url": "https://github.com/kairos-io/entangle-proxy/pull/5",
+    "headSHA": "56b4b4c64ccbc6a919821065f31c316419eb6438",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-08-30",
+    "trace": [
+      "github.com/onsi/gomega 1.40.0→1.43.0: compare v1.40.0...v1.43.0 failed/empty (no upstream diff)",
+      "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
+      "golang.org/x/net 0.55.0→0.56.0: compare v0.55.0...v0.56.0 ✓ 40000 bytes",
+      "context: 88494 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/entangle-proxy",
     "pr": 6,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/6",
     "headSHA": "078d14ce6be5abee6e120ba3db1c3e5932f3baa7",
@@ -231,10 +246,10 @@
     "repo": "kairos-io/entangle-proxy",
     "pr": 20,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/20",
-    "headSHA": "07cd148009da51d01d643225180d66d50deb6d0a",
+    "headSHA": "5c89605f50498a9adb60bcebb0d3b9468b03e0e2",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-27",
+    "reviewedRun": "2026-08-30",
     "trace": [
       "k8s.io/api 0.24.0→0.37.0: compare v0.24.0...v0.37.0 ✓ 40000 bytes",
       "context: 129685 bytes"
@@ -389,24 +404,6 @@
       "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
       "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
       "context: 42433 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/go-ukify",
-    "pr": 61,
-    "url": "https://github.com/kairos-io/go-ukify/pull/61",
-    "headSHA": "a139cf75f875010667ccdfd372b888c574195a53",
-    "verdict": "good",
-    "reasoning": "The update is a standard version bump to a newer release (v1.6.8) of the dependency. The upstream changelog indicates this release addresses important structural changes, specifically restoring the module path and updating Go version policies, which is a necessary maintenance step. There are no immediate red flags suggesting a security risk.",
-    "changesSummary": "This PR updates the dependency `github.com/ThalesGroup/crypto11` from version v1.6.2 to v1.6.8. This update incorporates a repository migration to the `github.com/eclipse-keypont/crypto11` module path and includes fixes related to module path restoration and Go version policy.",
-    "reviewedRun": "2026-08-02",
-    "trace": [
-      "github.com/ThalesGroup/crypto11 1.6.2→1.6.8: compare v1.6.2...v1.6.8 ✓ 2785 bytes",
-      "ThalesGroup/crypto11 v1.6.7..v1.6.8 (PR body): compare v1.6.7...v1.6.8 ✓ 2070 bytes",
-      "eclipse-keypont/crypto11 v1.6.5..v1.6.8 (PR body): compare v1.6.5...v1.6.8 ✓ 2070 bytes",
-      "ThalesGroup/crypto11 v1.6.6..v1.6.7 (PR body): compare v1.6.6...v1.6.7 ✓ 617 bytes",
-      "ThalesGroup/crypto11 v1.6.5..v1.6.6 (PR body): compare v1.6.5...v1.6.6 ✓ 936 bytes",
-      "context: 14589 bytes"
     ]
   },
   {
@@ -793,10 +790,10 @@
     "repo": "kairos-io/netboot",
     "pr": 48,
     "url": "https://github.com/kairos-io/netboot/pull/48",
-    "headSHA": "20990599534ddb7fa42ab62a9f29736a7c09f1c1",
+    "headSHA": "b8a8c0efaeaf710faf226b25f4b2d56f9e724531",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-12",
+    "reviewedRun": "2026-08-30",
     "trace": [
       "golang.org/x/crypto 0.53.0→0.55.0: compare v0.53.0...v0.55.0 ✓ 40000 bytes",
       "golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes",
@@ -1199,10 +1196,10 @@
     "repo": "mudler/yip",
     "pr": 322,
     "url": "https://github.com/mudler/yip/pull/322",
-    "headSHA": "65a8ede70ee03dd40e2f0ea4bc5b8e895e746227",
+    "headSHA": "438c91c8ba01d89b1a1cec69c019a0ae17e5d275",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-29",
+    "reviewedRun": "2026-08-30",
     "trace": [
       "github.com/google/go-containerregistry 0.21.7→0.22.0: compare v0.21.7...v0.22.0 ✓ 40000 bytes",
       "golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes",
@@ -1213,10 +1210,10 @@
     "repo": "mudler/yip",
     "pr": 323,
     "url": "https://github.com/mudler/yip/pull/323",
-    "headSHA": "f027c630e137804a1cad0685b09cbfd1a74e835b",
+    "headSHA": "0f427ffbf2b0fd30de3d4189c2376c5b20055ab1",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-29",
+    "reviewedRun": "2026-08-30",
     "trace": [
       "github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes",
       "context: 52469 bytes"
@@ -1240,15 +1237,15 @@
     "repo": "mudler/yip",
     "pr": 325,
     "url": "https://github.com/mudler/yip/pull/325",
-    "headSHA": "2c75d4dd83bc31bd6cf58a4f47aafa2fc8af2194",
+    "headSHA": "f0fc423828619f31ee0e590fc4d0e7e4a74eeac6",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-28",
+    "reviewedRun": "2026-08-30",
     "trace": [
       "golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes",
       "golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes",
       "golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes",
-      "context: 97415 bytes"
+      "context: 97547 bytes"
     ]
   },
   {
@@ -1298,14 +1295,14 @@
     "repo": "mudler/yip",
     "pr": 331,
     "url": "https://github.com/mudler/yip/pull/331",
-    "headSHA": "aec72c8af68c2de637be92e18a38c77cd2ca62c5",
+    "headSHA": "17bc169f4b5987e024ccab9732bd28ef184d71e9",
     "verdict": "good",
-    "reasoning": "This is a standard dependency version bump for a well-maintained library. The update introduces a new feature and updates the version number, which is generally safe. No critical security vulnerabilities are indicated, and the changes are localized to the dependency version and a new feature implementation.",
-    "changesSummary": "The PR updates the dependency `github.com/onsi/gomega` from version `v1.42.1` to `v1.43.0`. This update introduces a new feature: a gomock adaptor extension that allows using Gomega matchers with gomock argument matchers.",
-    "reviewedRun": "2026-08-28",
+    "reasoning": "This is a routine dependency update to a newer version. The changelog indicates a new feature has been added, and there are no apparent breaking changes mentioned. The update is safe and beneficial.",
+    "changesSummary": "The PR updates the `github.com/onsi/gomega` dependency from v1.42.1 to v1.43.0. This version bump introduces a new feature: a gomock adaptor extension, allowing Gomega matchers to be used as gomock argument matchers.",
+    "reviewedRun": "2026-08-30",
     "trace": [
       "github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes",
-      "context: 6898 bytes"
+      "context: 7030 bytes"
     ]
   }
 ]

@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-29._
+_Updated 2026-08-30._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -13,11 +13,13 @@ _Updated 2026-08-29._
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 3 finding(s); 0 PR(s) open.
 
-> The primary focus should be on finding F1, which is a high-severity vulnerability in the `libkcapi` package. While F2 and F3 are medium severity, F1 requires immediate attention due to its high risk.
+> The most urgent finding is F1, which has a high severity. It is recommended to prioritize remediation for F1, followed by F2 and F3, which are medium severity issues affecting the libkcapi package.
 
 ## 🔥 Focus now
 
 - [CVE-2026-71226](https://osv.dev/vulnerability/ALPINE-CVE-2026-71226) — High severity vulnerability (CVE-2026-71226) in libkcapi.
+- [CVE-2026-71227](https://osv.dev/vulnerability/ALPINE-CVE-2026-71227) — Medium severity vulnerability (CVE-2026-71227) in libkcapi.
+- [CVE-2026-71225](https://osv.dev/vulnerability/ALPINE-CVE-2026-71225) — Medium severity vulnerability (CVE-2026-71225) in libkcapi.
 
 ## 🌊 Waterfall fronts
 
@@ -200,6 +202,11 @@ _No bot PRs yet._
     - context: 97666 bytes
 **[kairos-io/entangle-proxy](https://github.com/kairos-io/entangle-proxy)**
 
+- [#5](https://github.com/kairos-io/entangle-proxy/pull/5) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/onsi/gomega 1.40.0→1.43.0: compare v1.40.0...v1.43.0 failed/empty (no upstream diff)
+    - golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes
+    - golang.org/x/net 0.55.0→0.56.0: compare v0.55.0...v0.56.0 ✓ 40000 bytes
+    - context: 88494 bytes
 - [#6](https://github.com/kairos-io/entangle-proxy/pull/6) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - sigs.k8s.io/controller-runtime 0.12.1→0.24.1: compare v0.12.1...v0.24.1 ✓ 40000 bytes
     - context: 98801 bytes
@@ -257,14 +264,6 @@ _No bot PRs yet._
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
     - context: 42433 bytes
-- [#61](https://github.com/kairos-io/go-ukify/pull/61) — ✅ **good** — The update is a standard version bump to a newer release (v1.6.8) of the dependency. The upstream changelog indicates this release addresses important structural changes, specifically restoring the module path and updating Go version policies, which is a necessary maintenance step. There are no immediate red flags suggesting a security risk.
-  ↳ This PR updates the dependency `github.com/ThalesGroup/crypto11` from version v1.6.2 to v1.6.8. This update incorporates a repository migration to the `github.com/eclipse-keypont/crypto11` module path and includes fixes related to module path restoration and Go version policy.
-    - github.com/ThalesGroup/crypto11 1.6.2→1.6.8: compare v1.6.2...v1.6.8 ✓ 2785 bytes
-    - ThalesGroup/crypto11 v1.6.7..v1.6.8 (PR body): compare v1.6.7...v1.6.8 ✓ 2070 bytes
-    - eclipse-keypont/crypto11 v1.6.5..v1.6.8 (PR body): compare v1.6.5...v1.6.8 ✓ 2070 bytes
-    - ThalesGroup/crypto11 v1.6.6..v1.6.7 (PR body): compare v1.6.6...v1.6.7 ✓ 617 bytes
-    - ThalesGroup/crypto11 v1.6.5..v1.6.6 (PR body): compare v1.6.5...v1.6.6 ✓ 936 bytes
-    - context: 14589 bytes
 - [#62](https://github.com/kairos-io/go-ukify/pull/62) — ✅ **good** — This is a minor version bump for a widely used library. The changes appear to be internal refactoring, bug fixes, and documentation updates related to spec lifecycle management. There are no apparent security risks introduced by this version update.
   ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.32.0 to v2.32.1. The changes include a fix deferring `AfterAll` until repeated specs complete, updates to internal logic for spec attempt handling, and corresponding documentation and test updates.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
@@ -536,7 +535,7 @@ _No bot PRs yet._
     - golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes
     - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
     - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
-    - context: 97415 bytes
+    - context: 97547 bytes
 - [#326](https://github.com/mudler/yip/pull/326) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/containerd/containerd/v2 2.3.3→2.3.4: compare v2.3.3...v2.3.4 ✓ 40000 bytes
     - context: 53007 bytes
@@ -550,8 +549,8 @@ _No bot PRs yet._
     - mauromorales/xpasswd v0.4.9..v0.5.0 (PR body): compare v0.4.9...v0.5.0 ✓ 13436 bytes
     - mauromorales/xpasswd v0.4.8..v0.4.9 (PR body): compare v0.4.8...v0.4.9 ✓ 2023 bytes
     - context: 51001 bytes
-- [#331](https://github.com/mudler/yip/pull/331) — ✅ **good** — This is a standard dependency version bump for a well-maintained library. The update introduces a new feature and updates the version number, which is generally safe. No critical security vulnerabilities are indicated, and the changes are localized to the dependency version and a new feature implementation.
-  ↳ The PR updates the dependency `github.com/onsi/gomega` from version `v1.42.1` to `v1.43.0`. This update introduces a new feature: a gomock adaptor extension that allows using Gomega matchers with gomock argument matchers.
+- [#331](https://github.com/mudler/yip/pull/331) — ✅ **good** — This is a routine dependency update to a newer version. The changelog indicates a new feature has been added, and there are no apparent breaking changes mentioned. The update is safe and beneficial.
+  ↳ The PR updates the `github.com/onsi/gomega` dependency from v1.42.1 to v1.43.0. This version bump introduces a new feature: a gomock adaptor extension, allowing Gomega matchers to be used as gomock argument matchers.
     - github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes
-    - context: 6898 bytes
+    - context: 7030 bytes
 
