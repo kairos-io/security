@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-08-30._
+_Updated 2026-08-31._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -8,12 +8,12 @@ _Updated 2026-08-30._
 
 - **Scanned:** 19 repos · ⚠️ 1 errored
 - **Findings:** 3 (0 critical / 1 high / 2 medium / 0 low / 0 unknown)
-- **Informational (not counted):** 58
+- **Informational (not counted):** 59
 - **CVE-related PRs:** 2 (2 human)
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 3 finding(s); 0 PR(s) open.
 
-> The most urgent finding is F1, which has a high severity. It is recommended to prioritize remediation for F1, followed by F2 and F3, which are medium severity issues affecting the libkcapi package.
+> The most urgent item is the high-severity vulnerability (F1) in libkcapi. Review the medium-severity findings (F2 and F3) for immediate remediation planning.
 
 ## 🔥 Focus now
 
@@ -76,6 +76,7 @@ These findings are separated from the counts above: CVEs we are already past, or
 | openssl-fips | 3.1.2 | 3.5.7 | high | [CVE-2026-45447](https://osv.dev/vulnerability/ALPINE-CVE-2026-45447) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | medium | [CVE-2026-45446](https://osv.dev/vulnerability/ALPINE-CVE-2026-45446) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.8 | high | [CVE-2025-9230](https://osv.dev/vulnerability/ALPINE-CVE-2025-9230) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
+| gzip | 1.14 | 1.14 | high | [CVE-2026-41992](https://osv.dev/vulnerability/ALPINE-CVE-2026-41992) | already-fixed |
 | openssl-fips | 3.1.2 | 3.5.8 | high | [CVE-2026-14457](https://osv.dev/vulnerability/ALPINE-CVE-2026-14457) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.5 | medium | [CVE-2024-4603](https://osv.dev/vulnerability/ALPINE-CVE-2024-4603) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.8 | unknown | [CVE-2026-75803](https://osv.dev/vulnerability/ALPINE-CVE-2026-75803) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
@@ -221,11 +222,8 @@ _No bot PRs yet._
     - actions/checkout v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
     - actions/checkout v6.0.3..v7.0.0 (PR body): compare v6.0.3...v7.0.0 ✓ 40000 bytes
     - context: 63254 bytes
-- [#25](https://github.com/kairos-io/entangle-proxy/pull/25) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes
-    - context: 44091 bytes
-- [#26](https://github.com/kairos-io/entangle-proxy/pull/26) — ✅ **good** — This is a routine version bump for a dependency from the official upstream repository. The changelog indicates a fix for spec lifecycle management, and there are no indications of any security vulnerabilities or malicious code introduced by this update. Therefore, it is safe to auto-approve.
-  ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from version v2.32.0 to v2.32.1. The update includes a fix to defer `AfterAll` until repeated specs complete, improving spec lifecycle management.
+- [#26](https://github.com/kairos-io/entangle-proxy/pull/26) — ✅ **good** — The PR is a patch release (v2.32.0 to v2.32.1) and includes a bug fix. The changes are primarily internal logic improvements, documentation updates, and test enhancements, which do not introduce new security vulnerabilities. The version bump is safe.
+  ↳ This PR updates the `github.com/onsi/ginkgo/v2` dependency to version v2.32.1, which includes a fix for deferring `AfterAll` until repeated specs complete. It also introduces internal logic improvements in `internal/group.go` and several new test cases and matchers in the integration tests to better handle ordered and parallel spec execution.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - context: 16130 bytes
 - [#27](https://github.com/kairos-io/entangle-proxy/pull/27) — ✅ **good** — This is a minor version bump for the Go base image. Updating the base image is a standard maintenance task and generally improves security and stability by incorporating bug fixes and minor security patches. There are no known security risks associated with this specific version upgrade.
@@ -250,8 +248,8 @@ _No bot PRs yet._
     - google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes
     - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
     - context: 25809 bytes
-- [#72](https://github.com/kairos-io/go-nodepair/pull/72) — ✅ **good** — This is a routine dependency update for a testing framework. The changes are a standard version bump and the addition of a new, non-breaking feature (gomock adaptor), which is safe to auto-approve.
-  ↳ This PR updates the `github.com/onsi/gomega` dependency from v1.42.1 to v1.43.0. This version includes a new feature: a gomock adaptor extension that allows Gomega matchers to be used with gomock argument matchers.
+- [#72](https://github.com/kairos-io/go-nodepair/pull/72) — ✅ **good** — This is a minor version bump (1.42.1 to 1.43.0) and the changes primarily add a new feature (gomock adaptor extension) as documented in the release notes. There are no apparent security regressions or breaking changes that would warrant manual review.
+  ↳ This PR updates the dependency `github.com/onsi/gomega` from version v1.42.1 to v1.43.0. The update introduces a new gomock adaptor extension, which allows users to use Gomega matchers with gomock argument matchers.
     - github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes
     - context: 6924 bytes
 **[kairos-io/go-ukify](https://github.com/kairos-io/go-ukify)**
@@ -264,12 +262,20 @@ _No bot PRs yet._
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
     - context: 42433 bytes
+- [#61](https://github.com/kairos-io/go-ukify/pull/61) — ⚠️ **needs_human_verification** — The upstream project explicitly states that the old module path (`github.com/ThalesGroup/crypto11`) is deprecated and frozen, and that the module path must be updated to `github.com/eclipse-keypont/crypto11` for the new version to work. Since the PR only updates the version number and not the module path, it will likely cause build failures or incorrect imports. A human review is required to ensure the module path is correctly updated.
+  ↳ This PR updates the dependency `github.com/ThalesGroup/crypto11` from v1.6.2 to v1.6.8. However, the upstream project has migrated the module path from `github.com/ThalesGroup/crypto11` to `github.com/eclipse-keypont/crypto11`. The PR fails to update the module path in the `go.mod` file, which is necessary for the new version to function correctly and access the latest security fixes.
+    - github.com/ThalesGroup/crypto11 1.6.2→1.6.8: compare v1.6.2...v1.6.8 ✓ 2785 bytes
+    - ThalesGroup/crypto11 v1.6.7..v1.6.8 (PR body): compare v1.6.7...v1.6.8 ✓ 2070 bytes
+    - eclipse-keypont/crypto11 v1.6.5..v1.6.8 (PR body): compare v1.6.5...v1.6.8 ✓ 2070 bytes
+    - ThalesGroup/crypto11 v1.6.6..v1.6.7 (PR body): compare v1.6.6...v1.6.7 ✓ 617 bytes
+    - ThalesGroup/crypto11 v1.6.5..v1.6.6 (PR body): compare v1.6.5...v1.6.6 ✓ 936 bytes
+    - context: 14568 bytes
 - [#62](https://github.com/kairos-io/go-ukify/pull/62) — ✅ **good** — This is a minor version bump for a widely used library. The changes appear to be internal refactoring, bug fixes, and documentation updates related to spec lifecycle management. There are no apparent security risks introduced by this version update.
   ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.32.0 to v2.32.1. The changes include a fix deferring `AfterAll` until repeated specs complete, updates to internal logic for spec attempt handling, and corresponding documentation and test updates.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - context: 16020 bytes
-- [#63](https://github.com/kairos-io/go-ukify/pull/63) — ✅ **good** — This is a routine version bump for a well-known dependency, `github.com/onsi/gomega`. The release notes indicate a new feature (gomock adaptor extension), and the diffs show standard version updates in `go.mod` and `go.sum`. There are no immediate security concerns apparent from the context.
-  ↳ The PR updates the `github.com/onsi/gomega` dependency from v1.42.1 to v1.43.0, adding a gomock adaptor extension to allow Gomega matchers to be used with gomock argument matchers.
+- [#63](https://github.com/kairos-io/go-ukify/pull/63) — ✅ **good** — This is a standard dependency version bump for a mature library. The changelog indicates a new feature, and the diffs show standard version updates across `go.mod`, `go.sum`, and configuration files. There are no obvious security regressions or breaking changes indicated by the context.
+  ↳ This PR updates the `github.com/onsi/gomega` dependency from version `v1.42.1` to `v1.43.0`. This update introduces a new feature: a gomock adaptor extension for using Gomega matchers with gomock.
     - github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes
     - context: 6845 bytes
 **[kairos-io/hadron](https://github.com/kairos-io/hadron)**
@@ -344,8 +350,8 @@ _No bot PRs yet._
   ↳ This PR updates the Docker tag for the `quay.io/kairos/operator` image in the Kustomization file from version v0.1.2 to v0.1.3. This is a routine dependency update to a newer, presumably stable version.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1500 bytes
-- [#162](https://github.com/kairos-io/kairos-operator/pull/162) — ✅ **good** — This is a routine dependency update to a minor version, which is standard maintenance. There are no obvious security risks associated with this version bump, and the change is clearly documented in the changelog.
-  ↳ This PR updates the `docker.io/golang` dependency from version `1.26.5` to `1.27.0` across the project's development container configuration and Dockerfiles.
+- [#162](https://github.com/kairos-io/kairos-operator/pull/162) — ✅ **good** — This is a routine dependency update to a newer minor version of the Go language tooling. There are no immediate security concerns indicated by the version bump itself, and this change is necessary for maintaining compatibility or adopting newer features. It is safe to auto-approve.
+  ↳ This PR updates the Go version used in the devcontainer image and Dockerfiles from `1.26.5` to `1.27.0`. This is a standard minor version bump for the `docker.io/golang` dependency.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 2622 bytes
 - [#163](https://github.com/kairos-io/kairos-operator/pull/163) — ✅ **good** — This change is a dependency pinning update. Pinning a dependency to a specific digest (SHA) is a security best practice that ensures the build uses a known, immutable version of the image, mitigating risks associated with mutable tags.
@@ -524,13 +530,6 @@ _No bot PRs yet._
     - github.com/google/go-containerregistry 0.21.7→0.22.0: compare v0.21.7...v0.22.0 ✓ 40000 bytes
     - golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes
     - context: 103597 bytes
-- [#323](https://github.com/mudler/yip/pull/323) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
-    - context: 52469 bytes
-- [#324](https://github.com/mudler/yip/pull/324) — ✅ **good** — This PR updates a dependency to a patch release (v2.32.1) which contains a fix for spec timeout behavior. This is a standard maintenance update and does not introduce breaking changes or security vulnerabilities.
-  ↳ Updates the `github.com/onsi/ginkgo/v2` dependency from version v2.32.0 to v2.32.1, which includes a fix to defer `AfterAll` until repeated specs complete.
-    - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
-    - context: 16126 bytes
 - [#325](https://github.com/mudler/yip/pull/325) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes
     - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes

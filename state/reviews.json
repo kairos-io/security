@@ -246,10 +246,10 @@
     "repo": "kairos-io/entangle-proxy",
     "pr": 20,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/20",
-    "headSHA": "5c89605f50498a9adb60bcebb0d3b9468b03e0e2",
+    "headSHA": "4566499ff0f9eafca14908f465f5c16228bdf4f8",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-30",
+    "reviewedRun": "2026-08-31",
     "trace": [
       "k8s.io/api 0.24.0→0.37.0: compare v0.24.0...v0.37.0 ✓ 40000 bytes",
       "context: 129685 bytes"
@@ -271,26 +271,13 @@
   },
   {
     "repo": "kairos-io/entangle-proxy",
-    "pr": 25,
-    "url": "https://github.com/kairos-io/entangle-proxy/pull/25",
-    "headSHA": "8fb26bf2920791ae2737515cb01ca18ec495b1b9",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-24",
-    "trace": [
-      "github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes",
-      "context: 44091 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/entangle-proxy",
     "pr": 26,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/26",
-    "headSHA": "1077059426d4a7573f13c39935b3848636f3916e",
+    "headSHA": "197b644da1f5a03a23203d594b8cb71587585aa4",
     "verdict": "good",
-    "reasoning": "This is a routine version bump for a dependency from the official upstream repository. The changelog indicates a fix for spec lifecycle management, and there are no indications of any security vulnerabilities or malicious code introduced by this update. Therefore, it is safe to auto-approve.",
-    "changesSummary": "This PR updates the dependency `github.com/onsi/ginkgo/v2` from version v2.32.0 to v2.32.1. The update includes a fix to defer `AfterAll` until repeated specs complete, improving spec lifecycle management.",
-    "reviewedRun": "2026-08-29",
+    "reasoning": "The PR is a patch release (v2.32.0 to v2.32.1) and includes a bug fix. The changes are primarily internal logic improvements, documentation updates, and test enhancements, which do not introduce new security vulnerabilities. The version bump is safe.",
+    "changesSummary": "This PR updates the `github.com/onsi/ginkgo/v2` dependency to version v2.32.1, which includes a fix for deferring `AfterAll` until repeated specs complete. It also introduces internal logic improvements in `internal/group.go` and several new test cases and matchers in the integration tests to better handle ordered and parallel spec execution.",
+    "reviewedRun": "2026-08-31",
     "trace": [
       "github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes",
       "context: 16130 bytes"
@@ -368,11 +355,11 @@
     "repo": "kairos-io/go-nodepair",
     "pr": 72,
     "url": "https://github.com/kairos-io/go-nodepair/pull/72",
-    "headSHA": "f3e022764af9241431bf0541153ece540a6522f9",
+    "headSHA": "0a4091f6ddfbbfc09e7a472aec7e136de1fd6588",
     "verdict": "good",
-    "reasoning": "This is a routine dependency update for a testing framework. The changes are a standard version bump and the addition of a new, non-breaking feature (gomock adaptor), which is safe to auto-approve.",
-    "changesSummary": "This PR updates the `github.com/onsi/gomega` dependency from v1.42.1 to v1.43.0. This version includes a new feature: a gomock adaptor extension that allows Gomega matchers to be used with gomock argument matchers.",
-    "reviewedRun": "2026-08-28",
+    "reasoning": "This is a minor version bump (1.42.1 to 1.43.0) and the changes primarily add a new feature (gomock adaptor extension) as documented in the release notes. There are no apparent security regressions or breaking changes that would warrant manual review.",
+    "changesSummary": "This PR updates the dependency `github.com/onsi/gomega` from version v1.42.1 to v1.43.0. The update introduces a new gomock adaptor extension, which allows users to use Gomega matchers with gomock argument matchers.",
+    "reviewedRun": "2026-08-31",
     "trace": [
       "github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes",
       "context: 6924 bytes"
@@ -408,6 +395,24 @@
   },
   {
     "repo": "kairos-io/go-ukify",
+    "pr": 61,
+    "url": "https://github.com/kairos-io/go-ukify/pull/61",
+    "headSHA": "068e32b1581018599387da07806035f836c5d5ec",
+    "verdict": "needs_human_verification",
+    "reasoning": "The upstream project explicitly states that the old module path (`github.com/ThalesGroup/crypto11`) is deprecated and frozen, and that the module path must be updated to `github.com/eclipse-keypont/crypto11` for the new version to work. Since the PR only updates the version number and not the module path, it will likely cause build failures or incorrect imports. A human review is required to ensure the module path is correctly updated.",
+    "changesSummary": "This PR updates the dependency `github.com/ThalesGroup/crypto11` from v1.6.2 to v1.6.8. However, the upstream project has migrated the module path from `github.com/ThalesGroup/crypto11` to `github.com/eclipse-keypont/crypto11`. The PR fails to update the module path in the `go.mod` file, which is necessary for the new version to function correctly and access the latest security fixes.",
+    "reviewedRun": "2026-08-31",
+    "trace": [
+      "github.com/ThalesGroup/crypto11 1.6.2→1.6.8: compare v1.6.2...v1.6.8 ✓ 2785 bytes",
+      "ThalesGroup/crypto11 v1.6.7..v1.6.8 (PR body): compare v1.6.7...v1.6.8 ✓ 2070 bytes",
+      "eclipse-keypont/crypto11 v1.6.5..v1.6.8 (PR body): compare v1.6.5...v1.6.8 ✓ 2070 bytes",
+      "ThalesGroup/crypto11 v1.6.6..v1.6.7 (PR body): compare v1.6.6...v1.6.7 ✓ 617 bytes",
+      "ThalesGroup/crypto11 v1.6.5..v1.6.6 (PR body): compare v1.6.5...v1.6.6 ✓ 936 bytes",
+      "context: 14568 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/go-ukify",
     "pr": 62,
     "url": "https://github.com/kairos-io/go-ukify/pull/62",
     "headSHA": "a09d23f07344140e1e0d02e52f9e141423f84a41",
@@ -424,11 +429,11 @@
     "repo": "kairos-io/go-ukify",
     "pr": 63,
     "url": "https://github.com/kairos-io/go-ukify/pull/63",
-    "headSHA": "886e8686de9a15a396bbc5cdc5649f969653ae52",
+    "headSHA": "9355be3fd64a15fa4e424bb9e0978aa2ccd527be",
     "verdict": "good",
-    "reasoning": "This is a routine version bump for a well-known dependency, `github.com/onsi/gomega`. The release notes indicate a new feature (gomock adaptor extension), and the diffs show standard version updates in `go.mod` and `go.sum`. There are no immediate security concerns apparent from the context.",
-    "changesSummary": "The PR updates the `github.com/onsi/gomega` dependency from v1.42.1 to v1.43.0, adding a gomock adaptor extension to allow Gomega matchers to be used with gomock argument matchers.",
-    "reviewedRun": "2026-08-28",
+    "reasoning": "This is a standard dependency version bump for a mature library. The changelog indicates a new feature, and the diffs show standard version updates across `go.mod`, `go.sum`, and configuration files. There are no obvious security regressions or breaking changes indicated by the context.",
+    "changesSummary": "This PR updates the `github.com/onsi/gomega` dependency from version `v1.42.1` to `v1.43.0`. This update introduces a new feature: a gomock adaptor extension for using Gomega matchers with gomock.",
+    "reviewedRun": "2026-08-31",
     "trace": [
       "github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes",
       "context: 6845 bytes"
@@ -664,11 +669,11 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 162,
     "url": "https://github.com/kairos-io/kairos-operator/pull/162",
-    "headSHA": "a90a07397bdc0c9ad9107b7c7dd377fee373c4d3",
+    "headSHA": "1877ebbde9a99cd4ec2f72b4152de2ad5ff8ff60",
     "verdict": "good",
-    "reasoning": "This is a routine dependency update to a minor version, which is standard maintenance. There are no obvious security risks associated with this version bump, and the change is clearly documented in the changelog.",
-    "changesSummary": "This PR updates the `docker.io/golang` dependency from version `1.26.5` to `1.27.0` across the project's development container configuration and Dockerfiles.",
-    "reviewedRun": "2026-08-26",
+    "reasoning": "This is a routine dependency update to a newer minor version of the Go language tooling. There are no immediate security concerns indicated by the version bump itself, and this change is necessary for maintaining compatibility or adopting newer features. It is safe to auto-approve.",
+    "changesSummary": "This PR updates the Go version used in the devcontainer image and Dockerfiles from `1.26.5` to `1.27.0`. This is a standard minor version bump for the `docker.io/golang` dependency.",
+    "reviewedRun": "2026-08-31",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 2622 bytes"
@@ -747,10 +752,10 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 172,
     "url": "https://github.com/kairos-io/kairos-operator/pull/172",
-    "headSHA": "0112bd57db3c41995500887e607675da7be7f021",
+    "headSHA": "2c5df3ae0ce61226c9e19bdd2687b68bcb687cab",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-29",
+    "reviewedRun": "2026-08-31",
     "trace": [
       "k8s.io/api 0.36.3→0.37.0: compare v0.36.3...v0.37.0 ✓ 40000 bytes",
       "k8s.io/apimachinery 0.36.3→0.37.0: compare v0.36.3...v0.37.0 ✓ 40000 bytes",
@@ -761,10 +766,10 @@
     "repo": "kairos-io/netboot",
     "pr": 46,
     "url": "https://github.com/kairos-io/netboot/pull/46",
-    "headSHA": "b3cf9efef59d382cfa6937238b3d2b42e3f64a74",
+    "headSHA": "10ef24d943fcfb826d6e83b564c10768acab6b58",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-21",
+    "reviewedRun": "2026-08-31",
     "trace": [
       "golang.org/x/crypto 0.53.0→0.55.0: compare v0.53.0...v0.55.0 ✓ 40000 bytes",
       "golang.org/x/net 0.56.0→0.58.0: compare v0.56.0...v0.58.0 ✓ 40000 bytes",
@@ -818,10 +823,10 @@
     "repo": "kairos-io/provider-kairos",
     "pr": 965,
     "url": "https://github.com/kairos-io/provider-kairos/pull/965",
-    "headSHA": "7e0d4a935f74a7294f2ac1049abb1428ee83ec07",
+    "headSHA": "3962bb92d15b099a4d0d7359db7dc69a3fd9cb7b",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-29",
+    "reviewedRun": "2026-08-31",
     "trace": [
       "github.com/mudler/edgevpn 0.35.3→0.35.4: compare v0.35.3...v0.35.4 ✓ 40000 bytes",
       "github.com/labstack/echo/v4 4.15.3→4.15.4: compare v4.15.3...v4.15.4 ✓ 34118 bytes",
@@ -1208,39 +1213,12 @@
   },
   {
     "repo": "mudler/yip",
-    "pr": 323,
-    "url": "https://github.com/mudler/yip/pull/323",
-    "headSHA": "0f427ffbf2b0fd30de3d4189c2376c5b20055ab1",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-30",
-    "trace": [
-      "github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes",
-      "context: 52469 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/yip",
-    "pr": 324,
-    "url": "https://github.com/mudler/yip/pull/324",
-    "headSHA": "ce373d989f40d339a58549570289ac96e77c5ef4",
-    "verdict": "good",
-    "reasoning": "This PR updates a dependency to a patch release (v2.32.1) which contains a fix for spec timeout behavior. This is a standard maintenance update and does not introduce breaking changes or security vulnerabilities.",
-    "changesSummary": "Updates the `github.com/onsi/ginkgo/v2` dependency from version v2.32.0 to v2.32.1, which includes a fix to defer `AfterAll` until repeated specs complete.",
-    "reviewedRun": "2026-08-29",
-    "trace": [
-      "github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes",
-      "context: 16126 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/yip",
     "pr": 325,
     "url": "https://github.com/mudler/yip/pull/325",
-    "headSHA": "f0fc423828619f31ee0e590fc4d0e7e4a74eeac6",
+    "headSHA": "3a2cd8fea8b64d3acc3d71c9e9a51c410befc274",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-30",
+    "reviewedRun": "2026-08-31",
     "trace": [
       "golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes",
       "golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes",

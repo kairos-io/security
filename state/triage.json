@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30",
+  "generatedAt": "2026-08-31",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
   "focus": [
@@ -12,5 +12,5 @@
     "d50930e6a4e471e45f538641397d8752f718a144ff26989672993ab3ef2c6b98": "Medium severity vulnerability (CVE-2026-71225) in libkcapi.",
     "d68f1758240fd9b832772e30abf3567c520a2137d7e44614f24797c6e9a52eee": "High severity vulnerability (CVE-2026-71226) in libkcapi."
   },
-  "narrative": "The most urgent finding is F1, which has a high severity. It is recommended to prioritize remediation for F1, followed by F2 and F3, which are medium severity issues affecting the libkcapi package."
+  "narrative": "The most urgent item is the high-severity vulnerability (F1) in libkcapi. Review the medium-severity findings (F2 and F3) for immediate remediation planning."
 }
