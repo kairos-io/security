@@ -1,16 +1,14 @@
 {
-  "generatedAt": "2026-08-31",
+  "generatedAt": "2026-09-01",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
   "focus": [
-    "d68f1758240fd9b832772e30abf3567c520a2137d7e44614f24797c6e9a52eee",
-    "4d07ef852ee2a45e5e1553cb5fb271c70ed0e1de54d9440e8239fa4bdd63a326",
-    "d50930e6a4e471e45f538641397d8752f718a144ff26989672993ab3ef2c6b98"
+    "d68f1758240fd9b832772e30abf3567c520a2137d7e44614f24797c6e9a52eee"
   ],
   "summaries": {
-    "4d07ef852ee2a45e5e1553cb5fb271c70ed0e1de54d9440e8239fa4bdd63a326": "Medium severity vulnerability (CVE-2026-71227) in libkcapi.",
-    "d50930e6a4e471e45f538641397d8752f718a144ff26989672993ab3ef2c6b98": "Medium severity vulnerability (CVE-2026-71225) in libkcapi.",
-    "d68f1758240fd9b832772e30abf3567c520a2137d7e44614f24797c6e9a52eee": "High severity vulnerability (CVE-2026-71226) in libkcapi."
+    "4d07ef852ee2a45e5e1553cb5fb271c70ed0e1de54d9440e8239fa4bdd63a326": "Medium severity vulnerability (CVE-2026-71227) found in libkcapi.",
+    "d50930e6a4e471e45f538641397d8752f718a144ff26989672993ab3ef2c6b98": "Medium severity vulnerability (CVE-2026-71225) found in libkcapi.",
+    "d68f1758240fd9b832772e30abf3567c520a2137d7e44614f24797c6e9a52eee": "High severity vulnerability (CVE-2026-71226) found in libkcapi."
   },
-  "narrative": "The most urgent item is the high-severity vulnerability (F1) in libkcapi. Review the medium-severity findings (F2 and F3) for immediate remediation planning."
+  "narrative": "The most urgent finding is F1, which has a high severity rating. This issue affects the libkcapi package within the kairos-io/hadron repository and should be addressed immediately. Medium severity findings F2 and F3 should be reviewed next."
 }

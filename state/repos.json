@@ -97,14 +97,6 @@
     "scan": {}
   },
   {
-    "repo": "kairos-io/provider-kairos",
-    "kind": "org",
-    "branch": "main",
-    "criticality": "medium",
-    "artifacts": null,
-    "scan": {}
-  },
-  {
     "repo": "kairos-io/provider-kubernetes",
     "kind": "org",
     "branch": "main",
