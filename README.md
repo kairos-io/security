@@ -8,6 +8,11 @@ Central place for the security state across the repositories we maintain — the
 source/dependency CVEs, and GitHub security alerts into a single dashboard, and
 tells us what to focus on.
 
+> **Found a bug, or want to request a feature?** Open it on
+> [kairos-io/kairos](https://github.com/kairos-io/kairos/issues), including
+> issues about this repository. Every Kairos issue lives in one place, so you
+> never have to work out which repository to file against.
+
 ## What it does
 
 `ksec` is a Go CLI run on a schedule by GitHub Actions as a sequence of phases.
