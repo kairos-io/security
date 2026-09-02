@@ -3,10 +3,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 674,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/674",
-    "headSHA": "58ec68fe03e6504c88503a4644e08f9fc0f122d6",
+    "headSHA": "7fa88f253d053ccf350319c404aba37423867eca",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-09-01",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "microsoft/TypeScript v6.0.3..2bd066d87f5bafd315be9f40889d0a60b9e58e0b (PR body): compare v6.0.3...2bd066d87f5bafd315be9f40889d0a60b9e58e0b failed/empty (no upstream diff)",
       "microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes",
@@ -18,10 +18,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 699,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/699",
-    "headSHA": "ecab1230f6f1aa2d73036ec389becfd28f8cb94e",
+    "headSHA": "cfa8f930b467a0ca378c2fec90c94b470727d9c8",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-09-01",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "typescript-eslint/typescript-eslint v8.68.0..v8.69.0 (PR body): compare v8.68.0...v8.69.0 ✓ 40000 bytes",
       "typescript-eslint/typescript-eslint v8.67.0..v8.68.0 (PR body): compare v8.67.0...v8.68.0 ✓ 40000 bytes",
@@ -32,10 +32,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 700,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/700",
-    "headSHA": "1a9ad54e31576c98e6b970c58391446eee0452ea",
+    "headSHA": "25ce2f4b5a33eaeadfe7167bb5412d161ed72290",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-09-01",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "vitejs/vite v8.2.1..v8.2.2 (PR body): compare v8.2.1...v8.2.2 ✓ 40000 bytes",
       "vitejs/vite v8.2.0..v8.2.1 (PR body): compare v8.2.0...v8.2.1 ✓ 40000 bytes",
@@ -46,10 +46,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 712,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/712",
-    "headSHA": "55090c296f93f84de1da65e1ff7caaae18771118",
+    "headSHA": "b17192433677af4c205dfd795ec09ed1c9f51dc3",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-09-01",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "github.com/foxboron/sbctl 0.0.0-20250917190250-6b8ed8715652→0.0.0-20260802183653-a7168106e003: compare 6b8ed8715652...a7168106e003 ✓ 18927 bytes",
       "context: 21798 bytes"
@@ -72,11 +72,11 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 732,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/732",
-    "headSHA": "b54da43204d0a1ef0a17c5187d60e84f8cb1a005",
+    "headSHA": "a90f760b586f05e9c2be9efd92f630a3d2fe1f80",
     "verdict": "good",
-    "reasoning": "The primary change is a dependency digest update for github.com/spectrocloud/peg, which is a standard maintenance operation. The other changes involve updating the Go version and several golang.org/x packages, which are also common maintenance tasks. There are no obvious breaking changes indicated by the diffs, making this safe for auto-approval.",
-    "changesSummary": "This PR updates the digest for the github.com/spectrocloud/peg dependency from `97c9703` to `d8627da`. It also includes several other dependency updates, such as upgrading the Go version to 1.25.0 and updating several packages within the golang.org/x suite.",
-    "reviewedRun": "2026-09-01",
+    "reasoning": "The change is a routine dependency digest update for a known package. There are no apparent security vulnerabilities introduced by this change, and it is a standard maintenance task. Therefore, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the dependency `github.com/spectrocloud/peg` by changing its digest from `97c9703` to `d8627da`. This is a routine maintenance update to pull in a newer version of the package.",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "github.com/spectrocloud/peg 0.0.0-20260123084329-97c9703181cf→0.0.0-20260813125620-d8627da0983c: compare 97c9703181cf...d8627da0983c ✓ 8447 bytes",
       "context: 11388 bytes"
@@ -86,10 +86,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 744,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/744",
-    "headSHA": "ca66576ef7686bb2f55b355c6a45c5d2fd368a36",
+    "headSHA": "6f62133ab486bf00d8d16c0efea8ae4dc8e9eed0",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-09-01",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "vitejs/vite-plugin-react 39b31735bf79c2dd380eedaba7ed849256f92a29..04cac5020e349f452d76c5a4f6d788ad4b38930a (PR body): compare 39b31735bf79c2dd380eedaba7ed849256f92a29...04cac5020e349f452d76c5a4f6d788ad4b38930a ✓ 40000 bytes",
       "vitejs/vite-plugin-react 68c0cb8796ce18bd049c3d05c5210eaf0617eac0..39b31735bf79c2dd380eedaba7ed849256f92a29 (PR body): compare 68c0cb8796ce18bd049c3d05c5210eaf0617eac0...39b31735bf79c2dd380eedaba7ed849256f92a29 ✓ 40000 bytes",
@@ -100,10 +100,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 747,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/747",
-    "headSHA": "b289187505e0dafa307e0637818ecde965dab99e",
+    "headSHA": "7d52ff0b3ed522adafa82730de1544a82850ecb4",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-09-01",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "cypress-io/cypress v15.21.0..v15.21.1 (PR body): compare v15.21.0...v15.21.1 ✓ 32157 bytes",
       "cypress-io/cypress v15.20.1..v15.21.0 (PR body): compare v15.20.1...v15.21.0 failed/empty (no upstream diff)",
@@ -115,10 +115,10 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 748,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/748",
-    "headSHA": "f63861be3b2e0c7ab4537b19ac832ba87a99a056",
+    "headSHA": "be461ff475c48ca80f13af5cfbb4241cdb9b6de9",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-09-01",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "eslint/eslint v10.9.0..5c8c2417b9ff462f2dc4e54a062c59135b45b845 (PR body): compare v10.9.0...5c8c2417b9ff462f2dc4e54a062c59135b45b845 ✓ 7871 bytes",
       "eslint/eslint v10.9.0..v10.9.1 (PR body): compare v10.9.0...v10.9.1 ✓ 7871 bytes",
@@ -145,13 +145,29 @@
     "repo": "kairos-io/AuroraBoot",
     "pr": 757,
     "url": "https://github.com/kairos-io/AuroraBoot/pull/757",
-    "headSHA": "15178679331a604073fac2ed73bd23ae54c22ce7",
+    "headSHA": "3fde6304232d604b612e4d8665898800bd855c88",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-09-01",
+    "reviewedRun": "2026-09-02",
     "trace": [
-      "github.com/kairos-io/kairos/v4 4.2.1-0.20260825070803-b5e8809b4aee→4.2.1-0.20260831123204-cb07eba9031d: compare b5e8809b4aee...cb07eba9031d ✓ 40000 bytes",
-      "context: 43022 bytes"
+      "github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes",
+      "github.com/kairos-io/kairos/v4 4.2.1-0.20260825070803-b5e8809b4aee→4.2.1-0.20260901161438-8375a4abb14a: compare b5e8809b4aee...8375a4abb14a ✓ 40000 bytes",
+      "github.com/go-openapi/jsonreference 0.20.2→0.21.0: compare v0.20.2...v0.21.0 ✓ 29046 bytes",
+      "context: 87353 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/AuroraBoot",
+    "pr": 765,
+    "url": "https://github.com/kairos-io/AuroraBoot/pull/765",
+    "headSHA": "cbbd485c9d284920b1df229aea46feb812ba2b22",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency digest update, which is a standard maintenance task. The change only affects the version pointers in `go.mod` and `go.sum` and does not introduce any new code or security vulnerabilities. Therefore, it is safe to auto-approve.",
+    "changesSummary": "This PR updates the version of the `github.com/kairos-io/netboot` dependency by replacing the old digest (`ddd9ffa`) with the new one (`25854a1`). This is a routine maintenance update to align the project with the latest upstream release.",
+    "reviewedRun": "2026-09-02",
+    "trace": [
+      "github.com/kairos-io/netboot 0.0.0-20260623081620-ddd9ffa00872→0.0.0-20260901080757-25854a157f3f: compare ddd9ffa00872...25854a157f3f ✓ 990 bytes",
+      "context: 3979 bytes"
     ]
   },
   {
@@ -176,21 +192,6 @@
       "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
       "golang.org/x/net 0.55.0→0.56.0: compare v0.55.0...v0.56.0 ✓ 40000 bytes",
       "context: 97666 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/entangle-proxy",
-    "pr": 5,
-    "url": "https://github.com/kairos-io/entangle-proxy/pull/5",
-    "headSHA": "56b4b4c64ccbc6a919821065f31c316419eb6438",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-30",
-    "trace": [
-      "github.com/onsi/gomega 1.40.0→1.43.0: compare v1.40.0...v1.43.0 failed/empty (no upstream diff)",
-      "golang.org/x/crypto 0.52.0→0.53.0: compare v0.52.0...v0.53.0 ✓ 40000 bytes",
-      "golang.org/x/net 0.55.0→0.56.0: compare v0.55.0...v0.56.0 ✓ 40000 bytes",
-      "context: 88494 bytes"
     ]
   },
   {
@@ -232,10 +233,10 @@
     "repo": "kairos-io/entangle-proxy",
     "pr": 20,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/20",
-    "headSHA": "4566499ff0f9eafca14908f465f5c16228bdf4f8",
+    "headSHA": "5650171bbce617d7d8f725cf015fbae11da24d6f",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-31",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "k8s.io/api 0.24.0→0.37.0: compare v0.24.0...v0.37.0 ✓ 40000 bytes",
       "context: 129685 bytes"
@@ -259,27 +260,13 @@
     "repo": "kairos-io/entangle-proxy",
     "pr": 25,
     "url": "https://github.com/kairos-io/entangle-proxy/pull/25",
-    "headSHA": "cc88a24461dc904c7631148ed96f4879efeac1a0",
+    "headSHA": "6ec7e753dfc271ab741aa45bba4a31faaacc5ec5",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-09-01",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "github.com/go-logr/logr 1.4.3→1.4.4: compare v1.4.3...v1.4.4 ✓ 40000 bytes",
       "context: 44091 bytes"
-    ]
-  },
-  {
-    "repo": "kairos-io/entangle-proxy",
-    "pr": 26,
-    "url": "https://github.com/kairos-io/entangle-proxy/pull/26",
-    "headSHA": "197b644da1f5a03a23203d594b8cb71587585aa4",
-    "verdict": "good",
-    "reasoning": "The PR is a patch release (v2.32.0 to v2.32.1) and includes a bug fix. The changes are primarily internal logic improvements, documentation updates, and test enhancements, which do not introduce new security vulnerabilities. The version bump is safe.",
-    "changesSummary": "This PR updates the `github.com/onsi/ginkgo/v2` dependency to version v2.32.1, which includes a fix for deferring `AfterAll` until repeated specs complete. It also introduces internal logic improvements in `internal/group.go` and several new test cases and matchers in the integration tests to better handle ordered and parallel spec execution.",
-    "reviewedRun": "2026-08-31",
-    "trace": [
-      "github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes",
-      "context: 16130 bytes"
     ]
   },
   {
@@ -516,108 +503,107 @@
     "repo": "kairos-io/kairos",
     "pr": 4347,
     "url": "https://github.com/kairos-io/kairos/pull/4347",
-    "headSHA": "4cbed8de22c9dc68a57fe0bc1004b7e47b6075c6",
+    "headSHA": "7d2e96c7c3488441161039d3d63472bc11cc4c29",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-20",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "docker/setup-buildx-action bb05f3f5519dd87d3ba754cc423b652a5edd6d2c..37fe631027851001ddb9b187196cc803df7f5f0e (PR body): compare bb05f3f5519dd87d3ba754cc423b652a5edd6d2c...37fe631027851001ddb9b187196cc803df7f5f0e ✓ 40000 bytes",
-      "context: 43866 bytes"
+      "context: 43837 bytes"
     ]
   },
   {
     "repo": "kairos-io/kairos",
     "pr": 4348,
     "url": "https://github.com/kairos-io/kairos/pull/4348",
-    "headSHA": "c8ae5801f5faf13a024de410515a867600186b26",
+    "headSHA": "04e76d3d36cf5f07c44618b0d40d249062cf72e6",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-20",
+    "reviewedRun": "2026-09-02",
     "trace": [
-      "github/codeql-action v4.37.6..v4.37.7 (PR body): compare v4.37.6...v4.37.7 ✓ 40000 bytes",
-      "context: 42447 bytes"
+      "github/codeql-action v4.37.8..v4.37.9 (PR body): compare v4.37.8...v4.37.9 ✓ 36753 bytes",
+      "github/codeql-action v4.37.7..v4.37.8 (PR body): compare v4.37.7...v4.37.8 ✓ 40000 bytes",
+      "context: 79475 bytes"
     ]
   },
   {
     "repo": "kairos-io/kairos",
     "pr": 4349,
     "url": "https://github.com/kairos-io/kairos/pull/4349",
-    "headSHA": "25f65994fa866788e6c644f5fb50d31af5230440",
+    "headSHA": "7a9d9a70923002535f01a7d7d3009836953a60db",
     "verdict": "good",
-    "reasoning": "The change is a minor version bump for a security scanning action. The changelog indicates that the updates are bug fixes and feature additions, which are generally considered safe. The PR is generated by an automated tool (Mend Renovate) and the diffs confirm only version bumps are being applied across multiple files. No malicious code or breaking changes are apparent from the context.",
-    "changesSummary": "This PR updates the `google/osv-scanner-action` and related actions from version v2.5.0 to v2.5.1. The update includes bug fixes and new support for environment variables, such as `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY`, and improves local vulnerability matching.",
-    "reviewedRun": "2026-08-20",
+    "reasoning": "The PR is a routine maintenance update to a minor version of a security scanning action. The release notes explicitly list fixes that improve functionality and correctness, such as preserving package namespaces and fixing local vulnerability matching issues. There are no indications of new security vulnerabilities introduced by this update.",
+    "changesSummary": "This PR updates the google/osv-scanner-action to v2.5.1, which includes fixes for preserving package namespaces, adding support for a local DB cache directory environment variable, and resolving issues with local vulnerability matching.",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes",
-      "context: 12069 bytes"
+      "context: 12028 bytes"
     ]
   },
   {
     "repo": "kairos-io/kairos",
     "pr": 4352,
     "url": "https://github.com/kairos-io/kairos/pull/4352",
-    "headSHA": "9c49493441f11b80fac9466c84f0875e34d1fe0b",
+    "headSHA": "3b11c511c986f2a17c6ab84be14fddb26a044a93",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-21",
+    "reviewedRun": "2026-09-02",
     "trace": [
-      "k8s.io/api 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 3078 bytes",
-      "k8s.io/apimachinery 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 3427 bytes",
-      "k8s.io/client-go 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 7769 bytes",
-      "k8s.io/mount-utils 0.36.3→0.36.4: compare v0.36.3...v0.36.4 ✓ 1432 bytes",
-      "context: 22199 bytes"
+      "k8s.io/api 0.36.3→0.37.0: compare v0.36.3...v0.37.0 ✓ 40000 bytes",
+      "k8s.io/apimachinery 0.36.3→0.37.0: compare v0.36.3...v0.37.0 ✓ 40000 bytes",
+      "context: 95955 bytes"
     ]
   },
   {
     "repo": "kairos-io/kairos",
     "pr": 4370,
     "url": "https://github.com/kairos-io/kairos/pull/4370",
-    "headSHA": "a4efd3af60f8e07baa7332392e708201101d44c5",
+    "headSHA": "da715a33dd835b2a6e6a62fd5a9fae07b2bcf81d",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-22",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "github.com/google/go-attestation 0.6.1→0.6.4: compare v0.6.1...v0.6.4 ✓ 40000 bytes",
       "google/go-attestation v0.6.3..v0.6.4 (PR body): compare v0.6.3...v0.6.4 ✓ 17615 bytes",
-      "context: 63581 bytes"
+      "context: 63714 bytes"
     ]
   },
   {
     "repo": "kairos-io/kairos",
     "pr": 4371,
     "url": "https://github.com/kairos-io/kairos/pull/4371",
-    "headSHA": "86df01561ff07d2470387c40e859f457fc9f3ad5",
+    "headSHA": "ec528cc51d7f4036822d66ff526312e856ce3e11",
     "verdict": "good",
-    "reasoning": "This change is a routine dependency update for the golang language across several build components. Updating to a newer, stable minor version is a standard maintenance practice and does not introduce any apparent security risks. Therefore, it is safe to auto-approve.",
-    "changesSummary": "This PR updates the base Docker image tag for the golang dependency across multiple build stages in several Dockerfiles (e.g., from 1.26.6-bookworm to 1.27.0-bookworm). This is a routine maintenance update to incorporate minor version improvements and security patches.",
-    "reviewedRun": "2026-08-22",
+    "reasoning": "This PR updates the base Docker image tags for the `golang` language in two Dockerfiles from version 1.26/1.26.6 to 1.27/1.27.0. This is a routine minor version bump for a core dependency and is generally safe.",
+    "changesSummary": "This PR updates the base Docker image tags for the `golang` language in two Dockerfiles: changing `golang:1.26` to `golang:1.27` in `examples/bundle/Dockerfile` and changing `golang:1.26.6` to `golang:1.27.0` in `kcrypt/Dockerfile`.",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
-      "context: 3298 bytes"
+      "context: 2103 bytes"
     ]
   },
   {
     "repo": "kairos-io/kairos",
     "pr": 4373,
     "url": "https://github.com/kairos-io/kairos/pull/4373",
-    "headSHA": "1facca527a6fd2a4c53ff3d7e147950509705287",
+    "headSHA": "96dfc95a2c801c26a9a035789d88fca8b8af6b67",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-22",
+    "reviewedRun": "2026-09-02",
     "trace": [
-      "github.com/sirupsen/logrus 1.9.4→1.10.1: compare v1.9.4...v1.10.1 ✓ 40000 bytes",
-      "sirupsen/logrus v1.10.0..v1.10.1 (PR body): compare v1.10.0...v1.10.1 ✓ 40000 bytes",
-      "context: 99693 bytes"
+      "github.com/sirupsen/logrus 1.9.4→1.10.2: compare v1.9.4...v1.10.2 ✓ 40000 bytes",
+      "sirupsen/logrus v1.10.1..v1.10.2 (PR body): compare v1.10.1...v1.10.2 ✓ 1852 bytes",
+      "context: 63394 bytes"
     ]
   },
   {
     "repo": "kairos-io/kairos",
     "pr": 4406,
     "url": "https://github.com/kairos-io/kairos/pull/4406",
-    "headSHA": "9aec8dcb1c895b81e1ee105ca28ea345c314606f",
+    "headSHA": "ae004c1be42feb7639c03b1430b49091fc220558",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-28",
+    "reviewedRun": "2026-09-02",
     "trace": [
       "azure/login f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca..7ddb5af1ef8758cf1353cf3b42f940aee27ba21c (PR body): compare f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca...7ddb5af1ef8758cf1353cf3b42f940aee27ba21c ✓ 40000 bytes",
       "context: 42227 bytes"
@@ -1236,19 +1222,6 @@
       "golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes",
       "golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes",
       "context: 97415 bytes"
-    ]
-  },
-  {
-    "repo": "mudler/yip",
-    "pr": 326,
-    "url": "https://github.com/mudler/yip/pull/326",
-    "headSHA": "0150557cd3dee030ca81bb90ae4d3ac110849cfb",
-    "verdict": "needs_human_verification",
-    "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-28",
-    "trace": [
-      "github.com/containerd/containerd/v2 2.3.3→2.3.4: compare v2.3.3...v2.3.4 ✓ 40000 bytes",
-      "context: 53007 bytes"
     ]
   },
   {
