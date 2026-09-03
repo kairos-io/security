@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02",
+  "generatedAt": "2026-09-03",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
   "focus": [
@@ -12,5 +12,5 @@
     "be5ccd1aeae3e5f72a68426ebdc3c14a30b542f8de71b9b8b13738c3acf80092": "High severity vulnerability in rsync package (CVE-2026-70457).",
     "d68f1758240fd9b832772e30abf3567c520a2137d7e44614f24797c6e9a52eee": "High severity vulnerability in libkcapi package (CVE-2026-71226)."
   },
-  "narrative": "The immediate focus should be on the three high-severity vulnerabilities identified in the rsync and libkcapi packages. These findings require urgent remediation to mitigate critical security risks."
+  "narrative": "The most urgent findings are three high-severity vulnerabilities affecting the rsync and libkcapi packages. These items require immediate remediation due to their high severity rating."
 }
