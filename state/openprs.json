@@ -1,18 +1,26 @@
 [
   {
     "repo": "kairos-io/hadron",
-    "number": 559,
-    "title": "Automatic version bumps for libffi, libkcapi",
-    "author": "ci-robbot",
-    "url": "https://github.com/kairos-io/hadron/pull/559",
-    "source": "human"
-  },
-  {
-    "repo": "kairos-io/hadron",
     "number": 560,
     "title": "Automatic version bumps for busybox",
     "author": "ci-robbot",
     "url": "https://github.com/kairos-io/hadron/pull/560",
+    "source": "human"
+  },
+  {
+    "repo": "kairos-io/hadron",
+    "number": 586,
+    "title": "deps: bump busybox to 1.38.0 and regenerate minimal.config",
+    "author": "itxaka-agent",
+    "url": "https://github.com/kairos-io/hadron/pull/586",
+    "source": "human"
+  },
+  {
+    "repo": "kairos-io/hadron",
+    "number": 587,
+    "title": "feat: ship upstream less-704 instead of busybox's applet",
+    "author": "itxaka-agent",
+    "url": "https://github.com/kairos-io/hadron/pull/587",
     "source": "human"
   }
 ]
