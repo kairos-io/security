@@ -1,25 +1,26 @@
 # Kairos Security Dashboard
 
-_Updated 2026-09-05._
+_Updated 2026-09-06._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
 ## 📋 This run
 
 - **Scanned:** 18 repos · ⚠️ 1 errored
-- **Findings:** 40 (0 critical / 3 high / 4 medium / 0 low / 33 unknown)
+- **Findings:** 37 (0 critical / 2 high / 2 medium / 0 low / 33 unknown)
 - **Informational (not counted):** 59
 - **CVE-related PRs:** 3 (3 human)
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
-- **Why:** 40 finding(s); 0 PR(s) open.
+- **Why:** 37 finding(s); 0 PR(s) open.
 
-> The most urgent security findings are high-severity vulnerabilities affecting the rsync and libkcapi packages. Immediate attention is required to mitigate these critical risks.
+> The most urgent findings involve high-severity vulnerabilities in the `rsync` package and medium-severity issues in the `expat` package. Immediate attention is required for these critical issues.
 
 ## 🔥 Focus now
 
-- [CVE-2026-53789](https://osv.dev/vulnerability/ALPINE-CVE-2026-53789) — High severity vulnerability in rsync package.
-- [CVE-2026-70457](https://osv.dev/vulnerability/ALPINE-CVE-2026-70457) — High severity vulnerability in rsync package.
-- [CVE-2026-71226](https://osv.dev/vulnerability/ALPINE-CVE-2026-71226) — High severity vulnerability in libkcapi package.
+- [CVE-2026-53789](https://osv.dev/vulnerability/ALPINE-CVE-2026-53789) — High severity vulnerability in rsync.
+- [CVE-2026-70457](https://osv.dev/vulnerability/ALPINE-CVE-2026-70457) — High severity vulnerability in rsync.
+- [CVE-2026-76957](https://osv.dev/vulnerability/ALPINE-CVE-2026-76957) — Medium severity vulnerability in expat.
+- [CVE-2026-76956](https://osv.dev/vulnerability/ALPINE-CVE-2026-76956) — Medium severity vulnerability in expat.
 
 ## 🌊 Waterfall fronts
 
@@ -29,7 +30,7 @@ _None._
 
 | Repo | Critical | High | Medium | Total | Status |
 |---|---|---|---|---|---|
-| [kairos-io/hadron](https://github.com/kairos-io/hadron) | 0 | 3 | 4 | 7 | ok |
+| [kairos-io/hadron](https://github.com/kairos-io/hadron) | 0 | 2 | 2 | 4 | ok |
 | [kairos-io/AuroraBoot](https://github.com/kairos-io/AuroraBoot) | 0 | 0 | 0 | 0 | ⚠️ errors |
 | [kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
 | [kairos-io/entangle](https://github.com/kairos-io/entangle) | 0 | 0 | 0 | 0 | clean (no crit/high/med) |
@@ -52,40 +53,37 @@ _None._
 
 | Package | Current | Fixed | Severity | CVE |
 |---|---|---|---|---|
-| libkcapi | 1.5.0 | 1.5.1 | high | [CVE-2026-71226](https://osv.dev/vulnerability/ALPINE-CVE-2026-71226) |
-| rsync | 3.4.4 | 3.5.0 | high | [CVE-2026-70457](https://osv.dev/vulnerability/ALPINE-CVE-2026-70457) |
 | rsync | 3.4.4 | 3.5.0 | high | [CVE-2026-53789](https://osv.dev/vulnerability/ALPINE-CVE-2026-53789) |
+| rsync | 3.4.4 | 3.5.0 | high | [CVE-2026-70457](https://osv.dev/vulnerability/ALPINE-CVE-2026-70457) |
 | expat | 2.8.2 | 2.8.4 | medium | [CVE-2026-76957](https://osv.dev/vulnerability/ALPINE-CVE-2026-76957) |
 | expat | 2.8.2 | 2.8.4 | medium | [CVE-2026-76956](https://osv.dev/vulnerability/ALPINE-CVE-2026-76956) |
-| libkcapi | 1.5.0 | 1.5.1 | medium | [CVE-2026-71227](https://osv.dev/vulnerability/ALPINE-CVE-2026-71227) |
-| libkcapi | 1.5.0 | 1.5.1 | medium | [CVE-2026-71225](https://osv.dev/vulnerability/ALPINE-CVE-2026-71225) |
 | expat | 2.8.2 | 2.8.4 | unknown | [CVE-2026-76641](https://osv.dev/vulnerability/ALPINE-CVE-2026-76641) |
 | expat | 2.8.2 | 2.8.4 | unknown | [CVE-2026-66046](https://osv.dev/vulnerability/ALPINE-CVE-2026-66046) |
-| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53790](https://osv.dev/vulnerability/ALPINE-CVE-2026-53790) |
-| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70455](https://osv.dev/vulnerability/ALPINE-CVE-2026-70455) |
+| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53788](https://osv.dev/vulnerability/ALPINE-CVE-2026-53788) |
+| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70453](https://osv.dev/vulnerability/ALPINE-CVE-2026-70453) |
+| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70452](https://osv.dev/vulnerability/ALPINE-CVE-2026-70452) |
+| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53783](https://osv.dev/vulnerability/ALPINE-CVE-2026-53783) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70459](https://osv.dev/vulnerability/ALPINE-CVE-2026-70459) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70458](https://osv.dev/vulnerability/ALPINE-CVE-2026-70458) |
-| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70452](https://osv.dev/vulnerability/ALPINE-CVE-2026-70452) |
+| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53801](https://osv.dev/vulnerability/ALPINE-CVE-2026-53801) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70460](https://osv.dev/vulnerability/ALPINE-CVE-2026-70460) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53794](https://osv.dev/vulnerability/ALPINE-CVE-2026-53794) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53784](https://osv.dev/vulnerability/ALPINE-CVE-2026-53784) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53800](https://osv.dev/vulnerability/ALPINE-CVE-2026-53800) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70461](https://osv.dev/vulnerability/ALPINE-CVE-2026-70461) |
-| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53788](https://osv.dev/vulnerability/ALPINE-CVE-2026-53788) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53786](https://osv.dev/vulnerability/ALPINE-CVE-2026-53786) |
+| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53790](https://osv.dev/vulnerability/ALPINE-CVE-2026-53790) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70454](https://osv.dev/vulnerability/ALPINE-CVE-2026-70454) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53796](https://osv.dev/vulnerability/ALPINE-CVE-2026-53796) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53792](https://osv.dev/vulnerability/ALPINE-CVE-2026-53792) |
-| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53783](https://osv.dev/vulnerability/ALPINE-CVE-2026-53783) |
+| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70455](https://osv.dev/vulnerability/ALPINE-CVE-2026-70455) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53803](https://osv.dev/vulnerability/ALPINE-CVE-2026-53803) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53791](https://osv.dev/vulnerability/ALPINE-CVE-2026-53791) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70464](https://osv.dev/vulnerability/ALPINE-CVE-2026-70464) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70462](https://osv.dev/vulnerability/ALPINE-CVE-2026-70462) |
-| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53801](https://osv.dev/vulnerability/ALPINE-CVE-2026-53801) |
+| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53797](https://osv.dev/vulnerability/ALPINE-CVE-2026-53797) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70463](https://osv.dev/vulnerability/ALPINE-CVE-2026-70463) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53795](https://osv.dev/vulnerability/ALPINE-CVE-2026-53795) |
-| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70453](https://osv.dev/vulnerability/ALPINE-CVE-2026-70453) |
-| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53797](https://osv.dev/vulnerability/ALPINE-CVE-2026-53797) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70456](https://osv.dev/vulnerability/ALPINE-CVE-2026-70456) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53799](https://osv.dev/vulnerability/ALPINE-CVE-2026-53799) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53793](https://osv.dev/vulnerability/ALPINE-CVE-2026-53793) |
@@ -355,20 +353,20 @@ _No bot PRs yet._
 - [#153](https://github.com/kairos-io/kairos-operator/pull/153) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - docker/login-action abd2ef45e78c5afb21d64d4ca52ee8550d9572c7..dbcb813823bdd20940b903addbd779551569679f (PR body): compare abd2ef45e78c5afb21d64d4ca52ee8550d9572c7...dbcb813823bdd20940b903addbd779551569679f ✓ 40000 bytes
     - context: 43836 bytes
-- [#156](https://github.com/kairos-io/kairos-operator/pull/156) — ✅ **good** — The pull request is a standard dependency update, specifically changing the digest for the `docker.io/golang:1.26.5` image. This is a routine maintenance task and does not introduce any new security risks or breaking changes. The change is safe to auto-approve.
-  ↳ This PR updates the Docker image digest for the `docker.io/golang:1.26.5` dependency from an older SHA to a newer one. This is a standard maintenance update to ensure the build uses the latest artifact for the specified version.
+- [#156](https://github.com/kairos-io/kairos-operator/pull/156) — ✅ **good** — This is a routine dependency maintenance task to update the digest of a base image. There are no security implications associated with this change, and it is safe to auto-approve.
+  ↳ This PR updates the Dockerfile and Dockerfile.node-labeler files to use a new digest for the docker.io/golang:1.26.5 base image.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1972 bytes
-- [#158](https://github.com/kairos-io/kairos-operator/pull/158) — ✅ **good** — The PR is a routine dependency update to a minor version of a well-known operator. Updating to v0.1.3 is a standard maintenance task and does not introduce obvious security risks. It is safe to auto-approve.
-  ↳ This PR updates the Docker tag for the `quay.io/kairos/operator` image in the Kustomization file from version v0.1.2 to v0.1.3. This is a routine dependency update to a newer, presumably stable version.
+- [#158](https://github.com/kairos-io/kairos-operator/pull/158) — ✅ **good** — This is a routine dependency version bump for a trusted operator. The change only updates a tag reference in the configuration file and does not introduce new code or security-sensitive logic. It is safe to auto-approve.
+  ↳ This PR updates the version tag for the `quay.io/kairos/operator` dependency from v0.1.2 to v0.2.1 in the Kustomization configuration file.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1500 bytes
-- [#162](https://github.com/kairos-io/kairos-operator/pull/162) — ✅ **good** — This is a routine dependency update to a newer minor version of the Go language tooling. There are no immediate security concerns indicated by the version bump itself, and this change is necessary for maintaining compatibility or adopting newer features. It is safe to auto-approve.
-  ↳ This PR updates the Go version used in the devcontainer image and Dockerfiles from `1.26.5` to `1.27.0`. This is a standard minor version bump for the `docker.io/golang` dependency.
+- [#162](https://github.com/kairos-io/kairos-operator/pull/162) — ✅ **good** — The PR performs a minor version update for the `docker.io/golang` dependency. This is a standard maintenance task and does not introduce any obvious security risks based on the provided context. The change is safe to auto-approve.
+  ↳ This PR updates the `docker.io/golang` dependency from version `1.26.5` to `1.27.1` across the `devcontainer.json` and `Dockerfile` files. This includes updating the base image used in the devcontainer and the build stages of the Dockerfile.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 2622 bytes
-- [#163](https://github.com/kairos-io/kairos-operator/pull/163) — ✅ **good** — This change is a dependency pinning update. Pinning a dependency to a specific digest (SHA) is a security best practice that ensures the build uses a known, immutable version of the image, mitigating risks associated with mutable tags.
-  ↳ The PR updates the `defaultImage` for the `nodeops` configuration in `values.yaml` to pin the `busybox` image to a specific SHA digest. This change enforces image immutability, which is a security best practice to prevent supply chain attacks via mutable tags.
+- [#163](https://github.com/kairos-io/kairos-operator/pull/163) — ✅ **good** — This is a routine dependency pinning update. Pinning an image to a specific digest is a good security practice as it ensures build reproducibility and prevents unexpected behavior or vulnerabilities that might be introduced by future updates to the 'latest' tag. No security risks are introduced.
+  ↳ The PR pins the busybox image to a specific SHA digest (`dc2d74b...`) in the `defaultImage` configuration within the Kairos operator values. This ensures that the deployment uses a consistent, immutable version of the busybox container, improving build stability and security posture by preventing unexpected image updates.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1570 bytes
 - [#164](https://github.com/kairos-io/kairos-operator/pull/164) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -408,10 +406,14 @@ _No bot PRs yet._
     - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - context: 83203 bytes
+- [#48](https://github.com/kairos-io/netboot/pull/48) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - golang.org/x/crypto 0.53.0→0.56.0: compare v0.53.0...v0.56.0 ✓ 40000 bytes
+    - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
+    - context: 83976 bytes
 - [#49](https://github.com/kairos-io/netboot/pull/49) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes
     - google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes
-    - context: 25025 bytes
+    - context: 25806 bytes
 **[kairos-io/tpm-helpers](https://github.com/kairos-io/tpm-helpers)**
 
 - [#12](https://github.com/kairos-io/tpm-helpers/pull/12) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -424,6 +426,9 @@ _No bot PRs yet._
   ↳ The PR updates the dependency `github.com/onsi/gomega` from version `v1.42.1` to `v1.43.0`. This update introduces a new feature: a gomock adaptor extension that allows Gomega matchers to be used as gomock argument matchers.
     - github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes
     - context: 6711 bytes
+- [#65](https://github.com/mauromorales/xpasswd/pull/65) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - golang/go go1.27rc3..go1.27.1 (PR body): compare go1.27rc3...go1.27.1 ✓ 40000 bytes
+    - context: 41548 bytes
 **[mudler/edgevpn](https://github.com/mudler/edgevpn)**
 
 - [#804](https://github.com/mudler/edgevpn/pull/804) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -479,14 +484,13 @@ _No bot PRs yet._
     - github.com/libp2p/go-libp2p-pubsub 0.16.0→0.17.0: compare v0.16.0...v0.17.0 ✓ 40000 bytes
     - context: 45662 bytes
 - [#1057](https://github.com/mudler/edgevpn/pull/1057) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
-    - context: 84598 bytes
+    - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
+    - context: 84432 bytes
 - [#1059](https://github.com/mudler/edgevpn/pull/1059) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/libp2p/go-libp2p 0.48.0→0.49.0: compare v0.48.0...v0.49.0 ✓ 40000 bytes
     - github.com/libp2p/go-libp2p-kad-dht 0.41.0→0.42.2: compare v0.41.0...v0.42.2 ✓ 40000 bytes
-    - context: 117355 bytes
+    - context: 111567 bytes
 - [#1061](https://github.com/mudler/edgevpn/pull/1061) — ✅ **good** — The change is a routine dependency digest update. There are no obvious security implications, and this type of maintenance is necessary to keep dependencies current. It is safe to auto-approve.
   ↳ This PR updates the dependency `github.com/mudler/go-libp2p-pubsub` by replacing the old digest (`205ded1`) with a newer one (`2a31b5e`). This is a routine maintenance update to ensure the project uses the latest version of the library.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
@@ -506,14 +510,21 @@ _No bot PRs yet._
     - nodejs/node v20.20.1..v20.20.2 (PR body): compare v20.20.1...v20.20.2 ✓ 40000 bytes
     - context: 65436 bytes
 - [#1070](https://github.com/mudler/edgevpn/pull/1070) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - actions/setup-node v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
-    - actions/setup-node v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
     - actions/setup-node v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
-    - context: 96419 bytes
+    - actions/setup-node v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
+    - context: 95909 bytes
 - [#1076](https://github.com/mudler/edgevpn/pull/1076) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - vitejs/vite v8.2.1..v8.2.2 (PR body): compare v8.2.1...v8.2.2 ✓ 40000 bytes
     - vitejs/vite v8.2.0..v8.2.1 (PR body): compare v8.2.0...v8.2.1 ✓ 40000 bytes
-    - context: 111628 bytes
+    - context: 111633 bytes
+- [#1077](https://github.com/mudler/edgevpn/pull/1077) — ✅ **good** — The PR updates a dependency to a newer version that includes a bug fix, which is a positive change. The accompanying code modifications in `src/pure.js` and the new test file appear to improve the robustness of event handling and test for act warnings, making this a safe and beneficial update.
+  ↳ This PR updates the `@testing-library/react` dependency to version `16.3.3`, which includes a bug fix for `act()` re-entrant behavior. It also introduces code modifications in `src/pure.js` to improve event wrapper handling and adds a new test file to verify the fix.
+    - testing-library/react-testing-library v16.3.2..v16.3.3 (PR body): compare v16.3.2...v16.3.3 ✓ 4007 bytes
+    - context: 7242 bytes
+- [#1079](https://github.com/mudler/edgevpn/pull/1079) — ✅ **good** — This is a routine dependency update to a newer version of a type definition package. It is a low-risk change that improves the dependency's state and does not introduce new features or breaking changes that would require manual review.
+  ↳ The PR updates the `@types/react-dom` dependency from version `19.2.4` to `19.2.7`. This is a routine dependency update for the TypeScript type definitions related to React DOM.
+    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
+    - context: 2586 bytes
 **[mudler/entities](https://github.com/mudler/entities)**
 
 - [#10](https://github.com/mudler/entities/pull/10) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -549,4 +560,11 @@ _No bot PRs yet._
     - mauromorales/xpasswd v0.4.9..v0.5.0 (PR body): compare v0.4.9...v0.5.0 ✓ 13436 bytes
     - mauromorales/xpasswd v0.4.8..v0.4.9 (PR body): compare v0.4.8...v0.4.9 ✓ 2023 bytes
     - context: 51001 bytes
+- [#332](https://github.com/mudler/yip/pull/332) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/containerd/containerd/v2 2.3.3→2.3.5: compare v2.3.3...v2.3.5 ✓ 40000 bytes
+    - context: 61876 bytes
+- [#334](https://github.com/mudler/yip/pull/334) — ✅ **good** — This is a standard dependency update to a newer version of the library. The changelog confirms that the update includes a new feature (gomock adaptor extension), and the diffs show the corresponding code changes. This change is safe to auto-approve.
+  ↳ This PR updates the dependency `github.com/onsi/gomega` from v1.42.1 to v1.43.0. This update introduces a new feature: a gomock adaptor extension that allows Gomega matchers to be used with gomock argument matchers.
+    - github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes
+    - context: 6898 bytes
 

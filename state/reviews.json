@@ -576,10 +576,10 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 153,
     "url": "https://github.com/kairos-io/kairos-operator/pull/153",
-    "headSHA": "a74c5620c8fdee5b36ca122c54e846f2cd5100d6",
+    "headSHA": "fa4c4071aa2de715d3ad0196dfc8a430149ec468",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-28",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "docker/login-action abd2ef45e78c5afb21d64d4ca52ee8550d9572c7..dbcb813823bdd20940b903addbd779551569679f (PR body): compare abd2ef45e78c5afb21d64d4ca52ee8550d9572c7...dbcb813823bdd20940b903addbd779551569679f ✓ 40000 bytes",
       "context: 43836 bytes"
@@ -589,11 +589,11 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 156,
     "url": "https://github.com/kairos-io/kairos-operator/pull/156",
-    "headSHA": "50c43060995a6e34c0b109271718229d0804541b",
+    "headSHA": "2d48a0c9fefcbdad814472e7b0e42effa564d7a0",
     "verdict": "good",
-    "reasoning": "The pull request is a standard dependency update, specifically changing the digest for the `docker.io/golang:1.26.5` image. This is a routine maintenance task and does not introduce any new security risks or breaking changes. The change is safe to auto-approve.",
-    "changesSummary": "This PR updates the Docker image digest for the `docker.io/golang:1.26.5` dependency from an older SHA to a newer one. This is a standard maintenance update to ensure the build uses the latest artifact for the specified version.",
-    "reviewedRun": "2026-08-14",
+    "reasoning": "This is a routine dependency maintenance task to update the digest of a base image. There are no security implications associated with this change, and it is safe to auto-approve.",
+    "changesSummary": "This PR updates the Dockerfile and Dockerfile.node-labeler files to use a new digest for the docker.io/golang:1.26.5 base image.",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 1972 bytes"
@@ -603,11 +603,11 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 158,
     "url": "https://github.com/kairos-io/kairos-operator/pull/158",
-    "headSHA": "37b4b9676f004c352daf90f814d27d6199dd5f65",
+    "headSHA": "d77ddbce24d976bdd598fd6ab6dfb5e99e7d7e99",
     "verdict": "good",
-    "reasoning": "The PR is a routine dependency update to a minor version of a well-known operator. Updating to v0.1.3 is a standard maintenance task and does not introduce obvious security risks. It is safe to auto-approve.",
-    "changesSummary": "This PR updates the Docker tag for the `quay.io/kairos/operator` image in the Kustomization file from version v0.1.2 to v0.1.3. This is a routine dependency update to a newer, presumably stable version.",
-    "reviewedRun": "2026-08-28",
+    "reasoning": "This is a routine dependency version bump for a trusted operator. The change only updates a tag reference in the configuration file and does not introduce new code or security-sensitive logic. It is safe to auto-approve.",
+    "changesSummary": "This PR updates the version tag for the `quay.io/kairos/operator` dependency from v0.1.2 to v0.2.1 in the Kustomization configuration file.",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 1500 bytes"
@@ -617,11 +617,11 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 162,
     "url": "https://github.com/kairos-io/kairos-operator/pull/162",
-    "headSHA": "1877ebbde9a99cd4ec2f72b4152de2ad5ff8ff60",
+    "headSHA": "120bef73b4c20d6eaeee229c95b82e8c5cc811cc",
     "verdict": "good",
-    "reasoning": "This is a routine dependency update to a newer minor version of the Go language tooling. There are no immediate security concerns indicated by the version bump itself, and this change is necessary for maintaining compatibility or adopting newer features. It is safe to auto-approve.",
-    "changesSummary": "This PR updates the Go version used in the devcontainer image and Dockerfiles from `1.26.5` to `1.27.0`. This is a standard minor version bump for the `docker.io/golang` dependency.",
-    "reviewedRun": "2026-08-31",
+    "reasoning": "The PR performs a minor version update for the `docker.io/golang` dependency. This is a standard maintenance task and does not introduce any obvious security risks based on the provided context. The change is safe to auto-approve.",
+    "changesSummary": "This PR updates the `docker.io/golang` dependency from version `1.26.5` to `1.27.1` across the `devcontainer.json` and `Dockerfile` files. This includes updating the base image used in the devcontainer and the build stages of the Dockerfile.",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 2622 bytes"
@@ -631,11 +631,11 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 163,
     "url": "https://github.com/kairos-io/kairos-operator/pull/163",
-    "headSHA": "0b09c2a9209fbd23ac25825762c336bbba9df299",
+    "headSHA": "cc272df6e5331d34df92dc9f3bd4d92a0defe9f1",
     "verdict": "good",
-    "reasoning": "This change is a dependency pinning update. Pinning a dependency to a specific digest (SHA) is a security best practice that ensures the build uses a known, immutable version of the image, mitigating risks associated with mutable tags.",
-    "changesSummary": "The PR updates the `defaultImage` for the `nodeops` configuration in `values.yaml` to pin the `busybox` image to a specific SHA digest. This change enforces image immutability, which is a security best practice to prevent supply chain attacks via mutable tags.",
-    "reviewedRun": "2026-08-19",
+    "reasoning": "This is a routine dependency pinning update. Pinning an image to a specific digest is a good security practice as it ensures build reproducibility and prevents unexpected behavior or vulnerabilities that might be introduced by future updates to the 'latest' tag. No security risks are introduced.",
+    "changesSummary": "The PR pins the busybox image to a specific SHA digest (`dc2d74b...`) in the `defaultImage` configuration within the Kairos operator values. This ensures that the deployment uses a consistent, immutable version of the busybox container, improving build stability and security posture by preventing unexpected image updates.",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
       "context: 1570 bytes"
@@ -645,10 +645,10 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 164,
     "url": "https://github.com/kairos-io/kairos-operator/pull/164",
-    "headSHA": "86ecb2c9500cfb290ee3855360e40d7f28c631f5",
+    "headSHA": "9c9ca25b61fc9b808322926f5690dddad7cbcd15",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-28",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "actions/checkout 9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0..3d3c42e5aac5ba805825da76410c181273ba90b1 (PR body): compare 9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0...3d3c42e5aac5ba805825da76410c181273ba90b1 ✓ 40000 bytes",
       "context: 41932 bytes"
@@ -658,10 +658,10 @@
     "repo": "kairos-io/kairos-operator",
     "pr": 165,
     "url": "https://github.com/kairos-io/kairos-operator/pull/165",
-    "headSHA": "b1ada2032e69c7a1a256b28c91d54b9c552c67ba",
+    "headSHA": "0d5c08a53a8399d521b810cd0fc717a7335288b9",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-28",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "azure/setup-helm b9e51907a09c216f16ebe8536097933489208112..1a275c3b69536ee54be43f2070a358922e12c8d4 (PR body): compare b9e51907a09c216f16ebe8536097933489208112...1a275c3b69536ee54be43f2070a358922e12c8d4 ✓ 40000 bytes",
       "context: 41976 bytes"
@@ -741,10 +741,10 @@
     "repo": "kairos-io/netboot",
     "pr": 46,
     "url": "https://github.com/kairos-io/netboot/pull/46",
-    "headSHA": "10ef24d943fcfb826d6e83b564c10768acab6b58",
+    "headSHA": "d54db2a4a67201fa0f7e4e9a8f872600cc213edf",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-31",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "golang.org/x/crypto 0.53.0→0.55.0: compare v0.53.0...v0.55.0 ✓ 40000 bytes",
       "golang.org/x/net 0.56.0→0.58.0: compare v0.56.0...v0.58.0 ✓ 40000 bytes",
@@ -755,10 +755,10 @@
     "repo": "kairos-io/netboot",
     "pr": 47,
     "url": "https://github.com/kairos-io/netboot/pull/47",
-    "headSHA": "5ff43ecb907d3e4550d9436ad9ad1b4466a16048",
+    "headSHA": "f4b7eb2ec2bd57be90dac25ffaaf5338bef2d6db",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-07-17",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
       "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
@@ -768,16 +768,30 @@
   },
   {
     "repo": "kairos-io/netboot",
-    "pr": 49,
-    "url": "https://github.com/kairos-io/netboot/pull/49",
-    "headSHA": "a845cc07def67934e50ee93d79665bda99ef4c5a",
+    "pr": 48,
+    "url": "https://github.com/kairos-io/netboot/pull/48",
+    "headSHA": "8f070e1091d26d41ae104cf8a3eb6a11b129b287",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-17",
+    "reviewedRun": "2026-09-06",
+    "trace": [
+      "golang.org/x/crypto 0.53.0→0.56.0: compare v0.53.0...v0.56.0 ✓ 40000 bytes",
+      "golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes",
+      "context: 83976 bytes"
+    ]
+  },
+  {
+    "repo": "kairos-io/netboot",
+    "pr": 49,
+    "url": "https://github.com/kairos-io/netboot/pull/49",
+    "headSHA": "6fff364c52b7584e3359d73946080e882280eb45",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes",
       "google/osv-scanner-action v2.3.8..v2.5.0 (PR body): compare v2.3.8...v2.5.0 ✓ 12179 bytes",
-      "context: 25025 bytes"
+      "context: 25806 bytes"
     ]
   },
   {
@@ -806,6 +820,19 @@
     "trace": [
       "github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes",
       "context: 6711 bytes"
+    ]
+  },
+  {
+    "repo": "mauromorales/xpasswd",
+    "pr": 65,
+    "url": "https://github.com/mauromorales/xpasswd/pull/65",
+    "headSHA": "e85b5ec7f7715818871d878777ebd88daaab8b6d",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-09-06",
+    "trace": [
+      "golang/go go1.27rc3..go1.27.1 (PR body): compare go1.27rc3...go1.27.1 ✓ 40000 bytes",
+      "context: 41548 bytes"
     ]
   },
   {
@@ -964,29 +991,28 @@
     "repo": "mudler/edgevpn",
     "pr": 1057,
     "url": "https://github.com/mudler/edgevpn/pull/1057",
-    "headSHA": "8ccd495a41b5d6b4d56f6d8f02987583cb8e684f",
+    "headSHA": "de32f6a5e6382b975987ad6ac7f82921f8b5742c",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-15",
+    "reviewedRun": "2026-09-06",
     "trace": [
-      "actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
-      "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
       "actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
-      "context: 84598 bytes"
+      "actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
+      "context: 84432 bytes"
     ]
   },
   {
     "repo": "mudler/edgevpn",
     "pr": 1059,
     "url": "https://github.com/mudler/edgevpn/pull/1059",
-    "headSHA": "00cdea7143395c912516a91fce29b7d6768737d1",
+    "headSHA": "95910819eda5270b8abbfb5672b3ae375c71a32c",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-22",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "github.com/libp2p/go-libp2p 0.48.0→0.49.0: compare v0.48.0...v0.49.0 ✓ 40000 bytes",
       "github.com/libp2p/go-libp2p-kad-dht 0.41.0→0.42.2: compare v0.41.0...v0.42.2 ✓ 40000 bytes",
-      "context: 117355 bytes"
+      "context: 111567 bytes"
     ]
   },
   {
@@ -1051,29 +1077,56 @@
     "repo": "mudler/edgevpn",
     "pr": 1070,
     "url": "https://github.com/mudler/edgevpn/pull/1070",
-    "headSHA": "ebfc3954476d3d08345f5e9171b1276b52fd4ea7",
+    "headSHA": "d697d2f30ee0b7892f67023c9325c8b836e989cf",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-15",
+    "reviewedRun": "2026-09-06",
     "trace": [
-      "actions/setup-node v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)",
-      "actions/setup-node v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
       "actions/setup-node v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes",
-      "context: 96419 bytes"
+      "actions/setup-node v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes",
+      "context: 95909 bytes"
     ]
   },
   {
     "repo": "mudler/edgevpn",
     "pr": 1076,
     "url": "https://github.com/mudler/edgevpn/pull/1076",
-    "headSHA": "d4a5e1128d3e39fec09e3354cf43cd0666ce3e29",
+    "headSHA": "2caf60aed7b1830dd375438a885b0d373c9805e6",
     "verdict": "needs_human_verification",
     "reasoning": "review endpoint returned HTTP 500",
-    "reviewedRun": "2026-08-28",
+    "reviewedRun": "2026-09-06",
     "trace": [
       "vitejs/vite v8.2.1..v8.2.2 (PR body): compare v8.2.1...v8.2.2 ✓ 40000 bytes",
       "vitejs/vite v8.2.0..v8.2.1 (PR body): compare v8.2.0...v8.2.1 ✓ 40000 bytes",
-      "context: 111628 bytes"
+      "context: 111633 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1077,
+    "url": "https://github.com/mudler/edgevpn/pull/1077",
+    "headSHA": "905b4e38d45e6d64c749d369306c40063a09edc1",
+    "verdict": "good",
+    "reasoning": "The PR updates a dependency to a newer version that includes a bug fix, which is a positive change. The accompanying code modifications in `src/pure.js` and the new test file appear to improve the robustness of event handling and test for act warnings, making this a safe and beneficial update.",
+    "changesSummary": "This PR updates the `@testing-library/react` dependency to version `16.3.3`, which includes a bug fix for `act()` re-entrant behavior. It also introduces code modifications in `src/pure.js` to improve event wrapper handling and adds a new test file to verify the fix.",
+    "reviewedRun": "2026-09-06",
+    "trace": [
+      "testing-library/react-testing-library v16.3.2..v16.3.3 (PR body): compare v16.3.2...v16.3.3 ✓ 4007 bytes",
+      "context: 7242 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/edgevpn",
+    "pr": 1079,
+    "url": "https://github.com/mudler/edgevpn/pull/1079",
+    "headSHA": "c8169c7d4bfef4191405da4d601f2fe3fe2e964a",
+    "verdict": "good",
+    "reasoning": "This is a routine dependency update to a newer version of a type definition package. It is a low-risk change that improves the dependency's state and does not introduce new features or breaking changes that would require manual review.",
+    "changesSummary": "The PR updates the `@types/react-dom` dependency from version `19.2.4` to `19.2.7`. This is a routine dependency update for the TypeScript type definitions related to React DOM.",
+    "reviewedRun": "2026-09-06",
+    "trace": [
+      "no upstream comparisons available (no go.mod bumps or compare links in the PR body)",
+      "context: 2586 bytes"
     ]
   },
   {
@@ -1185,6 +1238,33 @@
       "mauromorales/xpasswd v0.4.9..v0.5.0 (PR body): compare v0.4.9...v0.5.0 ✓ 13436 bytes",
       "mauromorales/xpasswd v0.4.8..v0.4.9 (PR body): compare v0.4.8...v0.4.9 ✓ 2023 bytes",
       "context: 51001 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 332,
+    "url": "https://github.com/mudler/yip/pull/332",
+    "headSHA": "e20345139c46a7cccf350be0ac8ce89e53e637b6",
+    "verdict": "needs_human_verification",
+    "reasoning": "review endpoint returned HTTP 500",
+    "reviewedRun": "2026-09-06",
+    "trace": [
+      "github.com/containerd/containerd/v2 2.3.3→2.3.5: compare v2.3.3...v2.3.5 ✓ 40000 bytes",
+      "context: 61876 bytes"
+    ]
+  },
+  {
+    "repo": "mudler/yip",
+    "pr": 334,
+    "url": "https://github.com/mudler/yip/pull/334",
+    "headSHA": "47471c2e985e8765598b222eb8916327aa4949ca",
+    "verdict": "good",
+    "reasoning": "This is a standard dependency update to a newer version of the library. The changelog confirms that the update includes a new feature (gomock adaptor extension), and the diffs show the corresponding code changes. This change is safe to auto-approve.",
+    "changesSummary": "This PR updates the dependency `github.com/onsi/gomega` from v1.42.1 to v1.43.0. This update introduces a new feature: a gomock adaptor extension that allows Gomega matchers to be used with gomock argument matchers.",
+    "reviewedRun": "2026-09-06",
+    "trace": [
+      "github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes",
+      "context: 6898 bytes"
     ]
   }
 ]
