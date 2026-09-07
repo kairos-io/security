@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06",
+  "generatedAt": "2026-09-07",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
   "focus": [
@@ -9,10 +9,10 @@
     "20d4343c379808ad770727b8cbbf5dd3230f5af258f4e66215667a7d0e25502d"
   ],
   "summaries": {
-    "04f74d7a16b9a6d3e8d6225850dc319bc7a437a02e80ef2ce6e516ed52429007": "Medium severity vulnerability in expat.",
-    "12d230967368fe81b291e4e330dd55f4f72a465db314c39d5c0b63dd81c8d4d2": "High severity vulnerability in rsync.",
-    "20d4343c379808ad770727b8cbbf5dd3230f5af258f4e66215667a7d0e25502d": "Medium severity vulnerability in expat.",
-    "be5ccd1aeae3e5f72a68426ebdc3c14a30b542f8de71b9b8b13738c3acf80092": "High severity vulnerability in rsync."
+    "04f74d7a16b9a6d3e8d6225850dc319bc7a437a02e80ef2ce6e516ed52429007": "Medium severity vulnerability in expat package (CVE-2026-76957).",
+    "12d230967368fe81b291e4e330dd55f4f72a465db314c39d5c0b63dd81c8d4d2": "High severity vulnerability in rsync package (CVE-2026-53789).",
+    "20d4343c379808ad770727b8cbbf5dd3230f5af258f4e66215667a7d0e25502d": "Medium severity vulnerability in expat package (CVE-2026-76956).",
+    "be5ccd1aeae3e5f72a68426ebdc3c14a30b542f8de71b9b8b13738c3acf80092": "High severity vulnerability in rsync package (CVE-2026-70457)."
   },
-  "narrative": "The most urgent findings involve high-severity vulnerabilities in the `rsync` package and medium-severity issues in the `expat` package. Immediate attention is required for these critical issues."
+  "narrative": "The most urgent findings are two high-severity vulnerabilities in the 'rsync' package (F1, F2) and two medium-severity vulnerabilities in the 'expat' package (F3, F4). Immediate action is required to patch these critical issues."
 }

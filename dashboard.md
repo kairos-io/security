@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-09-06._
+_Updated 2026-09-07._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -13,14 +13,14 @@ _Updated 2026-09-06._
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 37 finding(s); 0 PR(s) open.
 
-> The most urgent findings involve high-severity vulnerabilities in the `rsync` package and medium-severity issues in the `expat` package. Immediate attention is required for these critical issues.
+> The most urgent findings are two high-severity vulnerabilities in the 'rsync' package (F1, F2) and two medium-severity vulnerabilities in the 'expat' package (F3, F4). Immediate action is required to patch these critical issues.
 
 ## 🔥 Focus now
 
-- [CVE-2026-53789](https://osv.dev/vulnerability/ALPINE-CVE-2026-53789) — High severity vulnerability in rsync.
-- [CVE-2026-70457](https://osv.dev/vulnerability/ALPINE-CVE-2026-70457) — High severity vulnerability in rsync.
-- [CVE-2026-76957](https://osv.dev/vulnerability/ALPINE-CVE-2026-76957) — Medium severity vulnerability in expat.
-- [CVE-2026-76956](https://osv.dev/vulnerability/ALPINE-CVE-2026-76956) — Medium severity vulnerability in expat.
+- [CVE-2026-53789](https://osv.dev/vulnerability/ALPINE-CVE-2026-53789) — High severity vulnerability in rsync package (CVE-2026-53789).
+- [CVE-2026-70457](https://osv.dev/vulnerability/ALPINE-CVE-2026-70457) — High severity vulnerability in rsync package (CVE-2026-70457).
+- [CVE-2026-76957](https://osv.dev/vulnerability/ALPINE-CVE-2026-76957) — Medium severity vulnerability in expat package (CVE-2026-76957).
+- [CVE-2026-76956](https://osv.dev/vulnerability/ALPINE-CVE-2026-76956) — Medium severity vulnerability in expat package (CVE-2026-76956).
 
 ## 🌊 Waterfall fronts
 
@@ -191,8 +191,8 @@ _No bot PRs yet._
     - vitejs/vite v8.2.0..v8.2.1 (PR body): compare v8.2.0...v8.2.1 ✓ 40000 bytes
     - context: 123841 bytes
 - [#712](https://github.com/kairos-io/AuroraBoot/pull/712) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/foxboron/sbctl 0.0.0-20250917190250-6b8ed8715652→0.0.0-20260802183653-a7168106e003: compare 6b8ed8715652...a7168106e003 ✓ 18927 bytes
-    - context: 21798 bytes
+    - github.com/foxboron/sbctl 0.0.0-20250917190250-6b8ed8715652→0.0.0-20260906194517-3ae0c7e6c7cb: compare 6b8ed8715652...3ae0c7e6c7cb ✓ 32404 bytes
+    - context: 35275 bytes
 - [#732](https://github.com/kairos-io/AuroraBoot/pull/732) — ✅ **good** — The change is a routine dependency update involving a digest change for `github.com/spectrocloud/peg`. This type of update is generally safe and necessary for maintaining the integrity and security of the project by aligning with the upstream source. There are no apparent changes to application logic or security-sensitive code.
   ↳ This PR updates the digest for the dependency `github.com/spectrocloud/peg` from `97c9703` to `d8627da`. This is a standard dependency digest bump, ensuring the project uses the latest specified version from the upstream source.
     - github.com/spectrocloud/peg 0.0.0-20260123084329-97c9703181cf→0.0.0-20260813125620-d8627da0983c: compare 97c9703181cf...d8627da0983c ✓ 8447 bytes
@@ -538,15 +538,19 @@ _No bot PRs yet._
     - context: 8083956 bytes
 **[mudler/yip](https://github.com/mudler/yip)**
 
+- [#322](https://github.com/mudler/yip/pull/322) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/google/go-containerregistry 0.21.7→0.22.1: compare v0.21.7...v0.22.1 ✓ 40000 bytes
+    - golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes
+    - context: 108732 bytes
 - [#323](https://github.com/mudler/yip/pull/323) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/go-git/go-git/v5 5.19.1→5.19.2: compare v5.19.1...v5.19.2 ✓ 40000 bytes
     - context: 52337 bytes
-- [#324](https://github.com/mudler/yip/pull/324) — ✅ **good** — The PR updates a dependency to a newer version which includes a specific fix for a known issue (deferring AfterAll) and several code changes that appear to improve the stability and correctness of the test runner's handling of spec timeouts and repeated test attempts. This is a positive change that enhances the project's testing infrastructure.
-  ↳ This PR updates the dependency `github.com/onsi/ginkgo/v2` from version `v2.32.0` to `v2.32.1`. This update includes a fix for deferring `AfterAll` until repeated specs complete and introduces improvements to test runner logic concerning spec timeouts and repeated attempts.
+- [#324](https://github.com/mudler/yip/pull/324) — ✅ **good** — This is a patch-level update to a dependency, which typically introduces only bug fixes and minor improvements. The changelog explicitly mentions a fix, and the diffs show internal refactoring which is expected during dependency upgrades. There are no obvious security vulnerabilities introduced by this version bump.
+  ↳ The PR updates the dependency `github.com/onsi/ginkgo/v2` from v2.32.0 to v2.32.1. This version bump includes a fix to defer `AfterAll` until repeated specs complete, along with several internal code and documentation updates related to test ordering and parallel execution logic.
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - context: 15994 bytes
 - [#325](https://github.com/mudler/yip/pull/325) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/crypto 0.54.0→0.55.0: compare v0.54.0...v0.55.0 ✓ 40000 bytes
+    - golang.org/x/crypto 0.54.0→0.56.0: compare v0.54.0...v0.56.0 ✓ 40000 bytes
     - golang.org/x/mod 0.37.0→0.38.0: compare v0.37.0...v0.38.0 ✓ 10336 bytes
     - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
     - context: 97415 bytes
@@ -559,7 +563,7 @@ _No bot PRs yet._
     - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
     - mauromorales/xpasswd v0.4.9..v0.5.0 (PR body): compare v0.4.9...v0.5.0 ✓ 13436 bytes
     - mauromorales/xpasswd v0.4.8..v0.4.9 (PR body): compare v0.4.8...v0.4.9 ✓ 2023 bytes
-    - context: 51001 bytes
+    - context: 51133 bytes
 - [#332](https://github.com/mudler/yip/pull/332) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/containerd/containerd/v2 2.3.3→2.3.5: compare v2.3.3...v2.3.5 ✓ 40000 bytes
     - context: 61876 bytes
