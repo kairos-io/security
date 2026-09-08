@@ -1,14 +1,6 @@
 [
   {
     "repo": "kairos-io/hadron",
-    "number": 560,
-    "title": "Automatic version bumps for busybox",
-    "author": "ci-robbot",
-    "url": "https://github.com/kairos-io/hadron/pull/560",
-    "source": "human"
-  },
-  {
-    "repo": "kairos-io/hadron",
     "number": 586,
     "title": "deps: bump busybox to 1.38.0 and regenerate minimal.config",
     "author": "itxaka-agent",
@@ -17,10 +9,10 @@
   },
   {
     "repo": "kairos-io/hadron",
-    "number": 587,
-    "title": "feat: ship upstream less-704 instead of busybox's applet",
+    "number": 590,
+    "title": "feat(busybox): drop the LESS applet now that real less ships",
     "author": "itxaka-agent",
-    "url": "https://github.com/kairos-io/hadron/pull/587",
+    "url": "https://github.com/kairos-io/hadron/pull/590",
     "source": "human"
   }
 ]
