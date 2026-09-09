@@ -1,6 +1,6 @@
 # Kairos Security Dashboard
 
-_Updated 2026-09-08._
+_Updated 2026-09-09._
 
 🌐 **[Live dashboard](https://kairos-io.github.io/security/)** — the published board with clickable links.
 
@@ -8,19 +8,17 @@ _Updated 2026-09-08._
 
 - **Scanned:** 18 repos · ⚠️ 1 errored
 - **Findings:** 37 (0 critical / 2 high / 2 medium / 0 low / 33 unknown)
-- **Informational (not counted):** 59
-- **CVE-related PRs:** 2 (2 human)
+- **Informational (not counted):** 57
+- **CVE-related PRs:** 0
 - **Remediation:** 0 open · 0 superseded · 0 merged · 0 need-human
 - **Why:** 37 finding(s); 0 PR(s) open.
 
-> The most urgent findings involve two high-severity vulnerabilities in the rsync package (F1, F2) and two medium-severity vulnerabilities in the expat package (F3, F4). Immediate remediation is required for these critical issues.
+> The triage focuses on the two high-severity findings (F1 and F2) related to the rsync package, which require immediate attention. These findings involve critical CVEs and should be addressed before medium or unknown severity issues.
 
 ## 🔥 Focus now
 
-- [CVE-2026-53789](https://osv.dev/vulnerability/ALPINE-CVE-2026-53789) — High severity vulnerability in rsync package.
-- [CVE-2026-70457](https://osv.dev/vulnerability/ALPINE-CVE-2026-70457) — High severity vulnerability in rsync package.
-- [CVE-2026-76957](https://osv.dev/vulnerability/ALPINE-CVE-2026-76957) — Medium severity vulnerability in expat package.
-- [CVE-2026-76956](https://osv.dev/vulnerability/ALPINE-CVE-2026-76956) — Medium severity vulnerability in expat package.
+- [CVE-2026-53789](https://osv.dev/vulnerability/ALPINE-CVE-2026-53789) — High severity vulnerability in rsync package (CVE-2026-53789).
+- [CVE-2026-70457](https://osv.dev/vulnerability/ALPINE-CVE-2026-70457) — High severity vulnerability in rsync package (CVE-2026-70457).
 
 ## 🌊 Waterfall fronts
 
@@ -73,7 +71,7 @@ _None._
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70461](https://osv.dev/vulnerability/ALPINE-CVE-2026-70461) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53786](https://osv.dev/vulnerability/ALPINE-CVE-2026-53786) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53790](https://osv.dev/vulnerability/ALPINE-CVE-2026-53790) |
-| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70454](https://osv.dev/vulnerability/ALPINE-CVE-2026-70454) ⚠️ |
+| rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70454](https://osv.dev/vulnerability/ALPINE-CVE-2026-70454) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53796](https://osv.dev/vulnerability/ALPINE-CVE-2026-53796) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53792](https://osv.dev/vulnerability/ALPINE-CVE-2026-53792) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-70455](https://osv.dev/vulnerability/ALPINE-CVE-2026-70455) |
@@ -91,22 +89,6 @@ _None._
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53785](https://osv.dev/vulnerability/ALPINE-CVE-2026-53785) |
 | rsync | 3.4.4 | 3.5.0 | unknown | [CVE-2026-53798](https://osv.dev/vulnerability/ALPINE-CVE-2026-53798) |
 
-## ⚠️ 1 finding(s) possibly not applicable (AI)
-
-> These findings are still counted and listed above. The AI applicability check thinks they may not affect us — verify the reasoning below and, if you agree, silence via `cve-policy.yaml`.
-
-<details>
-<summary>⚠️ [CVE-2026-70454](https://osv.dev/vulnerability/ALPINE-CVE-2026-70454) — [kairos-io/hadron](https://github.com/kairos-io/hadron) (rsync / confidence: high)</summary>
-
-**Reason:** The CVE affects rsync versions 3.2.0 through 3.2.3, and the queried version 3.4.4 is outside this range.
-
-- CVE: `CVE-2026-70454`
-- Current: `3.4.4`
-- Fixed: `3.5.0`
-- Checked by: `gemma-4-e2b-it` on 2026-09-08
-
-</details>
-
 ## Informational — not counted
 
 These findings are separated from the counts above: CVEs we are already past, or components accepted as pinned risk.
@@ -115,7 +97,6 @@ These findings are separated from the counts above: CVEs we are already past, or
 |---|---|---|---|---|---|
 | openssl-fips | 3.1.2 | 3.3.7 | critical | [CVE-2026-31789](https://osv.dev/vulnerability/ALPINE-CVE-2026-31789) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.8 | high | [CVE-2026-18798](https://osv.dev/vulnerability/ALPINE-CVE-2026-18798) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| busybox | 1.37.0 | 1.37.0 | low | [CVE-2025-46394](https://osv.dev/vulnerability/ALPINE-CVE-2025-46394) | already-fixed |
 | openssl-fips | 3.1.2 | 3.1.6 | critical | [CVE-2024-5535](https://osv.dev/vulnerability/ALPINE-CVE-2024-5535) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | high | [CVE-2026-9076](https://osv.dev/vulnerability/ALPINE-CVE-2026-9076) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.5 | medium | [CVE-2025-9231](https://osv.dev/vulnerability/ALPINE-CVE-2025-9231) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
@@ -159,7 +140,6 @@ These findings are separated from the counts above: CVEs we are already past, or
 | openssl-fips | 3.1.2 | 3.3.6 | medium | [CVE-2026-22796](https://osv.dev/vulnerability/ALPINE-CVE-2026-22796) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.7 | high | [CVE-2026-34180](https://osv.dev/vulnerability/ALPINE-CVE-2026-34180) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.3.6 | high | [CVE-2025-69421](https://osv.dev/vulnerability/ALPINE-CVE-2025-69421) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
-| busybox | 1.37.0 | 1.37.0 | low | [CVE-2024-58251](https://osv.dev/vulnerability/ALPINE-CVE-2024-58251) | already-fixed |
 | openssl-fips | 3.1.2 | 3.3.6 | high | [CVE-2025-69419](https://osv.dev/vulnerability/ALPINE-CVE-2025-69419) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.5.8 | high | [CVE-2026-14456](https://osv.dev/vulnerability/ALPINE-CVE-2026-14456) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
 | openssl-fips | 3.1.2 | 3.1.4 | medium | [CVE-2024-2511](https://osv.dev/vulnerability/ALPINE-CVE-2024-2511) | accepted-component: FIPS 140-3 validated module, pinned at 3.1.2; cannot bump without revalidation |
@@ -179,10 +159,7 @@ These findings are separated from the counts above: CVEs we are already past, or
 
 ## 📋 Open PRs
 
-**[kairos-io/hadron](https://github.com/kairos-io/hadron)**
-
-- [#586 deps: bump busybox to 1.38.0 and regenerate minimal.config](https://github.com/kairos-io/hadron/pull/586) — human — tracked
-- [#590 feat(busybox): drop the LESS applet now that real less ships](https://github.com/kairos-io/hadron/pull/590) — human — tracked
+_None._
 
 ## 🤖 Bot PR ledger
 
@@ -197,49 +174,16 @@ _No bot PRs yet._
     - microsoft/TypeScript v6.0.2..v6.0.3 (PR body): compare v6.0.2...v6.0.3 ✓ 40000 bytes
     - microsoft/TypeScript v5.9.3..v6.0.2 (PR body): compare v5.9.3...v6.0.2 failed/empty (no upstream diff)
     - context: 44246 bytes
-- [#699](https://github.com/kairos-io/AuroraBoot/pull/699) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - typescript-eslint/typescript-eslint v8.69.0..v8.70.0 (PR body): compare v8.69.0...v8.70.0 ✓ 40000 bytes
-    - typescript-eslint/typescript-eslint v8.68.0..v8.69.0 (PR body): compare v8.68.0...v8.69.0 ✓ 40000 bytes
-    - context: 100045 bytes
-- [#700](https://github.com/kairos-io/AuroraBoot/pull/700) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - vitejs/vite v8.2.1..v8.2.2 (PR body): compare v8.2.1...v8.2.2 ✓ 40000 bytes
-    - vitejs/vite v8.2.0..v8.2.1 (PR body): compare v8.2.0...v8.2.1 ✓ 40000 bytes
-    - context: 123841 bytes
-- [#712](https://github.com/kairos-io/AuroraBoot/pull/712) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/foxboron/sbctl 0.0.0-20250917190250-6b8ed8715652→0.0.0-20260906194517-3ae0c7e6c7cb: compare 6b8ed8715652...3ae0c7e6c7cb ✓ 32404 bytes
-    - context: 35275 bytes
-- [#732](https://github.com/kairos-io/AuroraBoot/pull/732) — ✅ **good** — The primary change is a standard dependency digest update for `github.com/spectrocloud/peg`. The accompanying code change adds a new utility method, which appears to be a safe addition. No obvious security vulnerabilities or breaking changes are apparent from the diffs.
-  ↳ This PR updates the `github.com/spectrocloud/peg` dependency to a newer digest and introduces a new `SSHPort()` method to the `VM` struct in `matcher/helpers.go`.
-    - github.com/spectrocloud/peg 0.0.0-20260123084329-97c9703181cf→0.0.0-20260813125620-d8627da0983c: compare 97c9703181cf...d8627da0983c ✓ 8447 bytes
-    - context: 11388 bytes
-- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ✅ **good** — This is a routine digest update for a dependency. The changes appear to be internal logic updates within the consuming tool (`gorelease`) rather than a direct change to the public API of the dependency itself. Since this update is likely from a dependency management tool (Mend Renovate), it is generally safe to auto-approve.
-  ↳ This PR updates the digest of the golang.org/x/exp dependency from c1d0aac to e88cd73. The upstream changes include modifications to the logic within the `gorelease` tool to handle module replacement differently, specifically changing how it replaces module paths when a cached version is not used.
-    - golang.org/x/exp 0.0.0-20260813180055-c1d0aacb2297→0.0.0-20260824195058-e88cd73687aa: compare c1d0aacb2297...e88cd73687aa ✓ 7904 bytes
-    - context: 10661 bytes
-- [#744](https://github.com/kairos-io/AuroraBoot/pull/744) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - vitejs/vite-plugin-react 39b31735bf79c2dd380eedaba7ed849256f92a29..04cac5020e349f452d76c5a4f6d788ad4b38930a (PR body): compare 39b31735bf79c2dd380eedaba7ed849256f92a29...04cac5020e349f452d76c5a4f6d788ad4b38930a ✓ 40000 bytes
-    - vitejs/vite-plugin-react 68c0cb8796ce18bd049c3d05c5210eaf0617eac0..39b31735bf79c2dd380eedaba7ed849256f92a29 (PR body): compare 68c0cb8796ce18bd049c3d05c5210eaf0617eac0...39b31735bf79c2dd380eedaba7ed849256f92a29 ✓ 40000 bytes
-    - context: 85269 bytes
-- [#747](https://github.com/kairos-io/AuroraBoot/pull/747) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - cypress-io/cypress v15.21.0..v15.21.1 (PR body): compare v15.21.0...v15.21.1 ✓ 32157 bytes
-    - cypress-io/cypress v15.20.1..v15.21.0 (PR body): compare v15.20.1...v15.21.0 failed/empty (no upstream diff)
-    - cypress-io/cypress v15.20.0..v15.20.1 (PR body): compare v15.20.0...v15.20.1 ✓ 40000 bytes
-    - context: 79466 bytes
-- [#748](https://github.com/kairos-io/AuroraBoot/pull/748) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - eslint/eslint v10.9.1..3f20a57c6293371b6193d3fb6746c2b7b2ac2689 (PR body): compare v10.9.1...3f20a57c6293371b6193d3fb6746c2b7b2ac2689 ✓ 40000 bytes
-    - eslint/eslint v10.9.1..v10.10.0 (PR body): compare v10.9.1...v10.10.0 ✓ 40000 bytes
-    - context: 93097 bytes
-- [#755](https://github.com/kairos-io/AuroraBoot/pull/755) — ✅ **good** — This is a routine maintenance task to sync the chart definition version with the latest stable release (v0.27.0). The description confirms that the corresponding artifact is already published, and there are no apparent security risks introduced by this version bump.
-  ↳ The PR updates the `version` and `appVersion` fields in `deploy/helm/auroraboot/Chart.yaml` to `0.27.0` to ensure Helm deployments target the latest chart release.
-    - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
-    - context: 819 bytes
-- [#765](https://github.com/kairos-io/AuroraBoot/pull/765) — ✅ **good** — This is a routine dependency update generated by an automated tool (Mend Renovate). The change involves updating a dependency digest, which is a standard maintenance task and does not introduce any apparent security risks or breaking changes based on the provided context.
-  ↳ This PR updates the dependency `github.com/kairos-io/netboot` to a newer digest (`25854a1`), which includes a README update and a fix for a bug report.
-    - github.com/kairos-io/netboot 0.0.0-20260623081620-ddd9ffa00872→0.0.0-20260901080757-25854a157f3f: compare ddd9ffa00872...25854a157f3f ✓ 990 bytes
-    - context: 3863 bytes
-- [#774](https://github.com/kairos-io/AuroraBoot/pull/774) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - humanwhocodes/humanfs node-v0.16.7..node-v0.16.8 (PR body): compare node-v0.16.7...node-v0.16.8 ✓ 36534 bytes
-    - context: 43895 bytes
+- [#740](https://github.com/kairos-io/AuroraBoot/pull/740) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - golang.org/x/exp 0.0.0-20260824195058-e88cd73687aa→0.0.0-20260908205506-85c1c2202aba: compare e88cd73687aa...85c1c2202aba ✓ 9589 bytes
+    - golang.org/x/mod 0.40.0→0.41.0: compare v0.40.0...v0.41.0 ✓ 1224 bytes
+    - golang.org/x/net 0.58.0→0.59.0: compare v0.58.0...v0.59.0 ✓ 40000 bytes
+    - golang.org/x/sys 0.47.0→0.48.0: compare v0.47.0...v0.48.0 ✓ 40000 bytes
+    - context: 100705 bytes
+- [#788](https://github.com/kairos-io/AuroraBoot/pull/788) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - postcss/postcss 8.5.27..8.5.28 (PR body): compare 8.5.27...8.5.28 ✓ 1762 bytes
+    - postcss/postcss 8.5.26..8.5.27 (PR body): compare 8.5.26...8.5.27 ✓ 40000 bytes
+    - context: 45519 bytes
 **[kairos-io/cluster-api-provider-kairos](https://github.com/kairos-io/cluster-api-provider-kairos)**
 
 - [#38](https://github.com/kairos-io/cluster-api-provider-kairos/pull/38) — ✅ **good** — This pull request is a routine dependency update for golang.org/x/oauth2. Updating to a newer version is standard practice and generally safe, as it addresses potential minor issues or security patches without introducing significant risk.
@@ -321,10 +265,11 @@ _No bot PRs yet._
     - ThalesGroup/crypto11 v1.6.6..v1.6.7 (PR body): compare v1.6.6...v1.6.7 ✓ 617 bytes
     - ThalesGroup/crypto11 v1.6.5..v1.6.6 (PR body): compare v1.6.5...v1.6.6 ✓ 936 bytes
     - context: 14568 bytes
-- [#62](https://github.com/kairos-io/go-ukify/pull/62) — ✅ **good** — This is a routine dependency update to a minor patch version of a well-known library. The changelog indicates a functional fix related to spec lifecycle management, and there are no indications of any security vulnerabilities introduced. Therefore, it is safe to auto-approve.
-  ↳ The PR updates the `github.com/onsi/ginkgo/v2` dependency from v2.32.0 to v2.32.1. This version includes a fix to defer `AfterAll` until repeated specs complete, along with several internal refactorings to the project's test runner logic to improve handling of ordered and parallel test execution.
-    - github.com/onsi/ginkgo/v2 2.32.0→2.32.1: compare v2.32.0...v2.32.1 ✓ 12922 bytes
-    - context: 16020 bytes
+- [#62](https://github.com/kairos-io/go-ukify/pull/62) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - github.com/onsi/ginkgo/v2 2.32.0→2.32.2: compare v2.32.0...v2.32.2 ✓ 30208 bytes
+    - onsi/ginkgo v2.32.1..v2.32.2 (PR body): compare v2.32.1...v2.32.2 ✓ 18518 bytes
+    - onsi/ginkgo v2.32.0..v2.32.1 (PR body): compare v2.32.0...v2.32.1 ✓ 12922 bytes
+    - context: 65057 bytes
 - [#63](https://github.com/kairos-io/go-ukify/pull/63) — ✅ **good** — This is a standard dependency version bump for a mature library. The changelog indicates a new feature, and the diffs show standard version updates across `go.mod`, `go.sum`, and configuration files. There are no obvious security regressions or breaking changes indicated by the context.
   ↳ This PR updates the `github.com/onsi/gomega` dependency from version `v1.42.1` to `v1.43.0`. This update introduces a new feature: a gomock adaptor extension for using Gomega matchers with gomock.
     - github.com/onsi/gomega 1.42.1→1.43.0: compare v1.42.1...v1.43.0 ✓ 3786 bytes
@@ -334,6 +279,13 @@ _No bot PRs yet._
 - [#4464](https://github.com/kairos-io/kairos/pull/4464) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/mudler/edgevpn 0.35.3→0.35.4: compare v0.35.3...v0.35.4 ✓ 40000 bytes
     - context: 45429 bytes
+- [#4467](https://github.com/kairos-io/kairos/pull/4467) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - golang.org/x/crypto 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 1806 bytes
+    - golang.org/x/mod 0.40.0→0.41.0: compare v0.40.0...v0.41.0 ✓ 1224 bytes
+    - golang.org/x/sync 0.22.0→0.23.0: compare v0.22.0...v0.23.0 ✓ 1637 bytes
+    - golang.org/x/sys 0.47.0→0.48.0: compare v0.47.0...v0.48.0 ✓ 40000 bytes
+    - golang.org/x/text 0.41.0→0.42.0: compare v0.41.0...v0.42.0 ✓ 40000 bytes
+    - context: 91835 bytes
 - [#4472](https://github.com/kairos-io/kairos/pull/4472) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - charmbracelet/bubbles v2.2.0..v2.2.1 (PR body): compare v2.2.0...v2.2.1 ✓ 4095 bytes
     - charmbracelet/bubbles v2.1.1..v2.2.0 (PR body): compare v2.1.1...v2.2.0 ✓ 40000 bytes
@@ -343,9 +295,6 @@ _No bot PRs yet._
     - charmbracelet/bubbletea v2.0.7..v2.0.8 (PR body): compare v2.0.7...v2.0.8 ✓ 6758 bytes
     - charmbracelet/bubbletea v2.0.6..v2.0.7 (PR body): compare v2.0.6...v2.0.7 ✓ 19910 bytes
     - context: 69636 bytes
-- [#4499](https://github.com/kairos-io/kairos/pull/4499) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - docker/setup-buildx-action 1a2e524850ecdcf656b58ac28634bff640ec0d41..5ac4a31b15f1c45ec652b8af78c2096c3a08368c (PR body): compare 1a2e524850ecdcf656b58ac28634bff640ec0d41...5ac4a31b15f1c45ec652b8af78c2096c3a08368c ✓ 40000 bytes
-    - context: 42059 bytes
 - [#4506](https://github.com/kairos-io/kairos/pull/4506) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/containerd/containerd 1.7.34→1.7.35: compare v1.7.34...v1.7.35 ✓ 25225 bytes
     - context: 31740 bytes
@@ -356,33 +305,34 @@ _No bot PRs yet._
   ↳ The PR updates the `golang` Docker base image in the `examples/bundle/Dockerfile` from version 1.26 to 1.27 to resolve build errors related to internal API changes.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1643 bytes
-- [#4510](https://github.com/kairos-io/kairos/pull/4510) — ✅ **good** — This is a standard dependency upgrade to a newer version of a library. The changelog indicates that v1.56.0 includes new features and fixes, which is generally a positive change. There are no immediate security concerns apparent from the provided context.
-  ↳ This PR updates the dependency `github.com/moby/moby/api` from v1.55.0 to v1.56.0. The new version introduces features such as annotation filtering for containers and improved configuration options, along with several bug fixes and documentation updates.
-    - github.com/moby/moby/api 1.55.0→1.56.0: compare v1.55.0...v1.56.0 failed/empty (no upstream diff)
-    - context: 4859 bytes
-- [#4530](https://github.com/kairos-io/kairos/pull/4530) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - github.com/moby/moby/api 1.55.0→1.56.0: compare v1.55.0...v1.56.0 failed/empty (no upstream diff)
-    - github.com/moby/moby/client 0.5.1→0.6.0: compare v0.5.1...v0.6.0 ✓ 40000 bytes
-    - context: 43931 bytes
+- [#4554](https://github.com/kairos-io/kairos/pull/4554) — ✅ **good** — This is a routine dependency version bump for a standard library, `golang.org/x/mod`. The changes are confined to updating the version number and minor internal renaming/cleanup in the module files. There are no obvious security vulnerabilities introduced by this version upgrade, and the context suggests this is a standard maintenance task.
+  ↳ This PR updates the `golang.org/x/mod` dependency from v0.40.0 to v0.41.0. It also includes minor internal refactoring in `modfile/rule.go` and `modfile/work.go` to rename functions and comments related to tool handling.
+    - golang.org/x/mod 0.40.0→0.41.0: compare v0.40.0...v0.41.0 ✓ 1224 bytes
+    - context: 4014 bytes
+- [#4555](https://github.com/kairos-io/kairos/pull/4555) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
+    - golang.org/x/mod 0.40.0→0.41.0: compare v0.40.0...v0.41.0 ✓ 1224 bytes
+    - golang.org/x/net 0.58.0→0.59.0: compare v0.58.0...v0.59.0 ✓ 40000 bytes
+    - golang.org/x/sys 0.47.0→0.48.0: compare v0.47.0...v0.48.0 ✓ 40000 bytes
+    - context: 89854 bytes
 **[kairos-io/kairos-operator](https://github.com/kairos-io/kairos-operator)**
 
 - [#153](https://github.com/kairos-io/kairos-operator/pull/153) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - docker/login-action abd2ef45e78c5afb21d64d4ca52ee8550d9572c7..dbcb813823bdd20940b903addbd779551569679f (PR body): compare abd2ef45e78c5afb21d64d4ca52ee8550d9572c7...dbcb813823bdd20940b903addbd779551569679f ✓ 40000 bytes
     - context: 43836 bytes
-- [#156](https://github.com/kairos-io/kairos-operator/pull/156) — ✅ **good** — This is a routine dependency maintenance task to update the digest of a base image. There are no security implications associated with this change, and it is safe to auto-approve.
-  ↳ This PR updates the Dockerfile and Dockerfile.node-labeler files to use a new digest for the docker.io/golang:1.26.5 base image.
+- [#156](https://github.com/kairos-io/kairos-operator/pull/156) — ✅ **good** — This change is a routine maintenance update to change the digest of a base image. It does not introduce new dependencies, modify application code, or change security configurations. Therefore, it is safe to auto-approve.
+  ↳ This PR updates the digest for the `docker.io/golang:1.26.5` base image from `3aff665` to `705e964` in the Dockerfile and Dockerfile.node-labeler files.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1972 bytes
-- [#158](https://github.com/kairos-io/kairos-operator/pull/158) — ✅ **good** — This is a routine dependency version bump for a trusted operator. The change only updates a tag reference in the configuration file and does not introduce new code or security-sensitive logic. It is safe to auto-approve.
-  ↳ This PR updates the version tag for the `quay.io/kairos/operator` dependency from v0.1.2 to v0.2.1 in the Kustomization configuration file.
+- [#158](https://github.com/kairos-io/kairos-operator/pull/158) — ✅ **good** — This is a standard minor version update for a known dependency. The change only modifies the tag reference in a configuration file and does not introduce any new code or security risks. It is safe to auto-approve.
+  ↳ This PR updates the tag reference for the `quay.io/kairos/operator` dependency from version `v0.1.2` to `v0.2.1` in the Kustomization configuration file.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1500 bytes
-- [#162](https://github.com/kairos-io/kairos-operator/pull/162) — ✅ **good** — The PR performs a minor version update for the `docker.io/golang` dependency. This is a standard maintenance task and does not introduce any obvious security risks based on the provided context. The change is safe to auto-approve.
-  ↳ This PR updates the `docker.io/golang` dependency from version `1.26.5` to `1.27.1` across the `devcontainer.json` and `Dockerfile` files. This includes updating the base image used in the devcontainer and the build stages of the Dockerfile.
+- [#162](https://github.com/kairos-io/kairos-operator/pull/162) — ✅ **good** — The PR updates the `docker.io/golang` dependency to a minor version bump (1.26.5 to 1.27.1). This is a standard maintenance task to ensure the project uses a more recent version of the Go image in the development and build environments, which is generally a good practice for security and stability.
+  ↳ This PR updates the `docker.io/golang` dependency from version `1.26.5` to `1.27.1` across the development container image and the build Dockerfiles. This is a routine maintenance update to use a newer version of the Go image.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 2622 bytes
-- [#163](https://github.com/kairos-io/kairos-operator/pull/163) — ✅ **good** — This is a routine dependency pinning update. Pinning an image to a specific digest is a good security practice as it ensures build reproducibility and prevents unexpected behavior or vulnerabilities that might be introduced by future updates to the 'latest' tag. No security risks are introduced.
-  ↳ The PR pins the busybox image to a specific SHA digest (`dc2d74b...`) in the `defaultImage` configuration within the Kairos operator values. This ensures that the deployment uses a consistent, immutable version of the busybox container, improving build stability and security posture by preventing unexpected image updates.
+- [#163](https://github.com/kairos-io/kairos-operator/pull/163) — ✅ **good** — This PR updates the busybox image reference to a specific digest, ensuring build reproducibility and stability by preventing unexpected changes from upstream tags. Pinning dependencies is a standard practice for maintaining a secure and reliable build environment.
+  ↳ The PR pins the `defaultImage` for the `nodeops` configuration from the mutable tag `busybox:latest` to the specific SHA digest `sha256:dc2d74b28e4cf8984fa52af1f39bc7c3d9c73760b41a74d629f5d11b1ab28616`.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 1570 bytes
 - [#164](https://github.com/kairos-io/kairos-operator/pull/164) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -414,8 +364,8 @@ _No bot PRs yet._
 **[kairos-io/netboot](https://github.com/kairos-io/netboot)**
 
 - [#46](https://github.com/kairos-io/netboot/pull/46) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/crypto 0.53.0→0.55.0: compare v0.53.0...v0.55.0 ✓ 40000 bytes
-    - golang.org/x/net 0.56.0→0.58.0: compare v0.56.0...v0.58.0 ✓ 40000 bytes
+    - golang.org/x/crypto 0.53.0→0.57.0: compare v0.53.0...v0.57.0 ✓ 40000 bytes
+    - golang.org/x/net 0.56.0→0.59.0: compare v0.56.0...v0.59.0 ✓ 40000 bytes
     - context: 83965 bytes
 - [#47](https://github.com/kairos-io/netboot/pull/47) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - actions/setup-go v7.0.0..v7.0.0 (PR body): compare v7.0.0...v7.0.0 failed/empty (no upstream diff)
@@ -423,8 +373,8 @@ _No bot PRs yet._
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - context: 83203 bytes
 - [#48](https://github.com/kairos-io/netboot/pull/48) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
-    - golang.org/x/crypto 0.53.0→0.56.0: compare v0.53.0...v0.56.0 ✓ 40000 bytes
-    - golang.org/x/net 0.56.0→0.57.0: compare v0.56.0...v0.57.0 ✓ 40000 bytes
+    - golang.org/x/crypto 0.53.0→0.57.0: compare v0.53.0...v0.57.0 ✓ 40000 bytes
+    - golang.org/x/net 0.56.0→0.58.0: compare v0.56.0...v0.58.0 ✓ 40000 bytes
     - context: 83976 bytes
 - [#49](https://github.com/kairos-io/netboot/pull/49) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - google/osv-scanner-action v2.5.0..v2.5.1 (PR body): compare v2.5.0...v2.5.1 ✓ 9140 bytes
@@ -445,6 +395,9 @@ _No bot PRs yet._
 - [#65](https://github.com/mauromorales/xpasswd/pull/65) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - golang/go go1.27rc3..go1.27.1 (PR body): compare go1.27rc3...go1.27.1 ✓ 40000 bytes
     - context: 41548 bytes
+- [#66](https://github.com/mauromorales/xpasswd/pull/66) — ⚠️ **needs_human_verification** — tool-call arguments were not valid JSON
+    - github.com/onsi/ginkgo/v2 2.32.1→2.32.2: compare v2.32.1...v2.32.2 ✓ 18518 bytes
+    - context: 21369 bytes
 **[mudler/edgevpn](https://github.com/mudler/edgevpn)**
 
 - [#804](https://github.com/mudler/edgevpn/pull/804) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
@@ -498,7 +451,7 @@ _No bot PRs yet._
     - context: 76092 bytes
 - [#1056](https://github.com/mudler/edgevpn/pull/1056) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - github.com/libp2p/go-libp2p-pubsub 0.16.0→0.17.0: compare v0.16.0...v0.17.0 ✓ 40000 bytes
-    - context: 45662 bytes
+    - context: 45663 bytes
 - [#1057](https://github.com/mudler/edgevpn/pull/1057) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
     - actions/setup-go v6.5.0..v7.0.0 (PR body): compare v6.5.0...v7.0.0 ✓ 40000 bytes
     - actions/setup-go v6..v7.0.0 (PR body): compare v6...v7.0.0 ✓ 40000 bytes
@@ -507,8 +460,8 @@ _No bot PRs yet._
     - github.com/libp2p/go-libp2p 0.48.0→0.49.0: compare v0.48.0...v0.49.0 ✓ 40000 bytes
     - github.com/libp2p/go-libp2p-kad-dht 0.41.0→0.42.2: compare v0.41.0...v0.42.2 ✓ 40000 bytes
     - context: 111567 bytes
-- [#1061](https://github.com/mudler/edgevpn/pull/1061) — ✅ **good** — The change is a routine dependency digest update. There are no obvious security implications, and this type of maintenance is necessary to keep dependencies current. It is safe to auto-approve.
-  ↳ This PR updates the dependency `github.com/mudler/go-libp2p-pubsub` by replacing the old digest (`205ded1`) with a newer one (`2a31b5e`). This is a routine maintenance update to ensure the project uses the latest version of the library.
+- [#1061](https://github.com/mudler/edgevpn/pull/1061) — ✅ **good** — The change is a routine dependency update involving a digest change for a known library. There are no apparent security risks or changes to the application logic, making it safe to auto-approve.
+  ↳ This PR updates the dependency `github.com/mudler/go-libp2p-pubsub` by replacing its old digest (`205ded1`) with a newer one (`2a31b5e`). This is a routine maintenance update to pull in the latest version of the library.
     - no upstream comparisons available (no go.mod bumps or compare links in the PR body)
     - context: 2511 bytes
 - [#1067](https://github.com/mudler/edgevpn/pull/1067) — ⚠️ **needs_human_verification** — review endpoint returned HTTP 500
