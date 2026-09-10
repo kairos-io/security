@@ -1,14 +1,18 @@
 {
-  "generatedAt": "2026-09-09",
+  "generatedAt": "2026-09-10",
   "model": "gemma-4-e2b-it",
   "aiAvailable": true,
   "focus": [
+    "04f74d7a16b9a6d3e8d6225850dc319bc7a437a02e80ef2ce6e516ed52429007",
     "12d230967368fe81b291e4e330dd55f4f72a465db314c39d5c0b63dd81c8d4d2",
+    "20d4343c379808ad770727b8cbbf5dd3230f5af258f4e66215667a7d0e25502d",
     "be5ccd1aeae3e5f72a68426ebdc3c14a30b542f8de71b9b8b13738c3acf80092"
   ],
   "summaries": {
+    "04f74d7a16b9a6d3e8d6225850dc319bc7a437a02e80ef2ce6e516ed52429007": "High severity vulnerability in expat package (CVE-2026-76957).",
     "12d230967368fe81b291e4e330dd55f4f72a465db314c39d5c0b63dd81c8d4d2": "High severity vulnerability in rsync package (CVE-2026-53789).",
+    "20d4343c379808ad770727b8cbbf5dd3230f5af258f4e66215667a7d0e25502d": "High severity vulnerability in expat package (CVE-2026-76956).",
     "be5ccd1aeae3e5f72a68426ebdc3c14a30b542f8de71b9b8b13738c3acf80092": "High severity vulnerability in rsync package (CVE-2026-70457)."
   },
-  "narrative": "The triage focuses on the two high-severity findings (F1 and F2) related to the rsync package, which require immediate attention. These findings involve critical CVEs and should be addressed before medium or unknown severity issues."
+  "narrative": "Focus on the four high-severity findings affecting the 'expat' and 'rsync' packages, as these represent the most critical immediate risks."
 }
