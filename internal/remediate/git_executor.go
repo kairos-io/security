@@ -185,7 +185,7 @@ func (g *GitExecutor) Open(in Intent, runID string) (state.LedgerEntry, error) {
 
 	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
 	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
-	if _, err := g.run(dir, "git", "commit", "-am", PRTitle(in)); err != nil {
+	if err := g.commitAll(dir, PRTitle(in)); err != nil {
 		return entry, err
 	}
 	if err := g.pushBranch(dir, in.Repo, branch, false); err != nil {
@@ -375,7 +375,7 @@ func (g *GitExecutor) Adjust(entry state.LedgerEntry, toVersion, runID string) (
 	}
 	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
 	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
-	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): adjust bump to "+toVersion); err != nil {
+	if err := g.commitAll(dir, "chore(security): adjust bump to "+toVersion); err != nil {
 		return entry, err
 	}
 	if err := g.pushBranch(dir, entry.Repo, entry.Branch, true); err != nil {
@@ -498,7 +498,7 @@ func (g *GitExecutor) Cascade(in Intent, runID string) (state.LedgerEntry, error
 	}
 	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
 	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
-	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): cascade-bump "+in.Package); err != nil {
+	if err := g.commitAll(dir, "chore(security): cascade-bump "+in.Package); err != nil {
 		return entry, err
 	}
 	if err := g.pushBranch(dir, in.Repo, branch, false); err != nil {
@@ -571,7 +571,7 @@ func (g *GitExecutor) Repin(e state.LedgerEntry, runID string) (state.LedgerEntr
 		e.Blocked = ""
 		return e, nil // already at the tag
 	}
-	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): re-pin "+module+" to "+tag); err != nil {
+	if err := g.commitAll(dir, "chore(security): re-pin "+module+" to "+tag); err != nil {
 		return e, err
 	}
 	if err := g.pushBranch(dir, e.Repo, e.Branch, true); err != nil {
@@ -629,7 +629,7 @@ func (g *GitExecutor) Toolchain(in Intent, runID string) (state.LedgerEntry, err
 		entry.History = []state.LedgerEvent{{Run: runID, Action: "toolchain-already-current"}}
 		return entry, nil
 	}
-	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): bump go toolchain to "+in.ToolchainVersion); err != nil {
+	if err := g.commitAll(dir, "chore(security): bump go toolchain to "+in.ToolchainVersion); err != nil {
 		return entry, err
 	}
 	if err := g.pushBranch(dir, in.Repo, branch, false); err != nil {
@@ -684,7 +684,7 @@ func (g *GitExecutor) Supersede(in Intent, runID string) (state.LedgerEntry, err
 	}
 	_, _ = g.run(dir, "git", "config", "user.name", "kairos-security-bot")
 	_, _ = g.run(dir, "git", "config", "user.email", "bot@kairos.io")
-	if _, err := g.run(dir, "git", "commit", "-am", "chore(security): bump "+in.Package+" to "+in.Bump.To); err != nil {
+	if err := g.commitAll(dir, "chore(security): bump "+in.Package+" to "+in.Bump.To); err != nil {
 		return entry, err
 	}
 	if err := g.pushBranch(dir, in.Repo, branch, false); err != nil {
@@ -735,4 +735,16 @@ func prNumberFromURL(url string) int {
 		}
 	}
 	return n
+}
+
+// commitAll stages every change in the tree and commits it. `git commit -am`
+// stages tracked files only, so a file the repair agent created would be left
+// out of the commit the caller has just verified, and then destroyed with the
+// temp clone.
+func (g *GitExecutor) commitAll(dir, msg string) error {
+	if _, err := g.run(dir, "git", "add", "-A"); err != nil {
+		return err
+	}
+	_, err := g.run(dir, "git", "commit", "-m", msg)
+	return err
 }
