@@ -180,4 +180,10 @@ type PRReview struct {
 	ChangesSummary string   `json:"changesSummary,omitempty"`
 	ReviewedRun    string   `json:"reviewedRun,omitempty"`
 	Trace          []string `json:"trace,omitempty"`
+	// Undelivered marks a verdict that was assessed but never reached the PR,
+	// because the comment or the approval call failed. The next run re-assesses
+	// and retries delivery instead of carrying the review forward on head SHA.
+	// It is omitempty so reviews written before this field existed read as
+	// delivered, which is what they were.
+	Undelivered bool `json:"undelivered,omitempty"`
 }
