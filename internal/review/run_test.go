@@ -1,6 +1,7 @@
 package review
 
 import (
+	"errors"
 	"strconv"
 	"strings"
 	"testing"
@@ -19,6 +20,8 @@ type fakeGH struct {
 	compares map[string][]byte // keyed "repo base..head"
 	upserts  map[string]string // keyed "repo#pr" -> body (re-upsert overwrites: no spam)
 	compErr  error             // if set, CompareDiff returns it
+	upsErr   error             // if set, UpsertPRComment returns it
+	apprErr  error             // if set, ApprovePR returns it
 	approved []string          // "repo#pr"
 	compared [][3]string       // records each (repo, base, head) CompareDiff was called with
 }
@@ -35,6 +38,9 @@ func (f *fakeGH) CompareDiff(repo, base, head string) ([]byte, error) {
 	return f.compares[repo+" "+base+".."+head], nil
 }
 func (f *fakeGH) UpsertPRComment(repo string, pr int, marker, body string) error {
+	if f.upsErr != nil {
+		return f.upsErr
+	}
 	if f.upserts == nil {
 		f.upserts = map[string]string{}
 	}
@@ -42,6 +48,9 @@ func (f *fakeGH) UpsertPRComment(repo string, pr int, marker, body string) error
 	return nil
 }
 func (f *fakeGH) ApprovePR(repo string, pr int, body string) error {
+	if f.apprErr != nil {
+		return f.apprErr
+	}
 	f.approved = append(f.approved, repo+"#"+strconv.Itoa(pr))
 	return nil
 }
@@ -373,4 +382,83 @@ func TestRunKeepsVerdictWhenChangelogPresent(t *testing.T) {
 	out, _ := Run([]state.Repo{{Repo: "o/r"}}, gh, a, cfg, nil, "run1", false)
 	require.Len(t, out, 1)
 	assert.Equal(t, "good", out[0].Verdict) // not forced (changelog present)
+}
+
+// botPR is the one open bot PR the delivery tests run against.
+func botPR() map[string][]ghclient.PullRequest {
+	return map[string][]ghclient.PullRequest{"o/r": {
+		{Number: 2, Title: "bump x", Author: "app/dependabot", IsBot: true, HeadSHA: "sha2", URL: "u2", Body: "### Release Notes"},
+	}}
+}
+
+func TestRunRetriesAReviewWhoseCommentFailed(t *testing.T) {
+	a := &FakeAssessor{Verdict: "bad", Reasoning: "introduces a CVE"}
+	cfg := config.ReviewCfg{Enabled: true, MaxPerRun: 20}
+	repos := []state.Repo{{Repo: "o/r"}}
+
+	// Run 1: GitHub refuses the comment. The verdict never reaches the PR, so
+	// the run must say so and must not record the review as delivered.
+	gh := &fakeGH{prs: botPR(), diffs: map[string][]byte{"o/r": []byte("go.mod bump")},
+		upsErr: errors.New("list comments: gh api: HTTP 403")}
+	out, errs := Run(repos, gh, a, cfg, nil, "run1", false)
+	require.Len(t, out, 1)
+	assert.Empty(t, gh.upserts)
+	require.Len(t, errs, 1)
+	assert.Contains(t, errs[0].Message, "comment not posted")
+	assert.Equal(t, "o/r", errs[0].Repo)
+	assert.True(t, out[0].Undelivered)
+	assert.Contains(t, strings.Join(out[0].Trace, "\n"), "retried next run")
+
+	// Run 2: same head SHA, GitHub healthy. The carry-forward must not swallow
+	// the retry.
+	gh2 := &fakeGH{prs: botPR(), diffs: map[string][]byte{"o/r": []byte("go.mod bump")}}
+	out2, errs2 := Run(repos, gh2, a, cfg, out, "run2", false)
+	require.Len(t, out2, 1)
+	assert.Empty(t, errs2)
+	assert.Contains(t, gh2.upserts["o/r#2"], "introduces a CVE")
+	assert.False(t, out2[0].Undelivered)
+
+	// Run 3: now that it landed, the review is carried forward as before.
+	gh3 := &fakeGH{prs: botPR(), diffs: map[string][]byte{"o/r": []byte("go.mod bump")}}
+	out3, _ := Run(repos, gh3, a, cfg, out2, "run3", false)
+	require.Len(t, out3, 1)
+	assert.Empty(t, gh3.upserts, "unchanged head with a delivered review: no second call")
+	assert.Equal(t, "run2", out3[0].ReviewedRun)
+}
+
+func TestRunRetriesAReviewWhoseApprovalFailed(t *testing.T) {
+	a := &FakeAssessor{Verdict: "good", Reasoning: "clean"}
+	cfg := config.ReviewCfg{Enabled: true, AutoApprove: true, MaxPerRun: 20}
+	repos := []state.Repo{{Repo: "o/r"}}
+
+	// The comment lands, the approval does not: still undelivered.
+	gh := &fakeGH{prs: botPR(), diffs: map[string][]byte{"o/r": []byte("go.mod bump")},
+		apprErr: errors.New("gh pr review: HTTP 403")}
+	out, errs := Run(repos, gh, a, cfg, nil, "run1", false)
+	require.Len(t, out, 1)
+	assert.NotEmpty(t, gh.upserts)
+	assert.Empty(t, gh.approved)
+	require.Len(t, errs, 1)
+	assert.Contains(t, errs[0].Message, "approval not submitted")
+	assert.True(t, out[0].Undelivered)
+
+	gh2 := &fakeGH{prs: botPR(), diffs: map[string][]byte{"o/r": []byte("go.mod bump")}}
+	out2, errs2 := Run(repos, gh2, a, cfg, out, "run2", false)
+	assert.Empty(t, errs2)
+	assert.Equal(t, []string{"o/r#2"}, gh2.approved)
+	assert.False(t, out2[0].Undelivered)
+}
+
+func TestRunCarriesAnUndeliveredReviewWhenOverBudget(t *testing.T) {
+	a := &FakeAssessor{Verdict: "bad", Reasoning: "introduces a CVE"}
+	repos := []state.Repo{{Repo: "o/r"}}
+	prev := []state.PRReview{{Repo: "o/r", PR: 2, HeadSHA: "sha2", Verdict: "bad", Undelivered: true}}
+
+	// MaxPerRun 0 means no assessment budget: the undelivered review is kept in
+	// state, still flagged, so a later run with budget retries it.
+	gh := &fakeGH{prs: botPR(), diffs: map[string][]byte{"o/r": []byte("go.mod bump")}}
+	out, _ := Run(repos, gh, a, config.ReviewCfg{Enabled: true}, prev, "run2", false)
+	require.Len(t, out, 1)
+	assert.True(t, out[0].Undelivered)
+	assert.Empty(t, gh.upserts)
 }

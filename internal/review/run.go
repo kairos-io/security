@@ -36,7 +36,9 @@ func Run(repos []state.Repo, gh ghclient.GitHub, a Assessor, cfg config.ReviewCf
 			}
 			k := key(repo.Repo, pr.Number)
 			// Idempotent: unchanged head -> carry the prior review forward.
-			if p, ok := prior[k]; ok && p.HeadSHA == pr.HeadSHA {
+			// A review whose comment or approval never landed is not carried
+			// forward, so delivery is retried on the next run.
+			if p, ok := prior[k]; ok && p.HeadSHA == pr.HeadSHA && !p.Undelivered {
 				out = append(out, p)
 				continue
 			}
@@ -97,15 +99,30 @@ func Run(repos []state.Repo, gh ghclient.GitHub, a Assessor, cfg config.ReviewCf
 			}
 			rv := state.PRReview{Repo: repo.Repo, PR: pr.Number, URL: pr.URL, HeadSHA: pr.HeadSHA,
 				Verdict: verdict, Reasoning: reasoning, ChangesSummary: summary, Trace: trace, ReviewedRun: runID}
-			out = append(out, rv)
 			if dryRun {
 				fmt.Printf("[dry-run] would comment on %s#%d: %s — %s\n", repo.Repo, pr.Number, verdict, summary)
+				out = append(out, rv)
 				continue
 			}
-			_ = gh.UpsertPRComment(repo.Repo, pr.Number, reviewMarker, comment(rv, cfg.Notify))
-			if cfg.AutoApprove && verdict == "good" {
-				_ = gh.ApprovePR(repo.Repo, pr.Number, "kairos-security: automated review verdict good")
+			// Delivery is the point of the run, so a failed comment or approval
+			// is a run error and leaves the review undelivered. UpsertPRComment
+			// deliberately skips rather than blind-creating when it cannot list
+			// comments; without this, "skip this run" becomes "skip forever".
+			if err := gh.UpsertPRComment(repo.Repo, pr.Number, reviewMarker, comment(rv, cfg.Notify)); err != nil {
+				errs = append(errs, state.CollectionError{Repo: repo.Repo, Collector: "review",
+					Message: fmt.Sprintf("PR %d: comment not posted: %v", pr.Number, err)})
+				rv.Undelivered = true
+				rv.Trace = append(rv.Trace, "comment not posted: "+err.Error()+" → retried next run")
 			}
+			if cfg.AutoApprove && verdict == "good" {
+				if err := gh.ApprovePR(repo.Repo, pr.Number, "kairos-security: automated review verdict good"); err != nil {
+					errs = append(errs, state.CollectionError{Repo: repo.Repo, Collector: "review",
+						Message: fmt.Sprintf("PR %d: approval not submitted: %v", pr.Number, err)})
+					rv.Undelivered = true
+					rv.Trace = append(rv.Trace, "approval not submitted: "+err.Error()+" → retried next run")
+				}
+			}
+			out = append(out, rv)
 		}
 	}
 	sort.Slice(out, func(i, j int) bool {
