@@ -38,13 +38,18 @@ type osvAffected struct {
 		Name      string `json:"name,omitempty"`
 	} `json:"package,omitempty"`
 	Ranges []struct {
-		Type   string `json:"type,omitempty"`
-		Events []struct {
-			Introduced string `json:"introduced,omitempty"`
-			Fixed      string `json:"fixed,omitempty"`
-		} `json:"events"`
+		Type   string          `json:"type,omitempty"`
+		Events []osvRangeEvent `json:"events"`
 	} `json:"ranges"`
 	Versions []string `json:"versions,omitempty"`
+}
+
+// osvRangeEvent is one entry in a range's event timeline. The schema allows
+// only one of the fields per object, and the array as a whole describes a
+// sequence of vulnerable windows: see rangeIntervals.
+type osvRangeEvent struct {
+	Introduced string `json:"introduced,omitempty"`
+	Fixed      string `json:"fixed,omitempty"`
 }
 
 type osvQueryResponse struct {
@@ -133,44 +138,98 @@ func osvApplicableFix(v osvVuln, cmp func(string, string) int, queried string) (
 	applicable := false
 	for _, a := range v.Affected {
 		for _, rg := range a.Ranges {
-			introduced := "0"
-			fixed := ""
-			for _, ev := range rg.Events {
-				if ev.Introduced != "" {
-					introduced = ev.Introduced
+			for _, iv := range rangeIntervals(rg.Events) {
+				// Only trust the introduced-boundary drop when q is orderable. A
+				// non-numeric version can't be compared meaningfully, so we fail
+				// OPEN (keep the vuln visible) instead of dropping it below "0".
+				if parseable && cmp(q, stripAlpineRevisionSuffix(iv.introduced)) < 0 {
+					continue // below this interval's introduced boundary
 				}
-				if ev.Fixed != "" {
-					fixed = stripAlpineRevisionSuffix(ev.Fixed)
+				applicable = true
+				// Alpine OSV records use "0" as a placeholder meaning "no known
+				// fix yet" — carrying that forward as FixedVersion tricks the
+				// deterministic classifier (current >= "0" == true) into flagging
+				// every such finding as already-fixed and quietly hiding it in
+				// the informational section. Treat "0" the same as an empty
+				// fixed: the vuln is applicable but we don't have a target
+				// version to bump to.
+				if iv.fixed == "" || iv.fixed == "0" {
+					continue
 				}
-			}
-			// Only trust the introduced-boundary drop when q is orderable. A
-			// non-numeric version can't be compared meaningfully, so we fail
-			// OPEN (keep the vuln visible) instead of dropping it below "0".
-			if parseable && cmp(q, stripAlpineRevisionSuffix(introduced)) < 0 {
-				continue // below this range's introduced boundary
-			}
-			applicable = true
-			// Alpine OSV records use "0" as a placeholder meaning "no known
-			// fix yet" — carrying that forward as FixedVersion tricks the
-			// deterministic classifier (current >= "0" == true) into flagging
-			// every such finding as already-fixed and quietly hiding it in
-			// the informational section. Treat "0" the same as an empty
-			// fixed: the vuln is applicable but we don't have a target
-			// version to bump to.
-			if fixed == "" || fixed == "0" {
-				continue
-			}
-			// Inside the range (q < fixed): this is the fix we want.
-			if cmp(q, fixed) < 0 {
-				return fixed, true
-			}
-			// Past the fix: remember the largest fix seen (already-fixed).
-			if bestFix == "" || cmp(fixed, bestFix) > 0 {
-				bestFix = fixed
+				// Inside the interval (q < fixed): this is the fix we want.
+				if cmp(q, iv.fixed) < 0 {
+					return iv.fixed, true
+				}
+				// Past the fix: remember the largest fix seen (already-fixed).
+				if bestFix == "" || cmp(iv.fixed, bestFix) > 0 {
+					bestFix = iv.fixed
+				}
 			}
 		}
 	}
 	return bestFix, applicable
+}
+
+// osvInterval is one half-open vulnerable window [introduced, fixed) taken
+// from a range's event timeline. An empty fixed means the window is still
+// open (no known fix).
+type osvInterval struct {
+	introduced string
+	fixed      string
+}
+
+// rangeIntervals turns one range's events into the windows they describe.
+//
+// The events array is a *timeline*, not a single pair: the OSV schema says
+// each object "describes a single version that either introduces or fixes a
+// vulnerability", and a range that was patched on several branches carries
+// them all. Go's database encodes every backported fix this way, e.g.
+// GO-2026-4340 is
+//
+//	[{introduced:0} {fixed:1.24.12} {introduced:1.25.0} {fixed:1.25.6}]
+//
+// meaning vulnerable in [0, 1.24.12) AND in [1.25.0, 1.25.6). Reading only
+// the last introduced and the last fixed collapses that to [1.25.0, 1.25.6)
+// and reports 1.24.5 as unaffected, which is a false negative on a real CVE.
+//
+// Each introduced opens a window and the next fixed closes it; an introduced
+// that arrives while a window is open closes the previous one as unfixed. A
+// range whose first event is a fix (the schema requires an introduced, but be
+// forgiving) is treated as starting at "0", the value the schema reserves for
+// "sorts before any other version".
+//
+// last_affected and limit events are not modelled here: the decoder does not
+// carry them, so a window bounded only by one of those stays open and the
+// vuln stays visible, which is the safe direction for a scanner.
+func rangeIntervals(events []osvRangeEvent) []osvInterval {
+	var out []osvInterval
+	introduced := ""
+	open := false
+	for _, ev := range events {
+		switch {
+		case ev.Introduced != "":
+			if open {
+				out = append(out, osvInterval{introduced: introduced})
+			}
+			introduced = ev.Introduced
+			open = true
+		case ev.Fixed != "":
+			if !open {
+				introduced = "0"
+			}
+			out = append(out, osvInterval{introduced: introduced, fixed: stripAlpineRevisionSuffix(ev.Fixed)})
+			open = false
+		}
+	}
+	if open {
+		out = append(out, osvInterval{introduced: introduced})
+	}
+	if len(out) == 0 {
+		// A range with no usable events still describes the package as
+		// affected; keep the old all-versions default rather than dropping it.
+		out = append(out, osvInterval{introduced: "0"})
+	}
+	return out
 }
 
 // looksNumeric reports whether v begins with a digit (so version.Compare can
