@@ -87,7 +87,7 @@ jobs:
           git checkout "$ARTIFACT_REF" -- state/ dashboard.md dashboard.json
           echo "restored state/ + dashboards from $ARTIFACT_BRANCH ($(git rev-parse --short "$ARTIFACT_REF"))"
 
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version: "stable"
 
