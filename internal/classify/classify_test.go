@@ -42,3 +42,36 @@ func TestApply(t *testing.T) {
 		t.Errorf(`fixed "0" placeholder must stay actionable, got %+v`, byID["e"])
 	}
 }
+
+// TestApplyGovulncheckFindingStaysActionable exercises the call site for a
+// sourceCVE finding exactly as collect.SourceCVE builds one: govulncheck
+// writes the Go module version with its "v" ("v0.30.0") and the stdlib version
+// with its "go" ("go1.25.1"), while the advisory's fixed version is bare
+// ("0.33.0"). Ordering the prefixed version above the bare one classified
+// every reachable Go CVE as already-fixed, which drops it out of the
+// dashboard's actionable counts and into the informational section.
+func TestApplyGovulncheckFindingStaysActionable(t *testing.T) {
+	in := []state.Finding{
+		// The fixture in collect/source_test.go, verbatim.
+		{ID: "net", Type: "sourceCVE", Package: "golang.org/x/net",
+			CurrentVersion: "v0.30.0", FixedVersion: "0.33.0"},
+		{ID: "std", Type: "sourceCVE", Package: "stdlib",
+			CurrentVersion: "go1.25.1", FixedVersion: "1.25.3"},
+		// Genuinely past the fix: must still be filed as already-fixed.
+		{ID: "past", Type: "sourceCVE", Package: "golang.org/x/net",
+			CurrentVersion: "v0.34.0", FixedVersion: "0.33.0"},
+	}
+	byID := map[string]state.Finding{}
+	for _, f := range Apply(in, config.CVEPolicy{}) {
+		byID[f.ID] = f
+	}
+	for _, id := range []string{"net", "std"} {
+		if got := byID[id]; got.Class != "" {
+			t.Errorf("%s: a vulnerable Go module must stay actionable, got class=%q reason=%q",
+				id, got.Class, got.ClassReason)
+		}
+	}
+	if got := byID["past"]; got.ClassReason != "already-fixed" {
+		t.Errorf("past: want already-fixed, got class=%q reason=%q", got.Class, got.ClassReason)
+	}
+}

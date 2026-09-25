@@ -223,3 +223,44 @@ func TestQueryOSVUnknownWhenNoSeverityData(t *testing.T) {
 	require.Len(t, results, 1)
 	assert.Equal(t, "unknown", results[0].Severity)
 }
+
+// TestQueryOSV_PreReleaseIntroducedBoundary exercises the call site for a Go
+// advisory. golang/vulndb writes the "introduced" boundary of a whole minor
+// line as "<line>-0", the lowest possible pre-release of it (GO-2026-4601:
+// {"introduced":"1.26.0-0"},{"fixed":"1.26.1"}). Ordering "1.26.0" below that
+// boundary dropped the range, and with no other range applicable the vuln was
+// reported as not affecting a version that is squarely inside it.
+func TestQueryOSV_PreReleaseIntroducedBoundary(t *testing.T) {
+	fixture := `{"vulns":[{"id":"GO-2026-4601","aliases":["CVE-2026-4601"],
+	  "affected":[{"package":{"ecosystem":"Go","name":"stdlib"},
+	  "ranges":[{"type":"SEMVER","events":[
+	    {"introduced":"1.26.0-0"},{"fixed":"1.26.1"}]}]}]}]}`
+	q := func(_, _, _ string) ([]byte, error) { return []byte(fixture), nil }
+
+	for _, tc := range []struct {
+		version, wantFixed string
+		wantHit            bool
+	}{
+		{"1.26.0", "1.26.1", true}, // the release itself: inside the window
+		{"1.26.0-rc.1", "1.26.1", true},
+		{"1.26.1", "1.26.1", true}, // past the fix: surfaced, classified later
+		{"1.25.9", "", false},      // genuinely below the line: still dropped
+	} {
+		got, err := QueryOSV(q, "Go", "stdlib", tc.version)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !tc.wantHit {
+			if len(got) != 0 {
+				t.Errorf("%s: want dropped below the introduced boundary, got %+v", tc.version, got)
+			}
+			continue
+		}
+		if len(got) != 1 {
+			t.Fatalf("%s: want the vuln surfaced, got %+v", tc.version, got)
+		}
+		if got[0].FixedVersion != tc.wantFixed {
+			t.Errorf("%s: want fixed %q, got %q", tc.version, tc.wantFixed, got[0].FixedVersion)
+		}
+	}
+}
