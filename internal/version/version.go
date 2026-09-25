@@ -9,14 +9,100 @@ import (
 	"strings"
 )
 
-// Compare returns -1 if a<b, 0 if equal, 1 if a>b. Versions are compared per
-// dot-separated segment; within a segment, maximal runs of digits compare
-// numerically and runs of non-digits compare bytewise ("natural order"), so
-// "1.1.1n" < "1.1.1t", "3.1.4-r5" < "3.1.4-r6", "3.1.4-r9" < "3.1.4-r10", and
-// "1.10" > "1.9". A missing trailing segment is treated as "0" (so "1.2" ==
-// "1.2.0"). An empty string is the lowest value. This is deliberately NOT full
-// SemVer — these are OS/upstream package versions.
+// Compare returns -1 if a<b, 0 if equal, 1 if a>b.
+//
+// A version is read as three parts: a dotted-numeric release core, an optional
+// pre-release suffix, and an optional Alpine package revision.
+//
+//   - The core is compared per dot-separated segment; within a segment,
+//     maximal runs of digits compare numerically and runs of non-digits compare
+//     bytewise ("natural order"), so "1.1.1n" < "1.1.1t" and "1.10" > "1.9". A
+//     missing trailing segment is treated as "0", so "1.2" == "1.2.0".
+//   - A leading "v" or "go" before a digit is a prefix, not part of the
+//     version: Go module versions ("v0.30.0") and Go toolchain versions
+//     ("go1.25.1") order against the bare numbers the advisories carry.
+//   - A pre-release suffix sorts BELOW the bare release, as SemVer says, so
+//     "1.26.0-0" < "1.26.0" < "1.26.1". Go advisories put "-0" on an
+//     "introduced" boundary to mean "from the first 1.26.0 pre-release on".
+//   - An Alpine package revision ("-r5") sorts ABOVE the bare release, because
+//     it is a rebuild of it: "3.1.4" < "3.1.4-r5" < "3.1.4-r10".
+//
+// An empty string is the lowest value. This is deliberately NOT full SemVer —
+// these are OS/upstream package versions.
 func Compare(a, b string) int {
+	ac, apre, arev := parse(a)
+	bc, bpre, brev := parse(b)
+
+	if c := compareDotted(ac, bc); c != 0 {
+		return c
+	}
+	// Same release core: a pre-release is below the release it leads to.
+	switch {
+	case apre != "" && bpre == "":
+		return -1
+	case apre == "" && bpre != "":
+		return 1
+	case apre != "" && bpre != "":
+		if c := compareDotted(apre, bpre); c != 0 {
+			return c
+		}
+	}
+	// Same release: an Alpine revision is above the release it rebuilds.
+	switch {
+	case arev != "" && brev == "":
+		return 1
+	case arev == "" && brev != "":
+		return -1
+	case arev != "" && brev != "":
+		return natCompare(arev, brev)
+	}
+	return 0
+}
+
+// parse splits a version into its release core, pre-release suffix and Alpine
+// package revision. The revision is taken off first so that a version carrying
+// both ("1.26.0-rc.1-r0") keeps them apart. The returned revision keeps its "r"
+// so natCompare orders "r9" below "r10".
+func parse(s string) (core, pre, rev string) {
+	s = stripBuildPrefix(s)
+	s, rev = splitAlpineRevision(s)
+	if i := strings.IndexByte(s, '-'); i > 0 {
+		return s[:i], s[i+1:], rev
+	}
+	return s, "", rev
+}
+
+// stripBuildPrefix removes the "v" of a Go module version and the "go" of a Go
+// toolchain version. Both are written by govulncheck ("v0.30.0", "go1.25.1")
+// while the advisory's fixed version is bare ("0.33.0"), and a leading letter
+// compares ABOVE every digit in natCompare — which would order the vulnerable
+// version above its own fix and hide the finding as already-fixed.
+func stripBuildPrefix(s string) string {
+	switch {
+	case len(s) > 1 && s[0] == 'v' && isDigit(s[1]):
+		return s[1:]
+	case len(s) > 2 && s[0] == 'g' && s[1] == 'o' && isDigit(s[2]):
+		return s[2:]
+	}
+	return s
+}
+
+// splitAlpineRevision splits a trailing Alpine package-revision suffix
+// ("3.6.4-r0" -> "3.6.4", "r0"), leaving other version strings untouched.
+func splitAlpineRevision(s string) (string, string) {
+	i := strings.LastIndex(s, "-r")
+	if i <= 0 {
+		return s, ""
+	}
+	if _, err := strconv.Atoi(s[i+2:]); err != nil {
+		return s, ""
+	}
+	return s[:i], s[i+1:]
+}
+
+// compareDotted compares two dot-separated strings segment by segment, in
+// natural order. A missing trailing segment is a numeric 0.
+func compareDotted(a, b string) int {
 	as, bs := strings.Split(a, "."), strings.Split(b, ".")
 	n := len(as)
 	if len(bs) > n {
