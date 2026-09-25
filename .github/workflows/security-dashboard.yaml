@@ -23,14 +23,27 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write   # commit state + dashboards back to this repo
-  pages: write      # publish the HTML dashboard to GitHub Pages
-  id-token: write   # OIDC token required by deploy-pages
+  contents: write        # push the artifact branch
+  pull-requests: write   # hold the one PR that lands it on main
+  pages: write           # publish the HTML dashboard to GitHub Pages
+  id-token: write        # OIDC token required by deploy-pages
 
 jobs:
   dashboard:
     runs-on: oracle-vm-16cpu-64gb-x86-64
+    outputs:
+      # Set by the Pages upload, so `deploy` can run off the artifact rather
+      # than off the whole job. A git problem in the publish step below must
+      # not be able to freeze the published dashboard again.
+      published: ${{ steps.pages_artifact.outputs.published }}
     env:
+      # The org ruleset on ~DEFAULT_BRANCH requires a pull request, so the
+      # generated artifacts cannot be pushed to main. They live on this branch
+      # and reach main through the one PR the publish step keeps open.
+      ARTIFACT_BRANCH: ksec/dashboard-artifacts
+      # A local ref, so the two steps below do not depend on FETCH_HEAD
+      # surviving every step in between.
+      ARTIFACT_REF: refs/ksec/artifact-branch
       # Scheduled runs are LIVE by default; dispatch can request dry-run; forks force it.
       DRYRUN: ${{ (github.event.inputs.dry_run == 'true' || github.event.pull_request.head.repo.fork) && '--dry-run' || '' }}
       KSEC_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -54,6 +67,25 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+
+      # While the artifact PR waits for a human, ARTIFACT_BRANCH holds newer
+      # state than main does. Start from it, so the pipeline stays incremental
+      # across runs the way the README describes, instead of replaying from
+      # whatever main last merged. Once the PR is merged the branch is an
+      # ancestor of main and main is authoritative again.
+      - name: Restore state from the artifact branch
+        run: |
+          set -euo pipefail
+          if ! git fetch origin "+refs/heads/$ARTIFACT_BRANCH:$ARTIFACT_REF"; then
+            echo "no $ARTIFACT_BRANCH yet: starting from main's state"
+            exit 0
+          fi
+          if git merge-base --is-ancestor "$ARTIFACT_REF" HEAD; then
+            echo "$ARTIFACT_BRANCH is already merged: starting from main's state"
+            exit 0
+          fi
+          git checkout "$ARTIFACT_REF" -- state/ dashboard.md dashboard.json
+          echo "restored state/ + dashboards from $ARTIFACT_BRANCH ($(git rev-parse --short "$ARTIFACT_REF"))"
 
       - uses: actions/setup-go@v6
         with:
@@ -164,31 +196,8 @@ jobs:
           ksec review    --state-dir state $REMEDIATE_DRYRUN
           ksec render    --state-dir state $DRYRUN
 
-      - name: Commit state + dashboards
-        if: ${{ env.DRYRUN == '' }}
-        run: |
-          git config user.name "kairos-security-bot"
-          git config user.email "bot@kairos.io"
-          git add state/ dashboard.md dashboard.json
-          if git diff --cached --quiet; then
-            echo "no changes"
-          else
-            git commit -m "chore: update security dashboard [skip ci]"
-            # main may have advanced between checkout and now (a concurrent push
-            # or another commit), which rejects a bare push. Rebase our single
-            # artifact commit onto the latest main and retry. `-X theirs` keeps
-            # THIS run's freshly generated files if a racer touched the same
-            # artifacts; unrelated commits rebase cleanly (different files).
-            pushed=0
-            for i in 1 2 3 4 5; do
-              if git push origin HEAD:main; then pushed=1; break; fi
-              echo "push rejected (attempt $i) — rebasing onto latest origin/main"
-              git pull --rebase --autostash -X theirs origin main || git rebase --abort || true
-              sleep 3
-            done
-            [ "$pushed" = 1 ] || { echo "push failed after 5 attempts"; exit 1; }
-          fi
-
+      # Publishing comes first: the dashboard is the deliverable, and it must
+      # not depend on a git write succeeding.
       - name: Configure Pages
         if: ${{ env.DRYRUN == '' }}
         uses: actions/configure-pages@v6
@@ -199,9 +208,66 @@ jobs:
         with:
           path: site
 
+      - name: Mark the Pages artifact as uploaded
+        id: pages_artifact
+        if: ${{ env.DRYRUN == '' }}
+        run: echo "published=true" >> "$GITHUB_OUTPUT"
+
+      # The org ruleset requires a pull request on main, so the artifacts go to
+      # ARTIFACT_BRANCH and one open PR carries them to main. The branch is
+      # disposable: every run rewrites it as a single commit on top of the
+      # current main, and the workflow's concurrency group means no other run
+      # is touching it, so the force-push has no racer to lose.
+      - name: Publish state + dashboards
+        if: ${{ env.DRYRUN == '' }}
+        env:
+          # The checkout's token: scoped to this repo, and the permissions
+          # block above grants it contents+pull-requests write. KSEC_BOT_TOKEN
+          # is for the other repos' PRs.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name "kairos-security-bot"
+          git config user.email "bot@kairos.io"
+          git add state/ dashboard.md dashboard.json
+          if git diff --cached --quiet; then
+            echo "no changes"
+            exit 0
+          fi
+          git commit -m "chore: update security dashboard [skip ci]"
+
+          # Nothing new since the last run's commit: leave the open PR alone
+          # rather than churn it with an identical tree.
+          if git rev-parse --verify -q "$ARTIFACT_REF" >/dev/null && git diff --quiet "$ARTIFACT_REF" HEAD; then
+            echo "$ARTIFACT_BRANCH already carries this content"
+            exit 0
+          fi
+
+          git push --force origin "HEAD:refs/heads/$ARTIFACT_BRANCH"
+
+          body="Generated by the [Security Dashboard run](${KSEC_RUN_URL}).
+
+          Artifacts only: \`state/\`, \`dashboard.md\` and \`dashboard.json\`, rewritten
+          on every scheduled run. The published dashboard does not wait for this
+          to merge; merging it is what lets \`main\` catch up with the state the
+          pipeline is already using."
+
+          pr=$(gh pr list -R "$GITHUB_REPOSITORY" --head "$ARTIFACT_BRANCH" \
+                 --state open --json number --jq '.[0].number // empty')
+          if [ -n "$pr" ]; then
+            gh pr edit "$pr" -R "$GITHUB_REPOSITORY" --body "$body"
+            echo "updated PR #$pr"
+          else
+            gh pr create -R "$GITHUB_REPOSITORY" --base main --head "$ARTIFACT_BRANCH" \
+              --title "chore: update security dashboard" --body "$body"
+          fi
+
   deploy:
     needs: dashboard
-    if: ${{ needs.dashboard.result == 'success' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run != 'true')) }}
+    # Gated on the artifact, not on the job: the publish step above can fail
+    # (a ruleset change, a token scope) without freezing the published
+    # dashboard. !cancelled() is what lets this run when `dashboard` is red.
+    if: ${{ !cancelled() && needs.dashboard.outputs.published == 'true' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run != 'true')) }}
     runs-on: cncf-ubuntu-4-16-x86
     permissions:
       pages: write

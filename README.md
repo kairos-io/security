@@ -69,8 +69,17 @@ in isolation against committed state.
 
 `.github/workflows/security-dashboard.yaml` runs the five phases on a schedule
 (live by default; dry-run on `workflow_dispatch` input or fork PRs), starts
-LocalAI as a runner service for triage, commits the updated state + dashboards
-back to `main`, and publishes the HTML dashboard to GitHub Pages.
+LocalAI as a runner service for triage, publishes the HTML dashboard to GitHub
+Pages, and then writes the updated state + dashboards to the
+`ksec/dashboard-artifacts` branch.
+
+An org ruleset requires a pull request on `main`, so the run cannot commit
+there directly. It rewrites `ksec/dashboard-artifacts` as a single commit on
+top of the current `main` and keeps one open PR for it; merging that PR is what
+moves the artifacts onto `main`. Until it is merged, the next run reads `state/`
+back from the branch, so the phases stay incremental either way. Publishing
+happens before that write, so a git or ruleset problem cannot freeze the
+published dashboard.
 
 ## Design docs
 

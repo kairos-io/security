@@ -142,16 +142,48 @@ func (c *CLI) ListDependabotAlerts(repo string) ([]Alert, error) {
 	return alerts, json.Unmarshal(b, &alerts)
 }
 
+// usableLabels reconciles the wanted labels against the ones repo actually
+// has. A label that is missing gets one best-effort create; one that still
+// does not exist is dropped, because `gh issue create` fails on an unknown
+// label and an unlabelled tracking issue beats no tracking issue at all.
+//
+// A label the repo already owns is never re-created: `gh label create
+// --force` rewrites colour and description, so it would repaint the tracking
+// repo's own label.
+func (c *CLI) usableLabels(repo string, want []string) []string {
+	if len(want) == 0 {
+		return nil
+	}
+	out, err := c.run("label", "list", "-R", repo, "--limit", "500", "--json", "name", "-q", ".[].name")
+	if err != nil {
+		// Cannot tell what exists. Asking for a label we may not have risks
+		// losing the issue, so ask for none.
+		return nil
+	}
+	have := map[string]bool{}
+	for _, l := range splitLines(out) {
+		have[l] = true
+	}
+	var keep []string
+	for _, l := range want {
+		if !have[l] {
+			if _, err := c.run("label", "create", l, "-R", repo,
+				"--color", "ededed", "--description", "kairos-security"); err != nil {
+				continue
+			}
+		}
+		keep = append(keep, l)
+	}
+	return keep
+}
+
 func (c *CLI) UpsertIssue(repo, marker, title, body string, labels []string) (int, error) {
 	full := body + "\n\n" + marker
-	// Ensure each label exists up front (best-effort, idempotent): the list
-	// below filters by `--label`, and `gh issue create` fails outright on an
-	// unknown label. `--force` updates an existing label instead of erroring.
-	// Errors are ignored so a missing label-create permission degrades
-	// silently rather than emitting a `'<label>' not found` warning.
-	for _, l := range labels {
-		_, _ = c.run("label", "create", l, "-R", repo, "--color", "ededed", "--description", "kairos-security", "--force")
-	}
+	// `gh issue create` fails outright on an unknown label, and the bot cannot
+	// always create one in the tracking repo, so keep only the labels the repo
+	// really has. Ignoring the create error is not enough on its own: the
+	// create then fails and no issue is written at all.
+	labels = c.usableLabels(repo, labels)
 	// Find an existing issue deterministically by label + exact title.
 	// Full-text search does not reliably match text inside HTML comments,
 	// so we cannot rely on the marker for lookup; the marker remains in the
