@@ -123,18 +123,45 @@ func (c *CLI) ListOpenPRs(repo string) ([]PullRequest, error) {
 	return prs, json.Unmarshal(b, &prs)
 }
 
+// isRefusal reports whether a `gh api` error is GitHub refusing the request
+// rather than failing it. These arrive as 401 or 403, with a wording that
+// depends on whether the credential is a classic token, a fine-grained one or
+// a GitHub App installation.
+func isRefusal(msg string) bool {
+	for _, s := range []string{
+		"HTTP 401",
+		"HTTP 403",
+		"not authorized",
+		"Bad credentials",
+		"Resource not accessible",
+		"admin:repo_hook",
+		"security_events",
+	} {
+		if strings.Contains(msg, s) {
+			return true
+		}
+	}
+	return false
+}
+
 func (c *CLI) ListDependabotAlerts(repo string) ([]Alert, error) {
 	b, err := c.api(fmt.Sprintf("repos/%s/dependabot/alerts?state=open&per_page=100", repo),
 		"-q", "[.[] | {number, cveID: (.security_advisory.cve_id // \"\"), ghsa: .security_advisory.ghsa_id, package: .dependency.package.name, ecosystem: .dependency.package.ecosystem, severity: .security_advisory.severity, url: .html_url, fixedVersion: (.security_vulnerability.first_patched_version.identifier // \"\")}]")
 	if err != nil {
-		// Dependabot may be disabled, the repo archived, or the token may
-		// lack the required scope. GitHub answers all of these with 403;
-		// treat them as "no alerts" rather than a collection error.
 		msg := err.Error()
-		for _, s := range []string{"403", "Dependabot alerts are disabled", "not available", "not authorized", "admin:repo_hook"} {
-			if strings.Contains(msg, s) {
-				return nil, nil
-			}
+		// A refusal that names Dependabot is a fact about this repository:
+		// the feature is off, or the repository is archived. There are no
+		// alerts to read, the other repositories are unaffected, and that is
+		// not a collection error.
+		if strings.Contains(msg, "Dependabot alerts are") {
+			return nil, nil
+		}
+		// Any other refusal is a fact about the credentials, and GitHub gives
+		// the same answer for every repository. Reported as "no alerts" it
+		// makes a dashboard that was never allowed to look indistinguishable
+		// from one that looked and found nothing, so it surfaces instead.
+		if isRefusal(msg) {
+			return nil, fmt.Errorf("cannot read Dependabot alerts: the token needs the security_events scope (gh reports it as admin:repo_hook): %s", msg)
 		}
 		return nil, err
 	}
