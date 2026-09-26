@@ -19,6 +19,37 @@ func TestListDependabotAlertsTreats403AsNoAlerts(t *testing.T) {
 	assert.Nil(t, alerts)
 }
 
+// A 403 that names Dependabot is a fact about one repository: the feature is
+// off, or the repository is archived. There is nothing to read there and the
+// other repositories are unaffected.
+func TestListDependabotAlertsTreatsAPerRepoRefusalAsNoAlerts(t *testing.T) {
+	for _, msg := range []string{
+		"gh api: HTTP 403: Dependabot alerts are disabled for this repository.",
+		"gh api: HTTP 403: Dependabot alerts are not available for archived repositories.",
+	} {
+		c := &CLI{run: func(args ...string) ([]byte, error) { return nil, errors.New(msg) }}
+		alerts, err := c.ListDependabotAlerts("kairos-io/kairos")
+		require.NoError(t, err, msg)
+		assert.Nil(t, alerts, msg)
+	}
+}
+
+// A 403 that does not name Dependabot is a fact about the token, and it is the
+// same answer for every repository. Reporting it as "no alerts" would make the
+// dashboard say the org is clean when it never got to ask.
+func TestListDependabotAlertsSurfacesATokenRefusal(t *testing.T) {
+	for _, msg := range []string{
+		`gh api: HTTP 403: You are not authorized to perform this operation. gh: This API operation needs the "admin:repo_hook" scope.`,
+		"gh api: HTTP 403: Resource not accessible by integration",
+	} {
+		c := &CLI{run: func(args ...string) ([]byte, error) { return nil, errors.New(msg) }}
+		_, err := c.ListDependabotAlerts("kairos-io/kairos")
+		require.Error(t, err, msg)
+		assert.Contains(t, err.Error(), "security_events",
+			"the error should name the scope an operator has to grant")
+	}
+}
+
 func TestListDependabotAlertsPropagatesOtherErrors(t *testing.T) {
 	c := &CLI{run: func(args ...string) ([]byte, error) {
 		return nil, errors.New("gh api: HTTP 500: server error")
