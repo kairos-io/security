@@ -27,7 +27,7 @@ runs:
         go install github.com/mudler/nib@${{ inputs.nib-version }}
         echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
     - name: Cache LocalAI models
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ${{ runner.temp }}/update-deps/models
         key: update-deps-localai-models-${{ inputs.model }}
