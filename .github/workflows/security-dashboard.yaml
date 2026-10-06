@@ -227,14 +227,22 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          git config user.name "kairos-security-bot"
-          git config user.email "bot@kairos.io"
+          # github-actions[bot] is a GitHub account, so the commit is
+          # attributed. `kairos-security-bot <bot@kairos.io>` is linked to no
+          # account, and main's ruleset sets
+          # require_extra_approval_for_unattributed_changes, which asked a
+          # second reviewer for a tree no human wrote.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add state/ dashboard.md dashboard.json
           if git diff --cached --quiet; then
             echo "no changes"
             exit 0
           fi
-          git commit -m "chore: update security dashboard [skip ci]"
+          # --signoff, because the DCO app gates this repository too. The
+          # branch is force-pushed on every run, so an unsigned commit does not
+          # red the PR once: it reds it again every day.
+          git commit --signoff -m "chore: update security dashboard [skip ci]"
 
           # Nothing new since the last run's commit: leave the open PR alone
           # rather than churn it with an identical tree.
