@@ -264,3 +264,114 @@ func TestQueryOSV_PreReleaseIntroducedBoundary(t *testing.T) {
 		}
 	}
 }
+
+// TestQueryOSV_MultiIntervalRange: an OSV range's events are a timeline, and a
+// CVE patched on several release branches carries every window in one range.
+// Reading only the last introduced/fixed pair collapses them into the newest
+// window, so a version inside an older window is reported as unaffected.
+//
+// The fixture is the real shape of golang/vulndb GO-2026-4340 (vulnerable in
+// [0, 1.24.12) and in [1.25.0, 1.25.6)); 868 of the 4474 records in that
+// database use a multi-window range.
+func TestQueryOSV_MultiIntervalRange(t *testing.T) {
+	fixture := `{"vulns":[{"id":"GO-2026-4340","affected":[{"ranges":[{"type":"SEMVER","events":[
+	  {"introduced":"0"},{"fixed":"1.24.12"},{"introduced":"1.25.0"},{"fixed":"1.25.6"}]}]}]}]}`
+	q := func(_, _, _ string) ([]byte, error) { return []byte(fixture), nil }
+
+	for _, tc := range []struct {
+		name    string
+		version string
+		fixed   string
+	}{
+		{"inside the first window", "1.24.5", "1.24.12"},
+		{"inside the second window", "1.25.2", "1.25.6"},
+		{"between the windows, already fixed", "1.24.12", "1.24.12"},
+		{"past every window, already fixed", "1.25.9", "1.25.6"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			got, err := QueryOSV(q, "Go", "stdlib", tc.version)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if len(got) != 1 {
+				t.Fatalf("version %s: want the vuln surfaced, got %+v", tc.version, got)
+			}
+			if got[0].FixedVersion != tc.fixed {
+				t.Fatalf("version %s: want FixedVersion %q, got %q", tc.version, tc.fixed, got[0].FixedVersion)
+			}
+		})
+	}
+
+	// Below every window's introduced boundary is still not vulnerable.
+	fixture2 := `{"vulns":[{"id":"GO-x","affected":[{"ranges":[{"type":"SEMVER","events":[
+	  {"introduced":"1.24.0"},{"fixed":"1.24.12"},{"introduced":"1.25.0"},{"fixed":"1.25.6"}]}]}]}]}`
+	q2 := func(_, _, _ string) ([]byte, error) { return []byte(fixture2), nil }
+	got, err := QueryOSV(q2, "Go", "stdlib", "1.23.1")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got) != 0 {
+		t.Fatalf("version below every introduced boundary should be omitted, got %+v", got)
+	}
+}
+
+// TestRangeIntervals covers the timeline walk on its own, including the
+// event shapes the schema permits but Go's database does not emit.
+func TestRangeIntervals(t *testing.T) {
+	for _, tc := range []struct {
+		name   string
+		events []osvRangeEvent
+		want   []osvInterval
+	}{
+		{
+			name:   "single window",
+			events: []osvRangeEvent{{Introduced: "0"}, {Fixed: "2.66.6"}},
+			want:   []osvInterval{{introduced: "0", fixed: "2.66.6"}},
+		},
+		{
+			name: "two windows",
+			events: []osvRangeEvent{{Introduced: "0"}, {Fixed: "1.24.12"},
+				{Introduced: "1.25.0"}, {Fixed: "1.25.6"}},
+			want: []osvInterval{{introduced: "0", fixed: "1.24.12"},
+				{introduced: "1.25.0", fixed: "1.25.6"}},
+		},
+		{
+			name:   "unfixed window stays open",
+			events: []osvRangeEvent{{Introduced: "1.1.1"}},
+			want:   []osvInterval{{introduced: "1.1.1"}},
+		},
+		{
+			name: "an introduced closes an unfixed predecessor",
+			events: []osvRangeEvent{{Introduced: "1.0"}, {Introduced: "2.0"},
+				{Fixed: "2.5"}},
+			want: []osvInterval{{introduced: "1.0"}, {introduced: "2.0", fixed: "2.5"}},
+		},
+		{
+			name:   "a leading fix starts at 0",
+			events: []osvRangeEvent{{Fixed: "3.2"}},
+			want:   []osvInterval{{introduced: "0", fixed: "3.2"}},
+		},
+		{
+			name:   "alpine revision suffixes are stripped from the fix",
+			events: []osvRangeEvent{{Introduced: "0"}, {Fixed: "3.6.4-r0"}},
+			want:   []osvInterval{{introduced: "0", fixed: "3.6.4"}},
+		},
+		{
+			name:   "no usable events means all versions",
+			events: nil,
+			want:   []osvInterval{{introduced: "0"}},
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			got := rangeIntervals(tc.events)
+			if len(got) != len(tc.want) {
+				t.Fatalf("want %d interval(s) %+v, got %d %+v", len(tc.want), tc.want, len(got), got)
+			}
+			for i := range got {
+				if got[i] != tc.want[i] {
+					t.Fatalf("interval %d: want %+v, got %+v", i, tc.want[i], got[i])
+				}
+			}
+		})
+	}
+}
