@@ -55,6 +55,9 @@ jobs:
       # AI-drafted PR descriptions (set to "false" to use deterministic text).
       AI_PR_PROSE: "true"
       # Cross-repo reads + the kairos tracking-issue write use the scoped bot token.
+      # NOTE: the ghAlerts collector reads each repo's Dependabot alerts, which
+      # needs security_events on KSEC_BOT_TOKEN (gh reports the missing scope as
+      # admin:repo_hook). Without it every repo is a ghAlerts collection error.
       GH_TOKEN: ${{ secrets.KSEC_BOT_TOKEN }}
       LOCALAI_URL: http://localhost:8080
       # NOTE: do NOT set MODEL/BASE_URL/API_KEY at the job level. LocalAI reads
