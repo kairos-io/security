@@ -741,10 +741,15 @@ func prNumberFromURL(url string) int {
 // stages tracked files only, so a file the repair agent created would be left
 // out of the commit the caller has just verified, and then destroyed with the
 // temp clone.
+//
+// --signoff, because every kairos-io repository these PRs target gates on the
+// DCO app. Each caller configures user.name/user.email immediately before this
+// runs, so the trailer names the same identity as the author and the check
+// passes.
 func (g *GitExecutor) commitAll(dir, msg string) error {
 	if _, err := g.run(dir, "git", "add", "-A"); err != nil {
 		return err
 	}
-	_, err := g.run(dir, "git", "commit", "-m", msg)
+	_, err := g.run(dir, "git", "commit", "--signoff", "-m", msg)
 	return err
 }

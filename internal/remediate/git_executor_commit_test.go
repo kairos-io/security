@@ -4,6 +4,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/kairos-io/security/internal/state"
@@ -240,4 +241,26 @@ func TestCommitAllStagesNewAndModifiedAndDeleted(t *testing.T) {
 	assert.Contains(t, out, "M\tgo.mod")
 	assert.Contains(t, out, "D\tmain.go")
 	assert.Empty(t, sh.git(t, dir, "status", "--porcelain"))
+}
+
+// Every kairos-io repository these PRs land in gates on the DCO app, which
+// wants a Signed-off-by naming the commit's own author. The callers configure
+// that identity just before commitAll runs, so the trailer has to be written
+// here and has to match.
+func TestCommitAllSignsOffAsTheConfiguredAuthor(t *testing.T) {
+	sh := newShimEnv(t)
+	dir := filepath.Join(sh.root, "work")
+	require.NoError(t, os.MkdirAll(dir, 0o755))
+	sh.git(t, "", "clone", "-q", sh.origin, dir)
+	sh.git(t, dir, "config", "user.email", "bot@kairos.io")
+	sh.git(t, dir, "config", "user.name", "kairos-security-bot")
+
+	require.NoError(t, os.WriteFile(filepath.Join(dir, "go.mod"), []byte("module m\n\ngo 1.23\n"), 0o644))
+
+	g := &GitExecutor{}
+	require.NoError(t, g.commitAll(dir, "chore(security): bump x to 1.2.3"))
+
+	body := sh.git(t, dir, "log", "-1", "--format=%B")
+	author := strings.TrimSpace(sh.git(t, dir, "log", "-1", "--format=%an <%ae>"))
+	assert.Contains(t, body, "Signed-off-by: "+author)
 }
