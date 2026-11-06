@@ -1,6 +1,7 @@
 package collect
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/kairos-io/security/internal/ghclient"
@@ -25,4 +26,25 @@ func TestGHAlertsCollector(t *testing.T) {
 	assert.Equal(t, "CVE-2025-1234", fs[0].CVEID)
 	assert.Equal(t, "high", fs[0].Severity)
 	assert.Equal(t, "0.33.0", fs[0].FixedVersion)
+}
+
+// A dashboard that could not read the alerts must not look like one that read
+// them and found none. The refusal has to reach findings.json's errors, which
+// is what the dashboard's "collection errors" block renders.
+func TestGHAlertsReportsARefusalAsACollectionError(t *testing.T) {
+	gh := ghclient.NewFake()
+	gh.AlertsErr["kairos-io/AuroraBoot"] = errors.New(
+		"cannot read Dependabot alerts: the token needs the security_events scope")
+
+	out := Run(
+		[]state.Repo{{Repo: "kairos-io/AuroraBoot"}},
+		[]Collector{GHAlerts{GH: gh}},
+		state.Findings{},
+	)
+
+	assert.Empty(t, out.Findings)
+	require.Len(t, out.Errors, 1)
+	assert.Equal(t, "ghAlerts", out.Errors[0].Collector)
+	assert.Equal(t, "kairos-io/AuroraBoot", out.Errors[0].Repo)
+	assert.Contains(t, out.Errors[0].Message, "security_events")
 }

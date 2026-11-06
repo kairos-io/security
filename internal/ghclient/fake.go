@@ -16,8 +16,11 @@ type Fake struct {
 	Files    map[string][]byte // key: repo|path|ref
 	PRs      map[string][]PullRequest
 	Alerts   map[string][]Alert
-	Issues   map[string]*FakeIssue // key: repo
-	nextNum  int
+	// AlertsErr fails ListDependabotAlerts for a repo, so a test can drive
+	// the path where the alerts could not be read at all.
+	AlertsErr map[string]error
+	Issues    map[string]*FakeIssue // key: repo
+	nextNum   int
 
 	PRComments map[string][]ReviewComment // key: "<repo>#<pr>"
 	Posted     []string
@@ -43,6 +46,7 @@ func NewFake() *Fake {
 		Files:      map[string][]byte{},
 		PRs:        map[string][]PullRequest{},
 		Alerts:     map[string][]Alert{},
+		AlertsErr:  map[string]error{},
 		Issues:     map[string]*FakeIssue{},
 		PRComments: map[string][]ReviewComment{},
 		Statuses:   map[string]PRStatus{},
@@ -102,8 +106,13 @@ func (f *Fake) RepoArchived(repo string) (bool, error)    { return f.Archived[re
 func (f *Fake) GetFile(repo, path, ref string) ([]byte, error) {
 	return f.Files[repo+"|"+path+"|"+ref], nil
 }
-func (f *Fake) ListOpenPRs(repo string) ([]PullRequest, error)    { return f.PRs[repo], nil }
-func (f *Fake) ListDependabotAlerts(repo string) ([]Alert, error) { return f.Alerts[repo], nil }
+func (f *Fake) ListOpenPRs(repo string) ([]PullRequest, error) { return f.PRs[repo], nil }
+func (f *Fake) ListDependabotAlerts(repo string) ([]Alert, error) {
+	if err, ok := f.AlertsErr[repo]; ok {
+		return nil, err
+	}
+	return f.Alerts[repo], nil
+}
 
 func (f *Fake) UpsertIssue(repo, marker, title, body string, labels []string) (int, error) {
 	if iss, ok := f.Issues[repo]; ok {
