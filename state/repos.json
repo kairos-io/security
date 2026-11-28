@@ -1,13 +1,5 @@
 [
   {
-    "repo": "kairos-io/AuroraBoot",
-    "kind": "org",
-    "branch": "main",
-    "criticality": "high",
-    "artifacts": null,
-    "scan": {}
-  },
-  {
     "repo": "kairos-io/cluster-api-provider-kairos",
     "kind": "org",
     "branch": "main",
